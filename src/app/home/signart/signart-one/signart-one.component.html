@@ -1,0 +1,265 @@
+<app-header-one [sticky]="true"></app-header-one>
+
+<!-- Home slider start-->
+<section class="p-0">
+  <!-- <app-slider 
+    [sliders]="sliders" 
+    [textClass]="'left'"
+    [category]="'fashion'"
+    [buttonText]="'Parcourir'"> 
+  </app-slider> -->
+  <video width="100%" height="550px" preload="auto" autoplay="autoplay" loop >
+    <source src="assets/images/slider/video.mp4" type="video/mp4">
+  </video>
+</section>
+<!-- Home slider End -->
+
+<!--Actualité de l'art-->
+
+<section class="section-l">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <img src="assets/images/banner/banner_d.png" class="img-fluid radius-img" alt="iamge à la une signart">
+      </div>
+          <div class="col-md-6">
+                  <h3 class="ttle">
+                    L'histoire de l'art africain
+                  </h3>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                    non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </p>
+                  <div class="row">
+                    <div class="col-md-2"><h5><span class="badge badge-secondary">Dan Enriqué</span></h5></div>
+                    <div class="col-md-2 offset-r-8"><h5><span class="badge badge-secondary">signart</span></h5></div>
+                    <div class="col-md-8"><a [routerLink]="'/pages/histoire'" class="floart-l"> En savoir plus <img src="assets/images/icon/arrow.svg" class="img-fluid"></a></div>
+                  </div>
+                </div>
+            </div>
+  </div>
+</section>
+<hr>
+
+<!-- collection banner start-->
+<section class="pb-0 marow">
+  <div class="container">
+    <div class="row partition2">
+      <div class="col-md-6" *ngFor="let collection of collections">
+        <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion'}">
+          <div class="collection-banner p-right text-center">
+            <img [src]="collection.image" class="img-fluid" alt="collection-banner">
+            <div class="contain-banner">
+              <div>
+                <h4>{{collection.save}}</h4>
+                <h2>{{collection.title}}</h2>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pb-0 marow">
+  <div class="container">
+    <div class="row partition2">
+      <div class="col-md-4" *ngFor="let maodo of eric">
+        <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion'}">
+          <div class="collection-banner p-right text-center">
+            <img [src]="maodo.image" class="img-fluid" alt="collection-banner">
+            <div class="contain-banner"> 
+              <div>
+                <h4>{{maodo.save}}</h4>
+                <h2>{{maodo.title}}</h2>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- collection banner End -->
+
+<!-- Product slider start-->
+<div class="title1 section-t-space">
+  <h2 class="title-inner1">Notre Collection de tableau</h2>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+      <div class="product-para">
+        <p class="text-center">
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry, 
+          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="section-b-space p-t-0">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <owl-carousel-o class="product-m no-arrow" [options]="ProductSliderConfig">
+          <ng-container *ngFor="let product of products | slice:0:16">
+            <ng-template carouselSlide>
+              <div class="product-box">
+                <app-product-box-one 
+                  [product]="product" 
+                  [currency]="productService?.Currency"
+                  [thumbnail]="true"
+                  [cartModal]="false">
+                </app-product-box-one>
+              </div>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Product slider End -->
+
+<!-- Parallax banner start-->
+<section class="p-0">
+  <div class="full-banner parallax-banner1 parallax text-center p-left"
+    [ngStyle]="{'background-image': 'url(assets/images/parallax/Banner_2.jpg)'}">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="banner-contain">
+            <!--<h2>2018</h2>-->
+            <h3>Achetez le meilleur
+              des galeries d'art contemporain</h3>
+            <h4>130 000 oeuvres, 15 000 artistes</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Parallax banner End -->
+
+<!-- collection banner start-->
+<section class="pb-0 marow">
+  <div class="title1 section-t-space">  
+    <h2 class="title-inner1">Nos Techniques d'art</h2>
+  </div>
+  <div class="container">
+    <div class="row partition2">
+      <div class="col-md-6" *ngFor="let collection of dan2">
+        <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion'}">
+          <div class="collection-banner p-right text-center">
+            <img [src]="collection.image" class="img-fluid" alt="collection-banner">
+            <div class="contain-banner">
+              <div>
+                <h4>{{collection.save}}</h4>
+                <h2>{{collection.title}}</h2>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pb-0 marow">
+  <div class="container">
+    <div class="row partition2">
+      <div class="col-md-4" *ngFor="let maodo of dan">
+        <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion'}">
+          <div class="collection-banner p-right text-center">
+            <img [src]="maodo.image" class="img-fluid" alt="collection-banner">
+            <div class="contain-banner">
+              <div>
+                <h4>{{maodo.save}}</h4>
+                <h2>{{maodo.title}}</h2>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section> <br>
+<!-- collection banner End -->
+
+<!-- Exposition Start -->
+<hr>
+<section class="section-l">
+  <div class="col">
+    <div class="title1 section-t-space">
+      <h4>EXPOSITION</h4>
+      <h2 class="title-inner1">Signart</h2>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <img src="assets/images/banner/banner_d.png" class="img-fluid radius-img" alt="iamge à la une signart">
+      </div>
+          <div class="col-md-6">
+                  <h3 class="ttle">
+                    Exposition de l'art africain
+                  </h3>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                    non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </p>
+                  <div class="row">
+                    <div class="col-md-2"><h5><span class="badge badge-secondary">Dan Enriqué</span></h5></div>
+                    <div class="col-md-2 offset-r-8"><h5><span class="badge badge-secondary">signart</span></h5></div>
+                    <div class="col-md-8"><a [routerLink]="'/pages/histoire'" class="floart-l"> En savoir plus <img src="assets/images/icon/arrow.svg" class="img-fluid"></a></div>
+                  </div>
+                </div>
+            </div>
+  </div>
+</section>
+<hr>
+
+
+<!-- blog section start -->
+<section class="blog p-t-0">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="title1 section-t-space">
+          <h4>Actualité</h4>
+          <h2 class="title-inner1">Signart</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <app-blog [blogs]="blog"></app-blog>
+      </div>
+    </div>
+  </div>
+</section> <br><br>
+<!-- blog section End -->
+
+
+<!-- services start-->
+<div class="container">
+  <section class="service border-section small-section">
+    <app-services></app-services>
+  </section>
+</div>
+<!-- services End -->
+
+<!--  logo section End-->
+
+<!-- <app-newsletter></app-newsletter> -->
+<app-footer-one></app-footer-one>
+

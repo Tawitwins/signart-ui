@@ -1,0 +1,30 @@
+.lamarge{
+    margin-left: 15px;
+}
+
+.facebook{
+    background: #3b5998 !important;
+    margin-left: 10px;
+    border-color: #3b5998 !important;
+}
+
+.gplus{
+    background: white !important;
+    margin-left: 10px;
+    border-color: rgb(224, 224, 224) !important;
+    color: #801010 !important;
+}
+
+@media (max-width: 577px) {
+    .gplus{
+        margin-left: 0px;
+        margin-top: 10px;
+    }
+    .btn-solid {
+        margin-top: 10px;
+        padding: 7px 15px;
+        margin-left: 0px !important;
+        margin-right: 10px;
+    }
+  }
+

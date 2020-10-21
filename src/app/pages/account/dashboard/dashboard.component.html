@@ -1,0 +1,106 @@
+<app-breadcrumb [title]="'Dashboard'" [breadcrumb]="'Dashboard'"></app-breadcrumb>
+<!-- section start -->
+<section class="section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="account-sidebar" (click)="ToggleDashboard()">
+                    <a hre="javascript:void(0)" class="popup-btn">
+                        my account
+                    </a>
+                </div>
+                <div class="dashboard-left" [class.open]="openDashboard">
+                    <div class="collection-mobile-back" (click)="ToggleDashboard()">
+                        <span class="filter-back">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i> back
+                        </span>
+                    </div>
+                    <div class="block-content">
+                        <ul>
+                            <li class="active"><a href="javascript:void(0)">Info Compte</a></li>
+                            <li><a href="javascript:void(0)">Adresse</a></li>
+                            <li><a href="javascript:void(0)">Mes commandes</a></li>
+                            <li><a href="javascript:void(0)">Mes favoris</a></li>
+                            <li><a [routerLink]="['/pages/abonnement']">Mes abonnements</a></li>
+                            <li><a href="javascript:void(0)">Newsletter</a></li>
+                            <li><a href="javascript:void(0)">Mon compte</a></li>
+                            <li><a href="javascript:void(0)">Changer le mot de passe</a></li>
+                            <li class="last"><a href="javascript:void(0)">Déconnexion</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="dashboard-right">
+                    <div class="dashboard">
+                        <div class="page-title">
+                            <h2>Mon Tableau de bord</h2>
+                        </div>
+                        <div class="welcome-msg">
+                            <p>Hi, Dan Enriqué !</p>
+                            <p>À partir de votre tableau de bord Mon compte, vous avez la possibilité d'afficher l'activité récente de votre compte et de mettre à jour les informations de votre compte.</p>
+                        </div>
+                        <div class="box-account box-info">
+                            <div class="box-head">
+                                <h2>Informations du compte</h2>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="box">
+                                        <div class="box-title">
+                                            <h3>Information de contact</h3>
+                                            <a href="javascript:void(0)">Editer</a>
+                                        </div>
+                                        <div class="box-content">
+                                            <h6>Dan Enriqué</h6>
+                                            <h6>gilles@maestrodan.art</h6>
+                                            <h6><a href="javascript:void(0)">Modifier le mot de passe</a></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="box">
+                                        <div class="box-title">
+                                            <h3>Newsletters</h3>
+                                            <a href="javascript:void(0)">Editer</a>
+                                        </div>
+                                        <div class="box-content">
+                                            <p>
+                                                Vous n'êtes enregistés à aucune newsletter
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="box">
+                                    <div class="box-title">
+                                        <h3>Abonnements</h3>
+                                        <a href="javascript:void(0)">Adress</a>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h6>Liste des abonnements</h6>
+                                            <address>
+                                                Vous n'avez aucun abonnement sur signart<br>
+                                                <a [routerLink]="['/shop/collection/left/sidebar']">S'abonner à une oeuvre</a>
+                                            </address>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h6>Artistes Favoris</h6>
+                                            <address>
+                                                Vous n'avez pas encore d'artiste favoris.<br>
+                                                <a [routerLink]="['/pages/artiste']">Ajouter un artiste</a>
+                                            </address>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- section end -->

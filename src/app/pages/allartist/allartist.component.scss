@@ -1,0 +1,87 @@
+
+.profile-card-2 .card-img-block{
+    float:left;
+    width:100%;
+    height:150px;
+    overflow:hidden;
+}
+.profile-card-2 .card-body{
+    position:relative;
+}
+.profile-card-2 .profile {
+  border-radius: 50%;
+  position: absolute;
+  top: -42px;
+  left: 15%;
+  max-width: 75px;
+  border: 3px solid rgba(255, 255, 255, 1);
+  -webkit-transform: translate(-50%, 0%);
+  transform: translate(-50%, 0%);
+}
+.profile-card-2 h5{
+    font-weight:600;
+    color:#9b1104;
+}
+.profile-card-2 .card-text{
+    font-weight:300;
+    font-size:15px;
+}
+.profile-card-2 .icon-block{
+    float:left;
+    // width:100%;
+}
+.profile-card-2 .icon-block a{
+    text-decoration:none;
+}
+.profile-card-2 i {
+  display: inline-block;
+    font-size: 16px;
+    color: #9b1104;
+    text-align: center;
+    border: 1px solid #9b1104;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    margin:0 5px;
+}
+.profile-card-2 i:hover {
+  background-color:#9b1104;
+  color:#fff;
+}
+.card{
+    margin-bottom: 20px!important;
+}
+
+.fans{
+    border: none!important;
+    float: right;
+    font-weight: 700;
+}
+
+.mar{
+    margin-top: 30px;
+}
+
+#select {
+    padding: 20px;
+    margin-top: -6px;
+    border: 0;
+    border-radius: 0;
+    background: #ffffff;
+  }
+
+  .margebas {
+      margin-bottom: 20px;
+      border-top: 1px solid #c2c2c2;
+      border-bottom: 1px solid #c2c2c2;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      line-height: 1.5;
+      color: #777777;
+      font-size:14px;
+  }
+
+  .borderleft{
+      border-left: #c2c2c2 solid 1px;
+  }

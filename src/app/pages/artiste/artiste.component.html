@@ -1,0 +1,103 @@
+<app-breadcrumb [title]="'Artiste'" [breadcrumb]="'Artiste'"></app-breadcrumb>
+<section class="contains">
+    <div class="container">
+        <div class="row">
+          <div class="col-xl-3">
+            <div class="card col-md-12 text-center pink">
+              <div class="card-body">
+                <h5 class="card-title"><img src="assets/images/profile/artist.jpg" alt="Placeholder image" width="90" class="rounded-circle img-fluid"></h5>
+                <h6 class="card-subtitle mb-2 text-muted">Dan Enriqué</h6>
+                <p class="card-text">UX - UI Manager</p>
+                <a href="#" class="card-link">Détails</a></div>
+            </div>
+            <br>
+            <div class="row">
+            <div class="col-md-6">
+              <button class="btn abonnement"> <i class="ti-heart"></i> S'abonner</button> 
+            </div>
+            <div class="col-md-6">
+              <a [routerLink]="['/pages/add-expo']"><button class="btn annonces"> <i class="ti-PLUS"></i> Add annonce</button></a>
+            </div>
+          </div>
+          </div>
+            <!-- ------------------------------------------Contenu tableau de bord------------------------------------------------ -->
+          <div class="col-xl-9">
+            <div class="row">
+              <div class="col-xl-3 col-sm-6">
+                <div class=" bjrouge">
+                  <div class="side-l"><p class="big-l">14</p> <p class="col-p">Oeuvres d'art</p></div>
+              </div>
+              </div>
+              <div class="col-xl-3 col-sm-6">
+               <div class="bbleu">
+                  <div class="side-l"><a [routerLink]="['/pages/followers']"><p class="big-l">108</p></a> <p class="col-p">Abonnés</p></div>
+              </div> 
+               
+              </div>
+              <div class="col-xl-3 col-sm-6">
+                <div class="marrons">
+                  <div class="side-l"><p class="big-l">Art Plastique</p> <p class="col-p">Spécialité</p></div>
+              </div> 
+                </div>
+              <div class="col-xl-3 col-sm-6">	  
+                <div class="blanc">
+                  <div class="side-l"><a [routerLink]="['/pages/add-annonce']"><button class="btn annonce">Publier une Oeuvre</button></a></div>
+              </div> 
+                </div>
+            </div>
+              
+              <!--		---------------------------------------------- Content --------------------------------------------- --> 
+              <br>
+            <div class="row">
+                <div class="col-xl-12">
+                  <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                        <li class="breadcrumb-item">A Propos de l'artist</li>
+                    </ol>
+                  </nav>
+                  <div class="top-banner-wrapper">
+                    <section class="secbor">
+                      <video width="100%" height="300px" preload="auto" autoplay="autoplay" loop >
+                        <source src="assets/images/banner/animation.mp4" type="video/mp4">
+                        </video>
+                      </section>
+                    <div class="top-banner-content small-section">
+                        <h4>Les oeuvres d'art</h4>
+                        <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        </h5>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+                            survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+                            and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        </p>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="collection-product-wrapper" id="products">
+                        
+                        <div class="product-wrapper-grid" [ngClass]="layoutView">
+                            <div class="row">
+                                <div class="col-grid-box" [ngClass]="grid" *ngFor="let product of products">
+                                    <div class="product-box">
+                                        <app-product-box-one [product]="product" [currency]="productService?.Currency" [thumbnail]="false" [cartModal]="true" [loader]="true">
+                                        </app-product-box-one>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="!products.length">
+                                    <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
+                                    <h3>Sorry! Couldn't find the product you were looking For!!! </h3>
+                                    <p>Please check if you have misspelt something or try searching with other words.</p>
+                                    <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continue shopping</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+</section>
+<br>

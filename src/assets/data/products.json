@@ -1,0 +1,903 @@
+[{
+    "id": 1,
+    "title": "Tableau Numéro 1",
+    "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.",
+    "type": "art",
+    "artist":"Dan Enriqué",
+    "collection": ["new products"],
+    "category": "Peinture",
+    "price": 100000,
+    "sale": false,
+    "discount": "40",
+    "stock": 5,
+    "new": false,
+    "tags": [
+        "nERIC",
+        "s",
+        "m",
+        "yellow",
+        "white",
+        "pink",
+        "nike"
+    ],
+    "variants": [{
+            "variant_id": 101,
+            "id": 1,
+            "sku": "sku1",
+            "size": "s",
+            "color": "yellow",
+            "image_id": 111
+        },
+        {
+            "variant_id": 102,
+            "id": 1,
+            "sku": "sku2",
+            "size": "s",
+            "color": "white",
+            "image_id": 112
+        },
+        {
+            "variant_id": 103,
+            "id": 1,
+            "sku": "sku3",
+            "size": "s",
+            "color": "pink",
+            "image_id": 113
+        },
+        {
+            "variant_id": 104,
+            "id": 1,
+            "sku": "sku4",
+            "size": "m",
+            "color": "yellow",
+            "image_id": 111
+        },
+        {
+            "variant_id": 105,
+            "id": 1,
+            "sku": "sku5",
+            "size": "m",
+            "color": "white",
+            "image_id": 112
+        },
+        {
+            "variant_id": 106,
+            "id": 1,
+            "sku": "sku5",
+            "size": "m",
+            "color": "pink",
+            "image_id": 113
+        },
+        {
+            "variant_id": 107,
+            "id": 1,
+            "sku": "sku1",
+            "size": "l",
+            "color": "yellow",
+            "image_id": 111
+        }
+    ],
+    "images": [{
+            "image_id": 111,
+            "id": 1,
+            "alt": "signart",
+            "src": "assets/images/product/signart/image1.jpg",
+            "variant_id": [
+                101,
+                104
+            ]
+        },
+        {
+            "image_id": 112,
+            "id": 1,
+            "alt": "white",
+            "src": "assets/images/product/signart/image1.jpg",
+            "variant_id": [
+                102,
+                105
+            ]
+        },
+        {
+            "image_id": 113,
+            "id": 1,
+            "alt": "pink",
+            "src": "assets/images/product/signart/image1.jpg",
+            "variant_id": [
+                103,
+                106
+            ]
+        }
+    ]
+}, {
+    "id": 2,
+    "title": "Tableau Numéro 3",
+    "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.",
+    "type": "art",
+    "brand": "zara",
+    "collection": ["best sellers"],
+    "category": "Peinture",
+    "price": 185000,
+    "sale": false,
+    "discount": "40",
+    "stock": 2,
+    "new": false,
+    "tags": [
+        "s",
+        "m",
+        "l",
+        "olive",
+        "navy",
+        "red",
+        "zara"
+    ],
+    "variants": [{
+            "variant_id": 201,
+            "id": 2,
+            "sku": "sku1",
+            "size": "s",
+            "color": "olive",
+            "image_id": 211
+        },
+        {
+            "variant_id": 202,
+            "id": 2,
+            "sku": "sku2",
+            "size": "s",
+            "color": "navy",
+            "image_id": 212
+        },
+        {
+            "variant_id": 203,
+            "id": 2,
+            "sku": "sku3",
+            "size": "s",
+            "color": "red",
+            "image_id": 213
+        },
+        {
+            "variant_id": 204,
+            "id": 2,
+            "sku": "sku4",
+            "size": "m",
+            "color": "olive",
+            "image_id": 211
+        },
+        {
+            "variant_id": 205,
+            "id": 2,
+            "sku": "sku4",
+            "size": "m",
+            "color": "navy",
+            "image_id": 212
+        },
+        {
+            "variant_id": 206,
+            "id": 2,
+            "sku": "sku4",
+            "size": "m",
+            "color": "red",
+            "image_id": 213
+        },
+        {
+            "variant_id": 207,
+            "id": 2,
+            "sku": "sku4",
+            "size": "l",
+            "color": "olive",
+            "image_id": 211
+        },
+        {
+            "variant_id": 208,
+            "id": 2,
+            "sku": "sku4",
+            "size": "l",
+            "color": "navy",
+            "image_id": 212
+        },
+        {
+            "variant_id": 209,
+            "id": 2,
+            "sku": "sku4",
+            "size": "l",
+            "color": "red",
+            "image_id": 213
+        }
+    ],
+    "images": [{
+            "image_id": 211,
+            "id": 2,
+            "alt": "olive",
+            "src": "assets/images/product/signart/image2.jpg",
+            "variant_id": [
+                201,
+                204,
+                207
+            ]
+        },
+        {
+            "image_id": 212,
+            "id": 2,
+            "alt": "navy",
+            "src": "assets/images/product/signart/image2.jpg",
+            "variant_id": [
+                202,
+                205,
+                208
+            ]
+        },
+        {
+            "image_id": 213,
+            "id": 2,
+            "alt": "pink",
+            "src": "assets/images/product/signart/image2.jpg",
+            "variant_id": [
+                203,
+                206,
+                209
+            ]
+        },
+        {
+            "image_id": 214,
+            "id": 2,
+            "alt": "pink",
+            "src": "assets/images/product/signart/image2.jpg",
+            "variant_id": [
+                201,
+                204
+            ]
+        }
+    ]
+}, {
+    "id": 3,
+    "title": "Tableau Numéro 3",
+    "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.",
+    "type": "art",
+    "brand": "denim",
+    "collection": ["featured products"],
+    "category": "Peinture",
+    "price": 174000,
+    "sale": false,
+    "discount": "40",
+    "stock": 0,
+    "new": false,
+    "tags": [
+        "denim",
+        "l",
+        "m",
+        "white",
+        "black"
+    ],
+    "variants": [{
+            "variant_id": 301,
+            "id": 3,
+            "sku": "sku3",
+            "size": "l",
+            "color": "white",
+            "image_id": 311
+        },
+        {
+            "variant_id": 302,
+            "id": 3,
+            "sku": "skul3",
+            "size": "m",
+            "color": "white",
+            "image_id": 311
+        },
+        {
+            "variant_id": 303,
+            "id": 3,
+            "sku": "sku3l",
+            "size": "l",
+            "color": "black",
+            "image_id": 312
+        },
+        {
+            "variant_id": 304,
+            "id": 3,
+            "sku": "sku4m",
+            "size": "m",
+            "color": "black",
+            "image_id": 312
+        }
+    ],
+    "images": [{
+            "image_id": 311,
+            "id": 3,
+            "alt": "white",
+            "src": "assets/images/product/signart/image3.jpg",
+            "variant_id": [
+                301,
+                303
+            ]
+        },
+        {
+            "image_id": 312,
+            "id": 1,
+            "alt": "white",
+            "src": "assets/images/product/signart/image3.jpg",
+            "variant_id": [
+                302,
+                304
+            ]
+        }
+    ]
+}, {
+    "id": 4,
+    "title": "Tableau Numéro 4",
+    "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.",
+    "type": "art",
+    "brand": "madame",
+    "collection": ["new products", "on sale"],
+    "category": "Peinture",
+    "price": 98000,
+    "sale": false,
+    "artist":"Dan Enriqué",
+    "discount": "50",
+    "stock": 10,
+    "new": false,
+    "tags": [
+        "s",
+        "l",
+        "white",
+        "skyblue",
+        "madame"
+    ],
+    "variants": [{
+            "variant_id": 401,
+            "id": 4,
+            "sku": "sku4",
+            "size": "s",
+            "color": "white",
+            "image_id": 411
+        },
+        {
+            "variant_id": 402,
+            "id": 4,
+            "sku": "skul4",
+            "size": "l",
+            "color": "white",
+            "image_id": 411
+        },
+        {
+            "variant_id": 403,
+            "id": 4,
+            "sku": "sku4s",
+            "size": "s",
+            "color": "skyblue",
+            "image_id": 412
+        },
+        {
+            "variant_id": 404,
+            "id": 4,
+            "sku": "sku4l",
+            "size": "l",
+            "color": "skyblue",
+            "image_id": 412
+        }
+    ],
+    "images": [{
+            "image_id": 411,
+            "id": 4,
+            "alt": "white",
+            "src": "assets/images/product/signart/image4.jpg",
+            "variant_id": [
+                401,
+                402
+            ]
+        },
+        {
+            "image_id": 412,
+            "id": 4,
+            "alt": "skyblue",
+            "src": "assets/images/product/signart/image4.jpg",
+            "variant_id": [
+                403,
+                404
+            ]
+        }
+    ]
+}, {
+    "id": 5,
+    "title": "Tableau Sculpture 1",
+    "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.",
+    "type": "sculpture",
+    "brand": "biba",
+    "collection": ["featured products"],
+    "category": "sculpture",
+    "price": 230000,
+    "sale": false,
+    "discount": "20",
+    "stock": 4,
+    "new": false,
+    "tags": [
+        "m",
+        "l",
+        "green",
+        "black",
+        "biba"
+    ],
+    "variants": [{
+            "variant_id": 501,
+            "id": 5,
+            "sku": "sku5",
+            "size": "m",
+            "color": "green",
+            "image_id": 511
+        },
+        {
+            "variant_id": 502,
+            "id": 5,
+            "sku": "skul5",
+            "size": "l",
+            "color": "green",
+            "image_id": 511
+        },
+        {
+            "variant_id": 503,
+            "id": 5,
+            "sku": "sku5s",
+            "size": "m",
+            "color": "black",
+            "image_id": 512
+        },
+        {
+            "variant_id": 504,
+            "id": 5,
+            "sku": "sku5l",
+            "size": "l",
+            "color": "black",
+            "image_id": 512
+        }
+    ],
+    "images": [{
+            "image_id": 511,
+            "id": 5,
+            "alt": "green",
+            "src": "assets/images/product/signart/image5.jpg",
+            "variant_id": [
+                501,
+                503
+            ]
+        },
+        {
+            "image_id": 512,
+            "id": 5,
+            "alt": "black",
+            "src": "assets/images/product/signart/image5.jpg",
+            "variant_id": [
+                502,
+                504
+            ]
+        }
+    ]
+}, {
+    "id": 6,
+    "title": "Tableau Produit Photo ",
+    "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.",
+    "type": "Photo",
+    "brand": "max",
+    "artist":"Dan Enriqué",
+    "collection": ["best sellers"],
+    "category": "Photo",
+    "price": 121000,
+    "sale": false,
+    "discount": "40",
+    "stock": 30,
+    "new": false,
+    "tags": [
+        "new",
+        "s",
+        "m",
+        "olive",
+        "gray",
+        "red",
+        "max"
+    ],
+    "variants": [{
+            "variant_id": 601,
+            "id": 6,
+            "sku": "sku6",
+            "size": "s",
+            "color": "olive",
+            "image_id": 611
+        },
+        {
+            "variant_id": 602,
+            "id": 6,
+            "sku": "skul6",
+            "size": "s",
+            "color": "gray",
+            "image_id": 612
+        },
+        {
+            "variant_id": 603,
+            "id": 6,
+            "sku": "sku6s",
+            "size": "s",
+            "color": "red",
+            "image_id": 613
+        },
+        {
+            "variant_id": 604,
+            "id": 6,
+            "sku": "sku6l",
+            "size": "m",
+            "color": "olive",
+            "image_id": 611
+        },
+        {
+            "variant_id": 605,
+            "id": 6,
+            "sku": "sku6l",
+            "size": "m",
+            "color": "gray",
+            "image_id": 612
+        },
+        {
+            "variant_id": 606,
+            "id": 6,
+            "sku": "sku6l",
+            "size": "m",
+            "color": "red",
+            "image_id": 613
+        }
+    ],
+    "images": [{
+            "image_id": 611,
+            "id": 6,
+            "alt": "olive",
+            "src": "assets/images/product/signart/image6.jpg",
+            "variant_id": [
+                601,
+                604
+            ]
+        },
+        {
+            "image_id": 612,
+            "id": 6,
+            "alt": "gray",
+            "src": "assets/images/product/signart/image6.jpg",
+            "variant_id": [
+                602,
+                605
+            ]
+        },
+        {
+            "image_id": 613,
+            "id": 6,
+            "alt": "red",
+            "src": "assets/images/product/signart/image6.jpg",
+            "variant_id": [
+                603,
+                606
+            ]
+        }
+    ]
+}, {
+    "id": 7,
+    "title": "Oeuvre d'art Acrylique sur toile",
+    "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.",
+    "type": "Acrylique sur toile",
+    "brand": "biba",
+    "collection": ["best sellers"],
+    "category": "Acrylique sur toile",
+    "price": 290000,
+    "sale": false,
+    "discount": "10",
+    "stock": 15,
+    "new": false,
+    "tags": [
+        "s",
+        "m",
+        "pink",
+        "white",
+        "black",
+        "biba"
+    ],
+    "variants": [{
+            "variant_id": 701,
+            "id": 7,
+            "sku": "sku7",
+            "size": "s",
+            "color": "pink",
+            "image_id": 711
+        },
+        {
+            "variant_id": 702,
+            "id": 7,
+            "sku": "skul7",
+            "size": "s",
+            "color": "white",
+            "image_id": 712
+        },
+        {
+            "variant_id": 703,
+            "id": 7,
+            "sku": "sku7s",
+            "size": "s",
+            "color": "black",
+            "image_id": 713
+        },
+        {
+            "variant_id": 704,
+            "id": 7,
+            "sku": "sku7l",
+            "size": "m",
+            "color": "pink",
+            "image_id": 711
+        },
+        {
+            "variant_id": 705,
+            "id": 7,
+            "sku": "sku7l",
+            "size": "m",
+            "color": "white",
+            "image_id": 712
+        },
+        {
+            "variant_id": 706,
+            "id": 7,
+            "sku": "sku7l",
+            "size": "m",
+            "color": "black",
+            "image_id": 713
+        }
+    ],
+    "images": [{
+            "image_id": 711,
+            "id": 7,
+            "alt": "pink",
+            "src": "assets/images/product/signart/image7.jpg",
+            "variant_id": [
+                701,
+                704
+            ]
+        },
+        {
+            "image_id": 712,
+            "id": 7,
+            "alt": "white",
+            "src": "assets/images/product/signart/image7.jpg",
+            "variant_id": [
+                702,
+                705
+            ]
+        },
+        {
+            "image_id": 713,
+            "id": 7,
+            "alt": "black",
+            "src": "assets/images/product/signart/image7.jpg",
+            "variant_id": [
+                703,
+                706
+            ]
+        }
+    ]
+}, {
+    "id": 8,
+    "title": "Oeuvre d'art Œuvres éphémères",
+    "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.",
+    "type": "Œuvres éphémères",
+    "brand": "zara",
+    "collection": ["new products"],
+    "category": "Œuvres éphémères",
+    "price": 315000,
+    "sale": false,
+    "discount": "70",
+    "stock": 15,
+    "new": false,
+    "tags": [
+        "s",
+        "m",
+        "yellow",
+        "black",
+        "zara"
+    ],
+    "variants": [{
+            "variant_id": 801,
+            "id": 8,
+            "sku": "sku8",
+            "size": "s",
+            "color": "yellow",
+            "image_id": 811
+        },
+        {
+            "variant_id": 802,
+            "id": 8,
+            "sku": "skul8",
+            "size": "s",
+            "color": "black",
+            "image_id": 812
+        },
+        {
+            "variant_id": 803,
+            "id": 8,
+            "sku": "sku8s",
+            "size": "m",
+            "color": "yellow",
+            "image_id": 811
+        },
+        {
+            "variant_id": 804,
+            "id": 8,
+            "sku": "sku8l",
+            "size": "m",
+            "color": "black",
+            "image_id": 812
+        }
+    ],
+    "images": [{
+            "image_id": 811,
+            "id": 8,
+            "alt": "yellow",
+            "src": "assets/images/product/signart/image8.jpg",
+            "variant_id": [
+                801,
+                804
+            ]
+        },
+        {
+            "image_id": 812,
+            "id": 8,
+            "alt": "black",
+            "src": "assets/images/product/signart/image8.jpg",
+            "variant_id": [
+                802,
+                805
+            ]
+        }
+    ]
+}, {
+    "id": 9,
+    "title": "Oeuvre d'art Fusain",
+    "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.",
+    "type": "Fusain",
+    "brand": "madame",
+    "artist":"Enriqué",
+    "collection": ["featured products"],
+    "category": "Fusain",
+    "price": 115,
+    "sale": false,
+    "discount": "40000",
+    "stock": 36,
+    "new": false,
+    "tags": [
+        "new",
+        "m",
+        "l",
+        "black",
+        "maroon",
+        "madame"
+    ],
+    "variants": [{
+            "variant_id": 901,
+            "id": 9,
+            "sku": "sku9",
+            "size": "m",
+            "color": "black",
+            "image_id": 911
+        },
+        {
+            "variant_id": 902,
+            "id": 9,
+            "sku": "skul9",
+            "size": "l",
+            "color": "black",
+            "image_id": 911
+        },
+        {
+            "variant_id": 903,
+            "id": 9,
+            "sku": "sku9s",
+            "size": "m",
+            "color": "maroon",
+            "image_id": 912
+        },
+        {
+            "variant_id": 904,
+            "id": 9,
+            "sku": "sku9l",
+            "size": "l",
+            "color": "maroon",
+            "image_id": 912
+        }
+    ],
+    "images": [{
+            "image_id": 911,
+            "id": 9,
+            "alt": "black",
+            "src": "assets/images/product/signart/image9.jpg",
+            "variant_id": [
+                901,
+                902
+            ]
+        },
+        {
+            "image_id": 912,
+            "id": 9,
+            "alt": "maroon",
+            "src": "assets/images/product/signart/image9.jpg",
+            "variant_id": [
+                903,
+                904
+            ]
+        }
+    ]
+}, {
+    "id": 10,
+    "title": "Product Oeuvre d'art",
+    "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.",
+    "type": "Design",
+    "brand": "nike",
+    "artist":"Gilles",
+    "collection": ["featured products"],
+    "category": "Design",
+    "price": 175000,
+    "sale": false,
+    "discount": false,
+    "stock": 1,
+    "new": false,
+    "tags": [
+        "m",
+        "l",
+        "black",
+        "pink",
+        "nike"
+    ],
+    "variants": [{
+            "variant_id": 1001,
+            "id": 10,
+            "sku": "sku10",
+            "size": "m",
+            "color": "black",
+            "image_id": 1011
+        },
+        {
+            "variant_id": 1002,
+            "id": 10,
+            "sku": "skul10",
+            "size": "l",
+            "color": "black",
+            "image_id": 1011
+        },
+        {
+            "variant_id": 1003,
+            "id": 10,
+            "sku": "sku10s",
+            "size": "m",
+            "color": "pink",
+            "image_id": 1012
+        },
+        {
+            "variant_id": 1004,
+            "id": 10,
+            "sku": "sku10l",
+            "size": "l",
+            "color": "pink",
+            "image_id": 1012
+        }
+    ],
+    "images": [{
+            "image_id": 1011,
+            "id": 10,
+            "alt": "black",
+            "src": "assets/images/product/signart/image9.jpg",
+            "variant_id": [
+                1001,
+                1002
+            ]
+        },
+        {
+            "image_id": 1012,
+            "id": 10,
+            "alt": "pink",
+            "src": "assets/images/product/signart/image9.jpg",
+            "variant_id": [
+                1003,
+                1004
+            ]
+        }
+    ]
+}
+]
