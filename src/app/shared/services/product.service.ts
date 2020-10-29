@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { map, startWith, delay } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from '../classes/product';
+import { ArticleService } from '../services/article.service'
+import { Oeuvre } from '../modeles/oeuvre';
+import { environment } from 'src/environments/environment';
 
 const state = {
   products: JSON.parse(localStorage['products'] || '[]'),
@@ -19,10 +22,12 @@ export class ProductService {
 
   public Currency = { name: 'FCFA', currency: 'XOF', price: 1 } // Default Currency
   public OpenCart: boolean = false;
-  public Products
+  public Products: any;
+  public Oeuvres: any;
+  public oeuvs: Oeuvre[];
 
   constructor(private http: HttpClient,
-    private toastrService: ToastrService) { }
+    private toastrService: ToastrService, private articleService: ArticleService) { }
 
   /*
     ---------------------------------------------
@@ -37,10 +42,28 @@ export class ProductService {
     return this.Products = this.Products.pipe(startWith(JSON.parse(localStorage['products'] || '[]')));
   }
 
+  private get oeuvres(): Observable<Oeuvre[]> {
+    this.Oeuvres = this.http.get(environment.API_ENDPOINT + `oeuvre`);
+   // this.articleService.getAllArticles().subscribe(response => { 
+    //  this.Oeuvres = response;
+      //this.Oeuvres.pipe(map(data => data));
+     // this.Oeuvres.subscribe(next => { localStorage['oeuvres'] = JSON.stringify(next) });
+     // console.log("oeuvres product service", this.oeuvres)
+    //        });
+    return this.Oeuvres;// = this.Oeuvres.pipe(startWith(JSON.parse(localStorage['oeuvres'] || '[]')));
+  }
+
   // Get Products
   public get getProducts(): Observable<Product[]> {
     return this.products;
   }
+
+  public get getOeuvres(): Observable<Oeuvre[]> {
+    return this.oeuvres;
+  }
+
+ 
+
 
   // Get Products By Slug
   public getProductBySlug(slug: string): Observable<Product> {
@@ -49,6 +72,32 @@ export class ProductService {
         return item.title.replace(' ', '-') === slug; 
       }); 
     }));
+  }
+
+
+  public getOeuvreBySlug(id: number): Observable<Oeuvre> {
+    console.log("oeuvres dans product service", this.oeuvres)
+    return this.oeuvres.pipe(map(oeuves => { 
+      console.log("items dans product service", oeuves)
+      return oeuves.find((oeuve: Oeuvre) => { 
+        return oeuve.id == id; 
+      }); 
+    }));
+  }
+
+  public findOeuvreBySlug(slug: string): Oeuvre {
+    console.log("oeuvres dans product service", this.oeuvres)
+    let unoeuvre: Oeuvre;
+    this.articleService.getAllArticles().subscribe(response => { 
+      this.oeuvs = response;
+      for (let i = 0; i < this.oeuvs.length; i++) {
+        if(this.oeuvs[i].nom.replace(' ', '-') == slug)
+           unoeuvre = this.oeuvs[i];
+           break;   
+      }
+      
+    });
+    return unoeuvre;
   }
 
 
@@ -162,6 +211,28 @@ export class ProductService {
     return true;
   }
 
+  public addToCartOeuvre(oeuvre): any {
+    const cartItem = state.cart.find(item => item.id === oeuvre.id);
+    const qty = oeuvre.stock ? oeuvre.stock : 1;
+    const items = cartItem ? cartItem : oeuvre;
+    const stock = this.calculateStockCounts(items, qty);
+    
+    if(!stock) return false
+
+    if (cartItem) {
+        cartItem.stock += qty    
+    } else {
+      state.cart.push({
+        ...oeuvre,
+        stock: qty
+      })
+    }
+
+    this.OpenCart = true; // If we use cart variation modal
+    localStorage.setItem("cartItems", JSON.stringify(state.cart));
+    return true;
+  }
+
   // Update Cart Quantity
   public updateCartQuantity(product: Product, quantity: number): Product | boolean {
     return state.cart.find((items, index) => {
@@ -232,6 +303,24 @@ export class ProductService {
     ));
   }
 
+  public filterOeuvre(filter: any): Observable<Oeuvre[]> {
+    return this.oeuvres.pipe(map(oeuvre => 
+      oeuvre.filter((item: Oeuvre) => {
+        if (!filter.length) return true
+        const Tags = filter.some((prev) => { // Match Tags
+          if (item.nom) {
+            if (item.nom.includes(prev)) {
+              return prev
+            }
+          }
+        })
+        return Tags
+      })
+    ));
+  }
+
+ 
+
   // Sorting Filter
   public sortProducts(products: Product[], payload: string): any {
 
@@ -276,6 +365,56 @@ export class ProductService {
         if (a.price > b.price) {
           return -1;
         } else if (a.price < b.price) {
+          return 1;
+        }
+        return 0;
+      })
+    } 
+  }
+
+  public sortOeuvres(oeuvres: Oeuvre[], payload: string): any {
+
+    if(payload === 'ascending') {
+      return oeuvres.sort((a, b) => {
+        if (a.id < b.id) {
+          return -1;
+        } else if (a.id > b.id) {
+          return 1;
+        }
+        return 0;
+      })
+    } else if (payload === 'a-z') {
+      return oeuvres.sort((a, b) => {
+        if (a.nom < b.nom) {
+          return -1;
+        } else if (a.nom > b.nom) {
+          return 1;
+        }
+        return 0;
+      })
+    } else if (payload === 'z-a') {
+      return oeuvres.sort((a, b) => {
+        if (a.nom > b.nom) {
+          return -1;
+        } else if (a.nom < b.nom) {
+          return 1;
+        }
+        return 0;
+      })
+    } else if (payload === 'low') {
+      return oeuvres.sort((a, b) => {
+        if (a.prix < b.prix) {
+          return -1;
+        } else if (a.prix > b.prix) {
+          return 1;
+        }
+        return 0;
+      })
+    } else if (payload === 'high') {
+      return oeuvres.sort((a, b) => {
+        if (a.prix > b.prix) {
+          return -1;
+        } else if (a.prix < b.prix) {
           return 1;
         }
         return 0;

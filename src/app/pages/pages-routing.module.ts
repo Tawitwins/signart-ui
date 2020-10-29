@@ -92,7 +92,7 @@ const routes: Routes = [
     component: AllartistComponent
   },
   { 
-    path: 'artiste', 
+    path: 'artiste/:id', 
     component: ArtisteComponent 
   },
   {

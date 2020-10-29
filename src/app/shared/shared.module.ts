@@ -44,6 +44,7 @@ import { TapToTopComponent } from './components/tap-to-top/tap-to-top.component'
 
 // Pipes
 import { DiscountPipe } from './pipes/discount.pipe';
+import { FavoriteActions } from '../wishlist/actions/favorite.actions';
 
 @NgModule({
   declarations: [
@@ -116,6 +117,7 @@ import { DiscountPipe } from './pipes/discount.pipe';
     SkeletonProductBoxComponent,
     TapToTopComponent,
     DiscountPipe
-  ]
+  ],
+  providers: [FavoriteActions]
 })
 export class SharedModule { }

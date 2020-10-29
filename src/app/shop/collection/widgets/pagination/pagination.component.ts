@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
 import { Product } from '../../../../shared/classes/product';
 
 @Component({
@@ -9,11 +10,13 @@ import { Product } from '../../../../shared/classes/product';
 export class PaginationComponent implements OnInit {
 
   @Input() products: Product[] = [];
+  @Input() oeuvres: Oeuvre[] = [];
   @Input() paginate: any = {};
 
   @Output() setPage  : EventEmitter<any> = new EventEmitter<any>();
     
   constructor() { 
+    
   }
 
   ngOnInit(): void {

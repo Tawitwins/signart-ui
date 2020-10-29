@@ -5,6 +5,8 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { Product } from "../../../classes/product";
 import { ProductService } from '../../../../shared/services/product.service';
+import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-quick-view',
@@ -14,6 +16,7 @@ import { ProductService } from '../../../../shared/services/product.service';
 export class QuickViewComponent implements OnInit, OnDestroy  {
 
   @Input() product: Product;
+  @Input() oeuvre: Oeuvre;
   @Input() currency: any;  
   @ViewChild("quickView", { static: false }) QuickView: TemplateRef<any>;
 
@@ -44,6 +47,22 @@ export class QuickViewComponent implements OnInit, OnDestroy  {
       });
     }
   }
+
+  /*openModal() {
+    this.modalOpen = true;
+    if (isPlatformBrowser(this.platformId)) { // For SSR 
+      this.modalService.open(this.QuickView, { 
+        size: 'lg',
+        ariaLabelledBy: 'modal-basic-title',
+        centered: true,
+        windowClass: 'Quickview' 
+      }).result.then((result) => {
+        `Result ${result}`
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+    }
+  }*/
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -113,5 +132,9 @@ export class QuickViewComponent implements OnInit, OnDestroy  {
       this.modalService.dismissAll();
     }
   }
+  getOeuvreImageUrl(id: number) {
+    return environment.API_ENDPOINT + 'image/oeuvre/' + id;
+  }
+
 
 }

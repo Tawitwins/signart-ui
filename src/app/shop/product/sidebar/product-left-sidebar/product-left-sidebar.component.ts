@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { ProductDetailsMainSlider, ProductDetailsThumbSlider } from '../../../../shared/data/slider';
 import { Product } from '../../../../shared/classes/product';
 import { ProductService } from '../../../../shared/services/product.service';
 import { SizeModalComponent } from "../../../../shared/components/modal/size-modal/size-modal.component";
+import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
+import { Resolver } from 'src/app/shared/services/resolver.service';
 
 @Component({
   selector: 'app-product-left-sidebar',
@@ -12,7 +14,8 @@ import { SizeModalComponent } from "../../../../shared/components/modal/size-mod
 })
 export class ProductLeftSidebarComponent implements OnInit {
 
-  public product: Product = {};
+  //public product: Product = {};
+  public oeuvre: Oeuvre = {};
   public counter: number = 1;
   public activeSlide: any = 0;
   public selectedSize: any;
@@ -25,7 +28,8 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router,
     public productService: ProductService) { 
-      this.route.data.subscribe(response => this.product = response.data );
+      this.route.data.subscribe(response => this.oeuvre = response.data);
+      console.log("oeuvre dans left", this.oeuvre)
     }
 
   ngOnInit(): void {

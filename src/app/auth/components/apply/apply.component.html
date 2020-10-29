@@ -1,0 +1,337 @@
+<div class="card-content" style="margin-top: 50px">
+  <div class="register-container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div id="content" class="col-md-6" data-hook="">       
+          <div class="card">
+          <div class="card-header card-header-warning" style="background-color:#f07c10 ;color:azure">
+            <div class="card-icon" >
+              <button *ngIf="etape==1" class="material-icons" mat-raised-button type="button"  (click)="onReturn();">
+                  RETOUR
+              </button>
+              <button *ngIf="etape!=1" class="material-icons" mat-raised-button type="button"  (click)="onCancel();">
+                ANNULER
+            </button>
+          </div>
+            <div class="">
+                <h3 class="card-title">
+                    <strong *ngIf="etape==1">Artistes,exposez sur SignArt</strong>
+                    <strong *ngIf="etape==2">Formulaire de candidature sur SignArt</strong>
+                    <strong *ngIf="etape==3">Formulaire de candidature sur SignArt</strong>
+                    <strong *ngIf="etape==4">Formulaire de candidature sur SignArt</strong>
+                </h3>
+              <p class="card-category"><br></p>
+            </div>
+          </div>
+            <!--Card content-->
+            <div class="card-body px-lg-5 pt-5">
+                <div *ngIf="etape==1">
+                <p class="text-large">
+              Vous souhaitez vous référencer sur <strong>SignArt</strong> ? Nous serions heureux de prendre connaissance de votre travail !
+
+            <a style="color: #f07c10;text-decoration:underline" [routerLink]="['/critere']">Vous pouvez consulter les conditions que nous proposons aux artistes dans la rubrique  correspondante</a>.
+                      
+                      Pour nous adresser votre candidature, merci de remplir le petit formulaire ci-aprés. Notre Comité de sélection en prendra connaissance et nous vous reviendrons.
+                  </p>
+                  <p>      
+                      Merci pour votre intérêt pour SignArt, et à bientôt !
+                  </p>    
+                  <p>
+                   SignArt !
+                  </p>  
+                  
+                  <button type="button" (click)="goetape(2)" class="btn btn-light">Cliquez ici,pour remplir le formulaire</button>
+                  <br>
+                  <a class="text-right text-default" routerLink="/auth/login" routerLinkActive="router-link-active" >Vous avez dejà un compte? Se connecter</a>
+              </div>
+              <br>
+              <form (ngSubmit)="onSubmitForm1()" [formGroup]="infoArtisteForm">
+                  <div  *ngIf="etape==2">
+                    <strong><p>Informations de l'artiste </p></strong>
+                      <div class="row">
+                              <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Prénom" type="text" formControlName="prenom" [value]="form1Value.prenom">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Nom" type="text" formControlName="nom" [value]="form1Value.nom">
+                                </mat-form-field>
+                              </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-5">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Téléphone" formControlName="telephone" [value]="form1Value.telephone">
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-4">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Email" type="email" formControlName="email" [value]="form1Value.email">
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                              <mat-form-field class="example-full-width">
+                                  <mat-label>Genre</mat-label>
+                                  <mat-select formControlName="genre" [value]="form1Value.genre">
+                                    <mat-option value="H">Homme</mat-option>
+                                    <mat-option value="F">Femme</mat-option>
+                                  </mat-select>
+                              </mat-form-field>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                            <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Nom de votre Galerie" type="text" formControlName="nomGalerie" [value]="form1Value.nomGalerie">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-6">
+                            <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Site Web" type="text" formControlName="siteWeb" [value]="form1Value.siteWeb">
+                            </mat-form-field>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                           <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Adresse de votre Galerie" type="text" formControlName="adresseGalerie" [value]="form1Value.adresseGalerie">
+                          </mat-form-field>
+                          </div>
+                          <div class="col-md-6">
+                           <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Ville" type="text" formControlName="ville" [value]="form1Value.ville">
+                          </mat-form-field>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-12">
+                              <mat-form-field class="example-full-width">
+                                      <mat-label>Vos spécialités</mat-label>
+                                      <mat-select formControlName="specialite" [value]="form1Value.specialite">
+                                        <mat-option *ngFor="let technique of techniques" [value]="technique.libelle">{{technique.libelle}}</mat-option>
+                                      </mat-select>
+                              </mat-form-field>
+                          </div>
+                      </div>
+                      <div class="row">
+                              <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                <textarea matInput placeholder="Formation" formControlName="formation" [value]="form1Value.formation"></textarea>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-6">
+                                      <mat-form-field class="example-full-width">
+                                      <textarea matInput placeholder="Exposition" formControlName="exposition" [value]="form1Value.exposition"></textarea>
+                                      </mat-form-field>
+                              </div>
+                      </div>
+                      <button type="button" (click)="goetape(1)" class="btn btn-light">Retour</button>
+                      <button type="submit" class="btn btn-light" [disabled]="!infoArtisteForm.valid">Suivant</button>
+                  </div>
+                </form>
+
+                  <form (ngSubmit)="onSubmitForm2()" [formGroup]="oeuvre1Form">
+                <div *ngIf="etape==3" >
+                    <strong><p>Première oeuvre à Uploader</p></strong>
+                    <strong><p>Cette oeuvre sera utilisée comme image de couverture (par défaut) dans la plateforme.</p></strong>
+                      <mat-label>Image : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</mat-label>
+                      <input type="file" (change)="onFileSelected($event,1)">  
+                    <div class="row">
+                        <div class="col-md-6">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Titre" type="text" formControlName="nom" [value]="form2Value.nom">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Auteur" type="text" formControlName="auteur" [value]="form2Value.auteur">
+                          </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-10">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Technique</mat-label>
+                            <mat-select formControlName="idTechnique" [value]="form2Value.idTechnique">
+                              <mat-option *ngFor="let technique of techniques" [value]="technique.id">{{technique.libelle}}</mat-option>
+                             
+                            </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                         <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Année" type="number" formControlName="annee" [value]="form2Value.annee">
+                        </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                         <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Dimension" type="text" formControlName="dimensions" [value]="form2Value.dimensions">
+                        </mat-form-field>
+                        </div>
+                    </div>
+                     <!--<strong><p>Uploader deux exemplaires de vos oeuvres</p></strong>
+                    <div class="row">
+                        <div class="col-md-6">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="exemplaire 1">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="exemplaire 2">
+                        </mat-form-field>
+                        </div>
+                    </div>-->
+                  <button type="button" (click)="goetape(2)" class="btn btn-light">Retour</button>
+                  <button type="submit" class="btn btn-light" [disabled]="!oeuvre1Form.valid">Suivant</button>
+                 </div>
+                </form>
+
+                 <form (ngSubmit)="onSubmitForm3()" [formGroup]="oeuvre2Form">
+                 <div *ngIf="etape==4">
+                    <strong><p>Deuxième oeuvre à Uploader</p></strong>
+                    <mat-label>Image : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</mat-label>
+                    <input type="file" (change)="onFileSelected($event,2)" >  
+                    <div class="row">
+                        <div class="col-md-6">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Titre" type="text" formControlName="nom" [value]="form3Value.nom">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Auteur" type="text" formControlName="auteur" [value]="form3Value.auteur">
+                          </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-10">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Technique</mat-label>
+                            <mat-select formControlName="idTechnique" [value]="form3Value.idTechnique">
+                              <mat-option *ngFor="let technique of techniques" [value]="technique.id">{{technique.libelle}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                         <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Année" type="number" formControlName="annee" [value]="form3Value.annee">
+                        </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                         <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Dimension" type="text" formControlName="dimensions" [value]="form3Value.dimensions">
+                        </mat-form-field>
+                        </div>
+                    </div>
+                    <button type="button" (click)="goetape(3)" class="btn btn-light">Retour</button>
+                    <button type="submit" class="btn btn-light" [disabled]="!oeuvre2Form.valid">Suivant</button>
+                    <div class="clearfix"></div>
+                 </div>
+              </form>
+
+
+              <div *ngIf="etape==5">
+                <div class="card-header-warning white-text text-center py-4">
+                    <h5>
+                        <strong>Vos Informations</strong>
+                    </h5>
+                </div>
+                    <div class="table-responsive card">
+                      <h5>Informations de l'artiste</h5>
+                            <table>
+                                <thead>
+                                    <th style="text-align: left;">
+                                    Libellé
+                                    </th>
+                                    <th style="text-align: left; padding-left: 15;">
+                                    Valeur
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let titreInfoArtiste of titreInfoArtistes">
+                                        <td style="text-align: left; text-decoration-style: solid;"  >
+                                            {{titreInfoArtiste.titre}}
+                                        </td>
+                                        <td style="text-align: left;">
+                                          {{titreInfoArtiste.valeur}}
+                                      </td>
+                                    </tr>
+                                  
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <h5>Oeuvre 1</h5>
+                              <table >
+                                <thead>
+                                    <th style="text-align: left;">
+                                    Libellé
+                                    </th>
+                                    <th style="text-align: left;padding-left: 10;">
+                                    Valeur
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let titreInfoOeuvre of titreInfoOeuvre1">
+                                        <td style="text-align: left;"  >
+                                            {{titreInfoOeuvre.titre}}
+                                        </td>
+                                        <td style="text-align: left; padding-left: 10;">
+                                          {{titreInfoOeuvre.valeur}}
+                                      </td>
+                                    </tr>
+                                  
+                                </tbody>
+                            </table>
+                            </div>
+                            <div class="col-md-6">
+                              <h5>Oeuvre 2</h5>
+                              <table >
+                                <thead>
+                                    <th style="text-align: left;">
+                                    Libellé
+                                    </th>
+                                    <th style="text-align: left; padding-left: 10;">
+                                    Valeur
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let titreInfoOeuvre of titreInfoOeuvre2">
+                                        <td style="text-align: left;"  >
+                                            {{titreInfoOeuvre.titre}}
+                                        </td>
+                                        <td style="text-align: left; padding-left: 10;">
+                                          {{titreInfoOeuvre.valeur}}
+                                      </td>
+                                    </tr>
+                                  
+                                </tbody>
+                            </table>
+                             
+                            </div>
+                          </div>
+                        </div>
+                        <div class="text-left mt-1 mb-2">
+                          <button type="button" (click)="goetape(4)" class="btn btn-light">Retour</button>
+                                
+                          <button type="button" (click)="onCancel();" class="btn btn-light">Annuler</button>
+                          <button mat-raised-button type="button"  (click)="onSubmit();" class="btn btn-warning pull-right" style="background-color: #f07c10">Soumettre</button>
+                         </div>
+            </div>
+
+              </div>
+              </div>
+              </div>
+             <div class="col-md-3"></div>
+          </div>
+    </div> 
+</div>   

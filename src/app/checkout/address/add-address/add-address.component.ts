@@ -1,0 +1,89 @@
+import { getAuthStatus } from '../../../auth/reducers/selectors';
+import { User } from 'app/shared/modeles/user';
+import { AuthServiceS } from 'app/shared/services/auth.service';
+import { OeuvreService } from 'app/shared/services/oeuvre.service';
+import { AppState } from '../../../interfaces';
+import { Store } from '@ngrx/store';
+import { AuthActions } from '../../../auth/actions/auth.actions';
+import { AddressService } from '../services/address.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CheckoutService } from '../../../shared/services/checkout.service';
+import { PaysService } from '../../../shared/services/pays.service';
+import { Pays } from '../../../shared/modeles/pays';
+import { Client } from 'app/shared/modeles/client';
+import { CheckoutActions } from 'app/checkout/actions/checkout.actions';
+import { Router } from '@angular/router';
+declare var $:any;
+@Component({
+  selector: 'app-add-address',
+  templateUrl: './add-address.component.html',
+  styleUrls: ['./add-address.component.scss'],
+  providers: [PaysService]
+})
+export class AddAddressComponent implements OnInit, OnDestroy {
+  user:any;
+  public client: Client;
+  idUser:number;
+  addressForm: FormGroup;
+  emailForm: FormGroup;
+  isAuthenticated: boolean;
+  allPays: Pays[] = [];
+  selected:string = '';
+  prenom: string;
+  nom: string;
+  pays: string;
+  tel: string;
+  listAdresses: any;
+  nombreAdresses: number;
+  listAdressesLength: number;
+  
+  constructor(
+    private fb: FormBuilder, private authActions: AuthActions,
+    private checkoutService: CheckoutService,
+    private authS:AuthServiceS,
+    private oeuvreS:OeuvreService,
+    private addrService: AddressService,
+    private store: Store<AppState>,
+    private paysService: PaysService,
+    private actions: CheckoutActions,
+    private router: Router,
+    ) {
+      this.addressForm = addrService.initAddressForm();
+      this.emailForm = addrService.initEmailForm();
+      this.store.select(getAuthStatus).subscribe((auth) => {
+        this.isAuthenticated = auth;
+      });
+      this.user=this.authS.getUserConnected();
+      this.client={id:0,nom: '',prenom: '',sexe: '',adresseFacturation:'',adresseLivraison:'',ville:'',telephone: '',dateNaissance:new Date(),etatClient:'',idEtatClient: 0,idPays:1,pays: '',idUser:0}  
+      
+  }
+
+  ngOnInit() {
+    this.paysService.getAllPays().subscribe(pays => this.allPays = pays);
+    this.oeuvreS.getClientByUser(parseInt(this.user.id)).subscribe(
+      response=>{
+        this.client=response
+        localStorage.setItem('client',JSON.stringify(response));
+      }
+    );
+    
+  } 
+  onSubmit() {
+    let address = this.addressForm.value;
+    address.idClient = this.client.id;
+    let addressAttributes;
+    addressAttributes = this.addrService.createAddresAttributes(address);
+    console.log('adresses : ', addressAttributes);
+    this.checkoutService.updateOrder(addressAttributes).subscribe();
+    this.listAdressesLength = 1;
+    this.store.dispatch(this.actions.updateOrderAdressNumberSuccess(this.listAdressesLength));
+    
+    //this.router.navigate(['/checkout', 'address']);
+    //location.reload();
+  }
+
+  ngOnDestroy() {
+  }
+
+}

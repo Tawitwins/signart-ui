@@ -1,0 +1,190 @@
+<div class="main-content marge">
+	<div class="container-fluid">
+		<div class="card">
+			<div class="">
+			<div class="row">
+				<div class="col-md-7">
+					<div class="card">
+							<div class="card-header card-header-success card-header-icon">
+									<div class="card-icon"><i class="material-icons">list</i></div>
+									<h4 class="card-title">Sommaire commande</h4>
+						   </div>
+						<!-- <div class="card-header text-center">
+								<h4 class="card-title font-weight-bold">SOMMAIRE COMMANDE</h4>
+						</div> -->
+						<div class="card-body table-responsive">
+								<table class="table table-md">
+										<thead>
+										  <tr>
+											<th scope="col"><b>Désignations</b></th>
+											<th scope="col"><b>Détails </b></th>
+										  </tr>
+										</thead>
+										<tbody>
+										<tr>
+											<th scope="row">Oeuvres commandées : <label> {{totalCartItems$ | async}}</label></th>
+											<td>
+												<div class="table-responsive">
+													<table class="table">
+															<thead>
+															    <tr>
+																	<th class="th-description"></th>
+																	<th class="th-description">Oeuvre</th>
+																	<th class="th-description">Prix</th>
+																	<th class="th-description">Quantité</th>
+																	<th class="th-description">Total</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr *ngFor="let lignecommande of lignesCommande">
+																	<td>
+																		<app-ligne-commande [lignecommande]="lignecommande"></app-ligne-commande>
+																	</td>
+																	<td class="text-center">{{lignecommande.oeuvre.nom}} <br>
+																		{{lignecommande.oeuvre.technique}}<br>
+																		<label><i>Par: 
+																		{{lignecommande.oeuvre.artiste}}
+																		</i></label>
+																	</td>
+																	<td class="text-center">
+																		{{lignecommande.prix | currency:'XOF':'symbol':'4.0-2':'fr'}}
+																	</td>
+																	<td class="text-center">
+																		{{lignecommande.quantite}}
+																	</td>
+																	<td class="text-center">
+																		{{lignecommande.total | currency:'XOF':'symbol':'4.0-2':'fr'}}
+																	</td>
+																</tr>
+																	
+															</tbody>
+													</table>
+												</div>
+												
+											</td>
+										</tr>
+										  <tr>
+											<th scope="row">Total commande</th>
+											<td><span class="value"><label>{{(totalCartValue$ | async) | currency:'XOF':'symbol':'4.0-2':'fr'}}</label></span></td>
+										  </tr>
+										  <tr>
+											<th scope="row">Option de Livraison</th>
+											<td><span class="value"><label>{{(shippingOption$ | async).libelle}}</label></span></td>
+										  </tr>
+										  <tr>
+										  <tr>
+											<th scope="row">Frais de livraison</th>
+											<td *ngIf="(shippingOptionPrice$ | async | number) != 0"><span ><label class="text-success">{{shippingOptionPrice$ | async | currency:'XOF':'symbol':'4.0-2':'fr'}}</label></span></td>
+											<td *ngIf="(shippingOptionPrice$ | async | number) == 0"><span ><label class="text-success">GRATUIT</label></span></td>
+										  </tr>
+										  <tr>
+											<th scope="row">Résumé de la livraison</th>
+											<td><div class="name"><label>{{(address$ | async).prenom}} {{(address$ | async).nom}}</label></div>
+												<div class="add-info"><label>{{(address$ | async).adresse}}</label></div>
+												<div class="add-info"><label>{{(address$ | async).ville}}</label></div>
+												<div class="add-info"><label>{{(address$ | async).region}}</label></div>
+												<div class="add-info"><label>{{(address$ | async).telephone}}</label></div>
+											</td>
+										  </tr>
+										</tbody>
+									  </table>
+						</div>
+
+					</div>
+				</div>
+			<!--/div>
+		    <div class="row"-->
+				<div class="col-md-5 ">
+						<div class="card">
+								
+										<div class="card-header" style="background-color:#f07c10;color:azure">
+											   <h4 class="card-title text-left" style="color: azure"><span class="font-weight-bold
+												">Votre mode de paiement </span></h4>
+											   <p class="card-category text-right">
+												   <span class="you-pay">
+												   <span class="font-weight-bold">Net à Payer : </span>
+												   <span class="font-weight-bold">{{ (totalCartValue + shippingOptionPrice) | currency:'XOF':'symbol':'4.0-2':'fr'}}</span>
+												   </span>
+											   </p>
+									   </div>
+							   
+							   
+									<div class="card-body">
+											<div class="cod-block">
+													<div class="section-help">
+														<span class="font-weight-bold">
+															Cash à la livraison
+														</span>
+														
+													</div>
+													<span class="font-weight-light">
+														Payer par espèce à la livraison de la commande
+													</span>
+													<div class="section-help">
+														<span class="font-weight-bold">
+															Paiement par compte
+														</span>
+													</div>
+														<span class="font-weight-light">
+															Les moyens de paiement electroniques ci-dessous sont acceptés.
+														</span>
+													
+													
+											</div>
+										<!--div>
+											<app-payment-modes-list [orderNumber]="orderNumber$ | async" [paymentAmount]="totalCartValue$ | async"></app-payment-modes-list>
+										</div
+										<div>
+											<h5 class="card-category ">Payez par compte à travers :</h5>
+											<app-paypal [finalAmount]="(totalCartValue$ | async) + (shippingOptionPrice$ | async)"></app-paypal>
+										</div>-->
+										<div id="accordion">
+												<div class="card">
+												  <div class="card-header" style="background-color: #f07c10" id="headingOne">
+													<div class="row mb-0">
+														<div class="col-md-12 ml-0">
+																<button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+																	<strong class="text-white"><i class="material-icons">money</i> PAIEMENT A LA LIVRAISON</strong>
+																</button>
+														</div>
+													</div>
+												  </div>
+											  
+												  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+													<div class="card-body">
+														<div class="text-info">Payez par à la livraison</div>
+														<app-payment-modes-list [orderNumber]="orderNumber$ | async" [paymentAmount]="totalCartValue$ | async"></app-payment-modes-list>
+													</div>
+												  </div>
+												</div>
+												<div class="card">
+												  <div class="card-header" style="background-color: #f07c10" id="headingTwo">
+													<div class=" row mb-0">
+														<div class="col-md-12 ml-0">
+															<button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+																	<strong class="text-white"><i class="material-icons">payment</i> PAIMENT PAR COMPTE</strong>
+															</button>
+														</div>
+														
+													</div>
+												  </div>
+												  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+													<div class="card-body">
+														<div class="text-info">Payez par compte à travers nos partenaires</div>
+														<div><app-paypal [finalAmount]="(totalCartValue$ | async) + (shippingOptionPrice$ | async)"></app-paypal></div>
+														<div><app-paydunya (payOnDunya)="makePayment()" [commandeLine]="lignesCommande"></app-paydunya> </div>
+													</div>
+												  </div>
+												</div>
+											  </div>	
+									</div>						
+						</div>
+				</div>
+			</div>
+				
+						
+						
+			</div>
+		</div>
+	</div>
+</div>

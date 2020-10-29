@@ -1,0 +1,117 @@
+<div class="main-content marge">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-tabs" style="background-color: #f07c10">
+                        <div class="nav-tabs-navigation">
+                            <div class="nav-tabs-wrapper">
+                                <!-- <span class="nav-tabs-title">Tasks:</span> -->
+                                <ul class="nav nav-tabs" data-tabs="tabs">
+                                    <li routerLinkActive="active" class="nav-item" *ngFor="let sousMenuItem of sousMenuItems">
+                                        <a mat-button class="nav-link" href="{{sousMenuItem.path}}" data-toggle="tab" (click)="sousMenuSelected(sousMenuItem, $event.target.click)">
+                                            <i><img src="{{sousMenuItem.icon}}" style="width: 17px; height: 17px;"></i> {{sousMenuItem.title}}
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <div class="dropdown">
+                                         <button class="btn btn-outline-white"><strong>FILTRE PAR THEME</strong></button>
+                                         <div class="dropdown-content">
+                                          <a *ngFor="let th of themes" (click)="onGetOeuvreFiltreByTheme(th.id)">{{th.libelle}}</a>
+                                         </div>
+                                         </div> 
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="card-body">
+                         <div class="tab-content">
+                             <div class="tab-pane active" id="tout">
+                                 <div *ngIf="isclicked==0" class="container-fluid">
+                                      <app-oeuvre-list [oeuvres]="oeuvres$ | async" [taxonIds]="selectedTaxonIds$ | async">
+                                     </app-oeuvre-list>
+                                 </div>
+                             </div>
+                    <!--<div class="row">
+                        <div class="col-md-3" *ngFor="let bois of bois">
+                            <div class="card product_item">
+                                <div class="body">
+                                    <div class="cp_img">
+                                        <img src="{{bois.source}}" alt="{{bois.title}}" class="img-fluid">
+                                        <div class="hover">
+                                            <a [routerLink]="['/detail-article/', bois.id]" class="btn btn-danger waves-effect" data-toggle="tooltip" data-placement="top" title="ajouter à ma liste">
+                                                <i class="material-icons">add</i>
+                                            </a>
+                                            <a [routerLink]="['/detail-article/', bois.id]" class="btn btn-danger waves-effect" data-toggle="tooltip" data-placement="bottom" title="Voir">
+                                                <i class="material-icons">visibility</i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product_details">
+                                        <h5>
+                                            <a [routerLink]="['/detail-article/', bois.id]">{{bois.title}}</a>
+                                        </h5>
+                                        <h6 class="font-weight-bold indigo-text py-2">{{bois.artiste}}</h6>
+                                        <ul class="product_price list-unstyled">
+                                            <li class="old_price">{{bois.prix}}</li>
+                                            <li class="new_price">$11.00</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             -->
+                            <div class="tab-pane" id="bois">
+                                <div *ngIf="isclicked==0" class="container-fluid">
+                                    <app-oeuvre-list [oeuvres]="oeuvres$ | async" [taxonIds]="selectedTaxonIds$ | async">
+                                    </app-oeuvre-list>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="verre">
+                                <div *ngIf="isclicked==0" class="container-fluid">
+                                    <app-oeuvre-list [oeuvres]="oeuvres$ | async" [taxonIds]="selectedTaxonIds$ | async">
+                                    </app-oeuvre-list>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="bronze">
+                                <div *ngIf="isclicked==0" class="container-fluid">
+                                    <app-oeuvre-list [oeuvres]="oeuvres$ | async" [taxonIds]="selectedTaxonIds$ | async">
+                                    </app-oeuvre-list>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="ceramique">
+                                <div *ngIf="isclicked==0" class="container-fluid">
+                                    <app-oeuvre-list [oeuvres]="oeuvres$ | async" [taxonIds]="selectedTaxonIds$ | async">
+                                    </app-oeuvre-list>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="technique-mixte">
+                                <div *ngIf="isclicked==0" class="container-fluid">
+                                    <app-oeuvre-list [oeuvres]="oeuvres$ | async" [taxonIds]="selectedTaxonIds$ | async">
+                                    </app-oeuvre-list>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="art-urbain">
+                                <div *ngIf="isclicked==0" class="container-fluid">
+                                    <app-oeuvre-list [oeuvres]="oeuvres$ | async" [taxonIds]="selectedTaxonIds$ | async">
+                                    </app-oeuvre-list>
+                                </div>
+                            </div>
+                            <div *ngIf="isclicked==1"  class="row">
+                                <div class="col-md-3" *ngFor="let item of theme">
+                                <app-oeuvre-item [id]="item.id" [nom]="item.nom" [image]="item.image" [description]="item.description" 
+                                [artiste]="item.artiste" [prix]="item.prix" [idArtiste]="item.idArtiste" ></app-oeuvre-item>
+                              </div>
+                           </div>
+                         </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

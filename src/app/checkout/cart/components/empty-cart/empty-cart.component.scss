@@ -1,0 +1,25 @@
+.cart-empty {
+	min-height: 500px;
+	padding-top: 50px;
+	text-align: center;
+	.empty-cart-icon {
+		height: 135px;
+    width: 158px;
+    margin: 0 auto;
+    background-image: url(/assets/img/Icones/Panier-vide.png);
+	}
+	.empty-cart-message {
+		font-size: 20px;
+    color: #535766;
+    font-weight: 600;
+		font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+		line-height: 120px;
+		margin: 15px 0;
+		text-align: center;
+	}
+	.empty-wishlist-link {
+		color: #526cd0;
+    font-size: 16px;
+    font-weight: 500;
+	}
+}

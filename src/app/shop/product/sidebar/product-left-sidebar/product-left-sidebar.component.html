@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="product?.title" [breadcrumb]="'Product'"></app-breadcrumb>
+<app-breadcrumb [title]="oeuvre?.nom" [breadcrumb]="'Oeuvre'"></app-breadcrumb>
 <!-- section start -->
 <section class="section-b-space">
   <div class="collection-wrapper">
@@ -36,7 +36,7 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar  class="product-slick">
+                <!--owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar  class="product-slick">
                     <ng-container *ngFor="let image of product?.images; index as i">
                         <ng-template carouselSlide [id]="i">
                             <div>
@@ -46,8 +46,8 @@
                             </div>
                         </ng-template>
                     </ng-container>
-                </owl-carousel-o>
-                <div class="col-12 p-0" *ngIf="product?.images.length > 1">
+                </owl-carousel-o-->
+                <!--div class="col-12 p-0" *ngIf="product?.images.length > 1">
                     <div class="slider-nav">
                         <owl-carousel-o [options]="ProductDetailsThumbConfig" class="product-slick">
                             <ng-container *ngFor="let image of product?.images; index as i">
@@ -62,24 +62,24 @@
                             </ng-container>
                         </owl-carousel-o>
                     </div>
-                </div>
+                </div-->
               </div>
               <div class="col-lg-6 rtl-text">
                 <div class="product-right">
-                  <h2>{{ product?.title }}</h2>
+                  <h2>{{ oeuvre?.nom }}</h2>
                   <h4>
-                      <del *ngIf="product?.discount">{{ product?.price * productService.Currency?.price | currency: productService.Currency?.currency:'symbol' }}</del>
-                      <span>{{ product?.discount }}% Offre Promotionnelle</span>
+                      <del *ngIf="oeuvre?.tauxremise">{{ oeuvre?.prix * productService.Currency?.price | currency: productService.Currency?.currency:'symbol' }}</del>
+                      <span>{{ oeuvre?.tauxremise }}% Offre Promotionnelle</span>
                   </h4>
                   <h3>
-                      {{ (product?.price | discount:product) * productService.Currency?.price | currency: productService.Currency?.currency:'symbol' }}
+                      {{ oeuvre?.prix * productService.Currency?.price | currency: productService.Currency?.currency:'symbol' }}
                   </h3>
                   <div class="product-description border-product">
-                    <h6 class="product-title size-text" *ngIf="Size(product.variants).length">
-                        Artiste: Dan Enriqué
+                    <h6 class="product-title size-text">
+                        Artiste: {{oeuvre?.idArtiste}}
                     </h6>
-                    <h5 class="avalibility" *ngIf="counter <= product.stock"><span>En Stock</span></h5>
-                    <h5 class="avalibility" *ngIf="counter > product.stock"><span>Rupture</span></h5>
+                    <h5 class="avalibility" *ngIf="counter <= oeuvre?.stock"><span>En Stock</span></h5>
+                    <h5 class="avalibility" *ngIf="counter > oeuvre?.stock"><span>Rupture</span></h5>
                     <h6 class="product-title">quantité</h6>
                     <div class="qty-box">
                       <div class="input-group">
@@ -98,19 +98,19 @@
                     </div>
                   </div>
                   <div class="product-buttons">
-                    <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="addToCart(product)">Au Panier</a>
-                    <a [routerLink]="['/pages/wishlist']" class="btn btn-solid" [class.disabled]="counter > product.stock">S'abonner</a>
+                    <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > oeuvre?.stock" >Au Panier</a>
+                    <a [routerLink]="['/pages/wishlist']" class="btn btn-solid" [class.disabled]="counter > oeuvre?.stock">S'abonner</a>
                   </div>
                   <div class="border-product">
                     <h6 class="product-title">Détails Article</h6>
-                    <p>{{ product.description.substring(0, 200)+'...' }}</p>
+                    <p>{{ oeuvre?.description.substring(0, 200)+'...' }}</p>
                   </div>
                   <div class="border-product">
                     <h6 class="product-title">Partager</h6>
                     <div class="product-icon">
                       <app-social></app-social>
                       <form class="d-inline-block">
-                        <button class="wishlist-btn" (click)="addToWishlist(product)">
+                        <button class="wishlist-btn">
                           <i class="fa fa-heart"></i>
                           <span class="title-font">Favoris</span>
                         </button>
@@ -131,7 +131,7 @@
                     <ngb-tab>
                         <ng-template ngbTabTitle>Description</ng-template>
                         <ng-template ngbTabContent>
-                          <p>{{ product.description }}</p>
+                          <p>{{ oeuvre?.description }}</p>
                         </ng-template>
                     </ngb-tab>
                     <ngb-tab>
@@ -194,5 +194,5 @@
   </div>
   <!-- <app-related-product [type]="product?.type"></app-related-product> -->
 </section>
-<app-size-modal #sizeChart [product]="product"></app-size-modal>
+<!--app-size-modal #sizeChart [product]="product"></app-size-modal-->
 <!-- Section ends -->

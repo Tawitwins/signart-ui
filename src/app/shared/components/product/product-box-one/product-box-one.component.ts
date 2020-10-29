@@ -3,6 +3,8 @@ import { QuickViewComponent } from "../../modal/quick-view/quick-view.component"
 import { CartModalComponent } from "../../modal/cart-modal/cart-modal.component";
 import { Product } from "../../../classes/product";
 import { ProductService } from "../../../services/product.service";
+import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-box-one',
@@ -12,6 +14,7 @@ import { ProductService } from "../../../services/product.service";
 export class ProductBoxOneComponent implements OnInit {
 
   @Input() product: Product;
+  @Input() oeuvre: Oeuvre;
   @Input() currency: any = this.productService.Currency; // Default Currency 
   @Input() thumbnail: boolean = false; // Default False 
   @Input() onHowerChangeImage: boolean = false; // Default False
@@ -27,7 +30,7 @@ export class ProductBoxOneComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.loader) {
-      setTimeout(() => { this.loader = false; }, 2000); // Skeleton Loader
+      setTimeout(() => { this.loader = false; }, 1000); // Skeleton Loader
     }
   }
 
@@ -60,6 +63,7 @@ export class ProductBoxOneComponent implements OnInit {
     this.ImageSrc = src;
   }
 
+
   addToCart(product: any) {
     this.productService.addToCart(product);
   }
@@ -72,4 +76,7 @@ export class ProductBoxOneComponent implements OnInit {
     this.productService.addToCompare(product);
   }
 
+  getOeuvreImageUrl(id: number) {
+    return environment.API_ENDPOINT + 'image/oeuvre/' + id;
+  }
 }

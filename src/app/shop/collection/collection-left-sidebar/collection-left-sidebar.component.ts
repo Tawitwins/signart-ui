@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 import { ProductService } from "../../../shared/services/product.service";
 import { Product } from '../../../shared/classes/product';
+import { ArticleService } from 'src/app/shared/services/article.service';
+import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-collection-left-sidebar',
@@ -14,6 +17,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
   public grid: string = 'col-xl-3 col-md-6';
   public layoutView: string = 'grid-view';
   public products: Product[] = [];
+  public oeuvres: Oeuvre[] = [];
   public brands: any[] = [];
   public artist: any [] = [];
   public colors: any[] = [];
@@ -29,8 +33,13 @@ export class CollectionLeftSidebarComponent implements OnInit {
   public loader: boolean = true;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private viewScroller: ViewportScroller, public productService: ProductService) {   
+    private viewScroller: ViewportScroller, public productService: ProductService, private articleService: ArticleService) {   
       // Get Query params..
+      this.articleService.getAllArticles().subscribe(response => { 
+        this.oeuvres = response;
+        console.log("oeuvres", this.oeuvres)
+              });
+              
       this.route.queryParams.subscribe(params => {
 
         this.brands = params.brand ? params.brand.split(",") : [];
@@ -45,8 +54,9 @@ export class CollectionLeftSidebarComponent implements OnInit {
         this.sortBy = params.sortBy ? params.sortBy : 'ascending';
         this.pageNo = params.page ? params.page : this.pageNo;
 
+       
         // Get Filtered Products..
-        this.productService.filterProducts(this.tags).subscribe(response => {         
+        /*this.productService.filterProducts(this.tags).subscribe(response => {         
           // Sorting Filter
           this.products = this.productService.sortProducts(response, this.sortBy);
           // Category Filter
@@ -54,11 +64,36 @@ export class CollectionLeftSidebarComponent implements OnInit {
             this.products = this.products.filter(item => item.type == this.category);
           // Price Filter
           this.products = this.products.filter(item => item.price >= this.minPrice && item.price <= this.maxPrice) 
+          
           // Paginate Products
-          this.paginate = this.productService.getPager(this.products.length, +this.pageNo);     // get paginate object from service
-          this.products = this.products.slice(this.paginate.startIndex, this.paginate.endIndex + 1); // get current page of items
-        })
+          //this.paginate = this.productService.getPager(this.oeuvres.length, +this.pageNo);     // get paginate object from service
+         // this.products = this.products.slice(this.paginate.startIndex, this.paginate.endIndex + 1);
+           // get current page of items
+        });*/
+
+       // this.productService.filterOeuvre(this.tags).subscribe(response => {         
+          
+          this.oeuvres = this.productService.sortOeuvres(this.oeuvres, this.sortBy);
+          // Category Filter
+         /* if(params.category)
+            this.oeuvres = this.oeuvres.filter(item => item.Technique == this.category);*/
+          // Price Filter
+          this.oeuvres = this.oeuvres.filter(item => item.prix >= this.minPrice && item.prix <= this.maxPrice) 
+          this.paginate = this.productService.getPager(this.oeuvres.length, +this.pageNo); 
+          this.oeuvres = this.oeuvres.slice(this.paginate.startIndex, this.paginate.endIndex + 1);
+          console.log("paginationnnnn", this.paginate)
+       // });
+
+     
+
+
       })
+
+    
+
+      
+
+
   }
 
   ngOnInit(): void {
@@ -75,7 +110,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
       skipLocationChange: false  // do trigger navigation
     }).finally(() => {
       this.viewScroller.setOffset([120, 120]);
-      this.viewScroller.scrollToAnchor('products'); // Anchore Link
+      this.viewScroller.scrollToAnchor('oeuvres'); // Anchore Link
     });
   }
 
@@ -88,7 +123,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
       skipLocationChange: false  // do trigger navigation
     }).finally(() => {
       this.viewScroller.setOffset([120, 120]);
-      this.viewScroller.scrollToAnchor('products'); // Anchore Link
+      this.viewScroller.scrollToAnchor('oeuvres'); // Anchore Link
     });
   }
 
@@ -112,7 +147,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
       skipLocationChange: false  // do trigger navigation
     }).finally(() => {
       this.viewScroller.setOffset([120, 120]);
-      this.viewScroller.scrollToAnchor('products'); // Anchore Link
+      this.viewScroller.scrollToAnchor('oeuvres'); // Anchore Link
     });
   }
 
@@ -137,7 +172,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
       skipLocationChange: false  // do trigger navigation
     }).finally(() => {
       this.viewScroller.setOffset([120, 120]);
-      this.viewScroller.scrollToAnchor('products'); // Anchore Link
+      this.viewScroller.scrollToAnchor('oeuvres'); // Anchore Link
     });
   }
 
@@ -159,5 +194,10 @@ export class CollectionLeftSidebarComponent implements OnInit {
   toggleMobileSidebar() {
     this.mobileSidebar = !this.mobileSidebar;
   }
+
+  getOeuvreImageUrl(id: number) {
+    return environment.API_ENDPOINT + 'image/oeuvre/' + id;
+  }
+
 
 }

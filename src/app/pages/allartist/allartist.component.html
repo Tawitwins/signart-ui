@@ -24,11 +24,11 @@
                 <div class="row">
                     <div class="col-md-12">
                      <div class="top-banner-wrapper">
-                        <section class="secbor">
+                        <!--section class="secbor">
                             <video width="100%" height="300px" preload="auto" autoplay="autoplay" loop >
                                 <source src="assets/images/banner/animation.mp4" type="video/mp4">
                               </video>
-                            </section>
+                            </section-->
                         <div class="top-banner-content small-section">
                             <h4>Listes des artistes</h4>
                             <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -70,7 +70,26 @@
     
                     </div>
                 </div>
-                <div class="col-md-4 first">
+                
+                    <div class="col-md-4" *ngFor="let artiste of artistes">
+                        <div class="card profile-card-2">
+                            <div class="card-img-block">
+                                <!--img class="img-fluid" src="assets/images/artists/cover.jpg" alt="Card image cap" /-->
+                                <img class="img-fluid" [src]="getArtisteCouvertureImageUrl(artiste.id)" onError="this.src='assets/images/artists/cover.jpg'" alt="cover">
+                            </div>
+                            <div class="card-body pt-5">
+                                <!--img src="assets/images/artists/profile.jpg" alt="profile-image" class="profile"/-->
+                                <img [src]="getProductImageUrl(artiste.id)" height="80px" width="200px" onError="this.src='assets/images/artists/profile.jpg'" alt="profile" class="profile">
+                                <a [routerLink]="['/pages/artiste/',artiste.id]"><h5 class="card-title"> {{artiste.prenom}} {{artiste.nom}}</h5></a>
+                                <p class="card-text">{{artiste.biographie |  slice:0:100}}... </p>
+                                <div class="icon-block"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"> <i class="fa fa-twitter"></i></a></div>
+                                <div class="fans"> {{artiste.nbFans}} <i class="ti-heart fans"></i></div>
+                            </div>
+                        </div>
+                    </div>
+               
+               
+                <!--div class="col-md-4">
                     <div class="card profile-card-2">
                         <div class="card-img-block">
                             <img class="img-fluid" src="assets/images/artists/cover.jpg" alt="Card image cap" />
@@ -139,21 +158,7 @@
                             <div class="fans"> 45 Fans <i class="ti-heart fans"></i></div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card profile-card-2">
-                        <div class="card-img-block">
-                            <img class="img-fluid" src="assets/images/artists/cover.jpg" alt="Card image cap" />
-                        </div>
-                        <div class="card-body pt-5">
-                            <img src="assets/images/artists/profile.jpg" alt="profile-image" class="profile"/>
-                            <a [routerLink]="['/pages/artiste']"><h5 class="card-title"> Dan Enriqué</h5></a>
-                            <p class="card-text">Lorem Ipsum is simply dummy text Lorem Ipsum has been the industry's standard dummy text</p>
-                            <div class="icon-block"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"> <i class="fa fa-twitter"></i></a></div>
-                            <div class="fans"> 45 Fans <i class="ti-heart fans"></i></div>
-                        </div>
-                    </div>
-                </div>
+                </div-->
                 <div class="col-md-12">
         <nav>
             <!-- Add class .pagination-lg for larger blocks or .pagination-sm for smaller blocks-->

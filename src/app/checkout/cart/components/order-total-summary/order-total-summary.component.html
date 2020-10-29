@@ -1,0 +1,64 @@
+<!-- <div class="order-total-summary">
+  <div class="coupon-section">
+    <span class="text-label">Coupons</span>
+    <a class="apply-coupon coming-soon"></a>
+  </div>
+  <div class="gift-wrap-order">
+    <span class="gift-wrap-checkbox coming-soon"></span>
+    <a href="" class="gift-card-lbl">Emballage cadeau pour</a>
+    <span class="gift-card-price">500 FCFA</span>
+    <span class="not-cod">Carte / Argent à la livraison non disponible</span>
+  </div>
+  <div class="order-summary-span">
+    <div class="bag-total">
+      <span>Total panier</span>
+      <span class="value">{{totalCartValue | number:'1.2-2'}} FCFA</span>
+    </div>
+    <div class="coupon">
+      <span>Coupon rabais</span>
+      <span class="apply-coupon c-blue coming-soon">Appliquer</span>
+    </div>
+    <div class="shipping">
+      <span>Livraison</span>
+      <span class="shipping-fee c-green">Gratuit</span>
+    </div>
+  </div>
+  <div class="order-total footer">
+    <div class="place-order">
+      <button (click)="placeOrder()" class="order-btn">PASSER LA COMMANDE</button>
+    </div>
+    <div class="total-amount">
+      <span class="total-rupees">{{totalCartValue | number:'1.2-2'}} FCFA</span>
+    </div>
+  </div>
+</div> -->
+<div class="order-total-summary">
+  <div class="gift-wrap-order">
+    <span class="gift-wrap-checkbox coming-soon"></span>
+    <a href="" class="gift-card-lbl">Livraison</a>
+    <span class="gift-card-price">xxx FCFA</span>
+    <span class="not-cod">Les frais de livraison ne sont pas encore inclus</span>
+  </div>
+  <div class="order-summary-span">
+    <div class="bag-total">
+      <span>Sous Total panier</span>
+      <span class="value">{{totalCartValue | currency:'XOF':'symbol':'4.0-2':'fr'}}</span>
+    </div>
+    <!-- <div class="coupon">
+      <span>Réduction</span>
+      <span class="apply-coupon c-blue coming-soon">-{{reduction}} FCFA</span>
+    </div> -->
+    <!-- <div class="shipping">
+      <span>Livraison</span>
+      <span class="shipping-fee c-green">Gratuit</span>
+    </div> -->
+  </div>
+  <div class="order-total footer">
+    <div class="place-order">
+      <button (click)="placeOrder()" class="order-btn" style="background-color: gainsboro;color:#f07c10">PASSER COMMANDE</button>
+    </div>
+    <div class="total-amount">
+      <span class="total-rupees">{{totalCartValue | currency:'XOF':'symbol':'4.0-2':'fr'}}</span>
+    </div>
+  </div>
+</div>

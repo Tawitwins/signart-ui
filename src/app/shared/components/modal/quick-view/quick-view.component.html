@@ -7,19 +7,19 @@
             <div class="row">
                 <div class="col-lg-6  col-xs-12">
                     <div class="quick-view-img">
-                        <img [src]="ImageSrc ? ImageSrc : product.images[0].src" [alt]="product.images[0].alt" class="img-fluid">
+                        <img [src]="getOeuvreImageUrl(oeuvre.id)" [alt]="oeuvre.nom" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-lg-6 rtl-text">
                     <div class="product-right">
-                        <h2>{{ product.title | titlecase }}</h2>
-                        <h3>{{ product.price * currency?.price | discount:product | currency:currency?.currency:'symbol' }}
-                            <del *ngIf="product?.discount"><span class="money">{{ product.price * currency?.price | currency:currency?.currency:'symbol' }}</span></del>
+                        <h2>{{ oeuvre.nom | titlecase }}</h2>
+                        <h3>{{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100  }} FCFA
+                            <!--del *ngIf="oeuvre?.discount"><span class="money">{{ oeuvre.prix * currency?.price | currency:currency?.currency:'symbol' }}</span></del-->
+                            <del *ngIf="oeuvre?.tauxremise"><span class="money"> {{ oeuvre?.prix }} FCFA</span></del>
                         </h3>
-                    
                         <div class="border-product">
                             <h6 class="product-title">Détails oeuvre</h6>
-                            <p>{{ product.description.substring(0, 200)+'...' }}</p>
+                            <p>{{ oeuvre.description.substring(0, 200)+'...' }}</p>
                         </div>
                         <div class="product-description border-product">
                             <!-- <div class="size-box" *ngIf="Size(product.variants).length">
@@ -29,8 +29,8 @@
                                     </li>
                                 </ul>
                             </div> -->
-                            <h5 class="avalibility" *ngIf="counter <= product.stock"><span>En stock</span></h5>
-                            <h5 class="avalibility" *ngIf="counter > product.stock"><span>Rupture de stock</span></h5>
+                            <h5 class="avalibility" *ngIf="counter <= oeuvre.stock"><span>En stock</span></h5>
+                            <h5 class="avalibility" *ngIf="counter > oeuvre.stock"><span>Rupture de stock</span></h5>
                             <h6 class="product-title">quantité</h6>
                             <div class="qty-box">
                                 <div class="input-group">
@@ -49,8 +49,8 @@
                             </div>
                         </div>
                         <div class="product-buttons">
-                            <a href="javascript:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="addToCart(product)">Au panier</a>
-                            <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]" class="btn btn-solid">Détails</a>
+                            <a href="javascript:void(0)" class="btn btn-solid" [class.disabled]="counter > oeuvre.stock" (click)="addToCart(oeuvre)">Au panier</a>
+                            <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]" class="btn btn-solid">Détails</a>
                         </div>
                     </div>
                 </div>

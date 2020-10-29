@@ -1,0 +1,180 @@
+<div class="main-content marge">
+		<div class="container-fluid">
+			<div class="card">
+				<div class="card-body">
+						<div *ngIf="isAuthenticated === false" 
+						style="
+						  vertical-align: middle;
+						  text-align: center;
+						  color: #129DD8;
+						  border-style: none;
+						  margin: 0;
+						  position: absolute;
+						  top: 50%;
+						  left: 50%;
+						  margin-right: -50%;
+						  transform: translate(-50%, -50%);">
+						  <img height="100%" width="100%" src="/assets/loader.svg" alt="Aviabird Technology" />
+					</div>
+						<div class="address-section">
+							<div *ngIf="listAdressesLength !== 0">
+								<div class="row">
+									<div class="col-md-9 ml-auto mr-auto">
+										<!--
+											// Collapsed tabs options -->
+												<div id="accordion">
+															<div class="card">
+															  <div class="card-header" style="background-color: #f07c10" id="headingOne">
+																<div class="row mb-0">
+																	<div class="col-md-6 mr-auto">
+																			<button class="btn btn-link " data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+																				<strong class="text-white"><i class="material-icons">account_box</i> INFORMATIONS PERSONNELLES</strong>
+																			</button>
+																	</div>
+																    <!--<div class= "col-md-2 ml-auto"><button class="btn btn-sm editer text-white border border-dark"><strong>CHANGER</strong></button></div>-->
+																  
+																</div>
+															  </div>
+														  
+															  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+																<div class="card-body">
+																	<div>Prenom : <label >{{prenom}}</label></div>
+																	<div>Nom : <label >{{nom}}</label></div>
+																	<div>Email : <label >{{mail}}</label></div>
+																</div>
+															  </div>
+															</div>
+															<div class="card">
+															  <div class="card-header " style="background-color: #f07c10" id="headingTwo">
+																<div class=" row mb-0">
+																	<div class="col-md-6 mr-auto">
+																		<button class="btn btn-link  collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+																				<strong class="text-white"><i class="material-icons">local_post_office</i> ADRESSE</strong>
+																		</button>
+																	</div>
+																	<!--<div class= "col-md-2 ml-auto"><button class="btn btn-sm editer text-white border border-dark"><strong>CHANGER</strong></button></div>-->
+																   
+																</div>
+															  </div>
+															  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+																<div class="card-body">
+																		<div *ngIf="(shipAddress$ | async) === null">
+																				<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+																					<div class="form-group">
+																						<label for="monadresse" class="bmd-label-floating">Selectionner une Adresse</label>
+																						<select class="form-control" id="monadresse" name="monadresse" ngModel required>
+																							<option value="">Choisissez une adresse ici !</option>
+																							<option *ngFor="let a of listAdresses; let index = index" [value]="index">{{a.adresse}}</option>
+																						</select>
+																					</div>
+																					<div class="col-3 mr-auto"><button class="btn btn-md" type="submit" [disabled]="f.invalid">Enregistrer</button></div>
+																					<div *ngIf="f.invalid">
+																						<span class="text-danger">Selectionez une adresse !</span>
+																						<!-- <p class="login-error-message text-danger">{{signInForm.get('email').errors.msg || 'Please enter a valid email id'}}</p>  -->
+																					</div>
+																				</form>
+																		</div>
+																		<div *ngIf="(shipAddress$ | async) !== null">
+																			<app-delivery-address [address]="(shipAddress$ | async)"></app-delivery-address>
+																		</div>
+																</div>
+															  </div>
+															</div>
+															<div class="card">
+															  <div class="card-header" style="background-color: #f07c10" id="headingThree">
+																<div class="row mb-0">
+																   <div class="col-md-6 mr-auto">
+																        <button class="btn btn-link  collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+																				<strong class="text-white"><i class="material-icons">local_shipping</i> OPTION DE LIVRAISON</strong>
+																        </button>
+																  </div>
+																  <!--<div class= "col-md-2 ml-auto"><button class="btn btn-sm editer text-white border border-dark"><strong>CHANGER</strong></button></div>-->
+																</div>
+															  </div>
+															  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+																<div class="card-body">
+																		<app-delivery-options [orderNumber]="orderNumber$ | async"></app-delivery-options>
+																</div>
+															  </div>
+															</div>
+											    </div>
+											<!--<div class="card">
+													<div class="card-header card-header-tabs"  style="background-color: #f07c10">
+														<div class="nav-tabs-navigation">
+															<div class="nav-tabs-wrapper">
+																<span class="nav-tabs-title"><b>Etapes :</b></span>
+																<ul class="nav nav-tabs" data-tabs="tabs">
+																	<li class="nav-item active">
+																		<a href="#profile" class="nav-link" data-toggle="tab">
+																			<i class="material-icons">account_box</i> Informations
+																			<div class="ripple-container"></div>
+																		</a>
+																	</li>
+																	<li class="nav-item">
+																		<a href="#messages" class="nav-link" data-toggle="tab">
+																			<i class="material-icons">local_post_office</i> Adresses
+																			<div class="ripple-container"></div>
+																		</a>
+																	</li>
+																	<li class="nav-item">
+																		<a href="#settings" class="nav-link" data-toggle="tab">
+																			<i class="material-icons">local_shipping</i> Mode Livraison
+																			<div class="ripple-container"></div>
+																		</a>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</div>
+													<div class="card-body">
+														<div class="tab-content">
+															<div class="tab-pane active" id="profile">
+																<div>Prenom : <label >{{prenom}}</label></div>
+																<div>Nom : <label >{{nom}}</label></div>
+																<div>Email : <label >{{mail}}</label></div>
+															</div>
+															<div class="tab-pane" id="messages">
+																<div *ngIf="(shipAddress$ | async) === null">
+																		<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+																			<div class="form-group">
+																				<label for="monadresse" class="bmd-label-floating">Selectionner une Adresse</label>
+																				<select class="form-control" id="monadresse" name="monadresse" ngModel required>
+																					<option value="">Choisissez une adresse ici</option>
+																					<option *ngFor="let a of listAdresses; let index = index" [value]="index">{{a.adresse}}</option>
+																				</select>
+																			</div>
+																			<div class="col-3 mr-auto"><button class="btn btn-md" type="submit" [disabled]="f.invalid">Enregistrer</button></div>
+																		</form>
+																</div>
+																<div *ngIf="(shipAddress$ | async) !== null">
+																	<app-delivery-address [address]="(shipAddress$ | async)"></app-delivery-address>
+																</div>
+															</div>
+															<div class="tab-pane" id="settings">
+																<app-delivery-options [orderNumber]="orderNumber$ | async"></app-delivery-options>
+															</div>
+														</div>
+													</div>
+												</div>-->
+												
+												<div (click)="checkoutToPayment()" class="btn" style="background-color: rgba(207, 218, 218, 0.87);color:#f07c10"><i class="material-icons">input</i> <b> REGLER MA COMMANDE</b></div>									
+								    </div>
+								</div>
+								
+								
+							</div>
+							<div *ngIf="listAdressesLength === 0">
+									<app-add-address></app-add-address>
+									<!-- <div class="add-address">
+										(shipAddress$ | async) === null 
+										<span class="add-label">
+											AJOUT NOUVELLE ADRESSE
+										</span>
+									</div> -->
+							</div>
+						</div>
+					
+				</div>
+			</div>
+		</div>
+</div>
