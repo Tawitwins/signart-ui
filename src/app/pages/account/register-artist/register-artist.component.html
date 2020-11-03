@@ -5,62 +5,189 @@
         <div class="row">
             <div class="col-lg-12">
                 <h3>créer un compte artiste</h3>
+                <p class="text-large">
+                    Vous souhaitez vous référencer sur <strong>SignArt</strong> ? Nous serions heureux de prendre connaissance de votre travail !
+      
+                  <a style="color: #f07c10;text-decoration:underline" [routerLink]="['/critere']">Vous pouvez consulter les conditions que nous proposons aux artistes dans la rubrique  correspondante</a>.
+                            
+                            Pour nous adresser votre candidature, merci de remplir le petit formulaire ci-aprés. Notre Comité de sélection en prendra connaissance et nous vous reviendrons.
+                        </p>
+                        <p>      
+                            Merci pour votre intérêt pour SignArt, et à bientôt !
+                        </p>    
+                        <p>
+                         SignArt !
+                        </p>  
                 <div class="theme-card">
-                    <form class="theme-form">
+                    <form [formGroup]="infoArtisteForm" class="theme-form">
                         <div class="form-row">
                             <div class="col-md-6">
                                 <label for="email">Prénom(s)</label>
-                                <input type="text" class="form-control" id="fname" placeholder="Prénom" required="">
+                                <input type="text" class="form-control" id="fname" placeholder="Prénom" formControlName="prenom" [value]="form1Value.prenom">
                             </div>
                             <div class="col-md-6">
                                 <label for="review">Nom</label>
-                                <input type="password" class="form-control" id="lname" placeholder="Nom" required="">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                <label for="review">Nom</label>
-                                <select name="country" class="form-control">
-                                    <option value="selected">Selectionner un pays</option>
-                                    <option value="India">Sénégal</option>
-                                    <option value="USA">Guinée Bissau</option>
-                                    <option value="Australia">Mali</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                <label for="review">Sexe</label>
-                                <select name="country" class="form-control">
-                                    <option value="selected">Selectionner le sexe</option>
-                                    <option value="USA">Homme</option>
-                                    <option value="Australia">Femme</option>
-                                </select>
+                                <input type="text" class="form-control" id="lname" placeholder="Nom" formControlName="nom" [value]="form1Value.nom">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
                                 <label for="email">email</label>
-                                <input type="text" class="form-control" id="email" placeholder="Email" required="">
+                                <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email" [value]="form1Value.email">
                             </div>
                             <div class="col-md-6">
                                 <label for="review">Téléphone</label>
-                                <input type="text" class="form-control" id="review" placeholder="+221 77 000 00 00" required="">
+                                <input type="text" class="form-control" id="review" placeholder="+221 77 000 00 00"  formControlName="telephone" [value]="form1Value.telephone">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <label for="review">Genre</label>
+                                <select name="genre" class="form-control" formControlName="genre" [value]="form1Value.genre">
+                                    <option value="H">Homme</option>
+                                    <option value="F">Femme</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <label for="review">Pays</label>
+                                <select name="pays" class="form-control" formControlName="codePays" [value]="form1Value.codePays">
+                                    <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>
+                                    <!-- <option value="selected">Selectionner un pays</option>
+                                    <option value="sn">Sénégal</option>
+                                    <option value="USA">Guinée Bissau</option>
+                                    <option value="Australia">Mali</option> -->
+                                </select>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
+                                <label for="email">Nom galerie</label>
+                                <input type="text" class="form-control" id="fname" placeholder="Art futuriste" formControlName="nomGalerie" [value]="form1Value.nomGalerie">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="review">Adresse galerie</label>
+                                <input type="text" class="form-control" id="lname" placeholder="Yoff, apecsy 2" formControlName="adresseGalerie" [value]="form1Value.adresseGalerie">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="email">Site web</label>
+                                <input type="text" class="form-control" id="fname" placeholder="wwww.art.domain.sn" formControlName="siteWeb" [value]="form1Value.siteWeb">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="review">Ville</label>
+                                <input type="text" class="form-control" id="lname" placeholder="Ville"  formControlName="ville" [value]="form1Value.ville">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="email">Formations</label>
+                                <input type="text" class="form-control" id="fname" placeholder="Formations" formControlName="formation" [value]="form1Value.formation">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="review">Expositions</label>
+                                <input type="text" class="form-control" id="lname" placeholder="Expositions" formControlName="exposition" [value]="form1Value.exposition">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <!-- <div class="col-md-6">
                                 <label for="review">Password</label>
                                 <input type="password" class="form-control" id="review" placeholder="Enter your password" required="">
+                            </div> -->
+                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <label for="review">Spécialités</label>
+                                <select name="genre" class="form-control" formControlName="specialite" [value]="form1Value.specialite">
+                                    <option *ngFor="let technique of techniques" [value]="technique.libelle">{{technique.libelle}}</option>
+                                </select>
                             </div>
                             <div class="col-md-6">
 
                             </div>
-                            <button class="btn btn-solid">Valider</button>
-
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+        <strong><p style="margin-top: 30px;"> NB: La souscription de deux oeuvres est necessaire pour un compte artiste. Veuillez renseigner les champs suivants pour chaque oeuvre.</p></strong>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Oeuvre n°1</h3>
+                <div class="theme-card">
+                    <form [formGroup]="oeuvre1Form" class="theme-form">
+                        <!-- <strong><p>Deuxième oeuvre à Uploader</p></strong> -->
+                        <label>Image : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <input type="file" (change)="onFileSelected($event,1)">  
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="Titre">Titre</label>
+                                <input type="text" class="form-control" id="fname" placeholder="Titre" formControlName="nom" [value]="form2Value.nom">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="review">Auteur</label>
+                                <input type="text" class="form-control" id="lname" placeholder="Auteur" formControlName="auteur" [value]="form2Value.auteur" >
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-10 col-sm-10 col-xs-12">
+                                <label for="review">Technique</label>
+                                <select name="Technique" class="form-control" formControlName="idTechnique" [value]="form2Value.idTechnique">
+                                    <option *ngFor="let technique of techniques" [value]="technique.id">{{technique.libelle}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="annee">Année</label>
+                                <input type="number" class="form-control" id="email" placeholder="Annee" formControlName="annee" [value]="form2Value.annee">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="review">Dimensions</label>
+                                <input type="text" class="form-control" id="review" placeholder="50x60x1cm (Lxlxh)" formControlName="dimensions" [value]="form2Value.dimensions">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3>Oeuvre n°2</h3>
+                <div class="theme-card">
+                    <form [formGroup]="oeuvre2Form" class="theme-form">
+                        <!-- <strong><p>Deuxième oeuvre à Uploader</p></strong> -->
+                        <label>Image : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <input type="file" (change)="onFileSelected($event,2)">  
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="Titre">Titre</label>
+                                <input type="text" class="form-control" id="fname" placeholder="Titre" formControlName="nom" [value]="form3Value.nom">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="review">Auteur</label>
+                                <input type="text" class="form-control" id="lname" placeholder="Auteur" formControlName="auteur" [value]="form3Value.auteur" >
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-10 col-sm-10 col-xs-12">
+                                <label for="review">Technique</label>
+                                <select name="Technique" class="form-control" formControlName="idTechnique" [value]="form3Value.idTechnique">
+                                    <option *ngFor="let technique of techniques" [value]="technique.id">{{technique.libelle}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="annee">Année</label>
+                                <input type="number" class="form-control" id="email" placeholder="Annee" formControlName="annee" [value]="form3Value.annee">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="review">Dimensions</label>
+                                <input type="text" class="form-control" id="review" placeholder="50x60x1cm (Lxlxh)" formControlName="dimensions" [value]="form3Value.dimensions">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-solid"  (click)="onSubmit();" >Valider</button>
     </div>
 </section>
 <!--Section ends-->

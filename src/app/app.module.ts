@@ -39,12 +39,12 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
-import { environment } from 'src/environments/environment';
 import { reducers, logger} from './app.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { VisiteurService } from './shared/services/visiteur.service';
 import { ArticleService } from './shared/services/article.service';
+import { environment } from '../environments/environment';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -170,6 +170,9 @@ export function tokenGetter() {
     FileService,
     AngularFirestore,
     ArticleService,
+    ArtisteService,
+    OeuvreService,
+    PaysService,
     
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
