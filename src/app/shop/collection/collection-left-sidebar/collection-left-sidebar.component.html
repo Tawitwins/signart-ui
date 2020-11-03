@@ -36,7 +36,7 @@
                         <!-- side-bar banner end here -->
                     </div>
                 </div>
-                <div class="collection-content col">
+                <div class="collection-content col" *ngIf="!loader">
                     <div class="page-main-content">
                         <div class="row">
                             <div class="col-sm-12">
@@ -78,7 +78,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <div class="collection-product-wrapper" id="oeuvres">
+                                <div class="collection-product-wrapper" id="products">
                                     <!--app-grid [products]="products" [paginate]="paginate" [layoutView]="layoutView" [sortBy]="sortBy" (setGrid)="updateGridLayout($event)" (setLayout)="updateLayoutView($event)" (sortedBy)="sortByFilter($event)">
                                     </app-grid-->
                                     <app-grid [oeuvres]="oeuvres" [paginate]="paginate" [layoutView]="layoutView" [sortBy]="sortBy" (setGrid)="updateGridLayout($event)" (setLayout)="updateLayoutView($event)" (sortedBy)="sortByFilter($event)">

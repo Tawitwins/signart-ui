@@ -1,7 +1,7 @@
 <app-breadcrumb [title]="oeuvre?.nom" [breadcrumb]="'Oeuvre'"></app-breadcrumb>
 <!-- section start -->
 <section class="section-b-space">
-  <div class="collection-wrapper">
+  <div class="collection-wrapper" >
     <div class="container">
       <div class="row">
         <div class="col-sm-3">
@@ -23,7 +23,7 @@
                 </app-product-box-vertical-slider> -->
           </div>
         </div>
-        <div class="col-lg-9 col-sm-12 col-xs-12">
+        <div class="col-lg-9 col-sm-12 col-xs-12" *ngIf="!loader">
           <div class="container-fluid">
             <div class="row">
               <div class="col-xl-12">
@@ -36,47 +36,47 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <!--owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar  class="product-slick">
-                    <ng-container *ngFor="let image of product?.images; index as i">
+                <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar  class="product-slick">
+                    <ng-container *ngFor="let nb of nbimages; index as i">
                         <ng-template carouselSlide [id]="i">
                             <div>
-                              <img [defaultImage]="'assets/images/product/placeholder.jpg'" 
-                                   [lazyLoad]="image.src" 
-                                   [alt]="image.alt" class="img-fluid">
+                              <img [defaultImage]="getOeuvreImageUrl(oeuvre?.id)" 
+                                   [lazyLoad]="getOeuvreImageUrl(oeuvre?.id)" 
+                                   [alt]="getOeuvreImageUrl(oeuvre?.id)" class="img-fluid">
                             </div>
                         </ng-template>
                     </ng-container>
-                </owl-carousel-o-->
-                <!--div class="col-12 p-0" *ngIf="product?.images.length > 1">
+                </owl-carousel-o>
+                <div class="col-12 p-0">
                     <div class="slider-nav">
                         <owl-carousel-o [options]="ProductDetailsThumbConfig" class="product-slick">
-                            <ng-container *ngFor="let image of product?.images; index as i">
+                            <ng-container *ngFor="let nb of nbimages; index as i">
                                 <ng-template carouselSlide [id]="i">
                                     <div class="owl-thumb" [class.active]="i == activeSlide">
-                                      <img [defaultImage]="'assets/images/product/placeholder.jpg'" 
-                                           [lazyLoad]="image.src" 
-                                           [alt]="image.alt" class="img-fluid" 
+                                      <img [defaultImage]="getOeuvreImageUrl(oeuvre?.id)" 
+                                           [lazyLoad]="getOeuvreImageUrl(oeuvre?.id)" 
+                                           [alt]="getOeuvreImageUrl(oeuvre?.id)" class="img-fluid" 
                                            (click)="owlCar.to(activeSlide = i.toString())">
                                     </div>
                                 </ng-template>
                             </ng-container>
                         </owl-carousel-o>
                     </div>
-                </div-->
+                </div>
               </div>
               <div class="col-lg-6 rtl-text">
                 <div class="product-right">
                   <h2>{{ oeuvre?.nom }}</h2>
                   <h4>
-                      <del *ngIf="oeuvre?.tauxremise">{{ oeuvre?.prix * productService.Currency?.price | currency: productService.Currency?.currency:'symbol' }}</del>
-                      <span>{{ oeuvre?.tauxremise }}% Offre Promotionnelle</span>
+                      <del *ngIf="oeuvre?.tauxremise">{{ oeuvre?.prix }} FCFA</del>
+                      <span *ngIf="oeuvre?.tauxremise">{{ oeuvre?.tauxremise }}% Offre Promotionnelle</span>
                   </h4>
                   <h3>
-                      {{ oeuvre?.prix * productService.Currency?.price | currency: productService.Currency?.currency:'symbol' }}
+                    {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100  }} FCFA
                   </h3>
                   <div class="product-description border-product">
                     <h6 class="product-title size-text">
-                        Artiste: {{oeuvre?.idArtiste}}
+                        Artiste: {{name}}
                     </h6>
                     <h5 class="avalibility" *ngIf="counter <= oeuvre?.stock"><span>En Stock</span></h5>
                     <h5 class="avalibility" *ngIf="counter > oeuvre?.stock"><span>Rupture</span></h5>
@@ -103,7 +103,7 @@
                   </div>
                   <div class="border-product">
                     <h6 class="product-title">Détails Article</h6>
-                    <p>{{ oeuvre?.description.substring(0, 200)+'...' }}</p>
+                    <p>{{ oeuvre?.description?.substring(0, 200)+'...' }}</p>
                   </div>
                   <div class="border-product">
                     <h6 class="product-title">Partager</h6>

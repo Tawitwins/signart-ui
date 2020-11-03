@@ -9,11 +9,11 @@ import { Subscription } from 'rxjs';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { CheckoutService } from '../../../../shared/services/checkout.service';
 import { getAuthStatus } from '../../../../auth/reducers/selectors';
-import { OeuvreService } from 'app/shared/services/oeuvre.service';
-import { User } from 'app/shared/modeles/user';
-import { Client } from 'app/shared/modeles/client';
-import { AuthServiceS } from 'app/shared/services/auth.service';
-import { LocalStorage } from '@ngx-pwa/local-storage';
+import { User } from 'firebase';
+import { Client } from 'src/app/shared/modeles/client';
+import { AuthServiceS } from 'src/app/shared/services/auth.service';
+import { OeuvreService } from 'src/app/shared/services/oeuvre.service';
+
 declare var $: any;
 @Component({
   selector: 'app-order-total-summary',

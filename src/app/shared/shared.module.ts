@@ -70,7 +70,7 @@ import { FavoriteActions } from '../wishlist/actions/favorite.actions';
     AgeVerificationComponent,
     SkeletonProductBoxComponent,
     TapToTopComponent,
-    DiscountPipe
+    DiscountPipe,
   ],
   imports: [
     CommonModule,
@@ -116,7 +116,8 @@ import { FavoriteActions } from '../wishlist/actions/favorite.actions';
     AgeVerificationComponent,
     SkeletonProductBoxComponent,
     TapToTopComponent,
-    DiscountPipe
+    DiscountPipe,
+    
   ],
   providers: [FavoriteActions]
 })

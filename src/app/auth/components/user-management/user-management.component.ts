@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserManagementActions } from 'app/shared/services/enums.enum';
 import { takeUntil } from 'rxjs/operators';
-import { AuthServiceS } from 'app/shared/services/auth.service';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { AuthServiceS } from 'src/app/shared/services/auth.service';
+import { UserManagementActions } from '../../../shared/services/enums.enum';
 declare var $: any;
 @Component({
   selector: 'app-user-management',

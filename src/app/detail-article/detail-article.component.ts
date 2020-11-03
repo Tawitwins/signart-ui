@@ -9,11 +9,12 @@ import { CheckoutActions } from '../checkout/actions/checkout.actions';
 import { Oeuvre } from '../shared/modeles/oeuvre';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
-import { CheckoutService } from 'app/shared/services/checkout.service';
-import { Panier } from 'app/shared/modeles/panier';
-import { getLineItems } from 'app/checkout/reducers/selectors';
-import { ImageDto } from 'app/shared/modeles/image';
-import { AuthServiceS } from 'app/shared/services/auth.service';
+import { getLineItems } from '../checkout/reducers/selectors';
+import { ImageDto } from '../shared/modeles/image';
+import { Panier } from '../shared/modeles/panier';
+import { AuthServiceS } from '../shared/services/auth.service';
+import { CheckoutService } from '../shared/services/checkout.service';
+
 
 
 declare var $: any;

@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Image } from 'app/shared/modeles/image';
-import { ArtisteService } from 'app/shared/services/artiste.service';
-import { Artiste } from 'app/shared/modeles/artiste';
+import { Artiste } from '../modeles/artiste';
+import { ArtisteService } from '../services/artiste.service';
+//import { ArtisteService } from '../shared/services/artiste.service';
+//import { Artiste } from '../shared/modeles/artiste';
 
 @Pipe({
   name: 'oeuvreArtistePipe'

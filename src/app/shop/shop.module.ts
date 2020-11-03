@@ -49,6 +49,7 @@ import { SuccessComponent } from './checkout/success/success.component';
     WishlistComponent,
     CheckoutComponent,
     SuccessComponent,
+    
 
   ],
   imports: [
