@@ -6,10 +6,11 @@ import { Observable } from 'rxjs';
 import { Component, OnInit, Input } from '@angular/core';
 import { LignePanier } from '../../../../shared/modeles/ligne_panier';
 import { CheckoutState } from '../../../reducers/checkout.state';
-import { CheckoutService } from 'app/shared/services/checkout.service';
-import { AuthServiceS } from 'app/shared/services/auth.service';
-import { Panier } from 'app/shared/modeles/panier';
-import { Oeuvre } from 'app/shared/modeles/oeuvre';
+import { CheckoutService } from 'src/app/shared/services/checkout.service';
+import { AuthServiceS } from 'src/app/shared/services/auth.service';
+import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
+import { Panier } from 'src/app/shared/modeles/panier';
+
 
 @Component({
   selector: 'app-line-item-list',

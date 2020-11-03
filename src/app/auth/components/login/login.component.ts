@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { environment } from 'environments/environment';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../interfaces';
@@ -7,13 +6,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { getAuthStatus } from '../../reducers/selectors';
 import { Subscription, from } from 'rxjs';
 import { AuthServiceS } from '../../../shared/services/auth.service';
+import { environment } from 'src/environments/environment';
+import { User } from 'src/app/shared/modeles/user';
+import { AuthActions } from '../../actions/auth.actions';
+import { OeuvreService } from 'src/app/shared/services/oeuvre.service';
 //import { AuthService } from 'angularx-social-login';
 //import { SocialUser } from 'angularx-social-login';
 //import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
-import { User } from 'app/shared/modeles/user';
-import { AuthActions } from 'app/auth/actions/auth.actions';
-import {MatCardModule} from '@angular/material/card';
-import { OeuvreService } from 'app/shared/services/oeuvre.service';
+
 //import firebase from 'firebase';
 //import * as firebase from 'firebase';
 declare var $: any;

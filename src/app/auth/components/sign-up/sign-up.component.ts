@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { environment } from 'environments/environment';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../interfaces';
 import { Router } from '@angular/router';
@@ -10,8 +9,10 @@ import { AuthServiceS } from '../../../shared/services/auth.service';
 import { PaysService } from '../../../shared/services/pays.service';
 import { Pays } from '../../../shared/modeles/pays';
 import { getOrderState } from '../../../checkout/reducers/selectors';
-import { OeuvreService } from 'app/shared/services/oeuvre.service';
-import { User } from 'app/shared/modeles/user';
+import { environment } from 'src/environments/environment';
+import { User } from 'firebase';
+import { OeuvreService } from 'src/app/shared/services/oeuvre.service';
+
 declare var $: any;
 @Component({
   selector: 'app-sign-up',

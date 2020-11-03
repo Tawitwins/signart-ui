@@ -4,15 +4,13 @@ import { throwError, Observable } from 'rxjs';
 import { retry, catchError} from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { getTotalCartValue, getShippingOptionPrice, getOrderId } from 'app/checkout/reducers/selectors';
-import { PaymentMode } from 'app/shared/modeles/payment_mode';
-import { CheckoutService } from 'app/shared/services/checkout.service';
+
 import { Store } from '@ngrx/store';
-import { AppState } from 'app/interfaces';
-import { CheckoutActions } from 'app/checkout/actions/checkout.actions';
-import { AuthServiceS } from 'app/shared/services/auth.service';
-import { AuthActions } from 'app/auth/actions/auth.actions';
+
 import Swal from 'sweetalert2';
+import { PaymentMode } from '../../../../shared/modeles/payment_mode';
+import { getOrderId, getShippingOptionPrice } from '../../../reducers/selectors';
+import { AppState } from '../../../../interfaces';
 
 @Component({
   selector: 'app-paydunya',

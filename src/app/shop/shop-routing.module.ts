@@ -15,9 +15,9 @@ const routes: Routes = [
   {
     path: 'product/left/sidebar/:id',
     component: ProductLeftSidebarComponent,
-    resolve: {
+    /*resolve: {
       data: Resolver
-    }
+    }*/
   },
   
   {

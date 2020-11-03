@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'environments/environment';
 import { getTotalWishlistItems} from './reducers/selectors';
 import { getAllWishlist } from './reducers/selectors';
 import { ArticleActions } from '../detail-article/actions/article-actions';
@@ -11,9 +10,11 @@ import { ArticleService } from '../shared/services/article.service';
 import { WishItem } from '../shared/modeles/wish_item';
 import {Client} from '../shared/modeles/client';
 import {User} from '../shared/modeles/user';
+import { environment } from 'src/environments/environment';
+import { AuthServiceS } from '../shared/services/auth.service';
+import { OeuvreService } from '../shared/services/oeuvre.service';
 //import { AuthService } from 'angularx-social-login';
-import { OeuvreService } from 'app/shared/services/oeuvre.service';
-import { AuthServiceS } from 'app/shared/services/auth.service';
+
 
 @Component({
   selector: 'app-wishlist',

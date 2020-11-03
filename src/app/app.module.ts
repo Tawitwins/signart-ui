@@ -45,6 +45,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { VisiteurService } from './shared/services/visiteur.service';
 import { ArticleService } from './shared/services/article.service';
+import { AuthActions } from './auth/actions/auth.actions';
+
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -73,6 +75,8 @@ export function tokenGetter() {
     ShopComponent,
     PagesComponent,
     ElementsComponent,
+    
+    
    
 
   ],
@@ -90,8 +94,7 @@ export function tokenGetter() {
     MatSelectModule,      
     MatOptionModule,      
     MatSlideToggleModule,
-    NgbModule
-    
+    NgbModule,
   ],
   imports: [
     MatButtonModule,      
@@ -170,6 +173,7 @@ export function tokenGetter() {
     FileService,
     AngularFirestore,
     ArticleService,
+    AuthActions
     
   ],
   schemas: [ NO_ERRORS_SCHEMA ],

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthServiceS } from 'app/shared/services/auth.service';
+import { AuthServiceS } from 'src/app/shared/services/auth.service';
+import { SocialAthService } from 'src/app/shared/services/social-ath.service';
 //import { SocialUser, AuthService, GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
-import { SocialAthService } from 'app/shared/services/social-ath.service';
-import { User } from 'app/shared/modeles/user';
+
 
 @Component({
   selector: 'app-social-auth',

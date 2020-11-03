@@ -26,7 +26,7 @@ export class Resolver implements Resolve<Product> {
 
   // Resolver
   async resolve(route: ActivatedRouteSnapshot): Promise<any> {
-    await new Promise(resolve => setTimeout(resolve, 2000));   
+    await new Promise(resolve => setTimeout(resolve, 3000));   
    /* this.productService.getProductBySlug(route.params.slug).subscribe(product => {
       if(!product) { // When product is empty redirect 404
           this.router.navigateByUrl('/pages/404', {skipLocationChange: true});

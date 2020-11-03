@@ -8,15 +8,13 @@ import { Subscription ,  Observable } from 'rxjs';
 import { Address } from '../../shared/modeles/address';
 import { CheckoutService } from '../../shared/services/checkout.service';
 import { getAuthStatus } from '../../auth/reducers/selectors';
-import { User } from 'app/shared/modeles/user';
-import { OeuvreService } from 'app/shared/services/oeuvre.service';
-import { AuthServiceS } from 'app/shared/services/auth.service';
-import { Client } from 'app/shared/modeles/client';
-import { ModeLivraison } from 'app/shared/modeles/mode_livraison';
-import { async } from '@angular/core/testing';
-import { Commande } from 'app/shared/modeles/commande';
+
 import { NgForm } from '@angular/forms';
 import { CheckoutActions } from '../actions/checkout.actions';
+import { ModeLivraison } from '../../shared/modeles/mode_livraison';
+import { Commande } from '../../shared/modeles/commande';
+import { AuthServiceS } from '../../shared/services/auth.service';
+import { OeuvreService } from '../../shared/services/oeuvre.service';
 declare var $:any;
 @Component({
   selector: 'app-address',

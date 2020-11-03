@@ -37,7 +37,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
       // Get Query params..
       this.articleService.getAllArticles().subscribe(response => { 
         this.oeuvres = response;
-        console.log("oeuvres", this.oeuvres)
+      //  console.log("oeuvres", this.oeuvres)
               });
               
       this.route.queryParams.subscribe(params => {
@@ -71,7 +71,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
            // get current page of items
         });*/
 
-       // this.productService.filterOeuvre(this.tags).subscribe(response => {         
+        this.productService.filterOeuvre(this.tags).subscribe(response => {         
           
           this.oeuvres = this.productService.sortOeuvres(this.oeuvres, this.sortBy);
           // Category Filter
@@ -82,7 +82,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
           this.paginate = this.productService.getPager(this.oeuvres.length, +this.pageNo); 
           this.oeuvres = this.oeuvres.slice(this.paginate.startIndex, this.paginate.endIndex + 1);
           console.log("paginationnnnn", this.paginate)
-       // });
+        });
 
      
 
@@ -97,8 +97,12 @@ export class CollectionLeftSidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.loader) {
+      setTimeout(() => { this.loader = false; }, 2000); // Skeleton Loader
+    }
   }
 
+  
 
   // Append filter value to Url
   updateFilter(tags: any) {
@@ -110,7 +114,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
       skipLocationChange: false  // do trigger navigation
     }).finally(() => {
       this.viewScroller.setOffset([120, 120]);
-      this.viewScroller.scrollToAnchor('oeuvres'); // Anchore Link
+      this.viewScroller.scrollToAnchor('products'); // Anchore Link
     });
   }
 
@@ -123,7 +127,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
       skipLocationChange: false  // do trigger navigation
     }).finally(() => {
       this.viewScroller.setOffset([120, 120]);
-      this.viewScroller.scrollToAnchor('oeuvres'); // Anchore Link
+      this.viewScroller.scrollToAnchor('products'); // Anchore Link
     });
   }
 
@@ -147,7 +151,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
       skipLocationChange: false  // do trigger navigation
     }).finally(() => {
       this.viewScroller.setOffset([120, 120]);
-      this.viewScroller.scrollToAnchor('oeuvres'); // Anchore Link
+      this.viewScroller.scrollToAnchor('products'); // Anchore Link
     });
   }
 
@@ -165,14 +169,15 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
   // product Pagination
   setPage(page: number) {
+    console.log("number page", page)
     this.router.navigate([], { 
       relativeTo: this.route,
       queryParams: { page: page },
       queryParamsHandling: 'merge', // preserve the existing query params in the route
-      skipLocationChange: false  // do trigger navigation
+      skipLocationChange: false,  // do trigger navigation
     }).finally(() => {
       this.viewScroller.setOffset([120, 120]);
-      this.viewScroller.scrollToAnchor('oeuvres'); // Anchore Link
+      this.viewScroller.scrollToAnchor('products'); // Anchore Link
     });
   }
 

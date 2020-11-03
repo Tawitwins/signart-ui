@@ -6,37 +6,96 @@
             <div class="col-lg-12">
                 <h3>Créer un compte</h3>
                 <div class="theme-card">
-                    <form class="theme-form">
+                    <form class="theme-form" novalidate="" [formGroup]="signUpForm" (ngSubmit)="onSubmit(); signUpForm.reset();" class="text-center">
+                        <select class="mdb-select md-form form-control" name="pays" id="pays" formControlName="codePays" required>
+                            <option value="">Choisir votre pays</option>
+                            <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>
+                        </select>
+                        <div *ngIf="signUpForm.get('codePays').errors && signUpForm.get('codePays').touched">
+                          <p class="register-error-message" style="color: red;">Veuillez choisir votre pays !</p>
+                        </div>
+                        <hr>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="email">Prénom(s)</label>
-                                <input type="text" class="form-control" id="fname" placeholder="Prénom(s)" required="">
+                                <input type="text" class="form-control" id="prenom" name="prenom" formControlName="prenom" autocomplete="off" placeholder="Prénom(s)" required="">
+                                <div *ngIf="signUpForm.get('prenom').errors && signUpForm.get('prenom').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez saisir votre prénom !</p>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" formControlName="nom" autocomplete="off" required="">
+                                <div *ngIf="signUpForm.get('nom').errors && signUpForm.get('nom').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez saisir votre nom !</p>
+                                  </div>
+                            </div>
+                            
+                        </div>
+                        <br><br>
+                        <div class="form-row">
+                            <div class="col">
+                                  <div class="md-form">
+                                  <input type="radio" class="register-gender-radio" id="male" name="gender" value="M" formControlName="gender">
+                                  <label class="register-gender-label" for="male">Homme</label>
+                                  </div>
+                            </div>
+                              <div class="col">
+                                  <div class="md-form">
+                                  <input type="radio" class="register-gender-radio" id="female" name="gender" value="F" formControlName="gender">
+                                  <label class="register-gender-label" for="female">Femme</label>
+                                  </div>
+                              </div>
+                              <div *ngIf="signUpForm.get('gender').errors && signUpForm.get('gender').touched">
+                                  <p class="register-gender-error-message register-error-message" style="color: red;">Svp sélectionner votre genre !</p>
+                                </div>
+                            </div>
+                            <br><br>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <input type="number" class="form-control" id="phone" formControlName="mobile" name="mobile" placeholder="00 221 70 000 00 00" required="">
+                                <div *ngIf="signUpForm.get('mobile').errors && signUpForm.get('mobile').touched">
+                                    <p class="register-error-message" style="color: red;">SVP entrer un numéro valide (9 chiffres) !</p>
+                                  </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="review">Nom</label>
-                                <input type="password" class="form-control" id="lname" placeholder="Nom" required="">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" required="" formControlName="email" autocomplete="off">
+                                <div *ngIf="signUpForm.get('email').errors && signUpForm.get('email').touched">
+                                    <p class="register-error-message" style="color: red;">Entrez une adresse mail valide !</p>
+                                  </div>
                             </div>
                         </div>
+                        <br><br>
                         <div class="form-row">
+                            
                             <div class="col-md-6">
-                                <label for="email">Téléphone</label>
-                                <input type="text" class="form-control" id="tel" placeholder="00 221 70 000 00 00" required="">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required="" formControlName="password" autocomplete="off">
+                                <div *ngIf="signUpForm.get('password').errors && signUpForm.get('password').touched">
+                                    <p class="register-error-message" style="color: red;">
+                                      Le mot de passe doit être composé au moins 6 caractères !</p>
+                                </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="email">email</label>
-                                <input type="text" class="form-control" id="email" placeholder="Email" required="">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="review">Mot de passe</label>
-                                <input type="password" class="form-control" id="review" placeholder="Mot de passe" required="">
+                                <input type="password" class="form-control" id="conformation" name="password_confirmation" placeholder="confirmation Mot de passe" required="" formControlName="password_confirmation" autocomplete="off">
+                                <div *ngIf="(signUpForm.get('password_confirmation').errors || signUpForm.hasError('mismatchedPasswords')) && signUpForm.get('password_confirmation').touched">
+                                    <p class="register-error-message" style="color: red;">{{ 'les mots de passe doivent se correspondre'}} !</p>
+                                  </div>
                             </div>
                             
                             
                         </div>
+                        <br><br><hr>
                         <div class="form-row">
-                            <button class="btn btn-solid">Valider</button>
+                            <div class="col-md-6">
+                                <button class="btn btn-solid" type="submit" [disabled]="!signUpForm?.valid">Valider</button>
+                            </div> 
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-solid" style="background: red;" routerLink="/accueil" routerLinkActive="router-link-active" >Anuler</button>
+                            </div> 
                         </div>
+                        
                     </form>
+                    <br><br>
+                    <a class="text-right text-default" routerLink="/auth/login" routerLinkActive="router-link-active" >Vous avez dejà un compte? Se connecter</a>
                 </div>
             </div>
         </div>

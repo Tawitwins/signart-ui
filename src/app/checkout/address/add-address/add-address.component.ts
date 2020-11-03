@@ -1,7 +1,5 @@
 import { getAuthStatus } from '../../../auth/reducers/selectors';
-import { User } from 'app/shared/modeles/user';
-import { AuthServiceS } from 'app/shared/services/auth.service';
-import { OeuvreService } from 'app/shared/services/oeuvre.service';
+
 import { AppState } from '../../../interfaces';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '../../../auth/actions/auth.actions';
@@ -11,9 +9,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CheckoutService } from '../../../shared/services/checkout.service';
 import { PaysService } from '../../../shared/services/pays.service';
 import { Pays } from '../../../shared/modeles/pays';
-import { Client } from 'app/shared/modeles/client';
-import { CheckoutActions } from 'app/checkout/actions/checkout.actions';
+
 import { Router } from '@angular/router';
+import { Client } from 'src/app/shared/modeles/client';
+import { AuthServiceS } from 'src/app/shared/services/auth.service';
+import { OeuvreService } from 'src/app/shared/services/oeuvre.service';
+import { CheckoutActions } from '../../actions/checkout.actions';
 declare var $:any;
 @Component({
   selector: 'app-add-address',

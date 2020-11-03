@@ -9,7 +9,7 @@ import { Product } from '../../../../shared/classes/product';
 })
 export class PaginationComponent implements OnInit {
 
-  @Input() products: Product[] = [];
+  //@Input() products: Product[] = [];
   @Input() oeuvres: Oeuvre[] = [];
   @Input() paginate: any = {};
 

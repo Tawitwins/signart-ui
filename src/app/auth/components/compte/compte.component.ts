@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'environments/environment';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -8,11 +7,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthServiceS } from '../../../shared/services/auth.service';
 import { getAuthStatus } from '../../reducers/selectors';
 import { getOrderState } from '../../../checkout/reducers/selectors';
-import { User } from 'app/shared/modeles/user';
-import { OeuvreService } from 'app/shared/services/oeuvre.service';
-import { CheckoutService } from 'app/shared/services/checkout.service';
-import { Client } from 'app/shared/modeles/client';
+
 import { tap } from 'rxjs/operators';
+import { User } from 'src/app/shared/modeles/user';
+import { Client } from 'src/app/shared/modeles/client';
+import { OeuvreService } from 'src/app/shared/services/oeuvre.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-compte',
