@@ -2,12 +2,12 @@
 <!-- section start -->
 <section class="cart-section section-b-space">
     <div class="container">
-        <div class="col-sm-12 empty-cart-cls text-center" *ngIf="!products.length">
+        <div class="col-sm-12 empty-cart-cls text-center" *ngIf="!oeuvres.length">
         <img src="assets/images/icon-empty-cart.png" class="img-fluid mb-4">
         <h3><strong>Votre panier est vide</strong></h3>
         <h4>ajouter quelque chose :)</h4>
         </div>
-        <div class="row" *ngIf="products.length">
+        <div class="row" *ngIf="oeuvres.length">
         <div class="col-sm-12">
             <table class="table cart-table table-responsive-xs">
                 <thead>
@@ -20,31 +20,31 @@
                         <th scope="col">total</th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let product of products">
+                <tbody *ngFor="let oeuvre of oeuvres">
                     <tr>
                         <td>
-                            <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
-                                <img [src]="product.images[0].src" [alt]="product.images[0].alt">
+                            <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
+                                <img [src]="getOeuvreImageUrl(oeuvre?.id)" [alt]="getOeuvreImageUrl(oeuvre?.id)">
                             </a>
                         </td>
                         <td>
-                            <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">{{ product.title | titlecase }}</a>
+                            <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">{{ oeuvre.nom | titlecase }}</a>
                             <div class="mobile-cart-content row">
                                 <div class="col-xs-3">
                                     <div class="qty-box">
                                         <div class="input-group">
-                                            <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="product.quantity">
+                                            <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="oeuvre.stock">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xs-3">
                                     <h2 class="td-color">
-                                        {{ (product.price | discount:product) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol' }}
+                                        {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100  }} FCFA
                                     </h2>
                                 </div>
                                 <div class="col-xs-3">
                                     <h2 class="td-color">
-                                        <a (click)="removeItem(product)" class="icon">
+                                        <a (click)="removeItem(oeuvre)" class="icon">
                                             <i class="ti-close"></i>
                                         </a>
                                     </h2>
@@ -53,20 +53,20 @@
                         </td>
                         <td>
                             <h2>
-                                {{ (product.price | discount:product) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol' }}
+                                {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100  }} FCFA
                             </h2>
                         </td>
                         <td>
                             <div class="qty-box">
                                 <div class="input-group">
                                     <span class="input-group-prepend">
-                                        <button type="button" class="btn quantity-left-minus" data-type="minus" (click)="decrement(product)">
+                                        <button type="button" class="btn quantity-left-minus" data-type="minus" (click)="decrement(oeuvre)">
                                             <i class="ti-angle-left"></i>
                                         </button>
                                     </span>
-                                    <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="product.quantity">
+                                    <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="oeuvre.stock">
                                     <span class="input-group-prepend">
-                                        <button type="button" class="btn quantity-right-plus"  data-type="plus" (click)="increment(product)">
+                                        <button type="button" class="btn quantity-right-plus"  data-type="plus" (click)="increment(oeuvre)">
                                             <i class="ti-angle-right"></i>
                                         </button>
                                     </span>
@@ -74,13 +74,13 @@
                             </div>
                         </td>
                         <td>
-                            <a href="javascript:void(0)" (click)="removeItem(product)" class="icon">
+                            <a href="javascript:void(0)" (click)="removeItem(oeuvre)" class="icon">
                             <i class="ti-close"></i>
                         </a>
                         </td>
                         <td>
                             <h2 class="td-color">
-                                {{ ((product.price | discount:product) * product.quantity) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol' }}
+                                {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol' }}
                             </h2>
                         </td>
                     </tr>
@@ -98,7 +98,7 @@
             </table>
         </div>
         </div>
-        <div class="row cart-buttons" *ngIf='products.length'>
+        <div class="row cart-buttons" *ngIf='oeuvres.length'>
             <div class="col-6">
                 <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continuer</a>
             </div>

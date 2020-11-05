@@ -17,11 +17,15 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { HttpClient } from '@angular/common/http';
 import { Artiste } from '../modeles/artiste';
 import { Router } from '@angular/router';
+import { CheckoutService } from './checkout.service';
+import { Panier } from '../modeles/panier';
 
 declare var $: any;
 @Injectable()
 export class AuthServiceS {
   public loading = new Subject<{ loading: boolean, hasError: boolean, hasMsg: string }>();
+  public userPanier: Panier;
+  public client: Client;
   /**
    * Creates an instance of AuthService.
    * @param {HttpService} http
@@ -37,7 +41,8 @@ export class AuthServiceS {
     public jwtHelper: JwtHelperService,
     private afAuth: AngularFireAuth,
     private ngZone: NgZone,
-    private router: Router
+    private router: Router,
+    private checkoutService: CheckoutService
   ) {
      this.getAuth();
   }
@@ -80,6 +85,29 @@ export class AuthServiceS {
           // console.log('utilisateur.email' + utilisateur.email);
           this.setTokenInLocalStorage(utilisateur);
           this.store.dispatch(this.actions.loginSuccess());
+
+         /* if(utilisateur.userType === "CLIENT"){
+            //this.client = this.getClientConnected();
+            this.http.get(environment.API_ENDPOINT + `client/user/${utilisateur.id}`).subscribe(response=>{
+              this.client = response;
+              console.log("client auth", this.client)
+              this.checkoutService.getPanierItems(this.client.id).subscribe(res =>{
+                if(res.id != null){
+                  this.userPanier = res;
+                  console.log("panier client auth", this.userPanier)
+                }else{
+                  this.userPanier
+                  console.log("panier client existe pas")
+                }
+                
+              })
+            })
+            
+            
+          }*/
+          
+
+
         } else {
           utilisateur = null;
           token = null;

@@ -17,14 +17,14 @@
                     </div>
                     <div class="block-content">
                         <ul>
-                            <li class="active"><a href="javascript:void(0)">Info Compte</a></li>
-                            <li><a href="javascript:void(0)">Adresse</a></li>
-                            <li><a href="javascript:void(0)">Mes commandes</a></li>
-                            <li><a href="javascript:void(0)">Mes favoris</a></li>
-                            <li><a [routerLink]="['/pages/abonnement']">Mes abonnements</a></li>
-                            <li><a href="javascript:void(0)">Newsletter</a></li>
-                            <li><a href="javascript:void(0)">Mon compte</a></li>
-                            <li><a href="javascript:void(0)">Changer le mot de passe</a></li>
+                            <li class="active"><a href="javascript:void(0)" (click)="infopage = 0">Info Compte</a></li>
+                            <li><a href="javascript:void(0)" (click)="getAdresse()">Adresse</a></li>
+                            <li><a href="javascript:void(0)" (click)="commandesClient()">Mes commandes</a></li>
+                            <li><a href="javascript:void(0)" (click)="favorisClient()">Mes favoris</a></li>
+                            <li><a href="javascript:void(0)" (click)="infopage = 5" style="cursor: pointer;">Mes abonnements</a></li>
+                            <!--li><a href="javascript:void(0)">Newsletter</a></li-->
+                            <!--li><a href="javascript:void(0)">Mon compte</a></li-->
+                            <li><a href="javascript:void(0)" (click)="infopage = 6">Changer le mot de passe</a></li>
                             <li class="last"><a href="javascript:void(0)" (click)="logout()">Déconnexion</a></li>
                         </ul>
                     </div>
@@ -37,10 +37,11 @@
                             <h2>Mon Tableau de bord</h2>
                         </div>
                         <div class="welcome-msg">
-                            <p>Hi, Dan Enriqué !</p>
+                            <p>Bonjour!, {{client.prenom}} {{client.nom}} !</p>
                             <p>À partir de votre tableau de bord Mon compte, vous avez la possibilité d'afficher l'activité récente de votre compte et de mettre à jour les informations de votre compte.</p>
                         </div>
-                        <div class="box-account box-info">
+                        <hr>
+                        <div class="box-account box-info" *ngIf="infopage == 0">
                             <div class="box-head">
                                 <h2>Informations du compte</h2>
                             </div>
@@ -49,52 +50,325 @@
                                     <div class="box">
                                         <div class="box-title">
                                             <h3>Information de contact</h3>
-                                            <a href="javascript:void(0)">Editer</a>
+                                            <a href="javascript:void(0)" (click)="infopage = 1">Editer</a>
                                         </div>
                                         <div class="box-content">
-                                            <h6>Dan Enriqué</h6>
-                                            <h6>gilles@maestrodan.art</h6>
-                                            <h6><a href="javascript:void(0)">Modifier le mot de passe</a></h6>
+                                            <h6>{{client.prenom}} {{client.nom}}</h6>
+                                            <h6>{{user.email}}</h6>
+                                            <h6>{{client.telephone}}</h6>
+                                            <h6>{{client.ville}} / {{client.pays}}</h6>
+                                            <h5>{{user.userType}}</h5>
+                                            <!--h6><a href="javascript:void(0)">Modifier le mot de passe</a></h6-->
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="box">
                                         <div class="box-title">
-                                            <h3>Newsletters</h3>
-                                            <a href="javascript:void(0)">Editer</a>
+                                            <h3>Artistes favoris</h3>
+                                            <a href="javascript:void(0)" (click)="showHideListe(1)" *ngIf = "listeArtiste == 0">Afficher</a>
+                                            <a href="javascript:void(0)" (click)="showHideListe(0)" *ngIf = "listeArtiste == 1">Cacher</a>
                                         </div>
-                                        <div class="box-content">
-                                            <p>
-                                                Vous n'êtes enregistés à aucune newsletter
+                                        <div class="box-content" *ngIf="listeArtiste == 1">
+                                            <p *ngIf="artistes?.length == 0">
+                                                liste vide
                                             </p>
+                                            <div *ngIf="artistes?.length != 0">
+                                                <table class="table cart-table table-responsive-xs">
+                                                    <thead>
+                                                        <tr class="table-head">
+                                                            <th scope="col">Prénom</th>
+                                                            <th scope="col">Nom</th>
+                                                            <th scope="col">Profession</th>
+                                                            <th scope="col">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngFor="let artiste of artistes;let i=index">
+                                                        <tr>
+                                                            <td>
+                                                                <p>
+                                                                    {{artiste?.prenom}}
+                                                                </p>
+                                                            </td>
+                                                            <td>
+                                                                <p>
+                                                                    {{artiste?.nom}}
+                                                                </p>                                         
+                                                            </td>
+                                                            <td>
+                                                                <p>
+                                                                    {{artiste?.profession}}
+                                                                </p>                                         
+                                                            </td>
+                                                            <td>
+                                                                <a href="javascript:void(0)" class="icon">
+                                                                Voir
+                                                            </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div>
-                                <div class="box">
-                                    <div class="box-title">
-                                        <h3>Abonnements</h3>
-                                        <a href="javascript:void(0)">Adress</a>
-                                    </div>
+                          
+                        </div>
+                        <div class="box-account box-info" *ngIf="infopage == 1">
+                            <div class="box-head">
+                                <h2>Modifier votre profil</h2>
+                            </div>
+                            <section class="register-page section-b-space">
+                                <div class="container">
                                     <div class="row">
-                                        <div class="col-sm-6">
-                                            <h6>Liste des abonnements</h6>
-                                            <address>
-                                                Vous n'avez aucun abonnement sur signart<br>
-                                                <a [routerLink]="['/shop/collection/left/sidebar']">S'abonner à une oeuvre</a>
-                                            </address>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <h6>Artistes Favoris</h6>
-                                            <address>
-                                                Vous n'avez pas encore d'artiste favoris.<br>
-                                                <a [routerLink]="['/pages/artiste']">Ajouter un artiste</a>
-                                            </address>
+                                        <div class="col-lg-12">
+                                            <div class="theme-card">
+                                                <form class="theme-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+                                                    <div class="form-row">
+                                                        <div class="col-md-6">
+                                                            <label for="email">Prénom</label>
+                                                            <input type="text" class="form-control" formControlName="prenom" [(ngModel)]="client.prenom" autocomplete="off"required="">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="email">Nom</label>
+                                                            <input type="text" class="form-control" formControlName="nom" [(ngModel)]="client.nom" autocomplete="off" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                            <label for="email">Téléphone</label>
+                                                            <input type="text" class="form-control" formControlName="mobile" [(ngModel)]="client.telephone" autocomplete="off" required="">
+                                                        </div>
+                                                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                            <label for="email">E-mail</label>
+                                                            <input type="email" class="form-control" formControlName="dateNaissance" [(ngModel)]="user.email" readonly  autocomplete="off" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        
+                                                        <button class="btn btn-solid" type="submit">Valider</button>
+                                                        <button class="btn btn-solid gplus"  type="ACTION" (click)="infopage = 0">Annuler</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </section>
+                        </div>
+                        <div class="box-account box-info" *ngIf="infopage == 2">
+                            <div class="box-head">
+                                <h2>Liste des adresses</h2>
+                            </div>
+                            <hr>
+                            <table class="table cart-table table-responsive-xs">
+                                <thead>
+                                    <tr class="table-head">
+                                        <th scope="col">Numéro</th>
+                                        <th scope="col">Adresse</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let adr of adresses;let i=index">
+                                    <tr>
+                                        <td>
+                                            <h4>
+                                                {{i+1}}
+                                            </h4>
+                                        </td>
+                                        <td>
+                                            <h4>
+                                                {{adr.adresse}}, {{adr.ville}} - {{adr.region}} / {{adr.libellePays}}
+                                            </h4>                                         
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0)" (click)="onDeleteAdresseOfUser(adr.id)" class="icon">
+                                            supprimer
+                                        </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                        </div>
+                        <div class="box-account box-info" *ngIf="infopage == 3">
+                            <div class="box-head">
+                                <h2>Mes commandes</h2>
+                            </div>
+                            <hr>
+                            <p *ngIf="commandes.length == 0">Votre liste est vide!</p>
+                            <table class="table cart-table table-responsive-xs" *ngIf="commandes.length > 0">
+                                <thead>
+                                    <tr class="table-head">
+                                        <th scope="col">Numéro de la commande</th>
+                                        <th scope="col">Date de la commande</th>
+                                        <th scope="col">Etat de la commande</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let commande of commandes">
+                                    <tr>
+                                        <td>
+                                            <h4>
+                                                {{commande.numero}}
+                                            </h4>
+                                        </td>
+                                        <td>
+                                            <h4>
+                                                {{commande.dateCreation}}
+                                            </h4>                                         
+                                        </td>
+                                        <td>
+                                            <h4>
+                                                {{commande.libelleEtatCommande}}
+                                            </h4>                                         
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0)" class="icon">
+                                            details
+                                        </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                        </div>
+                        <div class="box-account box-info" *ngIf="infopage == 4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table cart-table table-responsive-xs">
+                                        <thead>
+                                        <tr class="table-head">
+                                            <th scope="col">image</th>
+                                            <th scope="col">Article</th>
+                                            <th scope="col">Prix</th>
+                                            <th scope="col">Disponibilité</th>
+                                            <th scope="col">action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <a [routerLink]="['/shop/product/left/sidebar/trim-dress']">
+                                                        <img src="assets/images/product/fashion/1.jpg" alt="fashion">
+                                                    </a>
+                                                </td>
+                                                <td><a [routerLink]="['/shop/product/left/sidebar/trim-dress']">La jaconde Leonardo de Vinci</a>
+                                                </td>
+                                                <td><h4>100000 FCFA</h4></td>
+                                                <td >
+                                                    <p>EN stock</p>
+                                                </td>
+                                                <td>
+                                                    <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="icon mr-3">
+                                                        <i class="ti-close"></i>
+                                                    </a>
+                                                    <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="cart">
+                                                        <i class="ti-shopping-cart"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-account box-info" *ngIf="infopage == 5">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table cart-table table-responsive-xs">
+                                        <thead>
+                                        <tr class="table-head">
+                                            <th scope="col">Numéro</th>
+                                            <th scope="col">Montant</th>
+                                            <th scope="col">Etat</th>
+                                            <th scope="col">action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let abonnement of abonnements">
+                                                <td><h4>000{{abonnement.id}}</h4></td>
+                                                <td><h4>{{abonnement.montantPaiement}}</h4>
+                                                </td>
+                                                <td><h2>{{abonnement.etatAbonnement}}</h2></td>
+                                                <td>
+                                                    <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="icon mr-3">
+                                                        details
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-account box-info" *ngIf="infopage == 6">
+                            <div class="box-head">
+                                <h2>Modifier le mot de passe</h2>
+                            </div>
+                            <div class="row">
+                                <form class="theme-form" novalidate="" [formGroup]="mdpForm" (ngSubmit)="onChangePwd();" class="text-center"> 
+                                    <br><br>
+                                    <div class="form-row">                                      
+                                        <div class="col-md-12">
+                                            <input type="password" class="form-control" formControlName="mdpActu"  id="mdpActu" placeholder="Ancien mot de passe" required="" autocomplete="off">
+                                            <div *ngIf="mdpForm.get('mdpActu').errors && mdpForm.get('mdpActu').touched">
+                                                <p class="register-error-message" style="color: red;">
+                                                  Le mot de passe doit être composé au moins 6 caractères !</p>
+                                            </div>
+                                            
+                                                <div *ngIf="this.mdpForm.get('mdpActu').pending" style="color: darkred;">Verrification...</div>
+                                                <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpActu').touched && this.mdpForm.get('mdpActu').invalid">
+                                                    <div *ngIf="this.mdpForm.get('mdpActu').errors.required">le mot de passe actuel est requis</div>
+                                                    <div *ngIf="this.mdpForm.get('mdpActu').errors.mustMatch">le mot de passe est incorrect</div> 
+                                                </div>
+                                                                                       
+                                        </div>  
+                                        
+                                        <br><br>
+                                        
+                                    </div>  
+                                    <br>
+  
+                                    <br>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <input type="password" class="form-control" formControlName="mdpNouv" id="mdpNouv" placeholder="Nouveau mot de passe" required="" autocomplete="off">
+                                            
+                                                <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpNouv').touched && this.mdpForm.get('mdpNouv').invalid">
+                                                    <div *ngIf="this.mdpForm.get('mdpNouv').errors.required" >le nouveau mot de passe est requis</div>
+                                                    <div *ngIf="this.mdpForm.get('mdpNouv').errors.pattern" >le nouveau doit contenir des miniscules et des majuscules</div>
+                                                    <div *ngIf="this.mdpForm.get('mdpNouv').errors.minlength" >le nouveau mot de passe devrait contenir 8 caractéres ou plus </div>                                         
+                                                </div>
+                                            
+                                        </div>
+                                        <br><br>
+                                        <div class="col-md-6">
+                                            <input type="password" class="form-control" placeholder="confirmation" required="" formControlName="mdpConf" autocomplete="off">
+                                            <!--div *ngIf="(mdpForm.get('mdpNouv').errors || mdpForm.hasError('mismatchedPasswords')) && mdpForm.get('mdpConf').touched">
+                                                <p class="register-error-message" style="color: red;">{{ 'les mots de passe doivent etre identiques'}} !</p>
+                                            </div-->
+
+                                            <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpConf').touched && this.mdpForm.get('mdpConf').invalid">
+                                                <div *ngIf="this.mdpForm.get('mdpConf').errors.required" >Veuillez confirmer votre nouveau mot de passe</div>                                                 
+                                            </div>
+                                            <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpConf').touched && (this.mdpForm.value.mdpNouv !== this.mdpForm.value.mdpConf)">les mots de passe doivent etre identique </div>
+                                        </div>
+                                    </div>
+                                        
+                                    
+                                    <br><br><hr>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <button class="btn btn-solid" type="submit" [disabled]="!mdpForm?.valid">Valider</button>
+                                        </div> 
+                                        <div class="col-md-6">
+                                            <button type="submit" class="btn btn-solid" style="background: red;" routerLink="/accueil" routerLinkActive="router-link-active" >Anuler</button>
+                                        </div> 
+                                    </div>
+                                    
+                                </form>
                             </div>
                         </div>
                     </div>

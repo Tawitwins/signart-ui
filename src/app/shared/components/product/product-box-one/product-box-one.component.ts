@@ -5,6 +5,15 @@ import { Product } from "../../../classes/product";
 import { ProductService } from "../../../services/product.service";
 import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
 import { environment } from 'src/environments/environment';
+import { AppState } from 'src/app/interfaces';
+import { Store } from '@ngrx/store';
+
+import { AuthServiceS } from 'src/app/shared/services/auth.service';
+import { Router } from '@angular/router';
+import { ImageDto } from 'src/app/shared/modeles/image';
+import { Panier } from 'src/app/shared/modeles/panier';
+import { Subscription } from 'rxjs';
+import { Client } from 'src/app/shared/modeles/client';
 
 @Component({
   selector: 'app-product-box-one',
@@ -20,13 +29,47 @@ export class ProductBoxOneComponent implements OnInit {
   @Input() onHowerChangeImage: boolean = false; // Default False
   @Input() cartModal: boolean = false; // Default False
   @Input() loader: boolean = false;
-  
+
+
+  actionsSubscription: Subscription;
+  article$: Oeuvre = null;
+  routeSubs: Subscription;
+  articleId: number;
+  oeuvreId: any;
+  tab: Oeuvre[];
+  url: any;
+  private button: any;
+  elmt: HTMLElement;
+  listarticle: any = null;
+ 
+  listeItems:any[];
+  present: boolean;
+  user: any;
+  imageRes: ImageDto;
+  isAdd: boolean;
+  client: Client;
   @ViewChild("quickView") QuickView: QuickViewComponent;
   @ViewChild("cartModal") CartModal: CartModalComponent;
 
   public ImageSrc : string
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+    private authService: AuthServiceS,
+    private router:Router) { 
+
+      this.isAdd = true;
+      this.user = this.authService.getUserConnected();
+     
+      
+      if( this.user != null){
+        if( this.user.userType === "ARTISTE"){
+            this.isAdd = false;
+          } else{
+            this.client = this.authService.getClientConnected();
+            console.log("client connect", this.client)
+          }
+      }
+    }
 
   ngOnInit(): void {
     if(this.loader) {
@@ -64,16 +107,26 @@ export class ProductBoxOneComponent implements OnInit {
   }
 
 
-  addToCart(product: any) {
-    this.productService.addToCart(product);
+  addToCart(oeuvre: any) {
+    
+
+    if(this.user==null){
+      this.router.navigate(['/auth', 'account']);
+      
+     }else{
+
+      this.productService.addToCart(oeuvre);
+      
+     }
+  }
+  
+
+  addToWishlist(oeuvre: any) {
+    this.productService.addToWishlist(oeuvre);
   }
 
-  addToWishlist(product: any) {
-    this.productService.addToWishlist(product);
-  }
-
-  addToCompare(product: any) {
-    this.productService.addToCompare(product);
+  addToCompare(oeuvre: any) {
+    this.productService.addToCompare(oeuvre);
   }
 
   getOeuvreImageUrl(id: number) {

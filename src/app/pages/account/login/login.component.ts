@@ -13,6 +13,7 @@ import { User } from '../../../shared/modeles/user';
 import { ArtisteService } from '../../../shared/services/artiste.service';
 
 declare var $: any;
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

@@ -7,6 +7,13 @@ import { Product } from '../classes/product';
 import { ArticleService } from '../services/article.service'
 import { Oeuvre } from '../modeles/oeuvre';
 import { environment } from 'src/environments/environment';
+import { CheckoutActions } from 'src/app/checkout/actions/checkout.actions';
+import { CheckoutService } from './checkout.service';
+import { Panier } from '../modeles/panier';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/interfaces';
+import { Client } from '../modeles/client';
+import { AuthServiceS } from './auth.service';
 
 const state = {
   products: JSON.parse(localStorage['products'] || '[]'),
@@ -25,9 +32,13 @@ export class ProductService {
   public Products: any;
   public Oeuvres: any;
   public oeuvs: Oeuvre[];
+  public panier: Panier;
+  public client: Client;
 
   constructor(private http: HttpClient,
-    private toastrService: ToastrService, private articleService: ArticleService) { }
+    private toastrService: ToastrService, private articleService: ArticleService,
+    private checkoutActions: CheckoutActions, 
+    private checkoutService: CheckoutService,private store: Store<AppState>,  private authService: AuthServiceS,) { }
 
   /*
     ---------------------------------------------
@@ -41,6 +52,10 @@ export class ProductService {
     this.Products = this.http.get<Product[]>('assets/data/products.json').pipe(map(data => data));
     this.Products.subscribe(next => { localStorage['products'] = JSON.stringify(next) });
     return this.Products = this.Products.pipe(startWith(JSON.parse(localStorage['products'] || '[]')));
+  }
+
+  getCommandeOfClient(idClient: number): Observable<any> {
+    return this.http.get(environment.API_ENDPOINT + `commande/client/${idClient}`);
   }
 
   private get oeuvres(): Observable<Oeuvre[]> {
@@ -190,7 +205,7 @@ export class ProductService {
   }
 
   // Add to Cart
-  public addToCart(product): any {
+  /*public addToCart(product): any {
     const cartItem = state.cart.find(item => item.id === product.id);
     const qty = product.quantity ? product.quantity : 1;
     const items = cartItem ? cartItem : product;
@@ -203,6 +218,33 @@ export class ProductService {
     } else {
       state.cart.push({
         ...product,
+        quantity: qty
+      })
+    }
+
+    this.OpenCart = true; // If we use cart variation modal
+    localStorage.setItem("cartItems", JSON.stringify(state.cart));
+    return true;
+  }*/
+
+  public addToCart(oeuvre: Oeuvre): any {
+    const cartItem = state.cart.find(item => item.id === oeuvre.id);
+    const qty = oeuvre.stock ? oeuvre.stock : 1;
+    const items = cartItem ? cartItem : oeuvre;
+    const stock = this.calculateStockCounts(items, qty);
+    this.client = this.authService.getClientConnected();
+    console.log("client", this.client)
+    console.log("oeuvre", oeuvre)
+    
+
+
+    if(!stock) return false
+
+    if (cartItem) {
+        cartItem.quantity += qty    
+    } else {
+      state.cart.push({
+        ...oeuvre,
         quantity: qty
       })
     }
@@ -250,9 +292,19 @@ export class ProductService {
   }
 
     // Calculate Stock Counts
-  public calculateStockCounts(product, quantity) {
+  /*public calculateStockCounts(product, quantity) {
     const qty = product.quantity + quantity
     const stock = product.stock
+    if (stock < qty || stock == 0) {
+      this.toastrService.error('You can not add more items than available. In stock '+ stock +' items.');
+      return false
+    }
+    return true
+  }*/
+
+  public calculateStockCounts(oeuvre, quantity) {
+    const qty = oeuvre.quantity + quantity
+    const stock = oeuvre.stock
     if (stock < qty || stock == 0) {
       this.toastrService.error('You can not add more items than available. In stock '+ stock +' items.');
       return false
@@ -269,7 +321,7 @@ export class ProductService {
   }
 
   // Total amount 
-  public cartTotalAmount(): Observable<number> {
+ /* public cartTotalAmount(): Observable<number> {
     return this.cartItems.pipe(map((product: Product[]) => {
       return product.reduce((prev, curr: Product) => {
         let price = curr.price;
@@ -277,6 +329,18 @@ export class ProductService {
           price = curr.price - (curr.price * curr.discount / 100)
         }
         return (prev + price * curr.quantity) * this.Currency.price;
+      }, 0);
+    }));
+  }*/
+
+  public cartTotalAmount(): Observable<number> {
+    return this.cartItems.pipe(map((oeuvre: Oeuvre[]) => {
+      return oeuvre.reduce((prev, curr: Oeuvre) => {
+        let price = curr.prix;
+        if(curr.tauxremise) {
+          price = curr.prix - (curr.prix * curr.tauxremise / 100)
+        }
+        return (prev + price * curr.stock) * this.Currency.price;
       }, 0);
     }));
   }

@@ -18,19 +18,23 @@
 			<div class="col-md-9">
 				<div class="col-md-12 mar2">
 					<div class="top-banner-wrapper">
-						<section class="secbor">
-						<video width="100%" height="300px" preload="auto" autoplay="autoplay" loop >
-							<source src="assets/images/banner/animation.mp4" type="video/mp4">
-						  </video>
-						</section>
+							<div class="card col-md-12 text-center">
+								<div class="card-body">
+								  <h5 class="card-title">
+									<!--img src="assets/images/profile/artist.jpg" alt="Placeholder image" width="90" class="rounded-circle img-fluid"-->
+									<img [src]="getArtisteImageUrl(artiste?.id)" onError="this.src='assets/images/artists/profile.jpg'" alt="Placeholder image" width="300" height="500" class=" img-fluid">
+								  </h5>
+								  <h6 class="card-subtitle mb-2 text-muted">{{artiste?.prenom}} {{artiste?.nom}}</h6>
+								  <p class="card-text">{{artiste?.profession}}</p>
+								  <!--a href="#" class="card-link">Détails</a--></div>
+							  </div>
+						
 					   <div class="top-banner-content small-section">
-						   <h4>Listes des artistes</h4>
-						   <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-						   </h5>
+						  
+						   <h5>{{artiste?.profession}}</h5>
+						   
 						   <p>
-							   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-							   survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-							   and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+							   {{artiste?.biographie}}
 						   </p>
 					   </div>
 				   </div>
@@ -70,12 +74,13 @@
 					<!-- Filtre par Date -->
 
 				</div>
-						<div class="row mar">
-							<div class="col-xl-6 padd-left"><img src="/assets/images/costoflivingdakar.jpg" class="img-fluid" alt="Placeholder image"></div>
-						  <div class="col-xl-6 small-section">
-							<h3>Exposition d'oeuvres d'art</h3>
-							 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-							 <div class="row mar2">
+						<div class="row mar" *ngFor="let exposition of expositions | slice: (pag-1) * pageSize : (pag-1) * pageSize + pageSize">
+							<div >
+						    <div class="col-xl-6 padd-left"><img src="/assets/images/costoflivingdakar.jpg" class="img-fluid" alt="Placeholder image"></div>
+						    <div class="col-xl-6 small-section">
+							  <h3>Exposition d'oeuvres d'art</h3>
+							  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+							  <div class="row mar2">
 							  <div class="col-md-4"> <b>Oraganisateur</b> <p>Dan Enriqué</p></div>
 								<div class="col-md-4"><b>Lieu</b><p>Place de l'indépendance</p></div>
 								<div class="col-md-4"><b>Dates & Heure</b><p> Le 30 Aout 2020 <br>A 11H:00</p></div>
@@ -84,22 +89,10 @@
 								</div> -->
 							  </div>
 							</div>
+						    </div>
 						</div>
-						<div class="row mar mar2">
-							<div class="col-xl-6 padd-left"><img src="/assets/images/costoflivingdakar.jpg" class="img-fluid" alt="Placeholder image"></div>
-						  <div class="col-xl-6 small-section">
-							<h3>Exposition d'oeuvres d'art</h3>
-							 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-							 <div class="row mar2">
-							  <div class="col-md-4"> <b>Oraganisateur</b> <p>Dan Enriqué</p></div>
-								<div class="col-md-4"><b>Lieu</b><p>Place de l'indépendance</p></div>
-								<div class="col-md-4"><b>Dates & Heure</b><p> Le 30 Aout 2020 <br>A 11H:00</p></div>
-								<!-- <div class="col-md-12">
-									<button [routerLink]="['/pages/register']" class="btn btn-solid">Détails</button>
-								</div> -->
-							  </div>
-							</div>
-						</div>
+						<ngb-pagination [collectionSize]="expositions.length" [(page)]="pag" [pageSize]="pageSize" aria-label="Default pagination">
+						</ngb-pagination>
 			</div>
 
 	</div>
