@@ -1,0 +1,153 @@
+import { Component, OnInit } from '@angular/core';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { addOeuvre } from '../../shared/modeles/editOeuvre';
+import { OeuvreService } from '../../shared/services/oeuvre.service';
+import { AuthServiceS } from '../../shared/services/auth.service';
+
+declare var $: any;
+@Component({
+  selector: 'app-add-oeuvre',
+  templateUrl: './add-oeuvre.component.html',
+  styleUrls: ['./add-oeuvre.component.scss']
+})
+export class AddOeuvreComponent implements OnInit {
+  oeuvreForm: FormGroup;
+  addArticleInd: number;
+  artiste: any;
+  fileData: File;
+  techniques: Object;
+
+  constructor(private formbuilder:FormBuilder,private authService:AuthServiceS ,private oeuvreService:OeuvreService,) { }
+
+  initForm() {
+    this.oeuvreForm = this.formbuilder.group({
+       'nom': ['',Validators.required],
+       'technique': ['',Validators.required],
+       'couleur': [null,Validators.required],
+       'nouveau': [null,Validators.required],
+       //'lithographie': [null,Validators.required],
+       'auteur': [null,Validators.required],
+       'dimensions': [null,Validators.required],
+       'annee': [null,Validators.required],
+       'prix': [0,Validators.required],
+       'tauxremise': [null,Validators.required],
+       'taxes': [null,Validators.required],
+       'image':['',  Validators.required], 
+       //file: [null, Validators.required],
+       'description': ['',Validators.required]
+     });
+   }
+  ngOnInit(): void {
+    this.artiste=this.authService.getArtisteConnected();
+    this.oeuvreService.getTechnique().subscribe(
+      resp => {
+        
+        this.techniques = resp;
+        console.log('Les techniques ', this.techniques);
+      }
+    );
+    this.initForm();
+  }
+
+  onFileSelected(event){
+    this.fileData = <File>event.target.files[0];
+    let reader = new FileReader();
+    //if (files && files.length > 0) {
+     let file = event.target.files[0];
+     reader.readAsDataURL(file);
+     reader.onload = () => {
+      this.oeuvreForm.get('image').patchValue({
+        filename: file.name,
+        filetype: file.type,
+        value: (<string>reader.result).split(',')[1]
+      })
+     };
+     
+    console.log("file", file)
+     //this.formData.append('file', file);
+     //console.log("formData change",this.formData)
+     console.log("image value",this.oeuvreForm)
+  }
+  onAddArticle() {
+    const formValue = this.oeuvreForm.value;
+    const addeddArticle = new addOeuvre('',null,null,null,null,'','',null,null,null,null,null,'',null);
+    addeddArticle.nom = formValue.nom;
+    addeddArticle.idTechnique = +this.oeuvreForm.get('technique').value;
+    addeddArticle.idCouleur = +this.oeuvreForm.get('couleur').value;
+    addeddArticle.nouveau = formValue.nouveau;
+    addeddArticle.lithographie = formValue.lithographie;
+    addeddArticle.auteur = formValue.auteur;
+    addeddArticle.dimensions = formValue.dimensions;
+    addeddArticle.annee = formValue.annee;
+    addeddArticle.prix = formValue.prix;
+    addeddArticle.tauxremise = formValue.tauxremise;
+    addeddArticle.taxes = formValue.taxes;
+    addeddArticle.image = this.oeuvreForm.get("image").value;
+    addeddArticle.description = formValue.description;
+    addeddArticle.idArtiste = this.artiste.id;
+    //addeddArticle.fraisLivraison = formValue.fraisLivraison;
+    //addeddArticle.artiste = this.artiste;  
+    //this.userService.addUser(newUser);
+    //this.router.navigate(['/users']);
+    //console.log('To add', addeddArticle)
+    //console.log('form value ', formValue)
+    //this.article.nom = formValue.nom;
+    //addeddArticle.technique = formValue.technique;
+    //addeddArticle.idSousTechnique = formValue.soustechnique.id;
+    //addeddArticle.sousTechnique = formValue.soustechnique;
+    //addeddArticle.couleur = formValue.couleur;
+    //addeddArticle.annee = formValue.annee;
+
+    console.log('To add', addeddArticle);
+    Swal.fire({
+      title: 'Confirmez vous la souscription de cette oevre?',
+      //text: "Ceci sera irreversible!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: ' #f07c10',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, je confirme!',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.value) {
+        
+        this.oeuvreService.addOeuvreSouscriptionArtiste(addeddArticle).subscribe(
+          res =>{
+            console.log('la reponse est ', res)
+            $.notify({
+              icon: "notifications",
+              message: "Oeuvre souscrite avec succés!"
+            }, {
+                type: 'success',
+                timer: 1000,
+                placement: {
+                  from: 'top',
+                  align: 'center'
+                }
+              });
+          }
+         
+        );
+        //location.reload();
+      }
+    })
+    //this.article.nom = formValue.nom;
+    // console.log('addeded article ', this.article)
+    // this.oeuvreService.editOeuvreArtiste(this.article).subscribe(
+    //   res =>{
+    //     let status = res;
+    //     console.log('status', status)
+    //   },
+    //   error =>{
+    //     let erreur = error;
+    //     console.log('error', erreur)
+    //   });
+      this.addArticleInd = 0;
+
+    //return this.oeuvre
+  }
+  cancelAdd(){
+    this.addArticleInd = 0
+  }
+}

@@ -1,102 +1,46 @@
-<app-breadcrumb [title]="'Ajouter une annonce'" [breadcrumb]="'Ajouter une annonce'"></app-breadcrumb>
-<section class="contains">
-    <div class="container">
-        <div class="row">
-          <div class="col-xl-3">
-            <div class="card col-md-12 text-center pink">
-              <div class="card-body">
-                <h5 class="card-title"><img src="assets/images/profile/artist.jpg" alt="Placeholder image" width="90" class="rounded-circle img-fluid"></h5>
-                <h6 class="card-subtitle mb-2 text-muted">Dan Enriqué</h6>
-                <p class="card-text">UX - UI Manager</p>
-                <a href="#" class="card-link">Détails</a></div>
-            </div>
-            <br>
-            <div class="col-md-12">
-              <button class="btn abonnement"> <i class="ti-heart"></i> S'abonner</button> 
-            </div>
-          </div>
-            <!-- ------------------------------------------Contenu tableau de bord------------------------------------------------ -->
-          <div class="col-xl-9">
-            <div class="row">
-              <div class="col-xl-3 col-sm-6">
-                <div class=" bjrouge">
-                  <div class="side-l"><p class="big-l">14</p> <p class="col-p">Oeuvres d'art</p></div>
+<div class="row">
+  <div class="col-lg-12">
+      <div class="theme-card">
+          <form [formGroup]="form" class="theme-form">
+              <div class="form-row">
+                  <div class="col-md-6">
+                      <label for="email">Titre</label>
+                      <input type="text" formControlName="titre" class="form-control" id="fname" placeholder="Prénom" required="">
+                  </div>
+                  <div class="col-md-6">
+                      <label for="email">Lieu</label>
+                      <input formControlName="adresse" type="text" class="form-control" id="fname" placeholder="Lieu" required="">
+                  </div>
               </div>
+              <div class="form-row">
+                <div class="col-md-12">
+                  <label for="email">Type d'expostion</label>
+                  <select formControlName="type" name="typeExpo" class="form-control">
+                    <option value="personnel">personnel</option>
+                    <option value="collectif">collectif</option>
+                  </select>
+                </div>
               </div>
-              <div class="col-xl-3 col-sm-6">
-               <div class="bbleu">
-                  <div class="side-l"><p class="big-l">108</p> <p class="col-p">Abonnés</p></div>
-              </div> 
-               
+              <div class="form-row">
+                  <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                      <label for="email">Date de début</label>
+                      <input formControlName="dateDebut" type="datetime-local" class="form-control" id="fname" placeholder="Date" required="">
+                  </div>
+                  <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                      <label for="email">Date de fin</label>
+                      <input formControlName="dateFin" type="datetime-local" class="form-control" id="fname" placeholder="Date de fin" required="">
+                  </div>
               </div>
-              <div class="col-xl-3 col-sm-6">
-                <div class="marrons">
-                  <div class="side-l"><p class="big-l">Art Plastique</p> <p class="col-p">Spécialité</p></div>
-              </div> 
-                </div>
-              <div class="col-xl-3 col-sm-6">	  
-                <div class="blanc">
-                  <div class="side-l"><button class="btn annonce">Publier une oeuvre</button></div>
-              </div> 
-                </div>
-            </div>
-              
-              <!--		---------------------------------------------- Content --------------------------------------------- --> 
-              <br>
-            <section class="row">
-                <div class="col-xl-12">
-                  <nav aria-label="breadcrumb">
-                      <ol class="breadcrumb">
-                        <li class="breadcrumb-item">Ajouter une annonce</li>
-                    </ol>
-                  </nav>
-                    
-                </div>
-          
-            </section>
-            <section class="register-page section-b-space">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="theme-card">
-                                <form class="theme-form">
-                                    <div class="form-row">
-                                        <div class="col-md-6">
-                                            <label for="email">Titre</label>
-                                            <input type="text" class="form-control" id="fname" placeholder="Prénom" required="">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="email">Lieu</label>
-                                            <input type="text" class="form-control" id="fname" placeholder="Lieu" required="">
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                            <label for="email">Date de début</label>
-                                            <input type="Date" class="form-control" id="fname" placeholder="Date" required="">
-                                        </div>
-                                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                            <label for="email">Date de fin</label>
-                                            <input type="Date" class="form-control" id="fname" placeholder="Date de fin" required="">
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="col-md-12">
-                                            <label for="review">Description</label>
-                                            <textarea></textarea>
-                                        </div>
-                                        
-                                        <button class="btn btn-solid">Valider</button>
-                                        <button class="btn btn-solid gplus">Annuler</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            </div>
-          </div>
-        </div>      
-</section>
-<br>
+              <div class="form-row">
+                  <div class="col-md-12">
+                      <label for="review">Description</label>
+                      <textarea  formControlName="description"  ></textarea>
+                  </div>
+                  
+                  <button class="btn btn-solid"  type="submit"  [disabled]="this.isValid === false || this.form.invalid" (click)="onAddExposition()">Valider</button>
+                  <!-- <button class="btn btn-solid gplus" type="button" (click)="addNewExposition(0);">Annuler</button> -->
+              </div>
+          </form>
+      </div>
+  </div>
+</div>

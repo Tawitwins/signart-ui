@@ -38,7 +38,11 @@ import { MesOeuvresComponent } from './mes-oeuvres/mes-oeuvres.component';
 import { MesAnnoncesComponent } from './mes-annonces/mes-annonces.component';
 import { FollowersComponent } from './followers/followers.component';
 import { AbonnementComponent } from './abonnement/abonnement.component';
-
+import { MyformatcurrencyPipe } from '../shared/pipes/myformatcurrency.pipe';
+import { CompteArtisteComponent } from './compte-artiste/compte-artiste.component';
+import { ArtisteProfilComponent } from './compte-artiste/artiste-profil/artiste-profil.component';
+import { AddOeuvreComponent } from './add-oeuvre/add-oeuvre.component';
+import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
 
 
 @NgModule({
@@ -69,17 +73,22 @@ import { AbonnementComponent } from './abonnement/abonnement.component';
     ExpositionComponent,
     AddAnnonceComponent,
     AddExpoComponent,
+    AddOeuvreComponent,
     HistoireComponent,
     MesOeuvresComponent,
     MesAnnoncesComponent,
     FollowersComponent,
-    AbonnementComponent
+    AbonnementComponent,
+    CompteArtisteComponent,
+    MyformatcurrencyPipe,
+    ArtisteProfilComponent,
   ],
   imports: [
     CommonModule,
     GalleryModule.forRoot(),
     SharedModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    DateTimePickerModule,
   ]
 })
 export class PagesModule { }

@@ -1,15 +1,15 @@
-import { Product } from './../../shared/classes/product';
-import { ProductService } from './../../shared/services/product.service';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Product } from '../../shared/classes/product';
+import { ProductService } from '../../shared/services/product.service';
+import { Component, Inject, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DOCUMENT, ViewportScroller } from '@angular/common';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VisiteurService } from '../../shared/services/visiteur.service';
 import { Oeuvre } from '../../shared/modeles/oeuvre';
 import { Suivre } from '../../shared/modeles/suivre';
-import { Exposition } from '../../shared/modeles/exposition';
-import { Formation, Presentation } from '../../shared/modeles/artiste';
+import { Exposition, Annonce } from '../../shared/modeles/exposition';
+import { Formation, Presentation, Artiste } from '../../shared/modeles/artiste';
 import { Visiteur } from '../../shared/modeles/visiteur';
 import { Pays } from '../../shared/modeles/pays';
 import { ArticleService } from '../../shared/services/article.service';
@@ -17,6 +17,8 @@ import { ArtisteService } from '../../shared/services/artiste.service';
 import { OeuvreService } from '../../shared/services/oeuvre.service';
 import { PaysService } from '../../shared/services/pays.service';
 import { environment } from '../../../environments/environment';
+import { AuthServiceS } from '../../shared/services/auth.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 declare interface MenuInfo {
   path: string;
@@ -41,16 +43,17 @@ export const NAVIGATION: MenuInfo[] = [
 ];
 
 @Component({
-  selector: 'app-artiste',
-  templateUrl: './artiste.component.html',
-  styleUrls: ['./artiste.component.scss']
+  selector: 'app-compte-artiste',
+  templateUrl: './compte-artiste.component.html',
+  styleUrls: ['./compte-artiste.component.scss']
 })
-export class ArtisteComponent implements OnInit {
+export class CompteArtisteComponent implements OnInit {
 
   public grid: string = 'col-xl-3 col-md-6';
   public layoutView: string = 'grid-view';
   public products: Product[] = [];
   public oeuvres: Oeuvre[] = [];
+  public oeuvresEnAttenteValidation: Oeuvre[] = [];
   public brands: any[] = [];
   public artist: any [] = [];
   public colors: any[] = [];
@@ -65,15 +68,19 @@ export class ArtisteComponent implements OnInit {
   public mobileSidebar: boolean = false;
   public loader: boolean = true;
   actionsSubscription: Subscription;
+  public section:string="general"
 
   suivre: Suivre;
     navigations: any[];
-    artisteId: number;
+    artisteId: number= 0;
     artiste: any;
+    lartiste: Artiste=null;
     listes: Subscription;
     listes1: any;
-    listesExp: Exposition[];
-    listesAnnonce: Subscription | any;
+    listesExp: Exposition[]=[];
+    listesExpEnAttente: Exposition[]=[];
+    listesAnnonce: Subscription | Annonce | any=[];
+    listesAnnonceEnAttente: Subscription | Annonce | any=[];
     listesClient: Subscription | any;
     listesFormation: Formation[] | any;
     suivreart = 'Suivre';
@@ -91,7 +98,8 @@ export class ArtisteComponent implements OnInit {
     allPays: Pays[] = [];
     artistePresentation: Presentation;
     selectedPays: string;
-    
+    urlSous: any = [];
+
     initForm() {
         const Prenom = '';
         const Nom = '';
@@ -116,7 +124,7 @@ export class ArtisteComponent implements OnInit {
         private expoService: OeuvreService, private annonceService: OeuvreService, private clientService: OeuvreService,
         private suivreService: OeuvreService, 
         //private userAuth: AuthServiceS,private fb: FormBuilder,
-        private paysService: PaysService, private visiteurService: VisiteurService,@Inject(DOCUMENT) document) {   
+        private paysService: PaysService, private visiteurService: VisiteurService,private authService:AuthServiceS,private sanitizer: DomSanitizer,@Inject(DOCUMENT) document) {   
       // Get Query params..
      
       this.route.queryParams.subscribe(params => {
@@ -149,8 +157,47 @@ export class ArtisteComponent implements OnInit {
       })
 
       
+     // this.actionsSubscription = this.lartiste.subscribe(resp=>{console.log(resp)})
+  this.artiste=this.authService.getArtisteConnected();
+  this.artisteId= this.artiste.id;
+  console.log(this.artiste);
+  console.log('id artiste: ' + this.artisteId)
+  console.log('lartiste: ' + this.lartiste)
+  this.artisteService
+      .getArtiste(this.artisteId)
+      .subscribe(response => {
+          this.artiste = response
+          this.expoService.getOeuvreByArtiste(this.artiste.id).subscribe(response => { 
+            this.oeuvres = response;
+           });
+          this.expoService.getOeuvreSouscriptionByArtiste(this.artiste.id).subscribe(response => { 
+            this.oeuvresEnAttenteValidation = response;
+            for(let i = 0; i < this.oeuvresEnAttenteValidation.length; i++){
+              this.articleService.getImageSouscription(this.oeuvresEnAttenteValidation[i].id).subscribe(response => {
+              let urlCreator = window.URL;
+              let blob; let murl;
+              blob = new Blob([response], { type: 'application/octet-stream' });
+              murl = urlCreator.createObjectURL(blob);
+              this.urlSous[i] = this.sanitizer.bypassSecurityTrustResourceUrl(murl);
+              
+            }/*,
+              error => {
+                console.log('Erreur récupération image oeuvre');
+                //this.toastr.error('Erreur récupération de l\'image', 'ERREUR')
+              }*/
+            );
 
-      this.actionsSubscription = this.route.params.subscribe(
+            }
+           });
+          this.artisteService.getAllPresentation(this.artiste.id).subscribe(
+              resp => { 
+                this.artistePresentation = resp;
+              console.log('Presentation',this.artistePresentation);
+          });
+          // console.log('artiste:' + this.artiste ? this.artiste.idClient : 0);
+      });
+
+      /*this.actionsSubscription = this.route.params.subscribe(
         (params: any) => {
             this.artisteId = params['id'];
             console.log('id artiste: ' + this.artisteId)
@@ -172,12 +219,13 @@ export class ArtisteComponent implements OnInit {
             // console.log('c moi');
         }
     );
-
+*/
     this.oeuvres = this.productService.sortOeuvres(this.oeuvres, this.sortBy);
       this.oeuvres = this.oeuvres.filter(item => item.prix >= this.minPrice && item.prix <= this.maxPrice) 
       this.paginate = this.productService.getPager(this.oeuvres.length, +this.pageNo); 
       this.oeuvres = this.oeuvres.slice(this.paginate.startIndex, this.paginate.endIndex + 1);
       console.log("paginationnnnn", this.paginate)
+    
   
    // this.user = this.userAuth.getUserConnected();
     this.isVisiteur=false;
@@ -202,10 +250,14 @@ export class ArtisteComponent implements OnInit {
             if (element.type == Autres) {
                 this.tabAutres.push(element);
             }
-
+            if(element.etatExposition==false)
+            {
+              this.listesExpEnAttente.push(element);
+            }
         });
+        this.listesExp=this.listesExp.filter(exp=>exp.etatExposition==true);
     });
-    this.annonceService.getAnnoceByArtiste(this.artisteId).subscribe(response => { this.listesAnnonce = response });
+    this.annonceService.getAnnoceByArtiste(this.artisteId).subscribe(response => { this.listesAnnonce = response; this.listesAnnonceEnAttente=this.listesAnnonce.filter(a=>a.etatPublication===false); this.listesAnnonce=this.listesAnnonce.filter(a=>a.etatPublication===true); });
     this.clientService.getClientByArtiste(this.artisteId).subscribe(response => { this.listesClient = response });
     this.expoService.getFormationByArtiste(this.artisteId).subscribe(response => { this.listesFormation = response
         console.log(this.listesFormation);
@@ -230,7 +282,10 @@ export class ArtisteComponent implements OnInit {
     }
 }
 
-
+  //Changement du contenu de la section
+  ChangerSection(newSection){
+    this.section=newSection;
+  }
   // Append filter value to Url
   updateFilter(tags: any) {
     tags.page = null; // Reset Pagination
@@ -412,6 +467,7 @@ suivi() {
     }
     
 }
+
 onSubmit(){
     //onsole.log(Visiteur.prenom+Visiteur.nom+Visiteur.pays+Visiteur.typeVisiteur+Visiteur.raisonSociale);
     console.log("Visiteur en cour d'enregistrement...");
