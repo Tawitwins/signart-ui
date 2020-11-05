@@ -98,8 +98,8 @@
                     </div>
                   </div>
                   <div class="product-buttons">
-                    <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > oeuvre?.stock" >Au Panier</a>
-                    <a [routerLink]="['/pages/wishlist']" class="btn btn-solid" [class.disabled]="counter > oeuvre?.stock">S'abonner</a>
+                    <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > oeuvre?.stock" (click)="addToCart(oeuvre)">Au Panier</a>
+                    <!--a [routerLink]="['/pages/wishlist']" class="btn btn-solid" [class.disabled]="counter > oeuvre?.stock">S'abonner</a-->
                   </div>
                   <div class="border-product">
                     <h6 class="product-title">Détails Article</h6>

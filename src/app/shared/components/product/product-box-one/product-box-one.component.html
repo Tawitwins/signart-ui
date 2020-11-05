@@ -26,15 +26,15 @@
       </li>
     </ul-->
     <div class="cart-info cart-wrap">
-      <a href="javascript:void(0)" title="Add to cart" (click)="CartModal.openModal(product)"
+      <a href="javascript:void(0)" title="Add to cart" (click)="CartModal.openModal(oeuvre)"
         *ngIf="cartModal">
         <i class="ti-shopping-cart"></i>
       </a>
-      <a href="javascript:void(0)" title="Add to cart" (click)="addToCart(product)"
+      <a href="javascript:void(0)" title="Add to cart" (click)="addToCart(oeuvre)"
         *ngIf="!cartModal">
         <i class="ti-shopping-cart"></i>
       </a>
-      <a href="javascript:void(0)" title="Add to Wishlist" (click)="addToWishlist(product)">
+      <a href="javascript:void(0)" title="Add to Wishlist" (click)="addToWishlist(oeuvre)">
         <i class="ti-heart" aria-hidden="true"></i>
       </a>
       <a href="javascript:void(0)" title="Quick View" (click)="QuickView.openModal()">

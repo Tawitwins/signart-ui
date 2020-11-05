@@ -32,7 +32,7 @@ export class CheckoutService extends HttpService {
    * @param {CheckoutActions} actions
    * @param {Store<AppState>} store
    *
-   * @memberof CheckoutService
+   * 
    */
   constructor(
     public http: HttpClient,
@@ -55,7 +55,7 @@ export class CheckoutService extends HttpService {
    * @param {Oeuvre} oeuvre
    * @returns
    *
-   * @memberof CheckoutService
+   * 
    */
   createNewLineItem(oeuvre: Oeuvre) {
     return this.post(environment.API_ENDPOINT +
@@ -133,17 +133,6 @@ export class CheckoutService extends HttpService {
       localStorage.setItem('panier',JSON.stringify(panier));
     }
 
-    $.notify({
-      icon: "notifications",
-      message: "Oeuvre ajoutée au panier"
-    }, {
-      type: 'success',
-      timer: 2000,
-      placement: {
-        from: 'top',
-        align: 'center'
-      }
-    });
 
     return panier;
   }
@@ -219,6 +208,14 @@ export class CheckoutService extends HttpService {
 
   getLineItems() {
     return this.get<LignePanier[]>(environment.API_ENDPOINT + `lignepanier`);
+  }
+
+  getPanierItems(idClient: number): any {
+    return this.get(environment.API_ENDPOINT + `panier/client/${idClient}`);
+  }
+
+  createPanierItems(panier: Panier): any {
+    return this.post(environment.API_ENDPOINT + `panier`,panier);
   }
 
   /**

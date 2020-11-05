@@ -9,11 +9,11 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <div class="media">
-                            <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.nom.replace(' ', '-')]">
+                            <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
                                 <img class="img-fluid pro-img" [src]="getOeuvreImageUrl(oeuvre.id)" [alt]="oeuvre.nom">
                             </a>
                             <div class="media-body align-self-center text-center">
-                                <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.nom.replace(' ', '-')]">
+                                <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
                                     <h6>
                                         <i class="fa fa-check"></i>Item
                                         <span>{{ oeuvre.nom | titlecase }}</span>
@@ -41,13 +41,13 @@
                                     <div class="product-box col-sm-3 col-6">
                                         <div class="img-wrapper">
                                             <div class="front">
-                                                <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.nom.replace(' ', '-')]">
+                                                <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
                                                     <img [src]="getOeuvreImageUrl(oeuvre.id)" class="img-fluid mb-1" alt="">
                                                 </a>
                                             </div>
                                             <div class="product-detail">
                                                 <h6 class="mt-0">
-                                                    <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.nom.replace(' ', '-')]"><span>{{ oeuvre.nom | titlecase }}</span></a>
+                                                    <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]"><span>{{ oeuvre.nom | titlecase }}</span></a>
                                                 </h6>
                                                 <h4><span>{{ oeuvre.prix * currency?.price | currency:currency?.currency:'symbol' }}</span></h4>
                                             </div>

@@ -66,6 +66,10 @@ export class OeuvreService extends  HttpService {
         console.log('un client');
         return this.http.get(environment.API_ENDPOINT + `client/user/${id}`)
     }
+
+    getCommandeOfClient(idClient: number): Observable<any> {
+      return this.http.get(environment.API_ENDPOINT + `commande/client/${idClient}`);
+    }
    /* getVisiteurById(id: number) {
       console.log('un client');
       return this.http.get(environment.API_ENDPOINT + `client/user/${id}`)
@@ -82,7 +86,7 @@ export class OeuvreService extends  HttpService {
       return this.http.get(environment.API_ENDPOINT + `marquageartiste/ListClientByArt/${idArtiste}`);
     }
     getListVisiteurByArt(idArtiste:number){
-      console.log('List des visiteurs qui suivent le artist: '+idArtiste);
+     // console.log('List des visiteurs qui suivent le artist: '+idArtiste);
       return this.http.get(environment.API_ENDPOINT + `marquageartiste/ListVisiteurByArt/${idArtiste}`);
     }
     getMarquageByArtiste(idClient: number, idArtiste:number, codeTypeMarquage:string):Observable<any>{
@@ -190,6 +194,10 @@ export class OeuvreService extends  HttpService {
     }
     getCouleur(){
       return this.http.get(environment.API_ENDPOINT + `couleur/getAll`);
+    }
+
+    getAllExpo():Observable<any> {
+      return this.http.get(environment.API_ENDPOINT + `exposition/all`);
     }
     
 }

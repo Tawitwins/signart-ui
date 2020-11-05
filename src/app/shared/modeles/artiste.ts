@@ -8,6 +8,8 @@ export class Artiste {
     adresse: string;
     ville: string;
     pays: string;
+    biographie: string;
+    profession: string;
     constructor(
         prenom: string,
     nom: string,
@@ -17,6 +19,8 @@ export class Artiste {
     adresse: string,
     ville: string,
     pays: string,
+    biographie: string,
+    profession: string
         ){
            
            
