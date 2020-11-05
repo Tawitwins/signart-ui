@@ -42,6 +42,7 @@
     "@ngx-loading-bar/router": "^4.2.0",
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
+    "@types/googlemaps": "^3.40.3",
     "angular-bootstrap-md": "^8.1.1",
     "angular-local-storage": "^0.7.1",
     "animate.css": "^3.7.2",

@@ -6,15 +6,15 @@ import { ProductService } from "../../services/product.service";
 import { Product } from "../../classes/product";
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthActions } from 'src/app/auth/actions/auth.actions';
-import { AppState } from 'src/app/interfaces';
 import { AuthServiceS } from '../../services/auth.service';
 import { OeuvreService } from '../../services/oeuvre.service';
-import { getAuthStatus } from 'src/app/auth/reducers/selectors';
-import { getTotalCartItems } from 'src/app/checkout/reducers/selectors';
-import { getTotalWishlistItems } from 'src/app/wishlist/reducers/selectors';
 import { Oeuvre } from '../../modeles/oeuvre';
-import { environment } from 'src/environments/environment';
+import { AppState } from '../../../interfaces';
+import { AuthActions } from '../../../auth/actions/auth.actions';
+import { getAuthStatus } from '../../../auth/reducers/selectors';
+import { getTotalCartItems } from '../../../checkout/reducers/selectors';
+import { environment } from '../../../../environments/environment';
+import { getTotalWishlistItems } from '../../../wishlist/reducers/selectors';
 
 
 @Component({

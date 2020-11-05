@@ -56,7 +56,7 @@ export class AddExpoComponent implements OnInit {
   onAddExposition(){
     const formvalue = this.form.value;
     console.log('formvalue ', formvalue)
-    const exposition = new Exposition('', '', '', '',null, null,null,false);
+    const exposition = new Exposition('', '', '', '',null, null,null,false,null);
     exposition.titre = formvalue.titre;
     exposition.description = formvalue.description;
     exposition.type = formvalue.type;

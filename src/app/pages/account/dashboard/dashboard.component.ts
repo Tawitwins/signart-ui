@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
  oeuvres:any = [];
  oeuvresImg: any;
  client:any;
- artiste:any;
+ artiste:Artiste | any;
  idCustomer:number;
  //--pagination
  pageSize = 4;
@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
     if(this.user.userType == 'ARTISTE'){
     this.artisteService.getArtisteByUser(parseInt(this.user.id)).subscribe(
       res => {
-        //this.artiste = res
+        this.artiste = res
         console.log('Artiste connected ', res)
         this.oeuvreS.getOeuvreByArtiste(parseInt(res.id)).subscribe(
           resp => {
@@ -163,13 +163,12 @@ export class DashboardComponent implements OnInit {
             
           });
       });*/
-  }
-    
-    this.client=[];
+      this.client=[];
     this.commandes=[];
     this.artiste=[];
     this.onGetArtisteSuiviByClient();
-   }
+    }
+  }
 
   initmdpForm(){
     this.mdpForm = new FormGroup({

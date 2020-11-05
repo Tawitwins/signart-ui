@@ -42,7 +42,6 @@ import { MyformatcurrencyPipe } from '../shared/pipes/myformatcurrency.pipe';
 import { CompteArtisteComponent } from './compte-artiste/compte-artiste.component';
 import { ArtisteProfilComponent } from './compte-artiste/artiste-profil/artiste-profil.component';
 import { AddOeuvreComponent } from './add-oeuvre/add-oeuvre.component';
-import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
 
 
 @NgModule({
@@ -88,7 +87,6 @@ import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
     GalleryModule.forRoot(),
     SharedModule,
     PagesRoutingModule,
-    DateTimePickerModule,
   ]
 })
 export class PagesModule { }
