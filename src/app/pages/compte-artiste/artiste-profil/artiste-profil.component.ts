@@ -19,6 +19,7 @@ import { environment } from '../../../../environments/environment';
 import { AccountInfo, User } from '../../../shared/modeles/user';
 import { Formation, Presentation, ImageProfil, Artiste } from '../../../shared/modeles/artiste';
 
+
 declare interface MenuInfo { 
   path: string;
   title: string;
@@ -29,10 +30,7 @@ declare var $: any;
 
 
 export const NAVIGATION: MenuInfo[] = [
-  { path: '#profil', title: 'Profil', id: 'profil' },
-  { path: '#biographie', title: 'Biographie', id: 'biographie' },
-  { path: '#formation', title: 'Formation', id: 'formation' },
-  { path: '#presentation', title: 'Presentation', id: 'presentation' }
+  
   /*
   { path: '#mes-expots', title: 'Mes expots', id: 'mes-expots' },
   { path: '#annoncer-event', title: 'Mes annonces', id: 'annoncer-event' },
@@ -93,7 +91,7 @@ export class ArtisteProfilComponent implements OnInit {
  photoProfil: ImageProfil;
  presentations: any[] = null;
  presentationMessage: string;
- artistePresentation: Presentation;
+ artistePresentation: Presentation=new Presentation("","",false,0);
 
  fileDataVideo: File = null;
  formDataVideo = new FormData();
@@ -372,6 +370,7 @@ this.hide2 =true;
   }
   goetape(etape:number){
     this.isclicked = etape;
+    //console.log(this.artistePresentation);
   }
 
   onAddBiographie(){
@@ -418,6 +417,7 @@ this.hide2 =true;
                   text: 'Vous avez deja une biographie en attente de validation',
                 })
               }else{
+                console.log('biographe will be saved', biographie);
                 this.artisteService.addBiographie(biographie).subscribe(
                   resp =>{
                     console.log(resp)
@@ -438,8 +438,8 @@ this.hide2 =true;
         
       );
       
-      var jQuery:any;
-      jQuery("#modifPhotoProfil").modal("hide");
+      //var jQuery:any;
+      //jQuery("#modifPhotoProfil").modal("hide");
     }
   })
   this.initForm();

@@ -47,6 +47,7 @@ import { ArticleService } from './shared/services/article.service';
 import { environment } from '../environments/environment';
 import { AuthActions } from './auth/actions/auth.actions';
 import { CheckoutActions } from './checkout/actions/checkout.actions';
+import { PanierEtMarquageService } from './shared/services/panierEtMarquage.service';
 
 
 // AoT requires an exported function for factories
@@ -178,7 +179,8 @@ export function tokenGetter() {
     OeuvreService,
     PaysService,
     AuthActions,
-    CheckoutActions
+    CheckoutActions,
+    PanierEtMarquageService,
     
   ],
   schemas: [ NO_ERRORS_SCHEMA ],

@@ -8,4 +8,5 @@ export class LignePanier {
     total: number;
     oeuvre: Oeuvre;
     lithographie: boolean;
+    idClient:number;
   }

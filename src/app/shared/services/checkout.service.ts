@@ -143,7 +143,7 @@ export class CheckoutService extends HttpService {
     let panier: Panier = {};
 
     //création ligne panier
-    let lignePanier: LignePanier = { id: null, oeuvre: null, prix: null, quantite: null, total: null ,lithographie: false };
+    let lignePanier: LignePanier = { id: null, oeuvre: null, prix: null, quantite: null, total: null ,lithographie: false, idClient:null };
 
     lignePanier.id = 1;
     lignePanier.oeuvre = oeuvre;
@@ -185,7 +185,7 @@ export class CheckoutService extends HttpService {
       let nb = panierStockee.lignesPanier.length;
       console.log("l'oeuvre est déja ajouté au panier mais je sais pa pk je continu.");
       //création d'une nouvelle ligne panier
-      let lignePanier: LignePanier = { id: null, oeuvre: null, prix: null, quantite: null, total: null, lithographie: false };
+      let lignePanier: LignePanier = { id: null, oeuvre: null, prix: null, quantite: null, total: null, lithographie: false,idClient:null };
 
       lignePanier.id = (nb + 1);
       lignePanier.oeuvre = oeuvre;
@@ -450,7 +450,7 @@ getAdresseByClient(idClient){
 
   availableShippingMethods() {
     return this.http.get(environment.API_ENDPOINT +
-      `modelivraison`
+      `modelivraison/allMode`
     ).pipe(map((res) => {
       const modesLivraison = res;
       return modesLivraison;

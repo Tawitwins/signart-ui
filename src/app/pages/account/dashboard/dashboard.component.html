@@ -377,7 +377,9 @@
         </div>
     </div>
     <div *ngIf="user.userType=='ARTISTE' && artiste?.id!=null" >
-        <app-compte-artiste></app-compte-artiste>
+        <div class="table-responsive card">
+            <app-compte-artiste></app-compte-artiste>
+        </div>
     </div>
 </section>
 <!-- section end -->

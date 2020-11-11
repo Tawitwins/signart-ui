@@ -3,17 +3,18 @@ import { QuickViewComponent } from "../../modal/quick-view/quick-view.component"
 import { CartModalComponent } from "../../modal/cart-modal/cart-modal.component";
 import { Product } from "../../../classes/product";
 import { ProductService } from "../../../services/product.service";
-import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
-import { environment } from 'src/environments/environment';
-import { AppState } from 'src/app/interfaces';
+
+//import { AppState } from 'src/app/interfaces';
 import { Store } from '@ngrx/store';
 
-import { AuthServiceS } from 'src/app/shared/services/auth.service';
 import { Router } from '@angular/router';
-import { ImageDto } from 'src/app/shared/modeles/image';
-import { Panier } from 'src/app/shared/modeles/panier';
+//import { Panier } from 'src/app/shared/modeles/panier';
 import { Subscription } from 'rxjs';
-import { Client } from 'src/app/shared/modeles/client';
+import { Oeuvre } from '../../../modeles/oeuvre';
+import { environment } from '../../../../../environments/environment';
+import { ImageDto } from '../../../modeles/image';
+import { Client } from '../../../modeles/client';
+import { AuthServiceS } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-product-box-one',

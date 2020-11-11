@@ -58,7 +58,7 @@
               </a>
               <h4>
                 <span>
-                  {{ oeuvre?.stock }} x 
+                  {{ oeuvre?.quantity }} x 
                   {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol' }}                </span>
               </h4>
             </div>

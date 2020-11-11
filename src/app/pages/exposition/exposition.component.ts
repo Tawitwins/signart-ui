@@ -48,7 +48,7 @@ export class ExpositionComponent implements OnInit {
         this.expositions = response;
         //console.log("Mes expositions"+resp);
         //console.log("Liste de toutes les expositions"+this.Expositions);
-        this.ExpositionsValide = this.expositions.filter(a => a.etatExposition===true);
+        this.ExpositionsValide = this.expositions.filter(a => a.etatExposition===true && a.idArtiste===this.artiste.id);
         let i=0;
         this.ExpositionsValide.forEach(element => { 
           this.artisteService.getArtiste(element.idArtiste).subscribe(resp =>{

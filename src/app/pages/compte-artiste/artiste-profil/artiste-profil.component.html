@@ -577,7 +577,7 @@
                             <div class="modal-body" *ngIf="isclicked==6">
                                 <form [formGroup]="biographieForm" (ngSubmit)="onAddBiographie()">
                                     <div class="card-description" style="color: black; text-align: justify">
-                                    <textarea formControlName="biographie"  [(ngModel)]="artiste.biographie" cols="90" rows="10" autofocus></textarea> 
+                                    <textarea formControlName="biographie"  [ngModel]="artiste.biographie" cols="90" rows="10" autofocus></textarea> 
                                     </div>
                                     <div class="form-group">
                                     <button style="float:right" type="submit" class="btn btn-solid">
@@ -734,7 +734,7 @@
                                 
                                 <div class="card-description" style="color: black; text-align: justify">
                                   <textarea formControlName="libelle" cols="90" rows="10" *ngIf="artistePresentation == null"></textarea> 
-                                  <textarea formControlName="libelle"  [(ngModel)]="artistePresentation.libelle" cols="90" rows="10" *ngIf="artistePresentation != null"></textarea> 
+                                  <textarea formControlName="libelle"  [ngModel]="artistePresentation.libelle" cols="90" rows="10" *ngIf="artistePresentation != null"></textarea> 
                                   
                                 </div>
                                 <div class="form-group">

@@ -42,6 +42,8 @@ import { MyformatcurrencyPipe } from '../shared/pipes/myformatcurrency.pipe';
 import { CompteArtisteComponent } from './compte-artiste/compte-artiste.component';
 import { ArtisteProfilComponent } from './compte-artiste/artiste-profil/artiste-profil.component';
 import { AddOeuvreComponent } from './add-oeuvre/add-oeuvre.component';
+import { TchatComponent } from '../shared/components/menu/TchatSpace/tchat.component';
+import { RightClicMenuTchatComponent } from '../shared/components/menu/TchatSpace/rightClicMenuTchat.component';
 
 
 @NgModule({

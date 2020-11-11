@@ -14,42 +14,42 @@
                         <th scope="col">action</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody  *ngFor="let oeuvre of oeuvres">
                         <tr>
-                            <td>
-                                <a [routerLink]="['/shop/product/left/sidebar/trim-dress']">
-                                    <img src="assets/images/product/fashion/1.jpg" alt="fashion">
+                            <td >
+                                <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
+                                    <img [src]="getOeuvreImageUrl(oeuvre?.id)" alt="fashion">
                                 </a>
                             </td>
-                            <td><a [routerLink]="['/shop/product/left/sidebar/trim-dress']">La jaconde Leonardo de Vinci</a>
+                            <td><a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">{{oeuvre.nom}}</a>
                                 <div class="mobile-cart-content row">
                                     <div class="col-xs-3">
-                                        <p>En stock</p>
+                                        <p>En stock: {{oeuvre.stock}}</p>
                                     </div>
                                     <div class="col-xs-3">
-                                        <h2 class="td-color">100000 FCFA</h2>
+                                        <h2 class="td-color">{{oeuvre.prix}} FCFA</h2>
                                     </div>
                                     <div class="col-xs-3">
                                         <h2 class="td-color">
-                                            <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="icon mr-1">
+                                            <a (click)="removeOeuvre(oeuvre)" class="icon mr-1">
                                                 <i class="ti-close"></i>
                                             </a>
-                                            <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="cart">
+                                            <a (click)="addOeuvreToCart(oeuvre)" class="cart">
                                                 <i class="ti-shopping-cart"></i>
                                             </a>
                                         </h2>
                                     </div>
                                 </div>
                             </td>
-                            <td><h2>100000 FCFA</h2></td>
+                            <td><h2>{{oeuvre.prix}} FCFA</h2></td>
                             <td >
-                                <p>EN stock</p>
+                                <p>EN stock: {{oeuvre.stock}}</p>
                             </td>
                             <td>
-                                <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="icon mr-3">
+                                <a (click)="removeOeuvre(oeuvre)" class="icon mr-3">
                                     <i class="ti-close"></i>
                                 </a>
-                                <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="cart">
+                                <a (click)="addOeuvreToCart(oeuvre)" class="cart">
                                     <i class="ti-shopping-cart"></i>
                                 </a>
                             </td>
