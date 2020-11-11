@@ -47,7 +47,7 @@ export class ArtisteService extends  HttpService {
   }
 
   getAllBiographie(idArtiste : number): Observable<any> {
-    return this.http.get(environment.API_ENDPOINT + `biographie/${idArtiste}`);
+    return this.http.get(environment.API_ENDPOINT + `biographie/artisteAll/${idArtiste}`);
   }
 
   getSouscription(): any {

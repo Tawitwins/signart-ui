@@ -29,6 +29,7 @@ export class Oeuvre {
   artiste?: string;
   idSouscription?: number;
   Technique?: Technique;
+  quantity?:number;
   constructor(/*id: number,
     nom: string,
     prix: number,

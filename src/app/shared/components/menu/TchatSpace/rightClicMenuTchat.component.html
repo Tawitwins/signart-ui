@@ -1,0 +1,53 @@
+<div class="menu" [ngStyle]="{'left.px': x, 'top.px': y}" (click)="leaveChild()">
+  <ul class="list-group" (click)="leaveChild()">
+    <li (click)="supprimer()" class="list-group-item list-group-item-action d-flex justify-content-                                                                          between align-items-center">
+      1. Supprimer 
+      <span class="badge badge-primary badge-pill"> message </span>
+    </li>
+    <li (click)="transferer()"  class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      2.Tranférer
+      <span class="badge badge-primary badge-pill"> message </span>
+    </li>
+    <li (click)="copier()"  class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      3.Copier
+      <span class="badge badge-primary badge-pill"> message </span>
+    </li>
+  </ul>
+</div>
+<!-- <igx-dialog #dialog title="Confirmation"
+    leftButtonLabel="Annuler"
+    (onLeftButtonSelect)="dialog.close()"
+    rightButtonLabel="Confirmer"
+    (onRightButtonSelect)="onDialogOKSelected($event)"
+    [message]="message">
+</igx-dialog> -->
+
+<style>
+
+.menu{
+    position: absolute;
+}
+
+</style>
+<!-- <a (click)="handleClick()">Download</a>
+<style>
+    .cdk-overlay-container {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.ngx-contextmenu.cdk-overlay-pane {
+  position: absolute;
+  pointer-events: auto;
+  box-sizing: border-box;
+}
+
+
+.target {
+  user-select: none;
+}
+</style> -->

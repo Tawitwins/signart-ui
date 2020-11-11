@@ -6,6 +6,11 @@ import { environment } from '../../../environments/environment';
 import { Product } from "../../shared/classes/product";
 import { ProductService } from "../../shared/services/product.service";
 import { OrderService } from "../../shared/services/order.service";
+import { AuthServiceS } from '../../shared/services/auth.service';
+import { Client } from '../../shared/modeles/client';
+import { PaysService } from '../../shared/services/pays.service';
+import { CheckoutState } from '../../checkout/reducers/checkout.state';
+import { CheckoutService } from '../../shared/services/checkout.service';
 
 @Component({
   selector: 'app-checkout',
@@ -17,23 +22,37 @@ export class CheckoutComponent implements OnInit {
   public checkoutForm:  FormGroup;
   public products: Product[] = [];
   public payPalConfig ? : IPayPalConfig;
-  public payment: string = 'Stripe';
+  public payment: any;
+  public livraison:any;
   public amount:  any;
+  client: Client;
+  allPays: any;
+  allModePaiement: import("c:/Users/SNMBENGUEO/Desktop/SignArt/signart web new/src/app/shared/modeles/payment_mode").PaymentMode[];
+  allModeLivraison: Object;
 
-  constructor(private fb: FormBuilder,
-    public productService: ProductService,
+  constructor(private fb: FormBuilder,private authService:AuthServiceS,
+    public productService: ProductService,private newCheckoutService:CheckoutService,private paysService:PaysService,
     private orderService: OrderService) { 
+    this.client = this.authService.getClientConnected();
+    this.paysService.getAllPays().subscribe(pays => this.allPays = pays);
+    this.newCheckoutService.availablePaymentMethods().subscribe(resp=> {
+      console.log(resp);
+      this.allModePaiement= resp;} );
+    this.newCheckoutService.availableShippingMethods().subscribe(resp=>{ 
+      console.log(resp); 
+      this.allModeLivraison= resp});
+
     this.checkoutForm = this.fb.group({
-      firstname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      lastname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
-      phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
+      firstname: [this.client.prenom, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+      lastname: [this.client.nom, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
+      phone: [this.client.telephone, [Validators.required, Validators.pattern('[0-9]+')]],
       email: ['', [Validators.required, Validators.email]],
-      address: ['', [Validators.required, Validators.maxLength(50)]],
-      country: ['', Validators.required],
-      town: ['', Validators.required],
+      address: [this.client.adresseLivraison, [Validators.required, Validators.maxLength(50)]],
+      country: [this.client.pays, Validators.required],
+      town: [this.client.ville, Validators.required],
       state: ['', Validators.required],
       postalcode: ['', Validators.required]
-    })
+    });
   }
 
   ngOnInit(): void {

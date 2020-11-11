@@ -230,7 +230,8 @@ export class AuthServiceS {
 signOut() {
     localStorage.removeItem('user'); 
     localStorage.removeItem('client');
-    localStorage.clear();
+    localStorage.removeItem('artiste');
+    //localStorage.clear();
     //localStorage.setItem('Authstatus',JSON.stringify(false));
     this.store.dispatch(this.actions.logoutSuccess());
   }

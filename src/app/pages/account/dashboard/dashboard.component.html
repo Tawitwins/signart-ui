@@ -1,7 +1,7 @@
-<app-breadcrumb [title]="'Dashboard'" [breadcrumb]="'Dashboard'"></app-breadcrumb>
+<app-breadcrumb [title]="'Dashboard'" [breadcrumb]="'Tableau de bord'"></app-breadcrumb>
 <!-- section start -->
 <section class="section-b-space">
-    <div class="container">
+    <div *ngIf="user.userType=='CLIENT'" class="container">
         <div class="row">
             <div class="col-lg-3">
                 <div class="account-sidebar" (click)="ToggleDashboard()">
@@ -374,6 +374,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div *ngIf="user.userType=='ARTISTE' && artiste?.id!=null" >
+        <div class="table-responsive card">
+            <app-compte-artiste></app-compte-artiste>
         </div>
     </div>
 </section>

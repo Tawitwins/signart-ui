@@ -6,14 +6,19 @@ import { ToastrService } from 'ngx-toastr';
 import { Product } from '../classes/product';
 import { ArticleService } from '../services/article.service'
 import { Oeuvre } from '../modeles/oeuvre';
-import { environment } from 'src/environments/environment';
-import { CheckoutActions } from 'src/app/checkout/actions/checkout.actions';
+//import { environment } from 'src/environments/environment';
+//import { CheckoutActions } from 'src/app/checkout/actions/checkout.actions';
 import { CheckoutService } from './checkout.service';
 import { Panier } from '../modeles/panier';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/interfaces';
+//import { AppState } from 'src/app/interfaces';
 import { Client } from '../modeles/client';
 import { AuthServiceS } from './auth.service';
+import { CheckoutActions } from '../../checkout/actions/checkout.actions';
+import { AppState } from '../../interfaces';
+import { environment } from '../../../environments/environment';
+import { PanierEtMarquageService } from './panierEtMarquage.service';
+import { LignePanier } from '../modeles/ligne_panier';
 
 const state = {
   products: JSON.parse(localStorage['products'] || '[]'),
@@ -37,7 +42,7 @@ export class ProductService {
 
   constructor(private http: HttpClient,
     private toastrService: ToastrService, private articleService: ArticleService,
-    private checkoutActions: CheckoutActions, 
+    private checkoutActions: CheckoutActions, private panierEtMarquateService:PanierEtMarquageService,
     private checkoutService: CheckoutService,private store: Store<AppState>,  private authService: AuthServiceS,) { }
 
   /*
@@ -134,6 +139,7 @@ export class ProductService {
 
   // Ajouter aux Favoris
   public addToWishlist(product): any {
+    product.image=null;
     const wishlistItem = state.wishlist.find(item => item.id === product.id)
     if (!wishlistItem) {
       state.wishlist.push({
@@ -228,8 +234,9 @@ export class ProductService {
   }*/
 
   public addToCart(oeuvre: Oeuvre): any {
+    oeuvre.image=null;
     const cartItem = state.cart.find(item => item.id === oeuvre.id);
-    const qty = oeuvre.stock ? oeuvre.stock : 1;
+    const qty = 1;// oeuvre.stock ? oeuvre.stock : 1;
     const items = cartItem ? cartItem : oeuvre;
     const stock = this.calculateStockCounts(items, qty);
     this.client = this.authService.getClientConnected();
@@ -249,14 +256,22 @@ export class ProductService {
       })
     }
 
-    this.OpenCart = true; // If we use cart variation modal
-    localStorage.setItem("cartItems", JSON.stringify(state.cart));
-    return true;
+    this.panierEtMarquateService.createNewLineItem(oeuvre).subscribe(resp=>{
+      if(resp.id!=null)
+      {
+        this.OpenCart = true; // If we use cart variation modal
+        localStorage.setItem("cartItems", JSON.stringify(state.cart));
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
   }
 
   public addToCartOeuvre(oeuvre): any {
     const cartItem = state.cart.find(item => item.id === oeuvre.id);
-    const qty = oeuvre.stock ? oeuvre.stock : 1;
+    const qty = 1; //oeuvre.stock ? oeuvre.stock : 1;
     const items = cartItem ? cartItem : oeuvre;
     const stock = this.calculateStockCounts(items, qty);
     
@@ -271,9 +286,17 @@ export class ProductService {
       })
     }
 
-    this.OpenCart = true; // If we use cart variation modal
-    localStorage.setItem("cartItems", JSON.stringify(state.cart));
-    return true;
+    this.panierEtMarquateService.createNewLineItem(oeuvre).subscribe(resp=>{
+      if(resp.id!=null)
+      {
+        this.OpenCart = true; // If we use cart variation modal
+        localStorage.setItem("cartItems", JSON.stringify(state.cart));
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
   }
 
   // Update Cart Quantity
@@ -286,6 +309,23 @@ export class ProductService {
           state.cart[index].quantity = qty
         }
         localStorage.setItem("cartItems", JSON.stringify(state.cart));
+        this.client = this.authService.getClientConnected();
+        console.log(this.client);
+        this.panierEtMarquateService.getLineItemsByClient(this.client.id).subscribe(resp=>{
+          let lignePaniers = <LignePanier[]> resp;
+          console.log(lignePaniers); 
+          let lp=lignePaniers.find(lp=>lp.oeuvre.id===product.id);
+          console.log(lp);
+          if(lp!=null || lp != undefined)
+          {
+            console.log(lignePaniers);
+            console.log(lp);
+            lp.quantite=state.cart[index].quantity;
+            lp.oeuvre.image=null;
+            lp.idClient=this.client.id;
+            this.panierEtMarquateService.updateLigneItems(lp).subscribe(resp=> console.log(resp));
+          }
+        })
         return true
       }
     })
@@ -317,6 +357,18 @@ export class ProductService {
     const index = state.cart.indexOf(product);
     state.cart.splice(index, 1);
     localStorage.setItem("cartItems", JSON.stringify(state.cart));
+    this.client = this.authService.getClientConnected();
+        console.log(this.client);
+        this.panierEtMarquateService.getLineItemsByClient(this.client.id).subscribe(resp=>{
+          let lignePaniers = <LignePanier[]> resp;
+          console.log(lignePaniers); 
+          let lp=lignePaniers.find(lp=>lp.oeuvre.id===product.id);
+          console.log(lp);
+          if(lp!=null || lp != undefined)
+          {
+            this.panierEtMarquateService.deleteLineItem(lp).subscribe(resp=> console.log(resp));
+          }
+        })
     return true
   }
 
@@ -340,7 +392,7 @@ export class ProductService {
         if(curr.tauxremise) {
           price = curr.prix - (curr.prix * curr.tauxremise / 100)
         }
-        return (prev + price * curr.stock) * this.Currency.price;
+        return (prev + price * curr.quantity) * this.Currency.price;
       }, 0);
     }));
   }

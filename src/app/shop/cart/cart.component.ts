@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProductService } from "../../shared/services/product.service";
 import { Product } from "../../shared/classes/product";
-import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
-import { environment } from 'src/environments/environment';
+import { Oeuvre } from '../../shared/modeles/oeuvre';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-cart',

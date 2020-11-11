@@ -45,6 +45,10 @@ import { TapToTopComponent } from './components/tap-to-top/tap-to-top.component'
 // Pipes
 import { DiscountPipe } from './pipes/discount.pipe';
 import { FavoriteActions } from '../wishlist/actions/favorite.actions';
+import { TchatComponent } from './components/menu/TchatSpace/tchat.component';
+import { RightClicMenuTchatComponent } from './components/menu/TchatSpace/rightClicMenuTchat.component';
+import { NgxFileDropModule } from 'ngx-file-drop';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   declarations: [
@@ -71,6 +75,8 @@ import { FavoriteActions } from '../wishlist/actions/favorite.actions';
     SkeletonProductBoxComponent,
     TapToTopComponent,
     DiscountPipe,
+    TchatComponent,
+    RightClicMenuTchatComponent,
   ],
   imports: [
     CommonModule,
@@ -84,7 +90,9 @@ import { FavoriteActions } from '../wishlist/actions/favorite.actions';
       // preset: scrollPreset // <-- tell LazyLoadImage that you want to use scrollPreset
     }),
     NgxSkeletonLoaderModule,
-    TranslateModule
+    TranslateModule,
+    NgxFileDropModule,
+    PickerModule,
   ],
   exports: [
     CommonModule,
@@ -117,6 +125,7 @@ import { FavoriteActions } from '../wishlist/actions/favorite.actions';
     SkeletonProductBoxComponent,
     TapToTopComponent,
     DiscountPipe,
+    PickerModule
     
   ],
   providers: [FavoriteActions]

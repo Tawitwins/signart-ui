@@ -1,5 +1,7 @@
+import { Artiste } from "./artiste";
+
 export class Exposition {
-   // id: string;
+    id: number;
     adresse: string;
     description: string;
     titre: string;
@@ -8,6 +10,7 @@ export class Exposition {
     type: string;
     etatExposition: boolean;
     idArtiste: number;
+    artiste: Artiste;
 
     constructor(
         titre: string,
@@ -17,7 +20,8 @@ export class Exposition {
         dateFin: Date,
         type: string,
         idArtiste: number,
-        etatPublication: boolean
+        etatPublication: boolean,
+        artiste:Artiste,
         ){}
 }
 

@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="'Cart'" [breadcrumb]="'Cart'"></app-breadcrumb>
+<app-breadcrumb [title]="'Cart'" [breadcrumb]="'Panier'"></app-breadcrumb>
 <!-- section start -->
 <section class="cart-section section-b-space">
     <div class="container">
@@ -33,7 +33,7 @@
                                 <div class="col-xs-3">
                                     <div class="qty-box">
                                         <div class="input-group">
-                                            <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="oeuvre.stock">
+                                            <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="oeuvre.quantity">
                                         </div>
                                     </div>
                                 </div>
@@ -64,7 +64,7 @@
                                             <i class="ti-angle-left"></i>
                                         </button>
                                     </span>
-                                    <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="oeuvre.stock">
+                                    <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="oeuvre.quantity">
                                     <span class="input-group-prepend">
                                         <button type="button" class="btn quantity-right-plus"  data-type="plus" (click)="increment(oeuvre)">
                                             <i class="ti-angle-right"></i>

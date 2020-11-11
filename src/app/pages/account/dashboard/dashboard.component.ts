@@ -3,19 +3,21 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Store } from '@ngrx/store';
+import { AuthServiceS } from '../../../shared/services/auth.service';
+import { AppState } from '../../../interfaces';
+import { getAuthStatus } from '../../../auth/reducers/selectors';
+import { Artiste } from '../../../shared/modeles/artiste';
+import { ArtisteService } from '../../../shared/services/artiste.service';
+import { Client } from '../../../shared/modeles/client';
+import { OeuvreService } from '../../../shared/services/oeuvre.service';
 
-import { getAuthStatus } from 'src/app/auth/reducers/selectors';
-import { AppState } from 'src/app/interfaces';
-import { Commande } from 'src/app/shared/modeles/commande';
-import { AccountInfo, User } from 'src/app/shared/modeles/user';
-import { Abonnement, Abonne, EtatAbonnement, Terminal, HistoriqueAbonnement } from 'src/app/shared/modeles/utilisateur';
-import { ArtisteService } from 'src/app/shared/services/artiste.service';
-import { AuthServiceS } from 'src/app/shared/services/auth.service';
 //import { CheckoutService } from 'src/app/shared/services/checkout.service';
-import { ImageService } from 'src/app/shared/services/image.service';
-import { OeuvreService } from 'src/app/shared/services/oeuvre.service';
 import Swal from 'sweetalert2';
 import { MustMatchValidators } from './must-Match';
+import { User, AccountInfo } from '../../../shared/modeles/user';
+import { Commande } from '../../../shared/modeles/commande';
+import { Abonnement, Abonne, EtatAbonnement, Terminal, HistoriqueAbonnement } from '../../../shared/modeles/utilisateur';
+import { ImageService } from '../../../shared/services/image.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,7 +25,6 @@ import { MustMatchValidators } from './must-Match';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
   user:User;
   token:string;
   @Input() tk:any;
@@ -36,7 +37,7 @@ export class DashboardComponent implements OnInit {
  oeuvres:any = [];
  oeuvresImg: any;
  client:any;
- artiste:any;
+ artiste:Artiste | any;
  idCustomer:number;
  //--pagination
  pageSize = 4;
@@ -83,7 +84,7 @@ export class DashboardComponent implements OnInit {
     if(this.user.userType == 'ARTISTE'){
     this.artisteService.getArtisteByUser(parseInt(this.user.id)).subscribe(
       res => {
-        //this.artiste = res
+        this.artiste = res
         console.log('Artiste connected ', res)
         this.oeuvreS.getOeuvreByArtiste(parseInt(res.id)).subscribe(
           resp => {
@@ -162,13 +163,12 @@ export class DashboardComponent implements OnInit {
             
           });
       });*/
-  }
-    
-    this.client=[];
+      this.client=[];
     this.commandes=[];
     this.artiste=[];
     this.onGetArtisteSuiviByClient();
-   }
+    }
+  }
 
   initmdpForm(){
     this.mdpForm = new FormGroup({
