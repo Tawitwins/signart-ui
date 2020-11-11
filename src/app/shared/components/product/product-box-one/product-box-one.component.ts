@@ -66,7 +66,7 @@ export class ProductBoxOneComponent implements OnInit {
             this.isAdd = false;
           } else{
             this.client = this.authService.getClientConnected();
-            console.log("client connect", this.client)
+            //console.log("client connect", this.client)
           }
       }
     }

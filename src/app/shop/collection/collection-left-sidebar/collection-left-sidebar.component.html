@@ -15,14 +15,53 @@
                                 </span>
                             </div>
                             <!-- Category filter start -->
-                             <app-categories></app-categories>
+                             <!--app-categories></app-categories-->
+
+                             <div class="collection-collapse-block border-0" [class.open]="collapseCategorie">
+                                <h3 class="collapse-block-title" (click)="collapseCategorie = !collapseCategorie">Catégories</h3>
+                                <div class="collection-collapse-block-content">
+                                    <div class="collection-brand-filter">
+                                        <ul class="category-list">
+                                            <li>
+                                                <a 
+                                                (click)="resetFilterCategorie()" style="cursor: pointer;">
+                                                    Tout
+                                                </a>
+                                            </li>
+                                            <li *ngFor="let category of filterbyCategory">
+                                                <a 
+                                                (click)="updateFilterCategorie(category)" style="cursor: pointer;">
+                                                    {{ getArtisteName(category) }}
+                                                </a>
+                                            </li>                               
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- side-bar colleps block stat -->
                         <div class="collection-filter-block">
                            
                             <!-- price filter start here -->
-                            <app-price [min]="minPrice" [max]="maxPrice" (priceFilter)="updateFilter($event)">
-                            </app-price>
+                            <!--app-price [min]="minPrice" [max]="maxPrice" (priceFilter)=" updateFilterPrice()">
+                            </app-price-->
+
+                            <div class="collection-collapse-block border-0" [class.open]="collapse">
+                                <h3 class="collapse-block-title" (click)="collapse = !collapse">Prix</h3>
+                                <div class="collection-collapse-block-content">
+                                    <div class="collection-brand-filter">
+                                        <div class="mt-2">
+                                            <ng5-slider 
+                                                [(value)]="minPrice" 
+                                                [(highValue)]="maxPrice" 
+                                                [(options)]="options" 
+                                                (userChangeEnd)="updateFilterPrice()">
+                                            </ng5-slider>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="collection-sidebar-banner">
                             <a [routerLink]="['/shop/collection/left/sidebar']">
@@ -99,7 +138,7 @@
                                             </div>
                                         </div-->          
                                         <div class="row">
-                                            <div class="col-grid-box" [ngClass]="grid" *ngFor="let oeuvre of oeuvres">
+                                            <div class="col-grid-box" [ngClass]="grid" *ngFor="let oeuvre of oeuvres | slice: (pag-1) * pageSize : (pag-1) * pageSize + pageSize">
                                                 <div class="product-box">
                                                     <app-product-box-one [oeuvre]="oeuvre" [thumbnail]="false" [cartModal]="true" [loader]="true">
                                                     </app-product-box-one>
@@ -113,8 +152,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <app-pagination [oeuvres]="oeuvres" [paginate]="paginate" (setPage)="setPage($event)">
-                                    </app-pagination>
+                                    <ngb-pagination [collectionSize]="oeuvres.length" [(page)]="pag" [pageSize]="pageSize" aria-label="Default pagination">
+                                    </ngb-pagination>
+                                    <!--app-pagination [oeuvres]="oeuvres" [paginate]="paginate" (setPage)="setPage($event)">
+                                    </app-pagination-->
                                 </div>
                                 
                             </div>
