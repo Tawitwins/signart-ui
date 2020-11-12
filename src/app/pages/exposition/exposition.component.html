@@ -49,12 +49,12 @@
 		</div>
 	</div>
 </div>		
-				   <div class="row margebas mar2">
+				   <!--div class="row margebas mar2">
 					<div class="col-md-3">
 
 
 
-<!-- CONTINUER LE FILTRE -->
+< CONTINUER LE FILTRE >
 <label for="select"><b>Filtre par:</b></label>
 <select name="select" id="select">
 <option>Auteur</option>
@@ -85,28 +85,28 @@
 						<input class="leform" type="date">
 
 					</div>
-					<!-- Filtre par Date -->
+					<Filtre par Date >
 
-				</div>
-						<div class="row mar" *ngFor="let exposition of expositions | slice: (pag-1) * pageSize : (pag-1) * pageSize + pageSize">
+				</div-->
+						<!--div class="row mar" *ngFor="let exposition of expositions | slice: (pag-1) * pageSize : (pag-1) * pageSize + pageSize">
 							<div >
-						    <!--div class="col-xl-6 padd-left"><img src="/assets/images/costoflivingdakar.jpg" class="img-fluid" alt="Placeholder image"></div-->
+						    <div class="col-xl-6 padd-left"><img src="/assets/images/costoflivingdakar.jpg" class="img-fluid" alt="Placeholder image"></div>
 						    <div class="col-xl-6 small-section" *ngIf="exposition.etatExposition">
-							  <h3>Exposition: {{exposition.titre}}</h3>
+							  <h3>Exposition: {{expositio n.titre}}</h3>
 							  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
 							  <div class="row mar2">
 							  <div class="col-md-4"> <b>Oraganisateur</b> <p> {{ getArtisteName(exposition.idArtiste)}}</p></div>
 								<div class="col-md-4"><b>Lieu</b><p>{{exposition.adresse}}</p></div>
 								<div class="col-md-4"><b>Dates & Heure</b><p> {{myDateParser(exposition.dateDebut)}}<br></p></div>
-								<!-- <div class="col-md-12">
+								< <div class="col-md-12">
 									<button [routerLink]="['/pages/register']" class="btn btn-solid">Détails</button>
-								</div> -->
+								</div> >
 							  </div>
 							</div>
 						    </div>
 						</div>
 						<ngb-pagination [collectionSize]="expositions.length" [(page)]="pag" [pageSize]="pageSize" aria-label="Default pagination">
-						</ngb-pagination>
+						</ngb-pagination-->
 			</div>
 
 	</div>

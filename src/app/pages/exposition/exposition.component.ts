@@ -44,43 +44,54 @@ export class ExpositionComponent implements OnInit {
         this.artistes = response;
         //console.log("all artiste",this.artistes)
         this.artiste = this.artistes[0];
+
+        this.expoService.getAllExpo().subscribe(response => {
+          this.expositions = response;
+          /*this.expositions = this.expositions.filter(item => item.etatExposition === true);
+          console.log("expositions", this.expositions)*/
+
+          this.ExpositionsValide = this.expositions.filter(a => a.etatExposition===true && a.idArtiste===this.artiste.id);
+          console.log("expositions", this.ExpositionsValide)
+          let i=0;
+          this.ExpositionsValide.forEach(element => { 
+            this.artisteService.getArtiste(element.idArtiste).subscribe(resp =>{
+              //console.log(resp);
+              i++;
+              element.artiste=<Artiste>resp;
+              console.log(element.artiste);
+              this.newLocationMapTmp = {adresse:element.adresse,latitude:null, longitude:null,idExpo:element.id}
+              this.locations.push(this.newLocationMapTmp);
+              if(i==this.ExpositionsValide.length)
+              {
+                console.log("load map");
+                this.loadMap();
+              }
+  
+               //console.log(element.dateDebut);
+            let date=element.dateDebut.toString();
+            date=date.substring(0,19);
+            element.dateDebut = new Date(date);
+            date=element.dateFin.toString();
+            date=date.substring(0,19);
+            element.dateFin = new Date(date);
+            //console.log(element.dateDebut);
+            console.log(element.adresse);
+           
+            });
+           
+          });
+          console.log(this.locations);
+          console.log(this.ExpositionsValide);
+          
+          console.log("expositions", this.expositions)
+        });
+       
+          //console.log("Mes expositions"+resp);
+          //console.log("Liste de toutes les expositions"+this.Expositions);
+          
       });
 
-      this.expoService.getAllExpo().subscribe(response => {
-        this.expositions = response;
-        this.expositions = this.expositions.filter(item => item.etatExposition === true);
-        console.log("expositions", this.expositions)
-      })
-     
-        //console.log("Mes expositions"+resp);
-        //console.log("Liste de toutes les expositions"+this.Expositions);
-        this.ExpositionsValide = this.expositions.filter(a => a.etatExposition===true && a.idArtiste===this.artiste.id);
-        let i=0;
-        this.ExpositionsValide.forEach(element => { 
-          this.artisteService.getArtiste(element.idArtiste).subscribe(resp =>{
-            //console.log(resp);
-            i++;
-            element.artiste=<Artiste>resp;
-            console.log(element.artiste);
-            if(i==this.ExpositionsValide.length)
-              this.loadMap();
-          });
-          //console.log(element.dateDebut);
-          let date=element.dateDebut.toString();
-          date=date.substring(0,19);
-          element.dateDebut = new Date(date);
-          date=element.dateFin.toString();
-          date=date.substring(0,19);
-          element.dateFin = new Date(date);
-          //console.log(element.dateDebut);
-          console.log(element.adresse);
-          this.newLocationMapTmp = {adresse:element.adresse,latitude:null, longitude:null,idExpo:element.id}
-          this.locations.push(this.newLocationMapTmp);
-        });
-        console.log(this.locations);
-        console.log(this.ExpositionsValide);
-        
-        console.log("expositions", this.expositions)
+      
       }
   
 
@@ -105,8 +116,10 @@ export class ExpositionComponent implements OnInit {
       center: {lat: 14.666904, lng:-17.436948},
       zoom: 8
     });
+    console.log("load map 1");
     var geocoder = new google.maps.Geocoder();
     this.locations.forEach(element=>{
+      console.log("load map 2");
       console.log("iciiii:");
       console.log(this.ExpositionsValide.find(currentExpo=>currentExpo.id===element.idExpo));
       this.Expos=this.ExpositionsValide.find(currentExpo=>currentExpo.id===element.idExpo);
@@ -115,6 +128,7 @@ export class ExpositionComponent implements OnInit {
     })
   }
   geocodeAddress(geocoder, resultsMap,element,lexposition:Exposition,monpipe) {
+    console.log("load map 3");
     var address = element.adresse;
     console.log(element);
     //console.log(lexposition);
@@ -123,6 +137,7 @@ export class ExpositionComponent implements OnInit {
     artiste=lexposition.artiste;
     var img=this.getProductImageUrl(artiste.id);
     geocoder.geocode({'address': address}, function(results, status) {
+      console.log("load map 4");
       if (status === 'OK') {
        /*  console.log(this.locations[6][1]);
         console.log(this.locations[6][2]); */
@@ -167,7 +182,7 @@ export class ExpositionComponent implements OnInit {
     return resultsMap;
   }
 
-myDateParser(dateStr : string) : string {
+/*myDateParser(dateStr : string) : string {
   // 2018-01-01T12:12:12.123456; - converting valid date format like this
 
   let date = dateStr.substring(0, 10);
@@ -181,7 +196,7 @@ myDateParser(dateStr : string) : string {
   let validDate = jour+'/'+moi+'/'+annee+ ' A ' + time; 
   //+ '.' + millisecond;
   return validDate
-}
+}*/
 
 
   getProductImageUrl(id: number) {

@@ -108,11 +108,11 @@
     <div class="row">
       <div class="col">
         <owl-carousel-o class="product-m no-arrow" [options]="ProductSliderConfig">
-          <ng-container *ngFor="let product of products | slice:0:16">
+          <ng-container *ngFor="let oeuvre of oeuvres | slice:0:16">
             <ng-template carouselSlide>
               <div class="product-box">
                 <app-product-box-one 
-                  [product]="product" 
+                  [oeuvre]="oeuvre" 
                   [currency]="productService?.Currency"
                   [thumbnail]="true"
                   [cartModal]="false">

@@ -11,6 +11,7 @@ import { Client } from '../../shared/modeles/client';
 import { PaysService } from '../../shared/services/pays.service';
 import { CheckoutState } from '../../checkout/reducers/checkout.state';
 import { CheckoutService } from '../../shared/services/checkout.service';
+import { PaymentMode } from 'src/app/shared/modeles/payment_mode';
 
 @Component({
   selector: 'app-checkout',
@@ -27,7 +28,7 @@ export class CheckoutComponent implements OnInit {
   public amount:  any;
   client: Client;
   allPays: any;
-  allModePaiement: import("c:/Users/SNMBENGUEO/Desktop/SignArt/signart web new/src/app/shared/modeles/payment_mode").PaymentMode[];
+  allModePaiement: PaymentMode| any;
   allModeLivraison: Object;
 
   constructor(private fb: FormBuilder,private authService:AuthServiceS,

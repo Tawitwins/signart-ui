@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductSlider } from '../../../shared/data/slider';
 import { Product } from '../../../shared/classes/product';
 import { ProductService } from '../../../shared/services/product.service';
+import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
+import { ArticleService } from 'src/app/shared/services/article.service';
 
 @Component({
   selector: 'app-signart-one',
@@ -12,8 +14,9 @@ export class SignartOneComponent implements OnInit {
 
   public products: Product[] = [];
   public productCollections: any[] = [];
+  public oeuvres: Oeuvre[] = [];
   
-  constructor(public productService: ProductService) {
+  constructor(public productService: ProductService, private articleService: ArticleService) {
     this.productService.getProducts.subscribe(response => {
       this.products = response.filter(item => item.type === 'art','sculpture');
       // console.log(this.products)
@@ -25,6 +28,10 @@ export class SignartOneComponent implements OnInit {
         })
       })
     });
+
+    this.articleService.getAllArticles().subscribe(response => { 
+      this.oeuvres = response;
+            });
   }
 
   public ProductSliderConfig: any = ProductSlider;
