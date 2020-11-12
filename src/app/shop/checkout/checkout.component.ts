@@ -11,6 +11,7 @@ import { Client } from '../../shared/modeles/client';
 import { PaysService } from '../../shared/services/pays.service';
 import { CheckoutState } from '../../checkout/reducers/checkout.state';
 import { CheckoutService } from '../../shared/services/checkout.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-checkout',
@@ -22,15 +23,15 @@ export class CheckoutComponent implements OnInit {
   public checkoutForm:  FormGroup;
   public products: Product[] = [];
   public payPalConfig ? : IPayPalConfig;
-  public payment: any;
-  public livraison:any;
+  public payment: string="";
+  public livraison:string ="";
   public amount:  any;
   client: Client;
   allPays: any;
   allModePaiement: import("c:/Users/SNMBENGUEO/Desktop/SignArt/signart web new/src/app/shared/modeles/payment_mode").PaymentMode[];
   allModeLivraison: Object;
 
-  constructor(private fb: FormBuilder,private authService:AuthServiceS,
+  constructor(private fb: FormBuilder,private toastService:ToastrService,private authService:AuthServiceS,
     public productService: ProductService,private newCheckoutService:CheckoutService,private paysService:PaysService,
     private orderService: OrderService) { 
     this.client = this.authService.getClientConnected();
@@ -133,4 +134,19 @@ export class CheckoutComponent implements OnInit {
     };
   }
 
+  showInf()
+  {
+    console.log(this.livraison);
+    console.log(this.payment);
+  }
+  CheckFormEtPayer(){
+    if(this.livraison=="")
+    {
+      this.toastService.info("Veuillez choisir un mode de livraison SVP.","Attention");
+    }
+    if(this.payment=="")
+    {
+      this.toastService.info("Veuillez choisir un mode de paiement SVP.","Attention");
+    }
+  }
 }

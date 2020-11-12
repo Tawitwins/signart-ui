@@ -178,8 +178,8 @@
                                          <div>
                                             <br>
                                             <div class="shopping-option" *ngFor="let modeLivraison of allModeLivraison, let index">
-                                                <input type="radio" [(ngModel)]="livraison" [value]="modeLivraison" name="shipping_{{modeLivraison.id}}" id="free-shipping_{{modeLivraison.id}}">
-                                                <label for="free-shipping__{{modeLivraison.id}}">{{modeLivraison.libelle}}</label>
+                                                <input type="radio" [(ngModel)]="livraison" [value]="modeLivraison.LCode" name="shipping_{{modeLivraison.id}}" id="free-shipping_{{modeLivraison.id}}">
+                                                <label for="free-shipping_{{modeLivraison.id}}">{{modeLivraison.libelle}}</label>
                                             </div>
                                             
                                             <!-- <div class="shopping-option">
@@ -200,7 +200,7 @@
                                             <ul>
                                                 <li *ngFor="let modePaiement of allModePaiement">
                                                     <div class="radio-option">
-                                                        <input type="radio" [(ngModel)]="payment" [value]="modePaiement" name="MP_{{modePaiement.libelle}}" id="MP_{{modePaiement.id}}">
+                                                        <input type="radio" [(ngModel)]="payment" [value]="modePaiement.code" name="MP_{{modePaiement.libelle}}" id="MP_{{modePaiement.id}}">
                                                         <label for="MP_{{modePaiement.id}}">{{modePaiement.libelle}}
                                                             <span class="small-text">Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</span></label>
                                                     </div>
@@ -215,11 +215,12 @@
                                             </ul>
                                         </div>
                                     </div>
+                                    <!-- [disabled]="!checkoutForm.valid" (click)="stripeCheckout()" (click)="showInf()" *ngIf="payment == 'PAYPAL'" -->
                                     <div class="text-right">
-                                        <button type="submit" class="btn-solid btn" [disabled]="!checkoutForm.valid" (click)="stripeCheckout()" *ngIf="payment == 'Stripe'">
+                                        <button type="submit" class="btn-solid btn" (click)="CheckFormEtPayer()"  *ngIf="payment == 'PAYPAL'">
                                            Payer
                                         </button>
-                                        <ngx-paypal [config]="payPalConfig" *ngIf="payment == 'Paypal'"></ngx-paypal>
+                                        <ngx-paypal [config]="payPalConfig"  *ngIf="payment == 'PAYPAL'"></ngx-paypal>
                                     </div>
                                 </div>
                             </div>
