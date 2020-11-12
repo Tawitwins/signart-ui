@@ -7,7 +7,7 @@
                 <li *ngFor="let category of filterbyCategory">
                     <a [routerLink]="['/shop/collection/left/sidebar']"
                        [queryParams]="{ category: category}">
-                        {{ category }}
+                        {{ getArtisteName(category) }}
                     </a>
                 </li>
             </ul>

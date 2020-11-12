@@ -16,7 +16,9 @@ declare const google: any;
 export class ExpositionComponent implements OnInit {
 
   public artistes: any [] = [];
+  public expositions: Exposition [] = [];
   public artiste: Artiste;
+  public artisteName: string;
 
   pageSize = 2;
   pag=1;
@@ -26,7 +28,7 @@ export class ExpositionComponent implements OnInit {
 
   @ViewChild('mapRef', {static: true }) mapElement: ElementRef;
   locations:LocationOnMap[]=[];
-  expositions: Exposition[]=[];
+  //expositions: Exposition[]=[];
   ExpositionsValide: Exposition[]=[];
   newLocationMapTmp: LocationOnMap;
   lartiste:Artiste=new Artiste('','','','','','','','','','');
@@ -46,6 +48,10 @@ export class ExpositionComponent implements OnInit {
 
       this.expoService.getAllExpo().subscribe(response => {
         this.expositions = response;
+        this.expositions = this.expositions.filter(item => item.etatExposition === true);
+        console.log("expositions", this.expositions)
+      })
+     
         //console.log("Mes expositions"+resp);
         //console.log("Liste de toutes les expositions"+this.Expositions);
         this.ExpositionsValide = this.expositions.filter(a => a.etatExposition===true && a.idArtiste===this.artiste.id);
@@ -75,10 +81,19 @@ export class ExpositionComponent implements OnInit {
         console.log(this.ExpositionsValide);
         
         console.log("expositions", this.expositions)
-      });
-  }
+      }
+  
 
   ngOnInit(): void {
+  }
+
+  getArtisteName(idArtiste: number): string{
+    for (let i = 0; i < this.artistes.length; i++) {
+      if(this.artistes[i].id == idArtiste){
+        return this.artistes[i].prenom +" "+this.artistes[i].nom;
+      }
+      
+    }
   }
 
   getArtisteImageUrl(id: number) {
@@ -151,6 +166,22 @@ export class ExpositionComponent implements OnInit {
     });
     return resultsMap;
   }
+
+myDateParser(dateStr : string) : string {
+  // 2018-01-01T12:12:12.123456; - converting valid date format like this
+
+  let date = dateStr.substring(0, 10);
+  let annee = dateStr.substring(0, 4);
+  let moi = dateStr.substring(5, 7);
+  let jour = dateStr.substring(8, 10);
+  let time = dateStr.substring(11, 16);
+ // let millisecond = dateStr.substring(20)
+
+ // let validDate = date + ' à ' + time; 
+  let validDate = jour+'/'+moi+'/'+annee+ ' A ' + time; 
+  //+ '.' + millisecond;
+  return validDate
+}
 
 
   getProductImageUrl(id: number) {
