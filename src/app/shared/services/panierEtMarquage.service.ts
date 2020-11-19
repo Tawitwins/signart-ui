@@ -12,6 +12,7 @@ import { Panier } from '../modeles/panier';
 import { Oeuvre } from '../modeles/oeuvre';
 import { ToastrService } from 'ngx-toastr';
 import { AuthServiceS } from './auth.service';
+import { Suivre } from '../modeles/suivre';
 declare var $: any;
 
 
@@ -121,5 +122,37 @@ export class PanierEtMarquageService extends HttpService{
   }
   updateLigneItems(lignePanier){
     return this.put(environment.API_ENDPOINT + `lignepanier/${lignePanier.id}`,lignePanier)
+  }
+
+
+  getListClientByArt(idArtiste:number){
+    console.log('List des clients qui suivent le artist: '+idArtiste);
+    return this.http.get(environment.API_ENDPOINT + `marquageartiste/ListClientByArt/${idArtiste}`);
+  }
+  getListVisiteurByArt(idArtiste:number){
+    console.log('List des visiteurs qui suivent le artist: '+idArtiste);
+    return this.http.get(environment.API_ENDPOINT + `marquageartiste/ListVisiteurByArt/${idArtiste}`);
+  }
+  getMarquageByArtiste(idClient: number, idArtiste:number, codeTypeMarquage:string):Observable<any>{
+      console.log('marquage');
+      return this.http.get(environment.API_ENDPOINT + `marquageartiste/marquage?idClient=${idClient}&idArtiste=${idArtiste}&codeTypeMarquage=${codeTypeMarquage}`);
+  }
+
+  suivreArtiste(suis: Suivre) {
+      console.log('suivre ' + suis);
+      return this.http.post(environment.API_ENDPOINT + `marquageartiste`, suis);
+  }
+
+  plusSuivreArtiste(idClient: number, idArtiste:number, codeTypeMarquage:string) {
+      return this.http.delete(environment.API_ENDPOINT + `marquageartiste?idClient=${idClient}&idArtiste=${idArtiste}&codeTypeMarquage=${codeTypeMarquage}`);
+      
+  }
+  plusSuivreArtisteByVisiteur(id: number) {
+    return this.http.delete(environment.API_ENDPOINT + `marquageartiste/${id}`);
+    
+  }
+  getClientByUser(id: number) {
+    console.log('un client');
+    return this.http.get(environment.API_ENDPOINT + `client/user/${id}`)
   }
 }

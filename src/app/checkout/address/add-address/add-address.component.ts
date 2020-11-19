@@ -11,10 +11,10 @@ import { PaysService } from '../../../shared/services/pays.service';
 import { Pays } from '../../../shared/modeles/pays';
 
 import { Router } from '@angular/router';
-import { Client } from 'src/app/shared/modeles/client';
-import { AuthServiceS } from 'src/app/shared/services/auth.service';
-import { OeuvreService } from 'src/app/shared/services/oeuvre.service';
 import { CheckoutActions } from '../../actions/checkout.actions';
+import { Client } from '../../../shared/modeles/client';
+import { AuthServiceS } from '../../../shared/services/auth.service';
+import { OeuvreService } from '../../../shared/services/oeuvre.service';
 declare var $:any;
 @Component({
   selector: 'app-add-address',
@@ -38,6 +38,7 @@ export class AddAddressComponent implements OnInit, OnDestroy {
   listAdresses: any;
   nombreAdresses: number;
   listAdressesLength: number;
+  public infopage: number=7;
   
   constructor(
     private fb: FormBuilder, private authActions: AuthActions,
@@ -76,9 +77,13 @@ export class AddAddressComponent implements OnInit, OnDestroy {
     let addressAttributes;
     addressAttributes = this.addrService.createAddresAttributes(address);
     console.log('adresses : ', addressAttributes);
-    this.checkoutService.updateOrder(addressAttributes).subscribe();
+    this.checkoutService.addAdressesLivEtFact(addressAttributes).subscribe(
+      resp=>{
+        console.log(resp);
+      }
+    );
     this.listAdressesLength = 1;
-    this.store.dispatch(this.actions.updateOrderAdressNumberSuccess(this.listAdressesLength));
+    //this.store.dispatch(this.actions.updateOrderAdressNumberSuccess(this.listAdressesLength));
     
     //this.router.navigate(['/checkout', 'address']);
     //location.reload();

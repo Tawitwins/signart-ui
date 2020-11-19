@@ -1,15 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { PaymentMode } from 'app/shared/modeles/payment_mode';
 import { Observable } from 'rxjs';
-import { getTotalCartValue, getShippingOptionPrice, getOrderId } from 'app/checkout/reducers/selectors';
-import { CheckoutService } from 'app/shared/services/checkout.service';
 import { Store } from '@ngrx/store';
-import { AppState } from 'app/interfaces';
 import { Router } from '@angular/router';
-import { CheckoutActions } from 'app/checkout/actions/checkout.actions';
-import { AuthServiceS } from 'app/shared/services/auth.service';
-import { AuthActions } from 'app/auth/actions/auth.actions';
 import Swal from 'sweetalert2';
+import { PaymentMode } from '../../../../shared/modeles/payment_mode';
+import { AppState } from '../../../../interfaces';
+import { CheckoutService } from '../../../../shared/services/checkout.service';
+import { CheckoutActions } from '../../../actions/checkout.actions';
+import { AuthActions } from '../../../../auth/actions/auth.actions';
+import { getTotalCartValue, getShippingOptionPrice, getOrderId } from '../../../reducers/selectors';
+import { Commande } from '../../../../shared/modeles/commande';
 
 @Component({
   selector: 'app-cash-on-delivery',
@@ -26,9 +26,10 @@ export class CashOnDeliveryComponent implements OnInit {
   totalCartValue: number;
   shippingOptionPrice: number;
   codePaiement: string;
+  order: Commande = new Commande();
 
   constructor(private store: Store<AppState>, private checkouS: CheckoutService, private router: Router, private checkoutActions: CheckoutActions, private auth: AuthActions) { 
-    this.store.select(getTotalCartValue).subscribe(
+  /*   this.store.select(getTotalCartValue).subscribe(
       resp => {
         this.totalCartValue = resp;
         console.log('total value', this.totalCartValue)
@@ -44,7 +45,8 @@ export class CashOnDeliveryComponent implements OnInit {
         this.orderId = response;
         console.log('Order number ', this.orderId)
       }
-    );
+    ); */
+    this.order = JSON.parse(localStorage.getItem('order'));
   }
 
   ngOnInit() {
@@ -68,20 +70,20 @@ export class CashOnDeliveryComponent implements OnInit {
       cancelButtonText: 'Anuler'
     }).then((result) => {
       if (result.value) {
-        this.store.dispatch(this.checkoutActions.addPaymentModeSuccess(this.paymentmode));
+        //this.store.dispatch(this.checkoutActions.addPaymentModeSuccess(this.paymentmode));
         Swal.fire(
           'Vous allez payer une fois livré!',
         ).then((reslt) => {
           if (reslt.value) {
           this.store.dispatch(this.checkoutActions.orderCompleteSuccess());
-          this.router.navigate(['/', 'success']);
+          this.router.navigate(['/pages/order/success']);
         }
         })
-        this.checkouS.createNewPayment(this.paymentmode.id, this.orderId, this.codePaiement).subscribe(
+        /* this.checkouS.createNewPayment(this.paymentmode.id, this.order, this.codePaiement).subscribe(
           response => {
             console.log('Le retour paiement ', response)
           }
-        );
+        ); */
       }
     })
     //let montant = (this.totalCartValue + this.shippingOptionPrice);

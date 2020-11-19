@@ -4,16 +4,13 @@ import { throwError, Observable } from 'rxjs';
 import { retry, catchError} from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { getTotalCartValue, getShippingOptionPrice, getOrderId } from 'app/checkout/reducers/selectors';
-import { PaymentMode } from 'app/shared/modeles/payment_mode';
-import { CheckoutService } from 'app/shared/services/checkout.service';
 import { Store } from '@ngrx/store';
-import { AppState } from 'app/interfaces';
-import { CheckoutActions } from 'app/checkout/actions/checkout.actions';
-import { AuthServiceS } from 'app/shared/services/auth.service';
-import { AuthActions } from 'app/auth/actions/auth.actions';
 import Swal from 'sweetalert2';
-import { LigneCommande } from 'app/shared/modeles/ligneCommande';
+import { PaymentMode } from '../../../../shared/modeles/payment_mode';
+import { LigneCommande } from '../../../../shared/modeles/ligneCommande';
+import { AppState } from '../../../../interfaces';
+import { CheckoutActions } from '../../../actions/checkout.actions';
+import { getTotalCartValue, getShippingOptionPrice, getOrderId } from '../../../reducers/selectors';
 
 @Component({
   selector: 'app-paydunya',
@@ -39,7 +36,7 @@ export class PaydunyaComponent implements OnInit {
   Total: number;
   res:any;
   itemize:any[];
-  @Input() public commandeLine:LigneCommande[];
+  //@Input() public commandeLine:LigneCommande[]; 
   constructor(private http: HttpClient,private router:Router, private store: Store<AppState>,private toastr: ToastrService, private checkoutActions: CheckoutActions,) {
     this.httpOptions = {
       headers: new HttpHeaders({

@@ -17,6 +17,7 @@ import { ArtisteService } from '../../shared/services/artiste.service';
 import { OeuvreService } from '../../shared/services/oeuvre.service';
 import { PaysService } from '../../shared/services/pays.service';
 import { environment } from '../../../environments/environment';
+import { AuthServiceS } from '../../shared/services/auth.service';
 
 declare interface MenuInfo {
   path: string;
@@ -84,7 +85,7 @@ export class ArtisteComponent implements OnInit {
     tabPerso: any = [];
     tabCollec: any = [];
     tabAutres: any = [];
-    marq: any;
+    marq: boolean=false;
     client: any;
     visiteur: Visiteur;
     FormVisiteur: FormGroup;
@@ -115,7 +116,7 @@ export class ArtisteComponent implements OnInit {
     private artisteService: ArtisteService, private route: ActivatedRoute, private oeuvreService: OeuvreService,
         private expoService: OeuvreService, private annonceService: OeuvreService, private clientService: OeuvreService,
         private suivreService: OeuvreService, 
-        //private userAuth: AuthServiceS,private fb: FormBuilder,
+        private userAuth: AuthServiceS,
         private paysService: PaysService, private visiteurService: VisiteurService,@Inject(DOCUMENT) document) {   
       // Get Query params..
      
@@ -179,7 +180,7 @@ export class ArtisteComponent implements OnInit {
       this.oeuvres = this.oeuvres.slice(this.paginate.startIndex, this.paginate.endIndex + 1);
       console.log("paginationnnnn", this.paginate)
   
-   // this.user = this.userAuth.getUserConnected();
+    this.user = this.userAuth.getUserConnected();
     this.isVisiteur=false;
   }
 
@@ -218,14 +219,16 @@ export class ArtisteComponent implements OnInit {
                 response => {
                     this.client = response
                     this.suivreService.getMarquageByArtiste(+this.client.id, +this.artisteId, 'SUIV')
-                        .subscribe(response => { this.marq = response });
-                    if (this.marq != null) {
-                        this.suivreart = 'Ne plus suivre';
-                        this.couleur = 'grey';
-                    } else {
-                        this.suivreart = 'Suivre';
-                        this.couleur = '#f07c10';
-                    }
+                        .subscribe(response => { 
+                          if(response!=null)
+                          {
+                            this.marq=true;
+                          }
+                          else
+                          {
+                            this.marq= false
+                          }
+                        });
                 });
     }
 }
@@ -334,164 +337,66 @@ getOeuvreImageUrl(id: number) {
     return environment.API_ENDPOINT + 'image/oeuvre/' + id;
 }
 
-suivi() {
-    if(this.client!=null)
-    {
-        this.isVisiteur=false;
-        this.suivreService.getMarquageByArtiste(+this.client.id, +this.artisteId, 'SUIV')
-        .subscribe(response => { this.marq = response });
-        if (this.marq == null) {
-            console.log('mmmmkl' + this.client.id);
-            this.suivre = new Suivre(null,'SUIV', new Date(), +this.artisteId, this.client.id, 2,this.visiteur.id);
-            this.suivreService.suivreArtiste(this.suivre).subscribe(res => this.listes1 = res);
-            this.suivreart = 'Ne plus suivre';
-            this.couleur = 'grey';
-            console.log('affiche ' + this.suivre+this.isVisiteur);
-        } else {
-            this.oeuvreService.plusSuivreArtiste(this.client.id, this.artisteId, 'SUIV').subscribe();
-            this.suivreart = 'Suivre';
-            this.couleur = '#f07c10';
-            console.log('skguybgg'+this.isVisiteur);
-        }
-        /*  if((this.client.id == this.marq.idClient) && (this.artisteId == this.marq.idArtiste) && (this.marq.codeTypeMarquage=='SUIV'))
-
-        console.log('mmmmkl'+ this.client.id);
-        this.suivre = new Suivre('SUIV', new Date(), +this.artisteId, this.user.id, 2);
-        this.suivreService.suivreArtiste(this.suivre).subscribe(res => this.listes1 = res);
-        this.suivreart = 'Ne plus suivre';
-        this.couleur = 'grey';
-        console.log('affiche ' + this.suivre);
-
-        noSuivi() {
-        this.oeuvreService.plusSuivreArtiste(this.client.id, this.artisteId, 'SUIV').subscribe();
-        this.suivreart = 'Suivre';
-        this.couleur = 'rgb(239, 83, 80)';
-        console.log('affiche non suivi ' + this.suivre);
-    }*/
-    }
-    else
-    {
-        console.log('Aucune connexion est active');
-        if(this.suivreart == 'Suivre')
-            this.isVisiteur=true;
-        else
-        {
-            this.isVisiteur=false;
-            console.log("Mon artiste: "+ this.artiste.id + "Mon visiteur: " + this.visiteur.id); 
-            var result = this.oeuvreService.plusSuivreArtisteByVisiteur(this.suivre.id);
-            if(result==null)
-                console.log("Aucun élément a été trouvé pour la suppresion");
-            else
-            {
-                result.subscribe(
-                    (val) => {
-                   console.log("DELETE request en cours ....", <String>val 
-                               );
-                               var valSuivre = <Suivre>val;
-                               if(valSuivre.id==this.suivre.id)
-                               {
-                                    this.suivreart = 'Suivre';
-                                    this.couleur = '#f07c10';
-                                    console.log('Succés. Vous ne suivez plus cet artiste '+this.artiste.id);
-                               }
-                               else
-                               {
-                                    console.log("Cas particulers !! Val = "+ <Suivre>val );
-                               }
-               },
-               response => {
-                   console.log("DELETE call in error", response);
-               },
-               () => {
-                   console.log("The DELETE observable is now completed.");
-               });
-            }
-            //this.oeuvreService.plusSuivreArtisteByVisiteur(this.suivre.id)
-           
-        }
-    }
-    
-}
-onSubmit(){
-    //onsole.log(Visiteur.prenom+Visiteur.nom+Visiteur.pays+Visiteur.typeVisiteur+Visiteur.raisonSociale);
-    console.log("Visiteur en cour d'enregistrement...");
-    const values = this.FormVisiteur.value;
-    console.log('values: ', values)
-    const keys = Object.keys(values);
-    console.log(values);
-    this.visiteur.pays =this.allPays.find(p=>p.libelle=this.selectedPays);
-    this.visiteur.idPays= this.visiteur.pays.id;
-    console.log(this.visiteur);
-    if (this.FormVisiteur.valid) {
-        console.log("Visiteur a été enregistrer avec succés");
-        console.log(this.visiteur);
-        /*this.visiteur.prenom = values.prenom;
-        this.visiteur.nom = values.nom;
-        this.visiteur.pays = values.pays;
-        this.visiteur.raisonsociale = values.raisonSociale;
-        this.visiteur.typeVisiteur = values.typeVisiteur;*/
-        //this.visiteur.idPays = this.visiteur.pays.id;
-        console.log(this.visiteur.pays);
-        var result =this.visiteurService.createVisiteur(this.visiteur);
-        result.subscribe(  
-            (val) => {
-                console.log("POST call (save visiteur) successful value returned in body", val); 
-                this.visiteur=<Visiteur>val; 
-                console.log("Mise a jour ici", this.visiteur); 
-                alert("Identification réussi et suivi approuvé.");
-                this.suivre = new Suivre(null,'SUIV', new Date(), this.artisteId, 0, 2,this.visiteur.id);
-                console.log("Mon marquest est là "+ this.suivre);
-                this.suivreService.suivreArtiste(this.suivre).subscribe( (val) => {
-                    console.log("POST call successful (set marque) value returned in body", 
-                                val);
-                                console.log("Reponse souscription", this.listes1);
-                                this.suivreart = 'Ne plus suivre';
-                                this.couleur = 'grey';
-                                document.getElementById('Visiteur').click();
-                                this.suivre= <Suivre>val;
-                    },
-                    response => {
-                        console.log("POST call (set marque) in error", response);
-                    },
-                    () => {
-                        console.log("The POST observable (set marque) is now completed.");
-                    });
-              
-               // console.log('affiche ' + this.suivre+this.isVisiteur);
-            },
-            response => {
-                console.log("POST call (save visiteur) in error", response);
-                console.log("Un problème lors de l'enregistrement des vos informations !!" + result );
-            },
-            () => {
-                console.log("The POST (save visiteur) observable is now completed.");
-        });
-        /*this.registerSubs = this.authService.register(values).subscribe(
-          data => {     console.log('datas: ', data)
-  
-            this.authService.login(values.email, values.password).subscribe(
-              resp => console.log('resp: ', data)
-            );
-          }
-          );*/
+followArtiste(){
+  if(this.client!=null)
+  {
+      if (this.marq == false) {
+          console.log('mmmmkl' + this.client.id);
+          this.suivre = new Suivre(null,'SUIV', new Date(), +this.artiste.id, this.client.id, 2,this.visiteur.id);
+          this.suivreService.suivreArtiste(this.suivre).subscribe(res => {
+            this.listes1 = res
+            this.marq=true;
+            this.artiste.nbFans+=1;
+          });
       } else {
-        console.log("Un problème a été rencontré avec le formulaire du visiteur ");
-        keys.forEach(val => {
-          const ctrl = this.FormVisiteur.controls[val];
-          if (!ctrl.valid) {
-            this.pushErrorFor(val, null);
-            ctrl.markAsTouched();
-          };
-        });
+          this.oeuvreService.plusSuivreArtiste(this.client.id, this.artiste.id, 'SUIV').subscribe(resp=>{
+            this.marq=false;
+            this.artiste.nbFans-=1;
+          });
       }
-}
-ClickCreateAccount(){
-    this.isVisiteur=false;
-}
-private pushErrorFor(ctrl_name: string, msg: string) {
-    this.FormVisiteur.controls[ctrl_name].setErrors({ 'msg': msg });
   }
-
+  else if(this.user==null)
+  {
+    this.router.navigate(['/pages/login']);
+      /*console.log('Aucune connexion est active');
+      if(this.marq[index]==false)
+          this.isVisiteur=true;
+      else
+      {
+          this.isVisiteur=false;
+          console.log("Mon artiste: "+ this.currentArtiste.id + "Mon visiteur: " + this.visiteur.id); 
+          var result = this.oeuvreService.plusSuivreArtisteByVisiteur(this.suivre.id);
+          if(result==null)
+              console.log("Aucun élément a été trouvé pour la suppresion");
+          else
+          {
+              result.subscribe(
+                  (val) => {
+                 console.log("DELETE request en cours ....", <String>val 
+                             );
+                             var valSuivre = <Suivre>val;
+                             if(valSuivre.id==this.suivre.id)
+                             {
+                                  this.suivreart = 'Suivre';
+                                  this.couleur = '#f07c10';
+                                  console.log('Succés. Vous ne suivez plus cet artiste '+this.currentArtiste.id);
+                             }
+                             else
+                             {
+                                  console.log("Cas particulers !! Val = "+ <Suivre>val );
+                             }
+             },
+             response => {
+                 console.log("DELETE call in error", response);
+             },
+             () => {
+                 console.log("The DELETE observable is now completed.");
+             });
+          }
+          //this.oeuvreService.plusSuivreArtisteByVisiteur(this.suivre.id)
+      }*/
+  }  
+}
 
 
 }

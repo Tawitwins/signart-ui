@@ -21,38 +21,32 @@
                     <div class="col-md-12">
                      <div class="top-banner-wrapper">
                         <div class="top-banner-content small-section">
-                            <h4>Listes des Followers</h4>
-                            <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            <h4>Listes des abonnés</h4>
+                            <h5>{{artiste?.prenom}} {{artiste?.nom}} : Biographie
                             </h5>
                             <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-                                survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                                and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                {{artiste?.biographie}}
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 first">
+                <div class="col-md-4 first" *ngFor="let client of clients">
                     <div class="card profile-card-2 mar">
                         <div class="card-body pt-5">
                             <img src="assets/images/artists/profile.jpg" alt="profile-image" class="profile"/>
-                            <a [routerLink]="['/pages/artiste']"><h5 class="card-title"> Dan Enriqué</h5></a>
-                            <p class="card-text"><i class="ti-mobile"></i> +221 70 000 00 00</p>
-                            <p class="card-text"><i class="ti-email"></i> mail@mail.com</p>
+                            <a [routerLink]="['/pages/artiste']"><h5 class="card-title"> {{client?.prenom}} {{client?.nom}}</h5></a>
+                            <p class="card-text"><i class="ti-mobile"></i> {{client?.telephone}}</p>
+                            <p class="card-text"><i class="fa fa-flag"></i> {{client?.pays}}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card profile-card-2 mar">
-                        <div class="card-body pt-5">
-                            <img src="assets/images/artists/profile.jpg" alt="profile-image" class="profile"/>
-                            <h5 class="card-title"> Dan Enriqué</h5>
-                            <p class="card-text"><i class="ti-mobile"></i> +221 70 000 00 00</p>
-                            <p class="card-text"><i class="ti-email"></i> mail@mail.com</p>
-                        </div>
-                    </div>
+                <div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="!clients?.length">
+                    <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
+                    <h3>Désolé! Aucun abonnés a été trouvé !!!! </h3>
+                    <p>La liste sera automatiquement mise à jour si  un client s'abonne.</p>
+                    <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continue shopping</a>
                 </div>
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                     <div class="card profile-card-2 mar">
                         <div class="card-body pt-5">
                             <img src="assets/images/artists/profile.jpg" alt="profile-image" class="profile"/>
@@ -92,6 +86,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="card profile-card-2 mar">
+                        <div class="card-body pt-5">
+                            <img src="assets/images/artists/profile.jpg" alt="profile-image" class="profile"/>
+                            <h5 class="card-title"> Dan Enriqué</h5>
+                            <p class="card-text"><i class="ti-mobile"></i> +221 70 000 00 00</p>
+                            <p class="card-text"><i class="ti-email"></i> mail@mail.com</p>
+                        </div>
+                    </div>
+                </div> -->
                 <div class="col-md-12">
         <nav>
             <!-- Add class .pagination-lg for larger blocks or .pagination-sm for smaller blocks-->

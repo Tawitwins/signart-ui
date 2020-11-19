@@ -159,14 +159,21 @@
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 2">
                             <div class="box-head">
-                                <h2>Liste des adresses</h2>
+                                <a href="javascript:void(0)" style="float: right;" *ngIf="listAdress==true"  (click)="showHideListAdress(false)" >Ajouter une adresse</a>
+                                <a href="javascript:void(0)" style="float: right;" *ngIf="listAdress==false" (click)="showHideListAdress(true)" >Liste des adresses</a>
+                                <h2 *ngIf="listAdress==true" >Liste des adresses</h2>
+                                <h2 *ngIf="listAdress==false">Ajout d'une adresse</h2>
                             </div>
                             <hr>
-                            <table class="table cart-table table-responsive-xs">
+                            <div class="container" *ngIf="listAdress==false">
+                                <app-add-address></app-add-address>
+                            </div>
+                            <table *ngIf="listAdress==true" class="table cart-table table-responsive-xs">
                                 <thead>
                                     <tr class="table-head">
                                         <th scope="col">Numéro</th>
                                         <th scope="col">Adresse</th>
+                                        <th scope="col">Type</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -180,6 +187,11 @@
                                         <td>
                                             <h4>
                                                 {{adr.adresse}}, {{adr.ville}} - {{adr.region}} / {{adr.libellePays}}
+                                            </h4>                                         
+                                        </td>
+                                        <td>
+                                            <h4>
+                                                {{adr.libelleTypeAdresse}}
                                             </h4>                                         
                                         </td>
                                         <td>

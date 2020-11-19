@@ -31,12 +31,11 @@
                             </section-->
                            <div class="top-banner-content small-section">
                             <h4>Listes des artistes</h4>
-                            <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            </h5>
+                            <!-- <h5>Signart
+                            </h5> -->
                             <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-                                survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                                and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                Un artiste est une personne engagée dans une activité liée à la création d'art, à la pratique des arts ou à la démonstration d'un art. 
+                                Avec cette vitrine que propose SIGNART, vous pouvez rechercher vos artistes préférés, les suivre et même commander leurs oeuvres. 
                             </p>
                           </div>
                         </div>
@@ -65,7 +64,7 @@
                       
                        </div>
                        <div class="row">               
-                      <div class="col-md-4" *ngFor="let artiste of artistes | slice: (pag-1) * pageSize : (pag-1) * pageSize + pageSize">
+                      <div class="col-md-4" *ngFor="let artiste of artistes | slice: (pag-1) * pageSize : (pag-1) * pageSize + pageSize; let i=index">
                         <div class="card profile-card-2">
                             <div class="card-img-block">
                                 <!--img class="img-fluid" src="assets/images/artists/cover.jpg" alt="Card image cap" /-->
@@ -77,7 +76,10 @@
                                 <a [routerLink]="['/pages/artiste/',artiste.id]"><h5 class="card-title"> {{artiste.prenom}} {{artiste.nom}}</h5></a>
                                 <p class="card-text">{{artiste.biographie |  slice:0:100}}... </p>
                                 <div class="icon-block"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"> <i class="fa fa-twitter"></i></a></div>
-                                <div class="fans"> {{artiste.nbFans}} <i class="ti-heart fans"></i></div>
+                                <div class="fans"> {{artiste.nbFans}} 
+                                    <i data-toggle="modal"  data-target="#Visiteur" class="fa fa-heart" title="Suivre l'artiste" *ngIf="marq[i]==true" (click)="followArtiste(artiste,i)"></i>
+                                    <i data-toggle="modal"  data-target="#Visiteur" *ngIf="marq[i]==false" title="Ne plus suivre l'artiste" class="ti-heart fans" (click)="followArtiste(artiste,i)"></i>
+                                </div>
                             </div>
                         </div>
                       </div>
@@ -91,4 +93,75 @@
         </div>
     </div>
 </div>
-        
+<div class="modal fade" id="Visiteur" *ngIf="isVisiteur==true"   aria-labelledby="myModalLabel"
+[attr.aria-hidden]="isVisiteur">
+<div class="modal-dialog cascading-modal" >
+ <div class="modal-content">
+ <div class="modal-header back white-text">
+   <h4 class="title" style="color:white">Identification</h4>
+   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+       aria-hidden="true">&times;</span></button>
+     </div>
+       <div class="modal-body mb-0 text-center"> 
+
+            <div class="modal-body">
+                <div (click)="ClickCreateAccount()">
+                    <a class="login-create-account-link login-link text-danger" data-dismiss="modal" aria-label="Close" [routerLink]="['/auth']" >Pour vous créer un compte permanent cliquez ici.</a>
+                </div>
+                <form  [formGroup]="FormVisiteur" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                    <label>Prénom</label>
+                    <input type="text" class="form-control"  formControlName="Prenom"   [(ngModel)]="visiteur.prenom" autocomplete="off"/>
+                    <div *ngIf="FormVisiteur.get('Prenom').errors && FormVisiteur.get('Prenom').touched && FormVisiteur.get('TypeVisiteur').value=='Physique'">
+                        <span class="register-error-icon">!</span>
+                        <p class="register-error-message">Veuillez saisir votre Prénom</p>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <label>Nom</label>
+                    <input type="text" class="form-control" formControlName="Nom" [(ngModel)]="visiteur.nom" autocomplete="off"/>
+                    <div *ngIf="FormVisiteur.get('Nom').errors && FormVisiteur.get('Nom').touched && FormVisiteur.get('TypeVisiteur').value=='Physique'">
+                        <span class="register-error-icon">!</span>
+                        <p class="register-error-message">Veuillez saisir votre Nom</p>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <label>Type de Visiteur</label>
+                    <input type="text" class="form-control" formControlName="TypeVisiteur" [(ngModel)]="visiteur.typeVisiteur" autocomplete="off"/>
+                    <div *ngIf="FormVisiteur.get('TypeVisiteur').errors && FormVisiteur.get('TypeVisiteur').touched">
+                        <span class="register-error-icon">!</span>
+                        <p class="register-error-message">Veuillez Choisir le type de visiteur svp</p>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <label>Raison Sociale</label>
+                    <input type="text" class="form-control" formControlName="RaisonSociale"  [(ngModel)]="visiteur.raisonSociale"  autocomplete="off"/>
+                    <div *ngIf="FormVisiteur.get('RaisonSociale').errors && FormVisiteur.get('RaisonSociale').touched && FormVisiteur.get('TypeVisiteur').value=='Moral'">
+                        <span class="register-error-icon">!</span>
+                        <p class="register-error-message">Veuillez saisir votre Raison Sociale</p>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <label>Pays</label>
+                    <select class="form-group" name="pays" id="pays" formControlName="Pays"  [(ngModel)]="selectedPays" required>
+                        <option value="">Choisir votre pays</option>
+                        <option *ngFor="let p of allPays" [value]="p.libelle">{{p.libelle}}</option>
+                    </select>
+                    <div *ngIf="FormVisiteur.get('Pays').errors && FormVisiteur.get('Pays').touched">
+                        <span class="register-error-icon">!</span>
+                        <p class="register-error-message">Veuillez choisir votre pays</p>
+                    </div>
+                    
+                    </div>
+                    <div class="form-group">
+                    <button style="float:right" type="submit" class="btn btn-default btn-round"><i class="material-icons">
+                        save
+                        </i>Valider</button>
+                        <button style="float:right" type="ACTION" class="btn btn-danger btn-round" data-dismiss="modal">Annuler</button>
+                    </div>
+                </form>
+            </div>
+      </div>
+     </div>
+  </div>
+</div>

@@ -40,7 +40,7 @@ export class ProductService {
   public panier: Panier;
   public client: Client;
 
-  constructor(private http: HttpClient,
+  constructor(private http: HttpClient,private newCheckoutService:CheckoutService,
     private toastrService: ToastrService, private articleService: ArticleService,
     private checkoutActions: CheckoutActions, private panierEtMarquateService:PanierEtMarquageService,
     private checkoutService: CheckoutService,private store: Store<AppState>,  private authService: AuthServiceS,) { }
@@ -256,6 +256,7 @@ export class ProductService {
       })
     }
 
+    this.newCheckoutService.createNewLineItemInLocalStorage(oeuvre,this.client.id);
     this.panierEtMarquateService.createNewLineItem(oeuvre).subscribe(resp=>{
       if(resp.id!=null)
       {
@@ -286,6 +287,7 @@ export class ProductService {
       })
     }
 
+    this.newCheckoutService.createNewLineItemInLocalStorage(oeuvre,this.client.id);
     this.panierEtMarquateService.createNewLineItem(oeuvre).subscribe(resp=>{
       if(resp.id!=null)
       {
@@ -308,6 +310,7 @@ export class ProductService {
         if (qty !== 0 && stock) {
           state.cart[index].quantity = qty
         }
+        this.newCheckoutService.createNewLineItemInLocalStorage(product,this.client.id);
         localStorage.setItem("cartItems", JSON.stringify(state.cart));
         this.client = this.authService.getClientConnected();
         console.log(this.client);

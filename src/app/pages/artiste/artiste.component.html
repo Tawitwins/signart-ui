@@ -16,11 +16,12 @@
             <br>
             <div class="row">
             <div class="col-md-6">
-              <button class="btn abonnement"> <i class="ti-heart"></i> S'abonner</button> 
+              <button class="btn abonnement" *ngIf="marq==false && client!=null" (click)="followArtiste()"> <i class="fa fa-heart"></i> S'abonner</button> 
+              <button class="btn annonces" *ngIf="marq==true  && client!=null" (click)="followArtiste()"> <i class="ti-heart"></i> Se désabonner</button> 
             </div>
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
               <a [routerLink]="['/pages/add-expo']"><button class="btn annonces"> <i class="ti-PLUS"></i> Add annonce</button></a>
-            </div>
+            </div> -->
           </div>
           </div>
             <!-- ------------------------------------------Contenu tableau de bord------------------------------------------------ -->
@@ -33,7 +34,7 @@
               </div>
               <div class="col-xl-3 col-sm-6">
                <div class="bbleu">
-                  <div class="side-l"><a [routerLink]="['/pages/followers']"><p class="big-l">{{artiste?.nbFans}}</p></a> <p class="col-p">Abonnés</p></div>
+                  <div class="side-l"><a [routerLink]="['/pages/followers/',artiste.id]"><p class="big-l">{{artiste?.nbFans}}</p></a> <p class="col-p">Abonnés</p></div>
               </div> 
                
               </div>
@@ -43,9 +44,9 @@
               </div> 
                 </div>
               <div class="col-xl-3 col-sm-6">	  
-                <div class="blanc">
+               <!--  <div class="blanc">
                   <div class="side-l"><a [routerLink]="['/pages/add-annonce']"><button class="btn annonce">Publier une Oeuvre</button></a></div>
-              </div> 
+              </div>  -->
                 </div>
             </div>      
               <!------------------------------------------------ Content --------------------------------------------- --> 
@@ -104,14 +105,12 @@
                         </div>
                       </section>
                     <div class="top-banner-content small-section">
-                        <h4>Les oeuvres d'art</h4>
-                        <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        <h4>Oeuvre d'art </h4>
+                        <h5>Voici des oeuvres de {{artiste.prenom}} {{artiste.nom}} que vous pourriez apprécier:
                         </h5>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-                            survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                            and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        </p>
+                       <!--  <p>
+                           Ces oeuvres 
+                        </p> -->
                     </div>
                 </div>
                 </div>
