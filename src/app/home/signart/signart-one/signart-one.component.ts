@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductSlider } from '../../../shared/data/slider';
 import { Product } from '../../../shared/classes/product';
 import { ProductService } from '../../../shared/services/product.service';
-import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
-import { ArticleService } from 'src/app/shared/services/article.service';
+import { Oeuvre } from '../../../shared/modeles/oeuvre';
+import { ArticleService } from '../../../shared/services/article.service';
 
 @Component({
   selector: 'app-signart-one',
@@ -51,7 +51,7 @@ export class SignartOneComponent implements OnInit {
     image: 'assets/images/slider/slider_2.jpg'
   }]
 
-  // Collection banner
+  /* // Collection banner
   public collections = [{
     image: 'assets/images/collection/fashion/1 2.jpg',
     save: 'Catégorie',
@@ -60,45 +60,55 @@ export class SignartOneComponent implements OnInit {
     image: 'assets/images/collection/fashion/tableau_2.jpg',
     save: 'Catégorie',
     title: 'La peinture'
+  }]; */
+  // Collection banner
+  public collections = [{
+    image: 'assets/images/collection/fashion/architecture.jpg',
+    save: 'Catégorie',
+    title: "L'architecture"
+  }, {
+    image: 'assets/images/collection/fashion/peinture.JPG',
+    save: 'Catégorie',
+    title: 'La peinture'
   }];
 
     // Collection banner
     public eric = [{
-      image: 'assets/images/collection/fashion/crane.jpg',
+      image: 'assets/images/collection/fashion/dessin.jpg',
       save: 'Catégorie',
       title: 'Le dessin'
     }, {
-      image: 'assets/images/collection/fashion/tableau_2.jpg',
+      image: 'assets/images/collection/fashion/gravure.jpg',
       save: 'Catégorie',
       title: 'La gravure'
     }, {
-      image: 'assets/images/collection/fashion/crayon.jpg',
+      image: 'assets/images/collection/fashion/sculpture.JPG',
       save: 'Catégorie',
       title: 'La sculpture'
     }];
 
     // Collection Technique
     public dan = [{
-      image: 'assets/images/collection/fashion/crane.jpg',
+      image: 'assets/images/collection/fashion/acrilic.jpg',
       save: 'Technique',
       title: 'Acrylique sur toile'
     }, {
-      image: 'assets/images/collection/fashion/tableau_2.jpg',
+      image: 'assets/images/collection/fashion/huile.jpg',
       save: 'Technique',
       title: 'Huile sur toile'
     }, {
-      image: 'assets/images/collection/fashion/crayon.jpg',
+      image: 'assets/images/collection/fashion/installation.jpg',
       save: 'Technique',
       title: 'installation'
     }];
 
       // Collection Technique 2
       public dan2 = [{
-        image: 'assets/images/collection/fashion/crane.jpg',
+        image: 'assets/images/collection/fashion/encreChine.jpg',
         save: 'Technique',
         title: 'Encre de chine'
       }, {
-        image: 'assets/images/collection/fashion/crayon.jpg',
+        image: 'assets/images/collection/fashion/gouach.JPG',
         save: 'Technique',
         title: 'Gouache'
       }];

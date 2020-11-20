@@ -50,7 +50,7 @@
                                      Invalid Email
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <!-- <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">Date de début</div>
                                             <input type="date" class="form-control" id="email" placeholder="Date" required="">
                                 </div>
@@ -60,7 +60,7 @@
                                     <div *ngIf="checkoutForm.controls.email.touched && checkoutForm.controls.email.errors?.email" class="text text-danger">
                                         La date est requise.
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                     <div class="field-label">Pays</div>
                                     <select name="country" [formControl]="checkoutForm.controls['country']">
@@ -72,15 +72,18 @@
                                 </div>
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                     <div class="field-label">Adresse</div>
-                                    <input type="text" name="address" [formControl]="checkoutForm.controls['address']" value="" placeholder="" autocomplete="off">
+<!--                                     <input type="text" name="address" [formControl]="checkoutForm.controls['address']" value="" placeholder="" autocomplete="off"> -->                                    <select name="address" [formControl]="checkoutForm.controls['address']" value="" placeholder="" required>
+                                        <option value="">Choisissez une adresse ici !</option>
+                                        <option *ngFor="let a of listAdresses; let index = index" [value]="index">{{a.adresse}}</option>
+                                    </select>
                                     <div *ngIf="checkoutForm.controls.address.touched && checkoutForm.controls.address.errors?.required" class="text text-danger">
                                      Address is required
                                     </div>
-                                    <div *ngIf="checkoutForm.controls.address.touched && checkoutForm.controls.address.errors?.maxlength" class="text text-danger">
+                                   <!--  <div *ngIf="checkoutForm.controls.address.touched && checkoutForm.controls.address.errors?.maxlength" class="text text-danger">
                                       Maximum 50 character
-                                    </div>
+                                    </div> -->
                                 </div>
-                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                     <div class="field-label">Ville</div>
                                     <input type="text" name="town" [formControl]="checkoutForm.controls['town']" value="" placeholder="" autocomplete="off">
                                      <div *ngIf="checkoutForm.controls.town.touched && checkoutForm.controls.town.errors?.required" class="text text-danger">
@@ -100,7 +103,7 @@
                                     <div *ngIf="checkoutForm.controls.postalcode.touched && checkoutForm.controls.postalcode.errors?.required" class="text text-danger">
                                      Postalcode is required
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                           <!-- <div class="row ">
                             <div class="col-12">
@@ -175,11 +178,11 @@
                                         </li>
                                         <li *ngIf='products.length'>
                                             Livraison
-                                         <div>
+                                         <div *ngIf="isLivraisonOk==false">
                                             <br>
-                                            <div class="shopping-option" *ngFor="let modeLivraison of allModeLivraison, let index">
-                                                <input type="radio" [(ngModel)]="livraison" [value]="modeLivraison.LCode" name="shipping_{{modeLivraison.id}}" id="free-shipping_{{modeLivraison.id}}">
-                                                <label for="free-shipping_{{modeLivraison.id}}">{{modeLivraison.libelle}}</label>
+                                            <div class="shopping-option"  *ngFor="let modeLivraison of allModeLivraison, let index">
+                                                <input  (click)="livraisonCheck(modeLivraison)"  type="radio" [(ngModel)]="livraisonStr" [value]="modeLivraison.LCode" name="shipping_{{modeLivraison.id}}" id="free-shipping_{{modeLivraison.id}}">
+                                                <label  for="free-shipping_{{modeLivraison.id}}">{{modeLivraison.libelle}}</label>
                                             </div>
                                             
                                             <!-- <div class="shopping-option">
@@ -187,6 +190,16 @@
                                                 <label for="local-pickup">A domicile</label>
                                             </div> -->
                                          </div>
+                                         <button *ngIf="livraisonStr!= '' && isLivraisonOk==false" type="button" class="btn-solid btn" (click)="CheckFormEtPayer()" >
+                                            Confirmer livraison
+                                         </button>
+
+                                        </li>
+                                        <li *ngIf="isLivraisonOk==true">
+                                            <br>
+                                            <div>
+                                                "{{selectedModeLiv.libelle}}" a été choisit.
+                                            </div>
                                         </li>
                                     </ul>
                                     <ul class="total">
@@ -195,17 +208,36 @@
                                 </div>
 
                                 <div class="payment-box" *ngIf='products.length'>
-                                    <div class="upper-box">
+                                    <div class="upper-box" *ngIf='isLivraisonOk==true'>
                                         <div class="payment-options">
+                                            <button type="button" class="btn-solid btn" (click)="resetPayment()"  *ngIf="payment != ''">
+                                                Retour Au Choix
+                                             </button>
                                             <ul>
-                                                <li *ngFor="let modePaiement of allModePaiement">
-                                                    <div class="radio-option">
-                                                        <input type="radio" [(ngModel)]="payment" [value]="modePaiement.code" name="MP_{{modePaiement.libelle}}" id="MP_{{modePaiement.id}}">
-                                                        <label for="MP_{{modePaiement.id}}">{{modePaiement.libelle}}
-                                                            <span class="small-text">Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</span></label>
+                                                <li>
+                                                    <div  *ngIf="payment == ''">
+                                                        <div *ngFor="let modePaiement of allModePaiement" class="radio-option">
+                                                            <input type="radio" [(ngModel)]="payment" [value]="modePaiement.code" name="MP_{{modePaiement.libelle}}" id="MP_{{modePaiement.id}}">
+                                                            <label for="MP_{{modePaiement.id}}">{{modePaiement.libelle}}</label>
+                                                        </div>
                                                     </div>
                                                 </li>
-                                                <span class="image"><img src="assets/images/paypal.png" alt="" /></span>
+                                                <li *ngIf="payment == 'ESPECE'">
+                                                    <strong style="width: 100%;">Paiment en espèce</strong>
+                                                    <br>
+                                                    <app-cash-on-delivery (payOnDelivery)="makePayment()"></app-cash-on-delivery>
+                                                </li>
+                                                <li *ngIf="payment == 'PAYPAL'"> <!-- + (shippingOptionPrice$ | async) -->
+                                                    <strong style="width: 100%;">Paiment avec Paypal</strong>
+                                                    <br>
+                                                    <app-paypal [finalAmount]="getTotal | async"></app-paypal>
+                                                </li>
+                                                <li *ngIf="payment == 'PAYDUNYA'"> <!-- + (shippingOptionPrice$ | async) -->
+                                                    <strong style="width: 100%;">Paiment avec Paydunya</strong>
+                                                    <br>
+                                                    <app-paydunya (payOnDunya)="makePayment()"></app-paydunya>
+                                                </li>
+                                                <span *ngIf="payment == ''" class="image"><img src="assets/images/paypal.png" alt="" /></span>
                                                 <!-- <li>
                                                     <div class="radio-option paypal">
                                                         <input type="radio" [(ngModel)]="payment" [value]="'Paypal'" name="payment-group" id="payment-3">
@@ -216,8 +248,8 @@
                                         </div>
                                     </div>
                                     <!-- [disabled]="!checkoutForm.valid" (click)="stripeCheckout()" (click)="showInf()" *ngIf="payment == 'PAYPAL'" -->
-                                    <div class="text-right">
-                                        <button type="submit" class="btn-solid btn" (click)="CheckFormEtPayer()"  *ngIf="payment == 'PAYPAL'">
+                                    <div class="text-right"  *ngIf="isLivraisonOk==false">
+                                        <button type="submit" class="btn-solid btn" (click)="CheckFormEtPayer()" >
                                            Payer
                                         </button>
                                         <ngx-paypal [config]="payPalConfig"  *ngIf="payment == 'PAYPAL'"></ngx-paypal>

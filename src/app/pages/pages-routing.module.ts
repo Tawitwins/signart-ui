@@ -152,7 +152,7 @@ const routes: Routes = [
     component: MesAnnoncesComponent
   },
   {
-    path: 'followers',
+    path: 'followers/:idArtiste',
     component: FollowersComponent
   },
   {

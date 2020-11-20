@@ -19,6 +19,7 @@ import { PaymentMode } from '../modeles/payment_mode';
 import { ModeLivraison } from '../modeles/mode_livraison';
 import { Address } from '../modeles/address';
 import { Livraison } from '../modeles/livraison';
+import { ToastrService } from 'ngx-toastr';
 declare var $: any;
 
 @Injectable()
@@ -37,7 +38,8 @@ export class CheckoutService extends HttpService {
   constructor(
     public http: HttpClient,
     private actions: CheckoutActions,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private toastrService:ToastrService,
   ) {
     super(http);
     this.store.select(getOrderNumber)
@@ -120,15 +122,15 @@ export class CheckoutService extends HttpService {
     }
   }
 
-  createNewLineItemInLocalStorage(oeuvre: any): Panier {
+  createNewLineItemInLocalStorage(oeuvre: any,idClient:number): Panier {
     oeuvre.image=null;
     let panier;
     if (localStorage.getItem('panier')) {
       console.log("updating panier in local storage");
-      panier = this.updateCart(oeuvre);
+      panier = this.updateCart(oeuvre,idClient);
       localStorage.setItem('panier', JSON.stringify(panier));
     } else {
-      panier = this.createCart(oeuvre);
+      panier = this.createCart(oeuvre,idClient);
       console.log("creating panier in local storage");
       localStorage.setItem('panier',JSON.stringify(panier));
     }
@@ -137,7 +139,7 @@ export class CheckoutService extends HttpService {
     return panier;
   }
 
-  private createCart(oeuvre: Oeuvre) {
+  private createCart(oeuvre: Oeuvre,idClient:number) {
     let lignesPanier: LignePanier[] = [];
 
     let panier: Panier = {};
@@ -150,6 +152,7 @@ export class CheckoutService extends HttpService {
     lignePanier.prix = oeuvre.prix;
     lignePanier.quantite = 1;
     lignePanier.total = oeuvre.prix;
+    lignePanier.idClient= idClient;
     lignesPanier.push(lignePanier);
 
     //création du panier
@@ -169,7 +172,7 @@ export class CheckoutService extends HttpService {
     return panier;
   }
 
-  private updateCart(oeuvre: Oeuvre) {
+  private updateCart(oeuvre: Oeuvre,idClient:number) {
     let isUptodate=false;
     let panierStockee = JSON.parse(localStorage.getItem('panier'));
     panierStockee.lignesPanier.forEach(element => { 
@@ -192,6 +195,7 @@ export class CheckoutService extends HttpService {
       lignePanier.prix = oeuvre.prix;
       lignePanier.quantite = 1;
       lignePanier.total = oeuvre.prix;
+      lignePanier.idClient= idClient;
       panierStockee.lignesPanier.push(lignePanier);
 
       //Mise à jour du panier
@@ -329,32 +333,12 @@ export class CheckoutService extends HttpService {
       if (order != null && order != undefined) {
         // Ajouter au localstorage
         //localStorage.setItem('order', JSON.stringify(order));
-        this.store.dispatch(this.actions.placeOrderSucces(order));
+        localStorage.setItem('order',JSON.stringify(order)); 
         //this.createLivraison();
-        $.notify({
-          icon: "notifications",
-          message: "Commande bien pris en compte, veuillez compléter les étapes restantes!"
-        }, {
-          type: 'success',
-          timer: 2000,
-          placement: {
-            from: 'top',
-            align: 'center'
-          }
-        });
+       
         return order;
       } else {
-        $.notify({
-          icon: "notifications",
-          message: "Erreur lors de la création de la commande, veuillez reprendre SVP!"
-        }, {
-          type: 'danger',
-          timer: 2000,
-          placement: {
-            from: 'top',
-            align: 'center'
-          }
-        });
+        this.toastrService.error("Erreur lors de la création de la commande, veuillez reprendre SVP!","Succès");
       }
 
     }))
@@ -399,13 +383,14 @@ export class CheckoutService extends HttpService {
    *
    * @memberof CheckoutService
    */
-  updateOrder(params) {
+  addAdressesLivEtFact(params) {
     return this.post(environment.API_ENDPOINT +
       `adresse/adresses`,
       params
     ).pipe(map((res) => {
       const adresse = res;
-      this.store.dispatch(this.actions.updateOrderSuccess(adresse));
+      this.toastrService.success("Succés","L'adresse a été ajouté à votre liste.")
+      //this.store.dispatch(this.actions.updateOrderSuccess(adresse));
     }));
    
   }
@@ -468,7 +453,7 @@ getAdresseByClient(idClient){
    * @memberof CheckoutService
    */
   createNewPayment(paymentModeId, orderId, codePaiement) {
-    return this.http.post(environment.API_ENDPOINT + `paiement`, {idModePaiement: paymentModeId, idCommade: orderId,codeEtatPaiement: codePaiement });
+    return this.http.post(environment.API_ENDPOINT + `paiement`, {idModePaiement: paymentModeId, idCommade: orderId,codeEtatPaiement: codePaiement/* , lignePaiements: order.lignesCommande. */});
     /*.pipe(map((res) => {
       console.log('La reponse paiement est ', res)
       //this.changeOrderState().subscribe();
@@ -689,6 +674,10 @@ getAdresseByClient(idClient){
     console.log('la livraison :', this.livraison);
 
     return this.http.post(environment.API_ENDPOINT + `livraison/commande`, this.livraison)
+    }
+    postLivraisonCommande(livraison){
+      return this.http.post(environment.API_ENDPOINT + `livraison/commande`, livraison)
+
     }
     
   updateLivraison(ShippingMethod: ModeLivraison) {

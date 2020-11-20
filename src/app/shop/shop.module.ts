@@ -31,6 +31,9 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { SuccessComponent } from './checkout/success/success.component';
 import { AbonnementCatalogueComponent } from './collection/abonnement-catalogue/abonnement-catalogue.component';
+import { PaydunyaComponent } from '../checkout/payment/payment-modes-list/paydunya/paydunya.component';
+import { PaypalComponent } from '../checkout/payment/payment-modes-list/paypal/paypal.component';
+import { CashOnDeliveryComponent } from '../checkout/payment/payment-modes-list/cash-on-delivery/cash-on-delivery.component';
 @NgModule({
   declarations: [
     ProductLeftSidebarComponent, 
@@ -51,8 +54,12 @@ import { AbonnementCatalogueComponent } from './collection/abonnement-catalogue/
     WishlistComponent,
     CheckoutComponent,
     SuccessComponent,
-    
-
+    PaydunyaComponent,
+    PaypalComponent,
+    /* PaymentModeComponent,
+    NetBankingComponent,
+    CreditCardComponent, */
+    CashOnDeliveryComponent,
   ],
   imports: [
     CommonModule,

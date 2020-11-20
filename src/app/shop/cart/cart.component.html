@@ -100,10 +100,10 @@
         </div>
         <div class="row cart-buttons" *ngIf='oeuvres.length'>
             <div class="col-6">
-                <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continuer</a>
+                <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continuer l'exploration</a>
             </div>
             <div class="col-6">
-                <a [routerLink]="['/shop/checkout']" class="btn btn-solid">Payer</a>
+                <div (click)="confirmer()" class="btn btn-solid">Commander</div>
             </div>
         </div>
     </div>

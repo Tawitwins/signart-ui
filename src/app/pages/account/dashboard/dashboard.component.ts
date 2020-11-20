@@ -62,6 +62,7 @@ export class DashboardComponent implements OnInit {
   public openDashboard: boolean = false;
   public infopage: number;
   public listeArtiste: number
+  public listAdress:boolean=true;
 
 
   constructor(private authService: AuthServiceS,  private store: Store<AppState>, private router: Router,
@@ -193,6 +194,10 @@ export class DashboardComponent implements OnInit {
   
    showHideListe(val: number){
         this.listeArtiste = val;
+  }
+  showHideListAdress(bool)
+  {
+    this.listAdress=bool;
   }
 
   ToggleDashboard() {

@@ -44,6 +44,7 @@ import { ArtisteProfilComponent } from './compte-artiste/artiste-profil/artiste-
 import { AddOeuvreComponent } from './add-oeuvre/add-oeuvre.component';
 import { TchatComponent } from '../shared/components/menu/TchatSpace/tchat.component';
 import { RightClicMenuTchatComponent } from '../shared/components/menu/TchatSpace/rightClicMenuTchat.component';
+import { AddAddressComponent } from '../checkout/address/add-address/add-address.component';
 
 
 @NgModule({
@@ -83,6 +84,7 @@ import { RightClicMenuTchatComponent } from '../shared/components/menu/TchatSpac
     CompteArtisteComponent,
     MyformatcurrencyPipe,
     ArtisteProfilComponent,
+    AddAddressComponent,
   ],
   imports: [
     CommonModule,
