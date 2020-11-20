@@ -12,6 +12,7 @@ import { Panier } from '../modeles/panier';
 import { Oeuvre } from '../modeles/oeuvre';
 import { ToastrService } from 'ngx-toastr';
 import { AuthServiceS } from './auth.service';
+import { OeuvreNumerique } from '../modeles/imageNumerique';
 declare var $: any;
 
 
@@ -109,6 +110,7 @@ export class PanierEtMarquageService extends HttpService{
       }));
   }
 
+  
   deleteLineItem(lignePanier){
     return this.delete(environment.API_ENDPOINT + `lignepanier/${lignePanier.id}`)
   }

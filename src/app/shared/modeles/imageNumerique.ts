@@ -4,6 +4,7 @@ export class ImageTest {
 }
 
 export class OeuvreNumerique {
+    id: number;
     annee: number;
     titre: string;
     technique: string;

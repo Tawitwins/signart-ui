@@ -30,6 +30,7 @@ import { CartComponent } from './cart/cart.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { SuccessComponent } from './checkout/success/success.component';
+import { AbonnementCatalogueComponent } from './collection/abonnement-catalogue/abonnement-catalogue.component';
 @NgModule({
   declarations: [
     ProductLeftSidebarComponent, 
@@ -39,6 +40,7 @@ import { SuccessComponent } from './checkout/success/success.component';
     StockInventoryComponent,
     RelatedProductComponent,
     CollectionLeftSidebarComponent,
+    AbonnementCatalogueComponent,
     GridComponent,
     PaginationComponent,
     BrandsComponent,

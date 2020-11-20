@@ -1,0 +1,31 @@
+<div *ngIf="!loader">
+  <div class="img-wrapper">
+    <div class="front">
+      <a href="javascript:void(0)" title="Quick View" (click)="QuickView.openModal()">
+        <img 
+          [src]="domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+oeuvreNumerique.avatar?.value)" 
+          [lazyLoad]="domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+oeuvreNumerique.avatar.value)" 
+          class="img-fluid lazy-loading" 
+          alt="{{ oeuvreNumerique?.titre }}"/>
+      </a>
+    </div>
+  </div>
+  <div class="product-detail">
+    <div>
+      <bar-rating [rate]="5" [readOnly]="true"></bar-rating>
+      <a>
+        <h6>{{getArtisteName(oeuvreNumerique?.identiteAuteur)}} -- {{oeuvreNumerique?.annee }}</h6>
+      </a>
+      <h4>
+       {{oeuvreNumerique?.titre | titlecase }}
+      </h4>
+      <a href="javascript:void(0)" title="Add to cart" (click)="addToList(oeuvreNumerique)">
+        <i class="ti-shopping-cart"></i>
+      </a>
+    </div>
+  </div>
+</div>
+<app-skeleton-product-box *ngIf="loader"></app-skeleton-product-box>
+<quick-view-oeuvre-numerique #quickView [oeuvreNumerique]="oeuvreNumerique" [currency]="currency"></quick-view-oeuvre-numerique>
+<app-cart-modal #cartModal [oeuvre]="oeuvre" [currency]="currency" *ngIf="cartModal"></app-cart-modal>
+

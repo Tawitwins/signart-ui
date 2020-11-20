@@ -57,6 +57,7 @@ export class DashboardComponent implements OnInit {
  historiques: HistoriqueAbonnement[];
  returnUrl: string;
  mdpForm:FormGroup;
+ etats: EtatAbonnement[];
  
   public openDashboard: boolean = false;
   public infopage: number;
@@ -81,6 +82,13 @@ export class DashboardComponent implements OnInit {
     this.allAbonne = [];
     this.allAbonnement = [];
     this.user=this.authS.getUserConnected();
+
+    this.imageService.getAllEtat().subscribe(
+      response => { 
+        this.etats = response;
+        console.log("etats",this.etats);
+      });
+
     if(this.user.userType == 'ARTISTE'){
     this.artisteService.getArtisteByUser(parseInt(this.user.id)).subscribe(
       res => {
@@ -424,5 +432,14 @@ myDateParser(dateStr : string) : string {
  //+ '.' + millisecond;
  console.log(validDate)
  return validDate
+}
+
+getLibelleEtatAbonnement(idEtat: number){
+  for (let i = 0; i < this.etats.length; i++) {
+    if(this.etats[i].id == idEtat){
+      return this.etats[i].libelle;
+    }
+    
+  }
 }
 }

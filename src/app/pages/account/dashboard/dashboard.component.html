@@ -22,9 +22,11 @@
                             <li><a href="javascript:void(0)" (click)="commandesClient()">Mes commandes</a></li>
                             <li><a href="javascript:void(0)" (click)="favorisClient()">Mes favoris</a></li>
                             <li><a href="javascript:void(0)" (click)="infopage = 5" style="cursor: pointer;">Mes abonnements</a></li>
+                            <li><a href="javascript:void(0)" (click)="infopage = 7">Mes artistes favoris</a></li>
                             <!--li><a href="javascript:void(0)">Newsletter</a></li-->
                             <!--li><a href="javascript:void(0)">Mon compte</a></li-->
                             <li><a href="javascript:void(0)" (click)="infopage = 6">Changer le mot de passe</a></li>
+                            
                             <li class="last"><a href="javascript:void(0)" (click)="logout()">Déconnexion</a></li>
                         </ul>
                     </div>
@@ -65,53 +67,12 @@
                                 <div class="col-sm-6">
                                     <div class="box">
                                         <div class="box-title">
-                                            <h3>Artistes favoris</h3>
-                                            <a href="javascript:void(0)" (click)="showHideListe(1)" *ngIf = "listeArtiste == 0">Afficher</a>
-                                            <a href="javascript:void(0)" (click)="showHideListe(0)" *ngIf = "listeArtiste == 1">Cacher</a>
-                                        </div>
-                                        <div class="box-content" *ngIf="listeArtiste == 1">
-                                            <p *ngIf="artistes?.length == 0">
-                                                liste vide
-                                            </p>
-                                            <div *ngIf="artistes?.length != 0">
-                                                <table class="table cart-table table-responsive-xs">
-                                                    <thead>
-                                                        <tr class="table-head">
-                                                            <th scope="col">Prénom</th>
-                                                            <th scope="col">Nom</th>
-                                                            <th scope="col">Profession</th>
-                                                            <th scope="col">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody *ngFor="let artiste of artistes;let i=index">
-                                                        <tr>
-                                                            <td>
-                                                                <p>
-                                                                    {{artiste?.prenom}}
-                                                                </p>
-                                                            </td>
-                                                            <td>
-                                                                <p>
-                                                                    {{artiste?.nom}}
-                                                                </p>                                         
-                                                            </td>
-                                                            <td>
-                                                                <p>
-                                                                    {{artiste?.profession}}
-                                                                </p>                                         
-                                                            </td>
-                                                            <td>
-                                                                <a href="javascript:void(0)" class="icon">
-                                                                Voir
-                                                            </a>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
+                                            <h3>Abonnement</h3>
+                                            <a [routerLink]="['/shop/collection/abonnement-catalogue']">voir le catalogue</a>
+                                        </div>                               
                                     </div>
                                 </div>
+                                
                             </div>
                           
                         </div>
@@ -291,7 +252,7 @@
                                                 <td><h4>000{{abonnement.id}}</h4></td>
                                                 <td><h4>{{abonnement.montantPaiement}}</h4>
                                                 </td>
-                                                <td><h2>{{abonnement.etatAbonnement}}</h2></td>
+                                                <td><h6>{{getLibelleEtatAbonnement(abonnement.etatAbonnement)}}</h6></td>
                                                 <td>
                                                     <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="icon mr-3">
                                                         details
@@ -369,6 +330,58 @@
                                     </div>
                                     
                                 </form>
+                            </div>
+                        </div>
+                        <div class="box-account box-info" *ngIf="infopage == 7">
+                            <div class="box-head">
+                                <h2>Liste de vos artiste favoris</h2>
+                            </div> <br><br>
+                            <div class="row">
+                                
+                                    <div class="box">
+                                        <div class="box-content">
+                                            <p *ngIf="artistes?.length == 0">
+                                                liste vide
+                                            </p>
+                                            <div *ngIf="artistes?.length != 0">
+                                                <table class="table cart-table table-responsive-xs">
+                                                    <thead>
+                                                        <tr class="table-head">
+                                                            <th scope="col">Prénom</th>
+                                                            <th scope="col">Nom</th>
+                                                            <th scope="col">Profession</th>
+                                                            <th scope="col">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngFor="let artiste of artistes;let i=index">
+                                                        <tr>
+                                                            <td>
+                                                                <p>
+                                                                    {{artiste?.prenom}}
+                                                                </p>
+                                                            </td>
+                                                            <td>
+                                                                <p>
+                                                                    {{artiste?.nom}}
+                                                                </p>                                         
+                                                            </td>
+                                                            <td>
+                                                                <p>
+                                                                    {{artiste?.profession}}
+                                                                </p>                                         
+                                                            </td>
+                                                            <td>
+                                                                <a href="javascript:void(0)" class="icon">
+                                                                Voir
+                                                            </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                               
                             </div>
                         </div>
                     </div>
