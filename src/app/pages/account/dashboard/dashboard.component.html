@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="'Dashboard'" [breadcrumb]="'Tableau de bord'"></app-breadcrumb>
+<app-breadcrumb [title]="'Tableau de bord'" [breadcrumb]="'Tableau de bord'"></app-breadcrumb>
 <!-- section start -->
 <section class="section-b-space">
     <div *ngIf="user.userType=='CLIENT'" class="container">
@@ -37,8 +37,8 @@
                             <h2>Mon Tableau de bord</h2>
                         </div>
                         <div class="welcome-msg">
-                            <p>Bonjour!, {{client.prenom}} {{client.nom}} !</p>
-                            <p>À partir de votre tableau de bord Mon compte, vous avez la possibilité d'afficher l'activité récente de votre compte et de mettre à jour les informations de votre compte.</p>
+                            <p>Bonjour, {{client.prenom}} {{client.nom}} !</p>
+                            <p>À partir de votre tableau de bord ("Mon compte"), vous avez la possibilité d'afficher l'activité récente de votre compte et de mettre à jour les informations de votre compte.</p>
                         </div>
                         <hr>
                         <div class="box-account box-info" *ngIf="infopage == 0">
@@ -259,24 +259,43 @@
                                             <th scope="col">action</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <p *ngIf="oeuvresFav.length == 0">Votre liste est vide!</p>
+                                        <tbody  *ngFor="let oeuvre of oeuvresFav">
                                             <tr>
-                                                <td>
-                                                    <a [routerLink]="['/shop/product/left/sidebar/trim-dress']">
-                                                        <img src="assets/images/product/fashion/1.jpg" alt="fashion">
+                                                <td >
+                                                    <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
+                                                        <img [src]="getOeuvreImageUrl(oeuvre?.id)" alt="fashion" width="50px" height="50px">
                                                     </a>
                                                 </td>
-                                                <td><a [routerLink]="['/shop/product/left/sidebar/trim-dress']">La jaconde Leonardo de Vinci</a>
+                                                <td><a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">{{oeuvre.nom}}</a>
+                                                    <!-- <div class="mobile-cart-content row">
+                                                        <div class="col-xs-3">
+                                                            <p>En stock: {{oeuvre.stock}}</p>
+                                                        </div>
+                                                        <div class="col-xs-3">
+                                                            <h2 class="td-color">{{oeuvre.prix}} FCFA</h2>
+                                                        </div>
+                                                        <div class="col-xs-3">
+                                                            <h2 class="td-color">
+                                                                <a (click)="removeOeuvre(oeuvre)" class="icon mr-1">
+                                                                    <i class="ti-close"></i>
+                                                                </a>
+                                                                <a (click)="addOeuvreToCart(oeuvre)" class="cart">
+                                                                    <i class="ti-shopping-cart"></i>
+                                                                </a>
+                                                            </h2>
+                                                        </div>
+                                                    </div> -->
                                                 </td>
-                                                <td><h4>100000 FCFA</h4></td>
+                                                <td><h2>{{oeuvre.prix}} FCFA</h2></td>
                                                 <td >
-                                                    <p>EN stock</p>
+                                                    <p>EN stock: {{oeuvre.stock}}</p>
                                                 </td>
                                                 <td>
-                                                    <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="icon mr-3">
+                                                    <a (click)="removeOeuvre(oeuvre)" class="icon mr-3">
                                                         <i class="ti-close"></i>
                                                     </a>
-                                                    <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="cart">
+                                                    <a (click)="addOeuvreToCart(oeuvre)" class="cart">
                                                         <i class="ti-shopping-cart"></i>
                                                     </a>
                                                 </td>

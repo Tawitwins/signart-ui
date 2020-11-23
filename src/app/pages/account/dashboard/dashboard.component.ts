@@ -18,6 +18,8 @@ import { User, AccountInfo } from '../../../shared/modeles/user';
 import { Commande } from '../../../shared/modeles/commande';
 import { Abonnement, Abonne, EtatAbonnement, Terminal, HistoriqueAbonnement } from '../../../shared/modeles/utilisateur';
 import { ImageService } from '../../../shared/services/image.service';
+import { environment } from '../../../../environments/environment';
+import { ProductService } from '../../../shared/services/product.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -62,9 +64,10 @@ export class DashboardComponent implements OnInit {
   public infopage: number;
   public listeArtiste: number
   public listAdress:boolean=true;
+  oeuvresFav: import("c:/Users/SNMBENGUEO/Desktop/SignArt/signart web new/src/app/shared/classes/product").Product[];
 
 
-  constructor(private authService: AuthServiceS,  private store: Store<AppState>, private router: Router,
+  constructor(private authService: AuthServiceS, private productService: ProductService,  private store: Store<AppState>, private router: Router,
     private authS:AuthServiceS,
     private oeuvreS:OeuvreService,private fb:FormBuilder,
     private artisteService:ArtisteService,
@@ -82,6 +85,8 @@ export class DashboardComponent implements OnInit {
     this.allAbonne = [];
     this.allAbonnement = [];
     this.user=this.authS.getUserConnected();
+    this.productService.wishlistItems.subscribe(resp=> this.oeuvresFav=resp);
+    console.log(this.oeuvresFav);
     if(this.user.userType == 'ARTISTE'){
     this.artisteService.getArtisteByUser(parseInt(this.user.id)).subscribe(
       res => {
@@ -429,5 +434,16 @@ myDateParser(dateStr : string) : string {
  //+ '.' + millisecond;
  console.log(validDate)
  return validDate
+}
+addOeuvreToCart(element){
+  console.log(element);
+  this.productService.addToCartOeuvre(element);
+}
+removeOeuvre(element){
+  console.log(element);
+  this.productService.removeWishlistItem(element);
+}
+getOeuvreImageUrl(id: number) {
+  return environment.API_ENDPOINT + 'image/oeuvre/' + id;
 }
 }
