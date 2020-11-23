@@ -50,7 +50,7 @@
       <div class="col-md-6" *ngFor="let collection of collections">
         <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion'}">
           <div class="collection-banner p-right text-center">
-            <img [src]="collection.image" class="img-fluid" alt="collection-banner">
+            <img [src]="collection.image" width="400px" height="400px" alt="collection-banner">
             <div class="contain-banner">
               <div>
                 <h4>{{collection.save}}</h4>
@@ -70,7 +70,7 @@
       <div class="col-md-4" *ngFor="let maodo of eric">
         <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion'}">
           <div class="collection-banner p-right text-center">
-            <img [src]="maodo.image" class="img-fluid" alt="collection-banner">
+            <img [src]="maodo.image" width="400px" height="400px" alt="collection-banner">
             <div class="contain-banner"> 
               <div>
                 <h4>{{maodo.save}}</h4>
@@ -155,7 +155,7 @@
       <div class="col-md-6" *ngFor="let collection of dan2">
         <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion'}">
           <div class="collection-banner p-right text-center">
-            <img [src]="collection.image" class="img-fluid" alt="collection-banner">
+            <img [src]="collection.image" width="400px" height="400px" alt="collection-banner">
             <div class="contain-banner">
               <div>
                 <h4>{{collection.save}}</h4>
@@ -175,7 +175,7 @@
       <div class="col-md-4" *ngFor="let maodo of dan">
         <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion'}">
           <div class="collection-banner p-right text-center">
-            <img [src]="maodo.image" class="img-fluid" alt="collection-banner">
+            <img [src]="maodo.image" width="300px" height="300px" alt="collection-banner">
             <div class="contain-banner">
               <div>
                 <h4>{{maodo.save}}</h4>
