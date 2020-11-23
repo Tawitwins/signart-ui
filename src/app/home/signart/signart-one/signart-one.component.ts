@@ -4,6 +4,7 @@ import { Product } from '../../../shared/classes/product';
 import { ProductService } from '../../../shared/services/product.service';
 import { Oeuvre } from '../../../shared/modeles/oeuvre';
 import { ArticleService } from '../../../shared/services/article.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-signart-one',
@@ -115,26 +116,29 @@ export class SignartOneComponent implements OnInit {
   
   // Blog
   public blog = [{
-    image: 'assets/images/blog/blog_signart.jpg',
-    date: '25 Juillet 2020',
-    title: 'Lorem ipsum dolor sit consectetur adipiscing elit,',
-    by: 'Dan Enriqué'
+    image:  this.getProductImageUrl(7),
+    date: '30 Novembre 2020',
+    title: 'L\'inédit,',
+    by: 'El Hadj Sy'
+  }, {
+    image: this.getProductImageUrl(4),
+    date: '27 Novembre 2020',
+    title: 'Anniversaire: 40 ans de carrière,',
+    by: 'Kalidou kassé'
+  }, {
+    image:  this.getProductImageUrl(6),
+    date: '25 Décembre 2020',
+    title: 'Fin d\'année artistique,',
+    by: 'Omar BA'
   }, {
     image: 'assets/images/blog/blog_signart.jpg',
-    date: '25 Juillet 2020',
-    title: 'Lorem ipsum dolor sit consectetur adipiscing elit,',
-    by: 'Dan Enriqué'
-  }, {
-    image: 'assets/images/blog/blog_signart.jpg',
-    date: '25 Juillet 2020',
-    title: 'Lorem ipsum dolor sit consectetur adipiscing elit,',
-    by: 'Dan Enriqué'
-  }, {
-    image: 'assets/images/blog/blog_signart.jpg',
-    date: '25 Juillet 2020',
-    title: 'Lorem ipsum dolor sit consectetur adipiscing elit,',
-    by: 'Dan Enriqué'
+    date: '01 Janvier 2021',
+    title: 'La nouvelle collection,',
+    by: 'Le pinceau'
   }];
+  getProductImageUrl(id: number) {
+    return environment.API_ENDPOINT + 'image/artiste/' + id;
+  }
 
   // Logo
   public logo = [{
