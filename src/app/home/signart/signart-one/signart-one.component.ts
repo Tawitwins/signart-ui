@@ -63,7 +63,7 @@ export class SignartOneComponent implements OnInit {
   }]; */
   // Collection banner
   public collections = [{
-    image: 'assets/images/collection/fashion/architecture.jpg',
+    image: 'assets/images/collection/fashion/im1.png',
     save: 'Catégorie',
     title: "L'architecture"
   }, {
