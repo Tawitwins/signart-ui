@@ -30,6 +30,7 @@ import { CartComponent } from './cart/cart.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { SuccessComponent } from './checkout/success/success.component';
+import { AbonnementCatalogueComponent } from './collection/abonnement-catalogue/abonnement-catalogue.component';
 import { PaydunyaComponent } from '../checkout/payment/payment-modes-list/paydunya/paydunya.component';
 import { PaypalComponent } from '../checkout/payment/payment-modes-list/paypal/paypal.component';
 import { CashOnDeliveryComponent } from '../checkout/payment/payment-modes-list/cash-on-delivery/cash-on-delivery.component';
@@ -42,6 +43,7 @@ import { CashOnDeliveryComponent } from '../checkout/payment/payment-modes-list/
     StockInventoryComponent,
     RelatedProductComponent,
     CollectionLeftSidebarComponent,
+    AbonnementCatalogueComponent,
     GridComponent,
     PaginationComponent,
     BrandsComponent,

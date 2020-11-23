@@ -12,6 +12,7 @@ export class Address {
   region: string;
   telephone: string;
   idPays: string;
+  libellePays: string;
   pays: string;
   indicatif: string;
   constructor(
@@ -22,6 +23,7 @@ export class Address {
   region: string,
   telephone: string,
   idPays: string,
+  libellePays: string,
   pays: string,
   indicatif: string
   ){}

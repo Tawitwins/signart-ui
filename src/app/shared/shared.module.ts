@@ -19,6 +19,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { ProductBoxOneComponent } from './components/product/product-box-one/product-box-one.component';
+import { OeuvreNumeriqueBoxOneComponent } from './components/product/oeuvre-numerique-box-one/oeuvre-numerique-box-one.component';
 import { ProductBoxTwoComponent } from './components/product/product-box-two/product-box-two.component';
 import { ProductBoxThreeComponent } from './components/product/product-box-three/product-box-three.component';
 import { ProductBoxFourComponent } from './components/product/product-box-four/product-box-four.component';
@@ -29,7 +30,11 @@ import { ProductBoxVerticalSliderComponent } from './components/product/product-
 // Modals Components
 import { NewsletterComponent } from './components/modal/newsletter/newsletter.component';
 import { QuickViewComponent } from './components/modal/quick-view/quick-view.component';
+import { QuickViewOeuvreNumeriqueComponent } from './components/modal/quick-view-oeuvre-numerique/quick-view-oeuvre-numerique.component';
+
 import { CartModalComponent } from './components/modal/cart-modal/cart-modal.component';
+import { CartModalOeuvreNumeriqueComponent } from './components/modal/cart-modal-oeuvre-numerique/cart-modal-oeuvre-numerique.component';
+
 import { CartVariationComponent } from './components/modal/cart-variation/cart-variation.component';
 import { VideoModalComponent } from './components/modal/video-modal/video-modal.component';
 import { SizeModalComponent } from './components/modal/size-modal/size-modal.component';
@@ -68,6 +73,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     NewsletterComponent,
     QuickViewComponent,
     CartModalComponent,
+    CartModalOeuvreNumeriqueComponent,
     CartVariationComponent,
     VideoModalComponent,
     SizeModalComponent,
@@ -77,6 +83,8 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     DiscountPipe,
     TchatComponent,
     RightClicMenuTchatComponent,
+    OeuvreNumeriqueBoxOneComponent,
+    QuickViewOeuvreNumeriqueComponent,
   ],
   imports: [
     CommonModule,
@@ -118,6 +126,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     NewsletterComponent,
     QuickViewComponent,
     CartModalComponent,
+    CartModalOeuvreNumeriqueComponent,
     CartVariationComponent,
     VideoModalComponent,
     SizeModalComponent,
@@ -125,7 +134,9 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     SkeletonProductBoxComponent,
     TapToTopComponent,
     DiscountPipe,
-    PickerModule
+    PickerModule,
+    OeuvreNumeriqueBoxOneComponent,
+    QuickViewOeuvreNumeriqueComponent,
     
   ],
   providers: [FavoriteActions]

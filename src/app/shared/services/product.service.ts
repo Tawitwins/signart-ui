@@ -19,12 +19,20 @@ import { AppState } from '../../interfaces';
 import { environment } from '../../../environments/environment';
 import { PanierEtMarquageService } from './panierEtMarquage.service';
 import { LignePanier } from '../modeles/ligne_panier';
+import { OeuvreNumerique } from '../modeles/imageNumerique';
 
 const state = {
   products: JSON.parse(localStorage['products'] || '[]'),
   wishlist: JSON.parse(localStorage['wishlistItems'] || '[]'),
   compare: JSON.parse(localStorage['compareItems'] || '[]'),
   cart: JSON.parse(localStorage['cartItems'] || '[]')
+}
+
+const stateList = {
+  oeuvresNumeriques: JSON.parse(localStorage['oeuvresNumeriques'] || '[]'),
+ // wishlist: JSON.parse(localStorage['wishlistItems'] || '[]'),
+  comparelist: JSON.parse(localStorage['compareListItems'] || '[]'),
+  list: JSON.parse(localStorage['listItems'] || '[]')
 }
 
 @Injectable({
@@ -210,6 +218,14 @@ export class ProductService {
     return <Observable<Product[]>>itemsStream;
   }
 
+  public get listItems(): Observable<OeuvreNumerique[]> {
+    const itemsStream = new Observable(observer => {
+      observer.next(stateList.list);
+      observer.complete();
+    });
+    return <Observable<OeuvreNumerique[]>>itemsStream;
+  }
+
   // Add to Cart
   /*public addToCart(product): any {
     const cartItem = state.cart.find(item => item.id === product.id);
@@ -243,8 +259,6 @@ export class ProductService {
     console.log("client", this.client)
     console.log("oeuvre", oeuvre)
     
-
-
     if(!stock) return false
 
     if (cartItem) {
@@ -268,6 +282,35 @@ export class ProductService {
         return false;
       }
     })
+  }
+
+  public addToList(oeuvreNumerique: OeuvreNumerique): any {
+    console.log("show item added", oeuvreNumerique)
+    
+    const listItem = stateList.list.find(item => item.id === oeuvreNumerique.id);
+    const qty = 1;// oeuvre.stock ? oeuvre.stock : 1;
+    const items = listItem ? listItem : oeuvreNumerique;
+    //const stock = this.calculateStockCounts(items, qty);
+    this.client = this.authService.getClientConnected();
+   /* console.log("client", this.client)
+    console.log("oeuvre", oeuvre)*/
+    
+    //if(!stock) return false
+
+    if (listItem) {
+      listItem.quantity += qty    
+    } else {
+      oeuvreNumerique.avatar=null;
+      stateList.list.push({
+        ...oeuvreNumerique,
+        quantity: qty
+      })
+    }
+
+    //this.OpenCart = true; // If we use cart variation modal
+    localStorage.setItem("listItems", JSON.stringify(stateList.list));
+    return true;
+   
   }
 
   public addToCartOeuvre(oeuvre): any {
@@ -374,6 +417,23 @@ export class ProductService {
         })
     return true
   }
+ 
+   // Remove Cart items
+   public removeListItem(oeuvreNumerique: OeuvreNumerique): any {
+    const index = stateList.list.indexOf(oeuvreNumerique);
+    stateList.list.splice(index, 1);
+    localStorage.setItem("listItems", JSON.stringify(stateList.list));
+    
+    return true
+  }
+
+  public removeList(): any {
+    stateList.list = [];
+    localStorage.setItem("listItems", JSON.stringify(stateList.list));
+    
+    return true
+  }
+
 
   // Total amount 
  /* public cartTotalAmount(): Observable<number> {
@@ -396,6 +456,15 @@ export class ProductService {
           price = curr.prix - (curr.prix * curr.tauxremise / 100)
         }
         return (prev + price * curr.quantity) * this.Currency.price;
+      }, 0);
+    }));
+  }
+
+  public listTotalAmount(): Observable<number> {
+    return this.listItems.pipe(map((oeuvre: OeuvreNumerique[]) => {
+      return oeuvre.reduce((prev, curr: OeuvreNumerique) => {
+        let price = curr.tarif;
+        return (prev + price) * this.Currency.price;
       }, 0);
     }));
   }
