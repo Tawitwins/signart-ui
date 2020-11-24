@@ -34,6 +34,7 @@ import { QuickViewComponent } from 'src/app/shared/components/modal/quick-view/q
 import { Observable } from 'rxjs';
 import { PaysService } from 'src/app/shared/services/pays.service';
 import { User } from 'src/app/shared/modeles/user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-abonnement-catalogue',
@@ -182,7 +183,7 @@ export class AbonnementCatalogueComponent implements OnInit {
     private articleService: ArticleService, private expoService: OeuvreService,
     private fb: FormBuilder,private imageService: ImageService, private artisteService:ArtisteService,
     private authS:AuthServiceS,private checkoutService:CheckoutService,private httpClient: HttpClient, 
-    public domSanitizer: DomSanitizer,private paysService: PaysService ) { 
+    public domSanitizer: DomSanitizer,private paysService: PaysService, private toastrService: ToastrService ) { 
 
 
       this.annee = [2020,2019,2018,2011];
@@ -665,9 +666,8 @@ export class AbonnementCatalogueComponent implements OnInit {
                     this.imageService.addAbonnement(this.abonnement).subscribe(
                       resp =>{
                         console.log(resp)
-                        console.log(
-                          'Demande abonnement soumis avec succés!'
-                        )
+                        
+                        this.toastrService.success('Abonnement soumis avec succés!');
                         this.onReset(0);
                         location.reload();
                       }
