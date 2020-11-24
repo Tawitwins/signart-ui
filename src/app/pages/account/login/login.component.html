@@ -19,11 +19,8 @@
                         <div class="form-group">
                             <label for="review">Mot de passe</label>
                             <input type="password" class="form-control" id="review" placeholder="Entrer votre mot de passe"  formControlName="password" >
-                            <div *ngIf="signInForm.get('password').errors && signInForm.get('password').touched">
-                                <span class="login-error-icon text-danger">!</span>
-                                <!-- <p class="login-error-message text-danger">{{signInForm.get('password').errors.msg || 'Password must be at least 6 characters'}}</p> -->
-                                <p class="login-error-message text-danger">
-                                Le mot de passe doit être au moins de 6 caractères</p>
+                            <div *ngIf="connexionStatut == false">
+                                <p class="login-error-message text-danger">Identifiant ou mot de passe non valide !</p>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-solid">Se connecter</button>

@@ -16,10 +16,14 @@ import Swal from 'sweetalert2';
 import { MustMatchValidators } from './must-Match';
 import { User, AccountInfo } from '../../../shared/modeles/user';
 import { Commande } from '../../../shared/modeles/commande';
-import { Abonnement, Abonne, EtatAbonnement, Terminal, HistoriqueAbonnement } from '../../../shared/modeles/utilisateur';
+import { Abonnement, Abonne, EtatAbonnement, Terminal, HistoriqueAbonnement, DelaieAbonnement, ListeSelection_Oeuvres } from '../../../shared/modeles/utilisateur';
 import { ImageService } from '../../../shared/services/image.service';
 import { environment } from '../../../../environments/environment';
 import { ProductService } from '../../../shared/services/product.service';
+import { OeuvreNumerique } from 'src/app/shared/modeles/imageNumerique';
+import { Product } from 'src/app/shared/classes/product';
+import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -48,6 +52,7 @@ export class DashboardComponent implements OnInit {
  size:number;
  myGroup:FormGroup;
  public abonnements: Abonnement[];
+ public abonnementAffiche: Abonnement;
  public allAbonnement: Abonnement[];
  abonnementget: Abonnement;
  abonne: Abonne;
@@ -60,12 +65,29 @@ export class DashboardComponent implements OnInit {
  returnUrl: string;
  mdpForm:FormGroup;
  etats: EtatAbonnement[];
+ public oeuvreNumeriqueAfficher: OeuvreNumerique;
+ public abonneAffich: Abonne;
  
   public openDashboard: boolean = false;
   public infopage: number;
   public listeArtiste: number
   public listAdress:boolean=true;
-  oeuvresFav: import("c:/Users/SNMBENGUEO/Desktop/SignArt/signart web new/src/app/shared/classes/product").Product[];
+  oeuvresFav: Product[];
+
+  delaiAffiche: DelaieAbonnement;
+  oeuvresAffiche: OeuvreNumerique[];
+  listeOeuvreAffiche: ListeSelection_Oeuvres[];
+  affichediv: number;
+  traitementForm: FormGroup;
+  traitementAbonnement: number;
+  isValid: number;
+  activePaiement: boolean;
+  abonneAffiche: Abonne;
+  terminalAffiche: Terminal;
+  public montantOeuvres: number;
+
+  
+  
 
 
   constructor(private authService: AuthServiceS, private productService: ProductService,  private store: Store<AppState>, private router: Router,
@@ -74,25 +96,34 @@ export class DashboardComponent implements OnInit {
     private artisteService:ArtisteService,
     private imageService: ImageService,
     public jwtHelper: JwtHelperService,
-    private route: ActivatedRoute,) {
+    private route: ActivatedRoute,public domSanitizer: DomSanitizer) {
     this.infopage = 0;
     this.initmdpForm();
     this.listeArtiste = 0;
     this.abonnementExiste = false;
     this.historiqueExiste = false;
     this.abonnements = [];
+    this.activePaiement = false
     this.historiques = [];
+    this.terminalAffiche = new Terminal('','',null);
+    this.delaiAffiche = new DelaieAbonnement('','',null,null);
     this.abonnementget = new Abonnement(null,null,null,null,null,'',null)
+    this.abonne = new Abonne(null,null,'','','','','','','','');
+    this.abonneAffiche = new Abonne(null,null,'','','','','','','','');
     this.allAbonne = [];
     this.allAbonnement = [];
+    this.oeuvresAffiche = [];
+    this.montantOeuvres = 0;
     this.user=this.authS.getUserConnected();
     this.productService.wishlistItems.subscribe(resp=> this.oeuvresFav=resp);
     console.log(this.oeuvresFav);
+
 
     this.imageService.getAllEtat().subscribe(
       response => { 
         this.etats = response;
         console.log("etats",this.etats);
+        
       });
 
     if(this.user.userType == 'ARTISTE'){
@@ -462,5 +493,68 @@ getLibelleEtatAbonnement(idEtat: number){
     }
     
   }
+}
+
+showDetailsAbonnement(id: number){
+  this.activePaiement = false;
+  this.oeuvresAffiche = [];
+  this.montantOeuvres = 0;
+ 
+  for (let i = 0; i < this.abonnements.length; i++) {
+    if(this.abonnements[i].id == id){
+      this.abonnementAffiche = this.abonnements[i];
+      console.log("abonneAffiche dashboard ", this.abonnementAffiche)
+      
+      for (let i = 0; i < this.etatAbonnements.length; i++) {
+        if(this.abonnementAffiche.etatAbonnement == this.etatAbonnements[i].id){
+          if(this.etatAbonnements[i].libelle === "en_attente_paiement"){
+            this.activePaiement = true;
+          }
+        }
+        
+      }
+
+      this.imageService.getAbonneById(this.abonnementAffiche.idAbonne).subscribe(response => {
+        console.log("reponse abonnement",response)
+        this.abonneAffiche = response;
+        console.log("abonne affiche",this.abonneAffiche)
+      });
+      this;this.imageService.getDelaiById(this.abonnementAffiche.idDelai).subscribe(response => {
+        console.log("reponse delai",response)
+        this.delaiAffiche = response;
+        console.log("delai affiche",this.delaiAffiche)
+      });
+      this;this.imageService.getTerminalById(this.abonnementAffiche.idTerminal).subscribe(response => {
+        console.log("reponse terminal",response)
+        this.terminalAffiche = response;
+        console.log("delai affiche",this.terminalAffiche)
+       /* if(this.terminalAffiche.libelle === "Tv box"){
+          this.precisionEcran = true;
+          console.log("precsiooooooooooooo",this.precisionEcran)
+        }*/
+      });
+      this.imageService.getListeOeuvre(this.abonnementAffiche.idListeSelection).subscribe(response => {
+        console.log("reponse terminal",response)
+        this.listeOeuvreAffiche = response;
+        console.log("liste affiche",this.listeOeuvreAffiche)
+        for (let i = 0; i < this.listeOeuvreAffiche.length; i++) {
+          this.imageService.getImage(this.listeOeuvreAffiche[i].nomOeuvre).subscribe(response => {
+            const oeuvre = response;
+            console.log("oeuvre",oeuvre)
+            this.montantOeuvres =  this.montantOeuvres + oeuvre.tarif;
+            console.log("oeuvres total", this.montantOeuvres)
+            this.oeuvresAffiche.push(oeuvre);
+          });  
+        }
+        console.log("oeuvres affiche", this.oeuvresAffiche)
+        
+
+       
+      });
+
+      this.infopage = 10;
+    }
+  }
+ 
 }
 }

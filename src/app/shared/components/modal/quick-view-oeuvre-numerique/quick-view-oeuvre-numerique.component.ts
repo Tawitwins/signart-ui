@@ -171,4 +171,6 @@ export class QuickViewOeuvreNumeriqueComponent implements OnInit, OnDestroy  {
     return this.artisteName;
   }
 
+ 
+
 }

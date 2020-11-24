@@ -248,7 +248,7 @@
                                                         </div>
                                                     </div> -->
                                                 </td>
-                                                <td><h2>{{oeuvre.prix}} FCFA</h2></td>
+                                                <td><h3>{{oeuvre.prix}} FCFA</h3></td>
                                                 <td >
                                                     <p>EN stock: {{oeuvre.stock}}</p>
                                                 </td>
@@ -268,7 +268,7 @@
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 5">
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-sm-12"> 
                                     <table class="table cart-table table-responsive-xs">
                                         <thead>
                                         <tr class="table-head">
@@ -285,7 +285,7 @@
                                                 </td>
                                                 <td><h6>{{getLibelleEtatAbonnement(abonnement.etatAbonnement)}}</h6></td>
                                                 <td>
-                                                    <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="icon mr-3">
+                                                    <a (click)="showDetailsAbonnement(abonnement.id)"  [routerLink]=" " style="cursor: pointer;" class="icon mr-3">
                                                         details
                                                     </a>
                                                 </td>
@@ -412,6 +412,101 @@
                                             </div>
                                         </div>
                                     </div>
+                               
+                            </div>
+                        </div>
+                        <div class="box-account box-info" *ngIf="infopage == 10">
+                            <div class="box-head">
+                                <h2>Details de l'abonnement numabonnement</h2>
+                            </div> <br><br>
+                            <div class="row">
+                                <section class="section-b-space">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="product-order">
+                                                   
+                                                    <div class="row product-order-detail" *ngFor="let oeuvre of oeuvresAffiche">
+                                                        <div class="col-3">
+                                                            <img class="e2e-trusted-url" [src]="domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+oeuvre.avatar.value)" alt="quixote">
+                                                        </div>
+                                                        <div class="col-3 order_detail">
+                                                            <div>
+                                                                <h4>Article</h4>
+                                                                <h5>{{oeuvre.titre}}</h5>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-3 order_detail">
+                                                            <div>
+                                                                <h4>quantité</h4>
+                                                                <h5>1</h5>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-3 order_detail">
+                                                            <div>
+                                                                <h4>prix</h4>
+                                                                <h5>{{oeuvre.tarif}}</h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="total-sec">
+                                                        <ul>
+                                                            <li>Total <span>{{montantOeuvres}} FCFA</span></li>
+                                                            <li>Delai <span>{{delaiAffiche.prix}} FCFA</span></li>
+                                                            <li>Terminal <span>{{terminalAffiche.prix}} FCFA</span></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="final-total">
+                                                        <h3>total <span>{{abonnementAffiche.montantPaiement}} FCFA</span></h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="row order-success-sec">
+                                                    <div class="col-sm-6">
+                                                        <h4>Information de l'abonné</h4>
+                                                        <ul class="order-detail"> 
+                                                            <li>Nom: {{abonneAffiche.nom}}</li>
+                                                            <li>Prenom: {{abonneAffiche.prenom}}</li>
+                                                            <li>Telephone: {{abonneAffiche.telephone}}</li>
+                                                            <li>Email: {{abonneAffiche.email}}</li>
+                                                            <li>Pays: {{abonneAffiche.pays}}</li>
+                                                            <li>Region: {{abonneAffiche.region}}</li>
+                                                            <li>Ville: {{abonneAffiche.ville}}</li>
+                                                            <li>Adresse: {{abonneAffiche.adresse}}</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <h4>Terminal et delai</h4>
+                                                        <ul class="order-detail">
+                                                            <li>Terminal: {{terminalAffiche.libelle}}</li>
+                                                            <li>Delai: {{delaiAffiche.libelle}}</li>                                                           
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-12" *ngIf="activePaiement == false">
+                                                        <div class="delivery-sec">
+                                                            <h2>Paiement Invalide</h2>
+                                                            <h4>Abonnement en attente de validation</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12" *ngIf="activePaiement == true">
+                                                        <div class="delivery-sec">
+                                                            <h2>Paiement</h2>
+                                                            <div class="product-buttons">
+                                                                <a href="javascript:void(0)" class="btn btn-solid">Clicker ici pour payer</a>
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                  
+                                        </div>
+                                    </div>
+                                  </section>
+                                   
                                
                             </div>
                         </div>

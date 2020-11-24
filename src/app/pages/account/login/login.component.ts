@@ -11,6 +11,7 @@ import { OeuvreService } from '../../../shared/services/oeuvre.service';
 import { getAuthStatus } from '../../../auth/reducers/selectors';
 import { User } from '../../../shared/modeles/user';
 import { ArtisteService } from '../../../shared/services/artiste.service';
+import { ToastrService } from 'ngx-toastr';
 
 declare var $: any;
 
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   //user: SocialUser;
   User:User;
   val: any;
+  public connexionStatut: boolean = true;
   
 
   constructor(
@@ -39,6 +41,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private actions: AuthActions,
     private oeuvreS:OeuvreService,
     private artisteService:ArtisteService,
+    private toastrService: ToastrService,
   ) {
     this.redirectIfUserLoggedIn();
     /*const config = {
@@ -94,7 +97,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           }
         },
         err =>{
-          $.notify({
+          /*$.notify({
             icon: "notifications",
             message: "Identifiant ou mot de passe non valide !"
           }, {
@@ -104,7 +107,8 @@ export class LoginComponent implements OnInit, OnDestroy {
                 from: 'top',
                 align: 'center'
               }
-            });
+            });*/
+            this.connexionStatut = false;
           //window.alert(err.status+' '+err.statusText)
         });
     } else {

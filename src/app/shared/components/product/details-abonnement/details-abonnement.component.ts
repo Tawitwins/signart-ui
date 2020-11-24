@@ -19,27 +19,25 @@ import { ArtisteService } from 'src/app/shared/services/artiste.service';
 import { Artiste } from 'src/app/shared/modeles/artiste';
 import { OeuvreNumerique } from 'src/app/shared/modeles/imageNumerique';
 import { Technique } from 'src/app/shared/modeles/technique';
-import { ListSelection } from 'src/app/shared/modeles/utilisateur';
+import { Abonne, Abonnement, CodeSignart, DelaieAbonnement, Email, EtatAbonnement, ListeSelection_Oeuvres, ListSelection, Terminal } from 'src/app/shared/modeles/utilisateur';
 import { ImageService } from 'src/app/shared/services/image.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FormGroup } from '@angular/forms';
 declare var $: any;
 @Component({
-  selector: 'oeuvre-numerique-box-one',
-  templateUrl: './oeuvre-numerique-box-one.component.html',
-  styleUrls: ['./oeuvre-numerique-box-one.component.scss']
+  selector: 'details-abonnement',
+  templateUrl: './details-abonnement.component.html',
+  styleUrls: ['./details-abonnement.component.scss']
 })
-export class OeuvreNumeriqueBoxOneComponent implements OnInit {
+export class DetailsAbonnementComponent implements OnInit {
 
   
-
-  @Input() product: Product;
-  @Input() oeuvre: Oeuvre;
-  @Input() oeuvreNumerique: OeuvreNumerique;
-  @Input() currency: any = this.productService.Currency; // Default Currency 
+  @Input() abonnement: Abonnement;
+  /*@Input() currency: any = this.productService.Currency; // Default Currency 
   @Input() thumbnail: boolean = false; // Default False 
   @Input() onHowerChangeImage: boolean = false; // Default False
   @Input() cartModal: boolean = false; // Default False
-  @Input() loader: boolean = false;
+  @Input() loader: boolean = false;*/
 
 
   actionsSubscription: Subscription;
@@ -53,6 +51,7 @@ export class OeuvreNumeriqueBoxOneComponent implements OnInit {
   public oeuvreNumeriqueSave: OeuvreNumerique;
   url: any;
   private button: any;
+  public abonne: Abonne;
   elmt: HTMLElement;
   listarticle: any = null;
   artistes: Artiste[];
@@ -79,11 +78,81 @@ export class OeuvreNumeriqueBoxOneComponent implements OnInit {
 
   public ImageSrc : string
 
+  abonneAffiche: Abonne;
+  abonnementAffiche: Abonnement;
+  terminalAffiche: Terminal;
+  delaiAffiche: DelaieAbonnement;
+  oeuvresAffiche: Oeuvre[];
+  listeOeuvreAffiche: ListeSelection_Oeuvres[];
+  affichediv: number;
+  traitementForm: FormGroup;
+  traitementAbonnement: number;
+  isValid: number;
+  activePaiement: boolean;
+  etatAbonnements: EtatAbonnement[];
+  emailError: Email;
+  codeSignart: CodeSignart;
+
   constructor(private productService: ProductService,
     private authService: AuthServiceS,
     private router:Router,
     private artisteService: ArtisteService, private imageService: ImageService,
     public domSanitizer: DomSanitizer, private route: ActivatedRoute) { 
+
+
+      this.actionsSubscription = this.route.params.subscribe(
+        (params: any) => {
+          this.abonnementAffiche = params['abonnement'];
+        console.log("Abonnement Affiche",this.abonnementAffiche)});
+
+      this.imageService.getAllEtat().subscribe( res => {
+        this.etatAbonnements = res;
+        for (let i = 0; i < this.etatAbonnements.length; i++) {
+          if(this.abonnement.etatAbonnement == this.etatAbonnements[i].id){
+            if(this.etatAbonnements[i].libelle === "en_attente_paiement"){
+              this.activePaiement = true;
+            }
+          }
+          
+        }
+      
+      });
+
+      this.imageService.getAbonneById(this.abonnement.idAbonne).subscribe(response => {
+        console.log("reponse abonnement",response)
+        this.abonneAffiche = response;
+        console.log("abonne affiche",this.abonneAffiche)
+      });
+      this;this.imageService.getDelaiById(this.abonnement.idDelai).subscribe(response => {
+        console.log("reponse delai",response)
+        this.delaiAffiche = response;
+        console.log("delai affiche",this.delaiAffiche)
+      });
+      this;this.imageService.getTerminalById(this.abonnement.idTerminal).subscribe(response => {
+        console.log("reponse terminal",response)
+        this.terminalAffiche = response;
+        console.log("delai affiche",this.terminalAffiche)
+       /* if(this.terminalAffiche.libelle === "Tv box"){
+          this.precisionEcran = true;
+          console.log("precsiooooooooooooo",this.precisionEcran)
+        }*/
+      });
+      this;this.imageService.getListeOeuvre(this.abonnement.idListeSelection).subscribe(response => {
+        console.log("reponse terminal",response)
+        this.listeOeuvreAffiche = response;
+        console.log("liste affiche",this.listeOeuvreAffiche)
+        for (let i = 0; i < this.listeOeuvreAffiche.length; i++) {
+          this.imageService.getImage(this.listeOeuvreAffiche[i].nomOeuvre).subscribe(response => {
+            const oeuvre = response;
+            console.log("oeuvre",oeuvre)
+            this.oeuvresAffiche.push(oeuvre);
+          });  
+        }
+        console.log("oeuvres affiche", this.oeuvresAffiche)
+      });
+
+
+    
 
 
       this.actionsSubscription = this.route.params.subscribe(
@@ -115,9 +184,9 @@ export class OeuvreNumeriqueBoxOneComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.loader) {
+   /* if(this.loader) {
       setTimeout(() => { this.loader = false; }, 1000); // Skeleton Loader
-    }
+    }*/
   }
 
   // Get Product Color

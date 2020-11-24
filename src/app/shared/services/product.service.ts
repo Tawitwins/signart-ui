@@ -308,6 +308,7 @@ export class ProductService {
     }
 
     //this.OpenCart = true; // If we use cart variation modal
+    this.toastrService.success('Oeuvre ajouté à la liste!');
     localStorage.setItem("listItems", JSON.stringify(stateList.list));
     return true;
    
@@ -422,6 +423,7 @@ export class ProductService {
    public removeListItem(oeuvreNumerique: OeuvreNumerique): any {
     const index = stateList.list.indexOf(oeuvreNumerique);
     stateList.list.splice(index, 1);
+    this.toastrService.warning('Oeuvre retiré de la liste!');
     localStorage.setItem("listItems", JSON.stringify(stateList.list));
     
     return true

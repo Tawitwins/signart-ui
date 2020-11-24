@@ -20,6 +20,8 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { ProductBoxOneComponent } from './components/product/product-box-one/product-box-one.component';
 import { OeuvreNumeriqueBoxOneComponent } from './components/product/oeuvre-numerique-box-one/oeuvre-numerique-box-one.component';
+import { DetailsAbonnementComponent } from './components/product/details-abonnement/details-abonnement.component';
+
 import { ProductBoxTwoComponent } from './components/product/product-box-two/product-box-two.component';
 import { ProductBoxThreeComponent } from './components/product/product-box-three/product-box-three.component';
 import { ProductBoxFourComponent } from './components/product/product-box-four/product-box-four.component';
@@ -79,6 +81,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     SizeModalComponent,
     AgeVerificationComponent,
     SkeletonProductBoxComponent,
+    DetailsAbonnementComponent,
     TapToTopComponent,
     DiscountPipe,
     TchatComponent,
@@ -123,6 +126,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     ProductBoxFiveComponent,
     ProductBoxVerticalComponent,
     ProductBoxVerticalSliderComponent,
+    DetailsAbonnementComponent,
     NewsletterComponent,
     QuickViewComponent,
     CartModalComponent,
