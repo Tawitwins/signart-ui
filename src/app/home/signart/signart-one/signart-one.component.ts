@@ -64,52 +64,52 @@ export class SignartOneComponent implements OnInit {
   }]; */
   // Collection banner
   public collections = [{
-    image: 'assets/images/collection/fashion/im1.png',
+    image: 'assets/images/collection/fashion/encreChine.png',
     save: 'Catégorie',
     title: "L'architecture"
   }, {
-    image: 'assets/images/collection/fashion/peinture.JPG',
+    image: 'assets/images/collection/fashion/peinture.png',
     save: 'Catégorie',
     title: 'La peinture'
   }];
 
     // Collection banner
     public eric = [{
-      image: 'assets/images/collection/fashion/dessin.jpg',
+      image: 'assets/images/collection/fashion/dessin.png',
       save: 'Catégorie',
       title: 'Le dessin'
     }, {
-      image: 'assets/images/collection/fashion/gravure.jpg',
+      image: 'assets/images/collection/fashion/gravure.png',
       save: 'Catégorie',
       title: 'La gravure'
     }, {
-      image: 'assets/images/collection/fashion/sculpture.JPG',
+      image: 'assets/images/collection/fashion/sculpture.png',
       save: 'Catégorie',
       title: 'La sculpture'
     }];
 
     // Collection Technique
     public dan = [{
-      image: 'assets/images/collection/fashion/acrilic.jpg',
+      image: 'assets/images/collection/fashion/acrilic.png',
       save: 'Technique',
       title: 'Acrylique sur toile'
     }, {
-      image: 'assets/images/collection/fashion/huile.jpg',
+      image: 'assets/images/collection/fashion/huile.png',
       save: 'Technique',
       title: 'Huile sur toile'
     }, {
-      image: 'assets/images/collection/fashion/installation.jpg',
+      image: 'assets/images/collection/fashion/installation.png',
       save: 'Technique',
       title: 'installation'
     }];
 
       // Collection Technique 2
       public dan2 = [{
-        image: 'assets/images/collection/fashion/encreChine.jpg',
+        image: 'assets/images/collection/fashion/encreChine.png',
         save: 'Technique',
         title: 'Encre de chine'
       }, {
-        image: 'assets/images/collection/fashion/gouach.JPG',
+        image: 'assets/images/collection/fashion/gouach.png',
         save: 'Technique',
         title: 'Gouache'
       }];

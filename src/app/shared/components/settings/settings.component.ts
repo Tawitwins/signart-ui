@@ -132,10 +132,16 @@ export class SettingsComponent implements OnInit {
   }
 
   logout() {
+    
     this.authService.signOut();
+    this.removeList();
     this.redirectIfUserLoggedOut();
     //location.reload();
  }
+
+ public removeList() {
+  this.productService.removeList();
+}
  redirectIfUserLoggedOut(){
      this.store.select(getAuthStatus).subscribe(
        data => {
