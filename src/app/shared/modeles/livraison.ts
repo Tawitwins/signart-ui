@@ -10,5 +10,6 @@ export class Livraison {
     adresseLivraison?:Address;
     idModeLivraison: number;
     codeEtatLivraison: string;
+    libelleModeLivraison: string;
     lignesCommande: LigneCommande[];
 }

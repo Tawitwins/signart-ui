@@ -24,6 +24,11 @@ import { OeuvreNumerique } from 'src/app/shared/modeles/imageNumerique';
 import { Product } from 'src/app/shared/classes/product';
 import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
+import { LigneCommande } from 'src/app/shared/modeles/ligneCommande';
+import { Livraison } from 'src/app/shared/modeles/livraison';
+import { CheckoutService } from 'src/app/shared/services/checkout.service';
+import { Address } from 'src/app/shared/modeles/address';
 
 @Component({
   selector: 'app-dashboard',
@@ -86,6 +91,15 @@ export class DashboardComponent implements OnInit {
   terminalAffiche: Terminal;
   public montantOeuvres: number;
 
+  actionsSubscription:Subscription;
+  ligneCommande:LigneCommande[];
+  commande:Commande;
+  idLigneCMD:number;
+  adressLivraison:Address;
+  livraison:Livraison;
+  image:string;
+  images:any[];
+  Sum:number;
   
   
 
@@ -96,7 +110,7 @@ export class DashboardComponent implements OnInit {
     private artisteService:ArtisteService,
     private imageService: ImageService,
     public jwtHelper: JwtHelperService,
-    private route: ActivatedRoute,public domSanitizer: DomSanitizer) {
+    private route: ActivatedRoute,public domSanitizer: DomSanitizer,private checkoutService:CheckoutService) {
     this.infopage = 0;
     this.initmdpForm();
     this.listeArtiste = 0;
@@ -114,6 +128,10 @@ export class DashboardComponent implements OnInit {
     this.allAbonnement = [];
     this.oeuvresAffiche = [];
     this.montantOeuvres = 0;
+    this.commande=new Commande(); //pour éviter les erreurs undefined sur le HTML
+  this.livraison=new Livraison();//pour éviter les erreurs undefined sur le HTML
+  this.ligneCommande=[] //pour éviter les erreurs undefined sur le HTML
+  this.adressLivraison=new Address('','','','','','','','','','');
     this.user=this.authS.getUserConnected();
     this.productService.wishlistItems.subscribe(resp=> this.oeuvresFav=resp);
     console.log(this.oeuvresFav);
@@ -563,4 +581,35 @@ showDetailsAbonnement(id: number){
   }
  
 }
+
+showDetailsCommande(idCommande: number){
+
+  this.infopage = 11;
+       this.checkoutService.getCommandeById(idCommande).subscribe(
+         (response)=>{
+          this.commande=response;
+          this.Sum=(this.commande.total + this.commande.totalLivraison);
+          this.ligneCommande=this.commande.lignesCommande;
+          this.idLigneCMD=this.ligneCommande[0].id
+          for(let i=0;i<this.ligneCommande.length;i++){
+            this.image= environment.API_ENDPOINT + 'image/oeuvre/' +this.ligneCommande[i].oeuvre.id;
+          }
+          console.log('Details de la commande',this.commande);
+         }
+       )
+    this.checkoutService.getLivraisonBycommande(idCommande).subscribe(
+      (response)=>{
+          this.livraison=response;
+          this.adressLivraison=this.livraison.adresseLivraison;
+          console.log('Les informations sur la livraison',this.livraison)
+      }
+    );
+
+
+
+    }
+
+    get(i:number){
+      return environment.API_ENDPOINT + 'image/oeuvre/' +this.ligneCommande[i].oeuvre.id;
+    }
 }

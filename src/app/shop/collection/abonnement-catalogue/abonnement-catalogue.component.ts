@@ -62,7 +62,7 @@ export class AbonnementCatalogueComponent implements OnInit {
   public paginate: any = {}; // Pagination use only
   public sortBy: string; // Sorting Order
   public mobileSidebar: boolean = false;
-  public loader: boolean = true;
+  //public loader: boolean = true;
   public collapse: boolean = true;
   public collapseCategorie: boolean = true;
   public currency: any;
@@ -309,9 +309,9 @@ export class AbonnementCatalogueComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.loader) {
+   /* if(this.loader) {
       setTimeout(() => { this.loader = false; }, 2000); // Skeleton Loader
-    }
+    }*/
   }
 
   onSubmitFormuAbonne(){
@@ -610,7 +610,7 @@ export class AbonnementCatalogueComponent implements OnInit {
       response => { 
         this.allUserListe = response;
         this.listeAdd.idUtilisateur = this.idUtilisateur;
-        this.listeAdd.nomListe = "maListe"+(this.allUserListe.length+1);
+        this.listeAdd.nomListe = this.idUtilisateur+"Liste"+(this.allUserListe.length+1);
         ////console.log("liste crée: ",this.listeAdd);
         this.imageService.addListe(this.listeAdd).subscribe(
           response => { 
@@ -634,62 +634,67 @@ export class AbonnementCatalogueComponent implements OnInit {
       this.imageService.addAbonne(this.abonne).subscribe(
         respon =>{
           ////console.log(respon)
-          this.imageService.getAbonneByListe(this.abonne.idListeSelection).subscribe(
-            response => { 
-              this.abonneRes = response;
-              this.idAbonneRes = this.abonneRes.id;
-              ////console.log("abonneee creerr ", this.abonneRes)
-              ////console.log('abonneRes',this.abonneRes);
-                   // ////console.log("listId",this.listeSelection.id)
-                    ////console.log("abonneId",this.abonneRes.id)
-                    ////console.log("delaiId",this.delaiId)
-                    ////console.log("terminalId",this.terminalId)
-                
-                    this.abonnement.idTerminal = this.terminalId;
-                    this.abonnement.idDelai = this.delaiId;
-                    this.abonnement.montantPaiement = this.montantTotal;
-                    this.abonnement.idListeSelection = this.abonneRes.idListeSelection;
-                    this.abonnement.idAbonne = this.abonneRes.id;
-                    if(this.terminalDelai.terminalLibelle === "Tv box"){
-                      this.abonnement.precisions = this.terminalDelai.precisions;
-                    }else{
-                      this.abonnement.precisions = "RAS";
-                    }
-                    
-                    for(var i=0; i<this.etats.length; i++){
-                      if(this.etats[i].libelle === "en_attente_validation"){
-                        this.idEtatAbonnement = this.etats[i].id;
+          if(respon != null){
+            let abonnee: Abonne = respon
+            console.log("abonneee creerr ", abonnee)
+            this.imageService.getAbonneByListe(this.abonne.idListeSelection).subscribe(
+              response => { 
+                this.abonneRes = response;
+               
+                ////console.log("abonneee creerr ", this.abonneRes)
+                ////console.log('abonneRes',this.abonneRes);
+                     // ////console.log("listId",this.listeSelection.id)
+                      ////console.log("abonneId",this.abonneRes.id)
+                      ////console.log("delaiId",this.delaiId)
+                      ////console.log("terminalId",this.terminalId)
+                      console.log("abonne ress",this.abonneRes)
+                      this.abonnement.idTerminal = this.terminalId;
+                      this.abonnement.idDelai = this.delaiId;
+                      this.abonnement.montantPaiement = this.montantTotal;
+                      this.abonnement.idListeSelection = this.abonneRes.idListeSelection;
+                      this.abonnement.idAbonne = this.abonneRes.id;
+                      if(this.terminalDelai.terminalLibelle === "Tv box"){
+                        this.abonnement.precisions = this.terminalDelai.precisions;
+                      }else{
+                        this.abonnement.precisions = "RAS";
                       }
-                    }
-                    ////console.log("id etat",this.idEtatAbonnement)
-                    this.abonnement.etatAbonnement = this.idEtatAbonnement
-        
-                    ////console.log("abonnement",this.abonnement)
-                    ////console.log("la liste des oeuvres",this.listeOeuvre)
-                    this.listeOeuvre = this.oeuvresNumeriques;
-                    for (let i = 0; i < this.listeOeuvre.length; i++) {
-                      const listoeuvre = new ListeSelection_Oeuvres(null,null);
-                      listoeuvre.idListe = this.abonneRes.idListeSelection;
-                      listoeuvre.nomOeuvre = this.listeOeuvre[i].nom;
-                      ////console.log(listoeuvre)
-                      this.imageService.addListOeuvre(listoeuvre).subscribe(
-                        respon => { 
-                          ////console.log("add image"+this.listeOeuvre[i].nom)
-                        }); 
-                    }
-                    
-                    this.imageService.addAbonnement(this.abonnement).subscribe(
-                      resp =>{
-                        ////console.log(resp)
-                        
-                        this.toastrService.success('Abonnement soumis avec succés!');
-                        this.onReset(0);
-                        location.reload();
+                      
+                      for(var i=0; i<this.etats.length; i++){
+                        if(this.etats[i].libelle === "en_attente_validation"){
+                          this.idEtatAbonnement = this.etats[i].id;
+                        }
                       }
-                    ); 
-                      });
-                     
-                     
+                      ////console.log("id etat",this.idEtatAbonnement)
+                      this.abonnement.etatAbonnement = this.idEtatAbonnement
+          
+                      
+                      
+                      this.listeOeuvre = this.oeuvresNumeriques;
+                      console.log("la liste des oeuvres",this.listeOeuvre)
+                      console.log("abonne rs",this.abonneRes)
+                      for (let i = 0; i < this.listeOeuvre.length; i++) {
+                        const listoeuvre = new ListeSelection_Oeuvres(null,null);
+                        listoeuvre.idListe = this.abonneRes.idListeSelection;
+                        listoeuvre.nomOeuvre = this.listeOeuvre[i].nom;
+                        console.log(listoeuvre)
+                        this.imageService.addListOeuvre(listoeuvre).subscribe(
+                          respon => { 
+                            console.log("add image"+listoeuvre)
+                            
+                          }); 
+                      }
+                      this.imageService.addAbonnement(this.abonnement).subscribe(
+                        resp =>{
+                          ////console.log(resp)
+                          console.log("abonnement",this.abonnement)
+                          this.toastrService.success('Abonnement soumis avec succés!');
+                          this.onReset(0);
+                          
+                        }
+                      );         
+            });
+  
+          }           
           });
         });       
   }
