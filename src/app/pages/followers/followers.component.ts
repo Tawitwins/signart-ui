@@ -18,6 +18,11 @@ export class FollowersComponent implements OnInit {
   artiste: any;
   clients: Client[]=[];
   Visiteurs: Visiteur[]=[];
+  pageSize = 6;
+  pag=1;
+  pg=1;
+  //size:number;
+  pageSizeListe = 2;
 
   constructor(private route:ActivatedRoute,private oeuvreServices: OeuvreService,private artisteService: ArtisteService) {
     this.actionsSubscription = this.route.params.subscribe(

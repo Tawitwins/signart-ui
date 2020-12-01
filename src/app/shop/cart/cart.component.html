@@ -28,7 +28,11 @@
                             </a>
                         </td>
                         <td>
-                            <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">{{ oeuvre.nom | titlecase }}</a>
+                            <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
+                                <h5>
+                                    {{ oeuvre.nom | titlecase }}
+                                </h5>
+                            </a>
                             <div class="mobile-cart-content row">
                                 <div class="col-xs-3">
                                     <div class="qty-box">
@@ -38,9 +42,9 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-3">
-                                    <h2 class="td-color">
+                                    <h5 class="td-color">
                                         {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100  }} FCFA
-                                    </h2>
+                                    </h5>
                                 </div>
                                 <div class="col-xs-3">
                                     <h2 class="td-color">
@@ -52,9 +56,9 @@
                             </div>
                         </td>
                         <td>
-                            <h2>
+                            <h5>
                                 {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100  }} FCFA
-                            </h2>
+                            </h5>
                         </td>
                         <td>
                             <div class="qty-box">
@@ -79,9 +83,9 @@
                         </a>
                         </td>
                         <td>
-                            <h2 class="td-color">
+                            <h4 class="td-color">
                                 {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol' }}
-                            </h2>
+                            </h4>
                         </td>
                     </tr>
                 </tbody>

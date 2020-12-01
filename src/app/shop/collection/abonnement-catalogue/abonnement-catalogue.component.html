@@ -270,7 +270,7 @@
                                                         </div>
                                                         <div class="row cart-buttons" *ngIf='oeuvresNumeriques.length'>
                                                             <div class="col-6">
-                                                                <a (click)="saveListe()" class="btn btn-solid">Valider</a>
+                                                                <a href="javascript:void(0)" (click)="saveListe()" class="btn btn-solid">Valider</a>
                                                             </div>
                                                             
                                                         </div>
@@ -326,7 +326,7 @@
                                                                     <br><br><hr>
                                                                     <div class="form-row">
                                                                         <div class="col-md-6">
-                                                                            <button type="submit" class="btn btn-solid" style="background: red;" >Anuler</button>
+                                                                            <button type="submit" class="btn btn-solid" (click)="pageFormu = 0" style="background: red;" >Annuler</button>
                                                                         </div> 
                                                                         <div class="col-md-6">
                                                                             <button class="btn btn-solid" type="submit" (click)="onSubmitFormuAbonne()">Continuer</button>
@@ -386,7 +386,7 @@
                                                         <hr>
                                                         <div class="form-row">
                                                             <div class="col-md-6">
-                                                                <button type="submit" class="btn btn-solid" style="background: red;" >Anuler</button>
+                                                                <button type="submit" class="btn btn-solid" (click)="pageFormu = 0" style="background: red;" >Annuler</button>
                                                             </div> 
                                                             <div class="col-md-6">
                                                                 <button class="btn btn-solid" type="submit" (click)="onSubmitFormuTermi()">Continuer</button>
@@ -443,7 +443,7 @@
                                                     <br><hr>
                                                     <div class="form-row">
                                                         <div class="col-md-6">
-                                                            <button type="submit" class="btn btn-solid" style="background: red;" >Anuler</button>
+                                                            <button type="submit" class="btn btn-solid" (click)="pageFormu = 0" style="background: red;" >Annuler</button>
                                                         </div> 
                                                         <div class="col-md-6">
                                                             <button class="btn btn-solid" type="submit" (click)="onSubmitFinal();">Soumettre</button>
