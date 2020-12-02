@@ -15,6 +15,7 @@ import { CheckoutActions } from '../../actions/checkout.actions';
 import { Client } from '../../../shared/modeles/client';
 import { AuthServiceS } from '../../../shared/services/auth.service';
 import { OeuvreService } from '../../../shared/services/oeuvre.service';
+import { ToastrService } from 'ngx-toastr';
 declare var $:any;
 @Component({
   selector: 'app-add-address',
@@ -50,6 +51,7 @@ export class AddAddressComponent implements OnInit, OnDestroy {
     private paysService: PaysService,
     private actions: CheckoutActions,
     private router: Router,
+    private toastrService:ToastrService,
     ) {
       this.addressForm = addrService.initAddressForm();
       this.emailForm = addrService.initEmailForm();
@@ -80,6 +82,7 @@ export class AddAddressComponent implements OnInit, OnDestroy {
     this.checkoutService.addAdressesLivEtFact(addressAttributes).subscribe(
       resp=>{
         console.log(resp);
+        this.toastrService.success("Adresse ajouté","Succés");
       }
     );
     this.listAdressesLength = 1;

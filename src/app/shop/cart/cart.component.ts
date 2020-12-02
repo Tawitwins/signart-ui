@@ -64,7 +64,7 @@ export class CartComponent implements OnInit {
       this.toastr.info("Vous devez vous authentifier avant la commande!","Redirection");
     }
      else {
-      this.oeuvreS.getClientByUser(parseInt(this.user.id))
+      this.oeuvreS.getClientByUser(this.user.id)
         .subscribe(
           response => {
             this.client = <Client>response;

@@ -1,0 +1,37 @@
+// Chat
+$app-layout-chat-sidebar-width: 360px;
+
+.chat-layout {
+  &.app-inner-layout {
+    .app-inner-layout__sidebar {
+      width: 360px;
+      flex: 0 0 360px;
+    }
+  }
+
+  .app-inner-layout__top-pane h4 {
+    font-size: 16px
+
+    div {
+      font-size: 14px;
+    }
+  }
+
+  .chat-box-wrapper {
+    padding: 10px;
+  }
+}
+
+@mixin media-breakpoint-down {
+   @include media-breakpoint-down(lg) {
+    .chat-layout {
+      &.app-inner-layout {
+        .app-inner-layout__sidebar {
+          .widget-content .widget-content-left .widget-subheading {
+            white-space: normal;
+          }
+        }
+      }
+    }
+  } 
+}

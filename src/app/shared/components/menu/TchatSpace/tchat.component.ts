@@ -18,6 +18,7 @@ import { saveAs } from 'file-saver';
 @Component({
   templateUrl: 'tchat.component.html',
   selector: 'tchat-component',
+  styleUrls: ['./tchat.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class TchatComponent implements OnInit {
@@ -47,31 +48,37 @@ export class TchatComponent implements OnInit {
   SelectedRow: any;
   isFile: boolean = false;
   SelectedMessage: any;
-  connectedUser: User;
+  connectedUser: User=null;
+  connectedUserId:number=0;
   //mySubscription: any;
   constructor(tchat: TchatService, private fb: FormBuilder, private fileService: FileService, private authService: AuthServiceS,private router:Router) {
+    //get container element
+    var container = document.getElementById("scrollContainer");
     //this.messagesToShow = [];
     this.tchat = tchat;
     this.isAdmin= false;
     this.connectedUser=this.authService.getUserConnected();
+    console.log(this.connectedUser);
     if(this.connectedUser==null)
     {
-      this.connectedUser = new User("0", "", "", "anonyme", "anonyme", "", "", "VISITEUR", "", "", "");
-      this.connectedUser.id="0";
+      this.connectedUser = new User(0, "", "", "anonyme", "anonyme", "", "", "VISITEUR", "", "", "");
+      this.connectedUser.id=0;
       this.connectedUser.prenom="Anonyme";
       this.connectedUser.nom="Visiteur";
       this.connectedUser.userType="VISITEUR"; 
     }
+    console.log(this.connectedUser);
     //this.adminService.utilisateur=this.adminService.getUserConnected();
     // console.log(this.connectedUser.nom);
     let host =`${window.location.host}`;
-    this.tchat.initTchatService(this.isAdmin,"ws://"+host+"/stream/SignArt/admin/Ws/",authService/*, { query: `username=${adminService.utilisateur.nom}&idTchat=${auth.idTchat}&isAdmin=${this.isAdmin}`}*/);    
-    this.messages = this.tchat.messages;
+    this.tchat.initTchatService(this.isAdmin,"ws://"+host+"/stream/SignArt/admin/Ws/",authService,<User>this.connectedUser/*, { query: `username=${adminService.utilisateur.nom}&idTchat=${auth.idTchat}&isAdmin=${this.isAdmin}`}*/);    
+    console.log(this.connectedUser);
+    this.messages = this.tchat.messages.sort((a,b)=> +b.idMsg - +a.idMsg);
     this.messagesAdmin = this.tchat.messagesAdmin;
     this.username = /* (!this.connectedUser ?  */this.connectedUser.nom/* : "anonyme") */;
     this.selectedUsername = this.username;
     this.showEmojis = false ;
-    this.connectedUser=this.tchat.connectedUser;
+    //this.connectedUser=this.tchat.connectedUser;
     console.log(this);
     
   }

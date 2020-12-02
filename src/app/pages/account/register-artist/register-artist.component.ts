@@ -131,7 +131,7 @@ export class RegisterArtistComponent implements OnInit {
     this.onSubmitForm2();
     this.onSubmitForm3();
     Swal.fire({
-      title: 'Confirmez vous la souscription de cette demande?',
+      title: 'Confirmez vous la soumission de cette demande?',
       //text: "Ceci sera irreversible!",
       icon: 'warning',
       showCancelButton: true,

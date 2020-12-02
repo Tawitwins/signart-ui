@@ -53,14 +53,20 @@ export class ProductBoxOneComponent implements OnInit {
   @ViewChild("cartModal") CartModal: CartModalComponent;
 
   public ImageSrc : string
+  public isFavorite:boolean;
 
   constructor(private productService: ProductService,
     private authService: AuthServiceS,
     private router:Router) { 
-
+      //const wishlistItem=JSON.parse(localStorage['wishlistItems'] || '[]');
+      console.log(this.oeuvre);
+      //const result= wishlistItem.find(item => item.id === this.oeuvre.id)
       this.isAdd = true;
       this.user = this.authService.getUserConnected();
-     
+      //if(!result)
+      //  this.isFavorite = false;
+      //else
+     //  this.isFavorite = true;
       
       if( this.user != null){
         if( this.user.userType === "ARTISTE"){
@@ -74,7 +80,14 @@ export class ProductBoxOneComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.loader) {
-      setTimeout(() => { this.loader = false; }, 1000); // Skeleton Loader
+      setTimeout(() => { this.loader = false; 
+        const wishlistItem=JSON.parse(localStorage['wishlistItems'] || '[]');
+        const result= wishlistItem.find(item => item.id === this.oeuvre.id)
+        if(!result)
+          this.isFavorite = false;
+        else
+          this.isFavorite = true;
+      }, 1000); // Skeleton Loader
     }
   }
 
@@ -123,7 +136,7 @@ export class ProductBoxOneComponent implements OnInit {
   
 
   addToWishlist(oeuvre: any) {
-    this.productService.addToWishlist(oeuvre);
+    this.isFavorite=this.productService.addToWishlist(oeuvre);
   }
 
   addToCompare(oeuvre: any) {

@@ -17,7 +17,7 @@
               <div class="avatar-icon-wrapper mr-2">
                 <!-- <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div> -->
                 <div class="avatar-icon avatar-icon-xl rounded">
-                  <img width="82" src="assets/img/tchat/tchater2.gif" alt="Avatar">
+                  <img width="82" src="assets/images/tchat/tchater2.gif" alt="Avatar">
                 </div>
               </div>
               <h4 class="mb-0 text-nowrap">{{connectedUser?.prenom}} {{connectedUser?.nom}}
@@ -42,25 +42,25 @@
               </h4> -->
             </div>
           </div>
-          <div style="height: 100%;overflow: auto;">
-            <div #scrollMe [scrollTop]="scrollMe.scrollHeight" *ngFor="let message of messages">
+          <div id="scrollContainer" style="height:210px;overflow-y: auto ;"  #scrollMe [scrollTop]="scrollMe.scrollHeight">
+            <div *ngFor="let message of messages">
               <div  class="card-header--title" *ngIf="message?.showDate==true" >
                 <span  style="color:skyblue;" > <b>&#9733; {{message?.dateEnvoi| date:'dd/MM/yyyy'}} &#9733;</b> </span>
               </div>
-              <div class="chat-wrapper" style="background-color: white;">
-                <div *ngIf="connectedUser?.id==message?.idReceiver && message.msgStateSender=='VALIDE'" class="container ">
-                  <div class="chat-box-wrapper" (contextmenu)="rightClick($event,message)" *ngIf="message.msgStateReceiver=='VALIDE'">
+              <div class="chat-wrapper" style="background-color: rgb(255, 255, 255);">
+                <div  style="background-color:rgba(172, 94, 4, 0.61);margin-top: 7%;" *ngIf="connectedUser?.id==message?.idReceiver && message.msgStateSender=='VALIDE'" class="container ">
+                  <div class="chat-box-wrapper,row" (contextmenu)="rightClick($event,message)" *ngIf="message.msgStateReceiver=='VALIDE'">
                     <div>
                       <div class="avatar-icon-wrapper mr-1">
                         <!-- <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div> -->
                         <div class="avatar-icon avatar-icon-lg rounded">
-                          <img src="assets/img/tchat/tchater2.gif" alt="Avatar">
+                          <img src="assets/images/tchat/tchater2.gif" alt="Avatar">
                         </div>
                       </div>
                     </div>
                     <div>
                       <div class="chat-box"> 
-                        <p> 
+                        <p style="color: black;"> 
                           <a *ngIf="message.filename!=null && message.filename!='' " (click)="saveFile(message.msgFile,message.filename)" >
                             <div class="row,right"> <img [src]="message.urlfile" height="100%" width="100%"> {{ message?.msgFile?.size/1000000 }} Mo</div>
                             <div class="row,right"> {{ message.filename }} </div>
@@ -101,15 +101,23 @@
                     </div>
                   </div> -->
                 </div>
-                <div *ngIf="connectedUser?.id==message?.idSender && message.msgStateSender=='VALIDE'" class="container darker" >
+                <div  style="background-color:rgba(99, 52, 13, 0.918);margin-top: 7%;" *ngIf="connectedUser?.id==message?.idSender && message.msgStateSender=='VALIDE'" class="container darker" >
                   <div class="float-right"(contextmenu)="rightClick($event,message)">
                     <div class="chat-box-wrapper chat-box-wrapper-right">
+                      <div>
+                        <div class="avatar-icon-wrapper ml-1">
+                          <!-- <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div> -->
+                          <div class="avatar-icon avatar-icon-lg rounded">
+                            <img  src="assets/images/tchat/tchater1.ico" alt="Avatar" class="right" style="border: black;">
+                          </div>
+                        </div>
+                      </div>
                       <div>
                         <div class="chat-box"> 
                           <ng-template #terminer>
                           <img id="#terminer" [src]="message.urlfile" *ngIf="message.filename!=null " />
                           </ng-template>
-                          <p>
+                          <p style="color: white;">
                             <a *ngIf="message.filename!=null && message.filename!='' " (click)="saveFile(message.msgFile,message.filename)">
                               <div class="row,right"> <img [src]="message.urlfile" height="100%" width="100%"> {{ message?.msgFile?.size/1000000 }} Mo</div>
                               <div class="row,right"> {{ message.filename }} </div>
@@ -121,14 +129,6 @@
                           <i name="calendar-alt mr-1"></i>
                           <span class="time-left"> {{ message?.dateEnvoi | date: "HH:mm:ss"}} </span>
                         </small>
-                      </div>
-                      <div>
-                        <div class="avatar-icon-wrapper ml-1">
-                          <!-- <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div> -->
-                          <div class="avatar-icon avatar-icon-lg rounded">
-                            <img  src="assets/img/tchat/tchater1.ico" alt="Avatar" class="right" style="border: black;">
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -184,22 +184,22 @@
               <form [formGroup] = "formGroup" (submit)="sendMessage()" style="width: 100%;">
                 <div class="app-inner-layout__bottom-pane d-block text-center" style="padding: 1%;">
                   <div class="mb-0 position-relative row form-group">
-                    <div class="col-sm-8">
+                    <div class="col-sm-12">
                       <input placeholder="Message à envoyer" type="text" formControlName="message" name="message" class="form-control-lg form-control" style="width: 100%;"/>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-12">
                       <button type="submit" class="fa fa-paper-plane" style="width: 30px; height: 30px;"></button>
                       <input type="file" id="file-input"(change)="onFileChange($event)" name="file-input" style="display: none;" >
                       <label for="file-input" style="cursor:pointer;">
-                        <img style="float: right;" height="30" width="30" src="assets/img/tchat/pj.jpg" alt="PJ" style="cursor:pointer;" />
+                        <img style="float: right;" height="30" width="30" src="assets/images/tchat/pj.jpg" alt="PJ" style="cursor:pointer;" />
                       </label>
-                      <img style="float: right;" height="30" width="30" src="assets/img/tchat/emojShowPopup.png" (click)="EmojVisibleFunction(2)" alt="Émojis" style="cursor:pointer;" />
+                      <img style="float: right;" height="30" width="30" src="assets/images/tchat/emojShowPopup.png" (click)="EmojVisibleFunction(2)" alt="Émojis" style="cursor:pointer;" />
                       
                       </div>
                       <div class="mb-0 position-relative row form-group">
-                        <div (click)="removeSelectedFile()">{{fileName}}</div>
+                        <div style="max-width: 250px;margin-left: 30px;" title="{{fileName}}" (click)="removeSelectedFile()">{{fileName}}</div>
                             <!-- <button type="button" (click)="openFileSelector()">Browse Files</button> -->
-                        <img src="assets/img/tchat/8Etj.gif" *ngIf="displayLoader | async;" height="30" width="30" /> 
+                        <img src="assets/images/tchat/8Etj.gif" *ngIf="displayLoader | async;" height="30" width="30" /> 
                       </div>
                     </div>
                 </div>
@@ -281,6 +281,9 @@
 </div> -->
 
 <style>
+.myMsg{
+  background-color: rgb(99, 52, 13); ;
+}
   /* Chat containers */
 .container {
   /* border: 2px solid #dedede;

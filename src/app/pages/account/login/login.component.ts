@@ -143,14 +143,14 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (data === true) {
         this.User=this.authService.getUserConnected();
         if(this.User.userType=="CLIENT"){
-          this.oeuvreS.getClientByUser(parseInt(this.User.id))
+          this.oeuvreS.getClientByUser(this.User.id)
           .subscribe(
             response => { 
               localStorage.setItem('client',JSON.stringify(response))
           });   
         }
         else{ 
-          this.artisteService.getArtisteByUser(parseInt(this.User.id))
+          this.artisteService.getArtisteByUser(this.User.id)
           .subscribe(
             response => { 
               localStorage.setItem('artiste',JSON.stringify(response))

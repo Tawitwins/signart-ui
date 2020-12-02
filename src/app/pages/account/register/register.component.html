@@ -7,6 +7,7 @@
                 <h3>Créer un compte Client</h3>
                 <div class="theme-card">
                     <form class="theme-form" novalidate="" [formGroup]="signUpForm" (ngSubmit)="onSubmit(); signUpForm.reset();" class="text-center">
+                        <label> <strong>Pays</strong></label>
                         <select class="mdb-select md-form form-control" (change)="choisirPays($event)" formControlName="codePays" required>
                             <option value="">Choisir votre pays</option>
                             <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>
@@ -17,6 +18,7 @@
                         <hr>
                         <div class="form-row">
                             <div class="col-md-6">
+                                <label><strong>Prénom</strong></label>
                                 <input type="text" class="form-control" id="prenom" name="prenom" formControlName="prenom" autocomplete="off" placeholder="Prénom(s)" required="">
                                 <div *ngIf="signUpForm.get('prenom').errors && signUpForm.get('prenom').touched">
                                     <p class="register-error-message" style="color: red;">Veuillez saisir votre prénom !</p>
@@ -24,6 +26,7 @@
                             </div>
                             
                             <div class="col-md-6">
+                                <label> <strong>Nom</strong> </label>
                                 <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" formControlName="nom" autocomplete="off" required="">
                                 <div *ngIf="signUpForm.get('nom').errors && signUpForm.get('nom').touched">
                                     <p class="register-error-message" style="color: red;">Veuillez saisir votre nom !</p>
@@ -31,33 +34,40 @@
                             </div>
                             
                         </div>
-                        <br><br>
+                        <br>
                         <div class="form-row">
-                            <div class="col">
-                                  <div class="md-form">
-                                  <input type="radio" class="register-gender-radio" id="male" name="gender" value="M" formControlName="gender">
-                                  <label class="register-gender-label" for="male">Homme</label>
-                                  </div>
-                            </div>
-                              <div class="col">
-                                  <div class="md-form">
-                                  <input type="radio" class="register-gender-radio" id="female" name="gender" value="F" formControlName="gender">
-                                  <label class="register-gender-label" for="female">Femme</label>
-                                  </div>
-                              </div>
-                              <div *ngIf="signUpForm.get('gender').errors && signUpForm.get('gender').touched">
-                                  <p class="register-gender-error-message register-error-message" style="color: red;">Svp sélectionner votre genre !</p>
+                            <div class="col-md-12">
+                                <label><strong> Genre </strong> </label>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="md-form">
+                                        <input type="radio" class="register-gender-radio" id="male" name="gender" value="M" formControlName="gender">
+                                        <label class="register-gender-label" for="male"> Homme</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="md-form">
+                                        <input type="radio" class="register-gender-radio" id="female" name="gender" value="F" formControlName="gender">
+                                        <label class="register-gender-label" for="female"> Femme</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="signUpForm.get('gender').errors && signUpForm.get('gender').touched">
+                                    <p class="register-gender-error-message register-error-message" style="color: red;">Svp sélectionner votre genre !</p>
+                                    </div>
                                 </div>
                             </div>
                             <br><br>
                         <div class="form-row">
                             <div class="col-md-6">
+                                <label><strong> Téléphone </strong> </label>
                                 <input type="text" class="form-control" formControlName="mobile" [(ngModel)]="indicatifpays" required>
                                 <div *ngIf="signUpForm.get('mobile').errors && signUpForm.get('mobile').touched">
                                     <p class="register-error-message" style="color: red;">SVP entrer un numéro valide !</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                <label><strong> Email </strong> </label>
                                 <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" required="" formControlName="email" autocomplete="off">
                                 <div *ngIf="signUpForm.get('email').errors && signUpForm.get('email').touched">
                                     <p class="register-error-message" style="color: red;">Entrez une adresse mail valide !</p>
@@ -68,6 +78,7 @@
                         <div class="form-row">
                             
                             <div class="col-md-6">
+                                <label><strong> Mot de passe </strong> </label>
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required="" formControlName="password" autocomplete="off">
                                 <div *ngIf="signUpForm.get('password').errors && signUpForm.get('password').touched">
                                     <p class="register-error-message" style="color: red;">
@@ -75,6 +86,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                <label><strong> Confirmation mdp </strong> </label>
                                 <input type="password" class="form-control" id="conformation" name="password_confirmation" placeholder="confirmation Mot de passe" required="" formControlName="password_confirmation" autocomplete="off">
                                 <div *ngIf="(signUpForm.get('password_confirmation').errors || signUpForm.hasError('mismatchedPasswords')) && signUpForm.get('password_confirmation').touched">
                                     <p class="register-error-message" style="color: red;">{{ 'les mots de passe doivent se correspondre'}} !</p>
@@ -86,10 +98,10 @@
                         <br><br><hr>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <button class="btn btn-solid" type="submit" [disabled]="!signUpForm?.valid">Valider</button>
+                                <button class="btn btn-solid-Valider" type="submit" [disabled]="!signUpForm?.valid">Valider</button>
                             </div> 
                             <div class="col-md-6">
-                                <button type="submit" class="btn btn-solid" style="background: red;" routerLink="/accueil" routerLinkActive="router-link-active" >Anuler</button>
+                                <button type="button" class="btn btn-solid-Annuler" routerLink="/accueil" routerLinkActive="router-link-active" >Anuler</button>
                             </div> 
                         </div>
                         

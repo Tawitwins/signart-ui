@@ -68,7 +68,7 @@ export class AuthServiceS {
         let obj: any = JSON.parse((this.jwtHelper.decodeToken(token)).sub);
         let utilisateur: User;
         if (obj !== undefined) {
-          utilisateur = new User('', '', '', '', '', '', '', '', '', '', '');
+          utilisateur = new User(0, '', '', '', '', '', '', '', '', '', '');
           utilisateur.id = obj.id;
           utilisateur.prenom = obj.firstName;
           utilisateur.nom = obj.lastName;
@@ -247,21 +247,21 @@ signOut() {
        .catch((error) => console.log(error));*/
   }
 
-  getUserConnected(): any {
+  getUserConnected(): User {
     if (JSON.parse(localStorage.getItem('user'))) {
       let utilisateur: User = <User>JSON.parse(localStorage.getItem('user'));
       return utilisateur;
     }
     return null;
   }
-  getClientConnected():any{
+  getClientConnected():Client{
     if (JSON.parse(localStorage.getItem('client'))) {
       let client: Client = <Client>JSON.parse(localStorage.getItem('client'));
       return client;
     }
     return null;
   }
-  getArtisteConnected():any{
+  getArtisteConnected():Artiste{
     if (JSON.parse(localStorage.getItem('artiste'))) {
       let artiste: Artiste = <Artiste>JSON.parse(localStorage.getItem('artiste'));
       return artiste;

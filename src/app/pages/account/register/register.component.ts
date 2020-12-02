@@ -3,21 +3,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { getOrderState } from 'src/app/checkout/reducers/selectors';
-import { AppState } from 'src/app/interfaces';
-import { Pays } from 'src/app/shared/modeles/pays';
-import { User } from 'src/app/shared/modeles/user';
-import { AuthServiceS } from 'src/app/shared/services/auth.service';
-import { OeuvreService } from 'src/app/shared/services/oeuvre.service';
-import { PaysService } from 'src/app/shared/services/pays.service';
-import { environment } from 'src/environments/environment';
+
 import { getAuthStatus } from '../../../auth/reducers/selectors';
+import { environment } from '../../../../environments/environment';
+import { AppState } from '../../../interfaces';
+import { OeuvreService } from '../../../shared/services/oeuvre.service';
+import { AuthServiceS } from '../../../shared/services/auth.service';
+import { getOrderState } from '../../../checkout/reducers/selectors';
+import { PaysService } from '../../../shared/services/pays.service';
+import { Pays } from '../../../shared/modeles/pays';
+import { User } from '../../../shared/modeles/user';
+import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 declare var $: any;
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  providers: [PaysService]
 })
 export class RegisterComponent implements OnInit, OnDestroy {
 
@@ -39,7 +41,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private router: Router,
     private oeuvreS:OeuvreService,
     private authService: AuthServiceS,
-    private paysService: PaysService
+    private paysService: PaysService,
+    private toastrService:ToastrService,
   ) {
     this.indicatifpays = "+221";
     this.libellePays = "Sénégal";
@@ -69,28 +72,42 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
 
   onSubmit() {
-    const values = this.signUpForm.value;
-    console.log('values: ', values)
-    const keys = Object.keys(values);
-    this.formSubmit = true;
-if (this.signUpForm.valid) {
-      this.registerSubs = this.authService.register(values).subscribe(
-        data => {     console.log('datas: ', data)
+    Swal.fire({ 
+      title: 'Vous confirmez l\'envoie du formulaire d\'inscription?',
+      //text: "Ceci sera irreversible!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: ' #f07c10',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, je confirme!',
+      cancelButtonText: 'Anuler'
+    }).then((result) => {
+      if (result.value) {
+        const values = this.signUpForm.value;
+        console.log('values: ', values)
+        const keys = Object.keys(values);
+        this.formSubmit = true;
+        if (this.signUpForm.valid) {
+            this.registerSubs = this.authService.register(values).subscribe(
+              data => {     console.log('datas: ', data)
+              this.toastrService.success("Vous avez réussi l'enregistrement.","Bienvenu à SignArt.")
+                this.authService.login(values.email, values.password).subscribe(
+                  resp => console.log('resp: ', data)
+                );
+              }
+              );
+          } else {
+            keys.forEach(val => {
+              const ctrl = this.signUpForm.controls[val];
+              if (!ctrl.valid) {
+                this.pushErrorFor(val, null);
+                ctrl.markAsTouched();
+              };
+            });
+          }
+      }
 
-          this.authService.login(values.email, values.password).subscribe(
-            resp => console.log('resp: ', data)
-          );
-        }
-        );
-    } else {
-      keys.forEach(val => {
-        const ctrl = this.signUpForm.controls[val];
-        if (!ctrl.valid) {
-          this.pushErrorFor(val, null);
-          ctrl.markAsTouched();
-        };
-      });
-    }
+    });
   }
 
   private pushErrorFor(ctrl_name: string, msg: string) {
@@ -129,7 +146,7 @@ if (this.signUpForm.valid) {
       data => {
         if (data === true) {
           this.User=this.authService.getUserConnected();
-          this.oeuvreS.getClientByUser(parseInt(this.User.id))
+          this.oeuvreS.getClientByUser(this.User.id)
           .subscribe(
             response => { 
               localStorage.setItem('client',JSON.stringify(response))
