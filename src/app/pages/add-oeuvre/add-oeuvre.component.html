@@ -6,7 +6,7 @@
                 <div class="form-row">
                     <div class="col-md-6">
                         <label for="email">Nom</label>
-                        <input type="text" class="form-control" id="fname" placeholder="Prénom" formControlName="nom">
+                        <input type="text" class="form-control" id="fname" placeholder="Nom de l'oeuvre" formControlName="nom">
                     </div>
                     <div class="col-md-6">
                         <div class="form-group col-md-12 col-sm-6 col-xs-12">
@@ -54,10 +54,10 @@
                         <label for="review">Prix</label>
                         <input type="number" formControlName="prix" class="form-control" id="review" placeholder="Prix (XOF)" >
                     </div>
-                    <div class="col-md-6">
+                    <!--div class="col-md-6">
                         <label for="email">Remise</label>
                         <input type="number" formControlName="tauxremise" class="form-control" id="email" placeholder="Remise">
-                    </div>
+                    </div-->
                     <div class="col-md-6">
                         <label for="review">Taxes</label>
                         <input type="number" formControlName="taxes" class="form-control" id="review" placeholder="18%" >
@@ -76,5 +76,6 @@
                 </div>
             </form>
         </div>
+        <ngx-ui-loader [loaderId]="'loader-01'" logoUrl="assets/images/icon/LogoGif.gif" logoSize="300" fgsType="rectangle-bounce" fgsColor="rgba(255,255,255,0.8)" [hasProgressBar]="false" logoPosition="center-center" overlayColor="rgba(255,255,255,0.8)"  blur="1"></ngx-ui-loader>
     </div>
 </div>

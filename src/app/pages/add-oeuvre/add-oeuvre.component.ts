@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 import { addOeuvre } from '../../shared/modeles/editOeuvre';
 import { OeuvreService } from '../../shared/services/oeuvre.service';
 import { AuthServiceS } from '../../shared/services/auth.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { ToastrService } from 'ngx-toastr';
 
 declare var $: any;
 @Component({
@@ -18,7 +20,9 @@ export class AddOeuvreComponent implements OnInit {
   fileData: File;
   techniques: Object;
 
-  constructor(private formbuilder:FormBuilder,private authService:AuthServiceS ,private oeuvreService:OeuvreService,) { }
+  constructor(private formbuilder:FormBuilder,private ngxService: NgxUiLoaderService,
+    private authService:AuthServiceS ,private oeuvreService:OeuvreService,private toastrService: ToastrService) {
+     }
 
   initForm() {
     this.oeuvreForm = this.formbuilder.group({
@@ -31,7 +35,7 @@ export class AddOeuvreComponent implements OnInit {
        'dimensions': [null,Validators.required],
        'annee': [null,Validators.required],
        'prix': [0,Validators.required],
-       'tauxremise': [null,Validators.required],
+       'tauxremise': null,
        'taxes': [null,Validators.required],
        'image':['',  Validators.required], 
        //file: [null, Validators.required],
@@ -82,7 +86,7 @@ export class AddOeuvreComponent implements OnInit {
     addeddArticle.annee = formValue.annee;
     addeddArticle.prix = formValue.prix;
     addeddArticle.tauxremise = formValue.tauxremise;
-    addeddArticle.taxes = formValue.taxes;
+    addeddArticle.taxes = 0;
     addeddArticle.image = this.oeuvreForm.get("image").value;
     addeddArticle.description = formValue.description;
     addeddArticle.idArtiste = this.artiste.id;
@@ -111,11 +115,20 @@ export class AddOeuvreComponent implements OnInit {
       cancelButtonText: 'Annuler'
     }).then((result) => {
       if (result.value) {
-        
+        this.ngxService.startLoader("loader-01"); // start foreground spinner of the loader "loader-01" with 'default' taskId
         this.oeuvreService.addOeuvreSouscriptionArtiste(addeddArticle).subscribe(
           res =>{
             console.log('la reponse est ', res)
-            $.notify({
+            setTimeout(() => {
+              this.ngxService.stopLoader("loader-01"); // stop foreground spinner of the loader "loader-01" with 'default' taskId
+            }, 3000);
+            this.toastrService.success('Oeuvre soumise avec succés!');
+            this.addArticleInd = 0;
+            setTimeout(() => {
+              location.reload();            
+            }, 2800);
+            
+            /*$.notify({
               icon: "notifications",
               message: "Oeuvre souscrite avec succés!"
             }, {
@@ -125,7 +138,7 @@ export class AddOeuvreComponent implements OnInit {
                   from: 'top',
                   align: 'center'
                 }
-              });
+              });*/
           }
          
         );
@@ -143,7 +156,7 @@ export class AddOeuvreComponent implements OnInit {
     //     let erreur = error;
     //     console.log('error', erreur)
     //   });
-      this.addArticleInd = 0;
+     
 
     //return this.oeuvre
   }

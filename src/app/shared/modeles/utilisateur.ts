@@ -78,9 +78,11 @@ export class Terminal{
 export class EtatAbonnement{
     id?: number;
     libelle: string;
+    code: string
     description: string;
     constructor(
         libelle: string,
+        code: string,
         description: string,
         ){}
 

@@ -75,6 +75,7 @@
     "ngx-paypal": "^6.0.1",
     "ngx-skeleton-loader": "^1.2.7",
     "ngx-toastr": "^12.0.1",
+    "ngx-ui-loader": "^10.0.0",
     "node-sass": "^4.13.1",
     "path": "^0.12.7",
     "reselect": "^4.0.0",

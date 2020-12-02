@@ -30,6 +30,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   orderState: string;
   allPays: Pays[] = [];
   User:User;
+  indicatifpays: string;
+  libellePays: string;
    
   constructor(
     private fb: FormBuilder,
@@ -39,6 +41,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private authService: AuthServiceS,
     private paysService: PaysService
   ) {
+    this.indicatifpays = "+221";
+    this.libellePays = "Sénégal";
     this.etape=1;
     this.stateSub$ = this.store.select(getOrderState)
     .subscribe(state => this.orderState = state);
@@ -51,6 +55,18 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.paysService.getAllPays().subscribe(
       pays => { this.allPays = pays});
   }
+
+  choisirPays(event) {
+    console.log(event.target.value)
+    for (let i = 0; i < this.allPays.length; i++) {
+       if(this.allPays[i].code === event.target.value){
+         console.log(this.allPays[i].indicatif)
+         this.indicatifpays = this.allPays[i].indicatif;
+       }
+      
+    }
+  }
+
 
   onSubmit() {
     const values = this.signUpForm.value;
@@ -98,7 +114,8 @@ if (this.signUpForm.valid) {
       'email': [email, Validators.compose([Validators.required, Validators.email])],
       'password': [password, Validators.compose([Validators.required, Validators.minLength(6)])],
       'password_confirmation': [password_confirmation, Validators.compose([Validators.required, Validators.minLength(6)])],
-      'mobile': [mobile, Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern('[0-9]{9}')])],
+      //'mobile': [mobile, Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern('[0-9]{9}')])],
+      'mobile': [mobile, Validators.required],
       'gender': [gender, Validators.required],
       'codePays': [codePays, Validators.required],
       'codeProfil': [codeProfil],
