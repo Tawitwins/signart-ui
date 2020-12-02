@@ -596,6 +596,120 @@ button {
     }
 }
 
+// Oumar: Classe à utiliser pour les boutons de validation
+.btn-solid-Valider {
+    padding: 13px 29px;
+    color: $white;
+    letter-spacing: 0.05em;
+    border: 0.5px solid #fff;
+    background-image: linear-gradient(30deg, #376809 50%, transparent 50%);
+    //background-image: linear-gradient(30deg, #000000 50%, transparent 50%);
+    background-size: 850px;
+    background-repeat: no-repeat;
+    background-position: 0;
+    -webkit-transition: background 300ms ease-in-out;
+    transition: background 300ms ease-in-out;
+    &:hover {
+        background-position: 100%;
+        color: $black;
+        background-color: $white;
+    }
+    &.black-btn {
+        background-image: -webkit-linear-gradient(30deg, $dark-font 50%, transparent 50%);
+        background-image: linear-gradient(30deg, $dark-font 50%, transparent 50%);
+        border: 2px solid $dark-font;
+    }
+    &:focus {
+        color: $white;
+    }
+    &.btn-gradient {
+        background: var(--theme-deafult);
+        background: linear-gradient(180deg, var(--theme-gradient1) 0%, var(--theme-gradient2) 99%);
+        transition: background 300ms ease-in-out;
+        background-size: 300% 100%;
+        border: none;
+        &:hover {
+            background: linear-gradient(-180deg, var(--theme-gradient2) 0%, var(--theme-gradient1) 99%);
+            transition: background 300ms ease-in-out;
+            color: white;
+        }
+    }
+    &.btn-green {
+        background-image: linear-gradient(to right, var(--theme-gradient1), var(--theme-gradient2));
+        border: none;
+        background-color: var(--theme-deafult);
+        &:hover {
+            background-color: var(--theme-deafult);
+            background-image: none;
+            color: white;
+        }
+    }
+    &.btn-sm {
+        padding: 9px 16px;
+    }
+    &.btn-xs {
+        padding: 5px 8px;
+        text-transform: capitalize;
+    }
+}
+
+// Oumar: Classe à utiliser pour les boutons d'annulation
+.btn-solid-Annuler {
+    padding: 13px 29px;
+    color: $white;
+    letter-spacing: 0.05em;
+    border: 0.5px solid #fff;
+    background-image: linear-gradient(30deg, #a10505 50%, transparent 50%);
+    //background-image: linear-gradient(30deg, #000000 50%, transparent 50%);
+    background-size: 850px;
+    background-repeat: no-repeat;
+    background-position: 0;
+    -webkit-transition: background 300ms ease-in-out;
+    transition: background 300ms ease-in-out;
+    &:hover {
+        background-position: 100%;
+        color: $black;
+        background-color: $white;
+    }
+    &.black-btn {
+        background-image: -webkit-linear-gradient(30deg, $dark-font 50%, transparent 50%);
+        background-image: linear-gradient(30deg, $dark-font 50%, transparent 50%);
+        border: 2px solid $dark-font;
+    }
+    &:focus {
+        color: $white;
+    }
+    &.btn-gradient {
+        background: var(--theme-deafult);
+        background: linear-gradient(180deg, var(--theme-gradient1) 0%, var(--theme-gradient2) 99%);
+        transition: background 300ms ease-in-out;
+        background-size: 300% 100%;
+        border: none;
+        &:hover {
+            background: linear-gradient(-180deg, var(--theme-gradient2) 0%, var(--theme-gradient1) 99%);
+            transition: background 300ms ease-in-out;
+            color: white;
+        }
+    }
+    &.btn-green {
+        background-image: linear-gradient(to right, var(--theme-gradient1), var(--theme-gradient2));
+        border: none;
+        background-color: var(--theme-deafult);
+        &:hover {
+            background-color: var(--theme-deafult);
+            background-image: none;
+            color: white;
+        }
+    }
+    &.btn-sm {
+        padding: 9px 16px;
+    }
+    &.btn-xs {
+        padding: 5px 8px;
+        text-transform: capitalize;
+    }
+}
+
 .btn-outline {
     display: inline-block;
     padding: 13px 29px;
@@ -5515,7 +5629,8 @@ footer {
 
 // breadcrumb section //
 .breadcrumb-section {
-    background-color:rgba(255, 255, 255, 0.733);
+    background-color:rgb(0, 0, 0);
+    //background-color:rgb(0, 0, 0);
     background-image:url(/assets/images/banner/texture.jpg);
     padding: 30px 0;
     .page-title {

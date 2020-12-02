@@ -130,7 +130,7 @@ export class ArtisteProfilComponent implements OnInit {
     console.log('utilisateur',this.user)
     
     if(this.user.userType == 'ARTISTE'){
-    this.artisteService.getArtisteByUser(parseInt(this.user.id)).subscribe(
+    this.artisteService.getArtisteByUser(this.user.id).subscribe(
       res => {
         this.artiste = res
         console.log('Artiste connected ', res)
@@ -357,7 +357,7 @@ this.hide2 =true;
     console.log('MonUser',this.user);
   }
   infoArtiste(){
-    this.artisteService.getArtisteByUser(parseInt(this.user.id))
+    this.artisteService.getArtisteByUser(this.user.id)
      .subscribe(
        response=>{
          this.artiste=response;

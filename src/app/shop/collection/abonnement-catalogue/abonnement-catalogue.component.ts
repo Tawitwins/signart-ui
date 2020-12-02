@@ -14,27 +14,25 @@ import { OeuvreService } from 'src/app/shared/services/oeuvre.service';*/
 import { Options } from 'ng5-slider';
 import { OeuvreService } from '../../../shared/services/oeuvre.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Address } from 'src/app/shared/modeles/address';
-import { Artiste } from 'src/app/shared/modeles/artiste';
-import { Client } from 'src/app/shared/modeles/client';
-import { Biographie } from 'src/app/shared/modeles/exposition';
-import { OeuvreNumerique } from 'src/app/shared/modeles/imageNumerique';
-import { Pays } from 'src/app/shared/modeles/pays';
-import { Technique } from 'src/app/shared/modeles/technique';
-import { ListSelection, Abonne, Abonnement, Terminal, EtatAbonnement, DelaieAbonnement, TerminalDelai, ListeSelection_Oeuvres } from 'src/app/shared/modeles/utilisateur';
+
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ArtisteService } from 'src/app/shared/services/artiste.service';
-import { AuthServiceS } from 'src/app/shared/services/auth.service';
-import { CheckoutService } from 'src/app/shared/services/checkout.service';
-import { ImageService } from 'src/app/shared/services/image.service';
 import Swal from 'sweetalert2';
-import { CartModalComponent } from 'src/app/shared/components/modal/cart-modal/cart-modal.component';
-import { QuickViewComponent } from 'src/app/shared/components/modal/quick-view/quick-view.component';
 import { Observable } from 'rxjs';
-import { PaysService } from 'src/app/shared/services/pays.service';
-import { User } from 'src/app/shared/modeles/user';
 import { ToastrService } from 'ngx-toastr';
+import { OeuvreNumerique } from '../../../shared/modeles/imageNumerique';
+import { Artiste } from '../../../shared/modeles/artiste';
+import { Pays } from '../../../shared/modeles/pays';
+import { Client } from '../../../shared/modeles/client';
+import { Biographie } from '../../../shared/modeles/exposition';
+import { ImageService } from '../../../shared/services/image.service';
+import { ArtisteService } from '../../../shared/services/artiste.service';
+import { AuthServiceS } from '../../../shared/services/auth.service';
+import { CheckoutService } from '../../../shared/services/checkout.service';
+import { PaysService } from '../../../shared/services/pays.service';
+import { Address } from '../../../shared/modeles/address';
+import { User } from '../../../shared/modeles/user';
+import { ListSelection, Abonne, Abonnement, Terminal, EtatAbonnement, DelaieAbonnement, TerminalDelai, ListeSelection_Oeuvres } from '../../../shared/modeles/utilisateur';
 
 @Component({
   selector: 'app-abonnement-catalogue',
@@ -175,7 +173,7 @@ export class AbonnementCatalogueComponent implements OnInit {
   });
 
 
-  @ViewChild("quickView") QuickView: QuickViewComponent;
+  //@ViewChild("quickView") QuickView: QuickViewComponent;
 
   get searchTerm(): string {
     return this._searchTerm;
@@ -235,8 +233,8 @@ export class AbonnementCatalogueComponent implements OnInit {
       this.onGetImage();
       this.productService.listItems.subscribe(response => this.oeuvresNumeriques = response);
       this.userConnect=this.authS.getUserConnected();
-      this.idUtilisateur = parseInt(this.userConnect.id);
-      this.imageService.getClientByUser(parseInt(this.userConnect.id)).subscribe(
+      this.idUtilisateur = this.userConnect.id;
+      this.imageService.getClientByUser(this.userConnect.id).subscribe(
         res =>{
           this.client = res;
           this.imageService.getAllCientAdresse(this.client.id).subscribe(

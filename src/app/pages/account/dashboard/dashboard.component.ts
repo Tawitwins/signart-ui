@@ -20,10 +20,11 @@ import { Abonnement, Abonne, EtatAbonnement, Terminal, HistoriqueAbonnement, Del
 import { ImageService } from '../../../shared/services/image.service';
 import { environment } from '../../../../environments/environment';
 import { ProductService } from '../../../shared/services/product.service';
-import { OeuvreNumerique } from 'src/app/shared/modeles/imageNumerique';
-import { Product } from 'src/app/shared/classes/product';
-import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
+
 import { DomSanitizer } from '@angular/platform-browser';
+import { OeuvreNumerique } from '../../../shared/modeles/imageNumerique';
+import { Product } from '../../../shared/classes/product';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard',
@@ -90,7 +91,7 @@ export class DashboardComponent implements OnInit {
   
 
 
-  constructor(private authService: AuthServiceS, private productService: ProductService,  private store: Store<AppState>, private router: Router,
+  constructor(private authService: AuthServiceS,private toastrService:ToastrService, private productService: ProductService,  private store: Store<AppState>, private router: Router,
     private authS:AuthServiceS,
     private oeuvreS:OeuvreService,private fb:FormBuilder,
     private artisteService:ArtisteService,
@@ -127,7 +128,7 @@ export class DashboardComponent implements OnInit {
       });
 
     if(this.user.userType == 'ARTISTE'){
-    this.artisteService.getArtisteByUser(parseInt(this.user.id)).subscribe(
+    this.artisteService.getArtisteByUser(this.user.id).subscribe(
       res => {
         this.artiste = res
         console.log('Artiste connected ', res)
@@ -150,7 +151,7 @@ export class DashboardComponent implements OnInit {
       this.terminals = res;
     });
 
-    this.imageService.getAllHistoriqueAbonnement(parseInt(this.user.id)).subscribe(
+    this.imageService.getAllHistoriqueAbonnement(this.user.id).subscribe(
       res => {
         this.historiques = res;
         if(this.historiques.length > 0){
@@ -166,7 +167,7 @@ export class DashboardComponent implements OnInit {
         }
       });
 
-    this.imageService.getAllAbonne(parseInt(this.user.id)).subscribe(
+    this.imageService.getAllAbonne(this.user.id).subscribe(
       res => {
         this.allAbonne = res;
         console.log("allAbonne",this.allAbonne)
@@ -334,6 +335,7 @@ export class DashboardComponent implements OnInit {
  this.authS.editClient(this.client).subscribe(
  data => {
  this.client=data;
+ this.toastrService.success("Modification terminée","Succés");
  console.log('mise à jour',data);
  },
  error => {
@@ -366,7 +368,7 @@ initForm(){
    console.log('MonUser',this.user);
  }
 infoClient(){
-  this.oeuvreS.getClientByUser(parseInt(this.user.id))
+  this.oeuvreS.getClientByUser(this.user.id)
   .subscribe(
     response => { 
       this.client = response;
@@ -380,7 +382,7 @@ infoClient(){
 
 commandesClient(){
   this.infopage = 3;
- this.idUser=parseInt(this.user.id);
+ this.idUser=this.user.id;
  this.oeuvreS.getClientByUser(this.idUser)
  .subscribe(
    response => { 
@@ -406,7 +408,7 @@ favorisClient(){
 
 getAdresse(){
   this.infopage = 2
- this.idUser=parseInt(this.user.id);
+ this.idUser=this.user.id;
  this.oeuvreS.getClientByUser(this.idUser)
  .subscribe(
    response => { 
@@ -435,7 +437,7 @@ onDeleteAdresseOfUser(id:number){
 }
 onGetArtisteSuiviByClient(){
  
- this.idUser=parseInt(this.user.id)
+ this.idUser=this.user.id;
  this.oeuvreS.getClientByUser(this.idUser)
  .subscribe(
    response => { 

@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../modeles/user';
 import { Router } from '@angular/router';
+import { AuthServiceS } from './auth.service';
 
 @Injectable()
 export class TchatService {
@@ -22,26 +23,32 @@ export class TchatService {
   lastDay: any;
   lastMois: any;
   lastYear: any;
-  connectedUser: User=null;
   ws: any;
   visiteurIdSession:string="";
-  constructor(private fileService: FileService, private sanitizer: DomSanitizer, private http: HttpClient,private router:Router) { }
+  connectedUser: User;
+  constructor(private fileService: FileService,private authServices:AuthServiceS, private sanitizer: DomSanitizer, private http: HttpClient,private router:Router) { }
 
-  initTchatService (isAdmin,url:any/*,params:any*/,authService){
-    this.connectedUser=<User>authService.getUserConnected();
-    console.log(this.connectedUser);
+  initTchatService (isAdmin,url:any/*,params:any*/,authService,receivedConnectedUser){
+    this.connectedUser=receivedConnectedUser;
+    //this.connectedUser.id= receivedConnectedUser.id;
+    this.connectedUser=this.authServices.getUserConnected();
+    console.log(this.connectedUser.id);
+    //console.log(receivedConnectedUser);
+    
     if(this.connectedUser==null)
     {
-      this.connectedUser = new User("0", "", "", "anonyme", "anonyme", "", "", "VISITEUR", "", "", "");
-      this.connectedUser.id="0";
+      this.connectedUser = new User(0, "", "", "anonyme", "anonyme", "", "", "VISITEUR", "", "", "");
+      this.connectedUser.id=0;
       this.connectedUser.prenom="Anonyme";
       this.connectedUser.nom="Visiteur";
       this.connectedUser.userType="VISITEUR";
     }
-
+    //this.connectedUser.id=+this.connectedUser.id;
+    console.log(this.connectedUser.id);
     this.messages = [];
     this.messagesAdmin = [];
     console.log(this.connectedUser);
+    console.log(this.connectedUser.id);
     this.username = /* (this.connectedUser.id==null ?  */this.connectedUser.nom/* : "anonyme") */;
     this.isAdmin = false;
     console.log(url + this.username+"/"+isAdmin+"/"+this.connectedUser.id+"/"+this.connectedUser.userType);
@@ -167,6 +174,7 @@ export class TchatService {
           console.log(message.urlfile);
           this.gestionDate(message);
           this.messages.push(message);
+          this.messages=this.messages.sort((a,b)=> +a.idMsg - +b.idMsg);
         });
     } else {
 

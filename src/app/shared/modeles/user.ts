@@ -1,5 +1,5 @@
 export class User{
-  id?: string;
+  id?: number;
   email?: string;
   password?: string;
   token?: string;
@@ -11,7 +11,7 @@ export class User{
   oldAccount?: string;
   imgSignature?: string;
   certificat?: string;
-  constructor(id: string,
+  constructor(id: number,
     email: string,
     token: string,
     prenom: string,

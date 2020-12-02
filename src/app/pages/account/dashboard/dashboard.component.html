@@ -22,7 +22,7 @@
                             <li><a href="javascript:void(0)" (click)="commandesClient()">Mes commandes</a></li>
                             <li><a href="javascript:void(0)" (click)="favorisClient()">Mes favoris</a></li>
                             <li><a href="javascript:void(0)" (click)="infopage = 5" style="cursor: pointer;">Mes abonnements</a></li>
-                            <li><a href="javascript:void(0)" (click)="infopage = 7">Mes artistes favoris</a></li>
+                            <li><a href="javascript:void(0)" (click)="infopage = 7">Mes artistes suivis</a></li>
                             <!--li><a href="javascript:void(0)">Newsletter</a></li-->
                             <!--li><a href="javascript:void(0)">Mon compte</a></li-->
                             <li><a href="javascript:void(0)" (click)="infopage = 6">Changer le mot de passe</a></li>
@@ -108,8 +108,8 @@
                                                     </div>
                                                     <div class="form-row">
                                                         
-                                                        <button class="btn btn-solid" type="submit">Valider</button>
-                                                        <button class="btn btn-solid gplus"  type="ACTION" (click)="infopage = 0">Annuler</button>
+                                                        <button class="btn btn-solid-Valider" type="submit">Valider</button>
+                                                        <button class="btn btn-solid-Annuler gplus"  type="ACTION" (click)="infopage = 0">Annuler</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -300,11 +300,12 @@
                                 <h2>Modifier le mot de passe</h2>
                             </div>
                             <div class="row">
-                                <form class="theme-form" novalidate="" [formGroup]="mdpForm" (ngSubmit)="onChangePwd();" class="text-center"> 
+                                <form class="theme-form" novalidate="" [formGroup]="mdpForm" (ngSubmit)="onChangePwd();" > 
                                     <br><br>
                                     <div class="form-row">                                      
                                         <div class="col-md-12">
-                                            <input type="password" class="form-control" formControlName="mdpActu"  id="mdpActu" placeholder="Ancien mot de passe" required="" autocomplete="off">
+                                            <label><strong>Mot de passe actuel</strong></label>
+                                            <input type="password" class="form-control" formControlName="mdpActu"  id="mdpActu" placeholder="Mot de passe actuel" required="" autocomplete="off">
                                             <div *ngIf="mdpForm.get('mdpActu').errors && mdpForm.get('mdpActu').touched">
                                                 <p class="register-error-message" style="color: red;">
                                                   Le mot de passe doit être composé au moins 6 caractères !</p>
@@ -326,6 +327,7 @@
                                     <br>
                                     <div class="form-row">
                                         <div class="col-md-6">
+                                            <label><strong>Nouveau mot de passe</strong></label>
                                             <input type="password" class="form-control" formControlName="mdpNouv" id="mdpNouv" placeholder="Nouveau mot de passe" required="" autocomplete="off">
                                             
                                                 <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpNouv').touched && this.mdpForm.get('mdpNouv').invalid">
@@ -337,6 +339,7 @@
                                         </div>
                                         <br><br>
                                         <div class="col-md-6">
+                                            <label><strong>Confirmation nouveau mdp</strong></label>
                                             <input type="password" class="form-control" placeholder="confirmation" required="" formControlName="mdpConf" autocomplete="off">
                                             <!--div *ngIf="(mdpForm.get('mdpNouv').errors || mdpForm.hasError('mismatchedPasswords')) && mdpForm.get('mdpConf').touched">
                                                 <p class="register-error-message" style="color: red;">{{ 'les mots de passe doivent etre identiques'}} !</p>
@@ -353,10 +356,10 @@
                                     <br><br><hr>
                                     <div class="form-row">
                                         <div class="col-md-6">
-                                            <button class="btn btn-solid" type="submit" [disabled]="!mdpForm?.valid">Valider</button>
+                                            <button class="btn btn-solid-Valider" type="submit" [disabled]="!mdpForm?.valid">Valider</button>
                                         </div> 
                                         <div class="col-md-6">
-                                            <button type="submit" class="btn btn-solid" style="background: red;" routerLink="/accueil" routerLinkActive="router-link-active" >Anuler</button>
+                                            <button type="submit" class="btn btn-solid-Annuler" routerLink="/accueil" routerLinkActive="router-link-active" >Anuler</button>
                                         </div> 
                                     </div>
                                     
@@ -365,7 +368,7 @@
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 7">
                             <div class="box-head">
-                                <h2>Liste de vos artiste favoris</h2>
+                                <h2>Liste des artistes suivis</h2>
                             </div> <br><br>
                             <div class="row">
                                 
@@ -493,7 +496,7 @@
                                                         <div class="delivery-sec">
                                                             <h2>Paiement</h2>
                                                             <div class="product-buttons">
-                                                                <a href="javascript:void(0)" class="btn btn-solid">Clicker ici pour payer</a>
+                                                                <a href="javascript:void(0)" class="btn btn-solid-Valider">Clicker ici pour payer</a>
                                                                 
                                                             </div>
                                                             

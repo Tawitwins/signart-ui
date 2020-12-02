@@ -21,7 +21,7 @@
                     <div class="col-md-12">
                      <div class="top-banner-wrapper">
                         <div class="top-banner-content small-section">
-                            <h4>Listes des abonnés</h4>
+                            <h4>Listes des clients qui suivent l'artiste</h4>
                             <h5>{{artiste?.prenom}} {{artiste?.nom}} : Biographie
                             </h5>
                             <p>
@@ -35,16 +35,16 @@
                         <div class="card-body pt-5">
                             <img src="assets/images/artists/profile.jpg" alt="profile-image" class="profile"/>
                             <a [routerLink]="['/pages/artiste']"><h5 class="card-title"> {{client?.prenom}} {{client?.nom}}</h5></a>
-                            <p class="card-text"><i class="ti-mobile"></i> {{client?.telephone}}</p>
+                            <p class="card-text"><i class="fa fa-info-circle"></i> {{client?.etatClient}}</p>
                             <p class="card-text"><i class="fa fa-flag"></i> {{client?.pays}}</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="!clients?.length">
                     <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
-                    <h3>Désolé! Aucun abonnés a été trouvé !!!! </h3>
-                    <p>La liste sera automatiquement mise à jour si  un client s'abonne.</p>
-                    <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continue shopping</a>
+                    <h3>Désolé! Il n'ya pas de client qui suit cette artiste !!!! </h3>
+                    <p>La liste sera automatiquement mise à jour si  un client suit l'artiste.</p>
+                    <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continuer à explorer</a>
                 </div>
                 <!-- <div class="col-md-4">
                     <div class="card profile-card-2 mar">

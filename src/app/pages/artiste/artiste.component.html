@@ -16,8 +16,8 @@
             <br>
             <div class="row">
             <div class="col-md-6">
-              <button class="btn abonnement" *ngIf="marq==false && client!=null" (click)="followArtiste()"> <i class="fa fa-heart"></i> S'abonner</button> 
-              <button class="btn annonces" *ngIf="marq==true  && client!=null" (click)="followArtiste()"> <i class="ti-heart"></i> Se désabonner</button> 
+              <button class="btn abonnement" *ngIf="marq==false && client!=null" (click)="followArtiste()"> <i class="fa fa-plus"></i> Suivre</button> 
+              <button class="btn annonces" *ngIf="marq==true  && client!=null" (click)="followArtiste()"> <i class="fa fa-times"></i> Ne plus suivre</button> 
             </div>
             <!-- <div class="col-md-6">
               <a [routerLink]="['/pages/add-expo']"><button class="btn annonces"> <i class="ti-PLUS"></i> Add annonce</button></a>
@@ -127,9 +127,9 @@
                                 </div>
                                 <div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="!oeuvres.length">
                                     <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
-                                    <h3>Sorry! Couldn't find the product you were looking For!!! </h3>
-                                    <p>Please check if you have misspelt something or try searching with other words.</p>
-                                    <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continue shopping</a>
+                                    <h3>Désolé! Il n'ya pas de produit pour le moment!!! </h3>
+                                    <p>Veuillez vérifier l'orthographe de votre clé de recherche ou actualiser la page.</p>
+                                    <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continuer à explorer</a>
                                 </div>
                             </div>
                         </div>

@@ -450,7 +450,7 @@
                                                             </div>
                                                         
                                                             <div class="form-group">
-                                                                <button style="float:right" type="submit" class="btn btn-solid" [disabled]="!mdpForm.valid"><i class="material-icons">
+                                                                <button style="float:right" type="submit" class="btn btn-solid-Valider" [disabled]="!mdpForm.valid"><i class="material-icons">
                                                                     
                                                                 </i>modifier</button>    
                                                             </div> 
@@ -483,7 +483,7 @@
                                                                                         </div>
                                                                                     </div>                                                                                                            
                                                                                     <div class="form-group">
-                                                                                    <button style="float:right" type="submit" class="btn btn-solid" [disabled]="!photoProfilForm.valid"><i class="material-icons">
+                                                                                    <button style="float:right" type="submit" class="btn btn-solid-Valider" [disabled]="!photoProfilForm.valid"><i class="material-icons">
                                                                                         
                                                                                     </i>modifier</button>    
                                                                                     </div> 
@@ -545,10 +545,10 @@
                                             
                                         </div>
                                         <div class="form-group">
-                                            <button style="float:right" type="submit" class="btn btn-solid"><i class="material-icons">
+                                            <button style="float:right" type="submit" class="btn btn-solid-Valider"><i class="material-icons">
                                                 
                                             </i>modifier</button>
-                                            <button style="float:right" (click)='onStart();' class="btn btn-solid" >annuler</button>
+                                            <button style="float:right" (click)='onStart();' class="btn btn-solid-Annuler" >annuler</button>
                                         </div>
                                         </form> 
                                     </div>
@@ -569,7 +569,7 @@
                                 <p class="card-description" style="color: black; text-align: justify">
                                     {{artiste?.biographie}}
                                 </p>
-                                <button style="float:right" (click)="goetape(6)" class="btn btn-solid">
+                                <button style="float:right" (click)="goetape(6)" class="btn btn-solid-Valider">
                                    
                                 Modifier</button> 
                             </div>
@@ -580,9 +580,9 @@
                                     <textarea formControlName="biographie"  [ngModel]="artiste.biographie" cols="90" rows="10" autofocus></textarea> 
                                     </div>
                                     <div class="form-group">
-                                    <button style="float:right" type="submit" class="btn btn-solid">
+                                    <button style="float:right" type="submit" class="btn btn-solid-Valider">
                                         Soumettre</button>
-                                        <button (click)="goetape(1);" class="btn btn-solid" >annuler</button>
+                                        <button (click)="goetape(1);" class="btn btn-solid-Annuler" >annuler</button>
                                     </div>
                                 </form> 
                             </div>
@@ -627,7 +627,7 @@
                         </div>
                         
                     </div>
-                    <button style="float:right" (click)="goetape(2);" class="btn btn-solid"><i class="material-icons">
+                    <button style="float:right" (click)="goetape(2);" class="btn btn-solid-Valider"><i class="material-icons">
                         
                       </i>Ajouter</button>
                 </div>
@@ -635,30 +635,36 @@
                 <div *ngIf="isclicked==2" class="container col-md-8 card">
                     <form [formGroup]="etudeForm" (ngSubmit)="createFormation()">
                         <div class="form-group">
+                            <label><strong>Diplôme</strong></label>
                             <input type="text" class="form-control" formControlName="sigle"  placeholder="Diplôme">
                     </div>
                     <div class="form-group">
+                        <label><strong>Titre du diplôme</strong></label>
                             <input type="text" class="form-control" formControlName="libelle" placeholder="Titre de votre diplôme">
                     </div>
                     <div class="form-group">
+                        <label><strong>Lieu</strong></label>
                             <input type="text" class="form-control" formControlName="lieu" placeholder="Lieu">
                     </div>
                     <div class="form-group">
+                        <label><strong>Année de début</strong></label>
                             <input type="number" class="form-control" formControlName="anneeDebut" placeholder="année début">
                     </div>
                     <div class="form-group">
+                        <label><strong>Année de fin</strong></label>
                             <input type="number" class="form-control" formControlName="anneeFin" placeholder="année fin">
                     </div>
                     <div class="form-group">
+                        <label><strong>Spécialisation</strong></label>
                             <input type="text" class="form-control" formControlName="specialisation" placeholder="specialisation">
                     </div>
                      <div class="row">
                             <div class="col-md-2">
-                                    <button type="submit"  class="btn btn-solid">Soumettre</button>
+                                    <button type="submit"  class="btn btn-solid-Valider">Soumettre</button>
                                     </div>
                                     <div class="col-md-2"></div>
                                     <div class="col-md-2">
-                                    <button (click)="goetape(1);" class="btn btn-solid">annuler</button>
+                                    <button (click)="goetape(1);" class="btn btn-solid-Annuler">annuler</button>
                              </div>
                       </div>
                   </form>
@@ -688,7 +694,7 @@
                             </p>
                             <iframe width="400" height="300" [src]='sanitizer.bypassSecurityTrustResourceUrl(youtubeUrlInsert+presentation?.id)' frameborder="0" allow="geolocation" allowfullscreen></iframe>
                             </div>   
-                            <button style="float:right" (click)="goetape(10)" class="btn btn-solid"><i class="material-icons">
+                            <button style="float:right" (click)="goetape(10)" class="btn btn-solid-Valider"><i class="material-icons">
                                 
                               </i>Modifier</button> 
                               <button style="float:right" (click)="goetape(11)" class="btn btn-solid"><i class="material-icons">
@@ -716,7 +722,7 @@
                             <p>
                                 Vous n'avez pas encore de presentation veuillez ecire un texte ou enregistrer une video pour vous presenter
                             </p>
-                            <button style="float:right" (click)="goetape(10)" class="btn btn-solid"><i class="material-icons">
+                            <button style="float:right" (click)="goetape(10)" class="btn btn-solid-Valider"><i class="material-icons">
                                 
                               </i>Ecrire</button> 
                               <button style="float:right" (click)="goetape(11)" class="btn btn-solid"><i class="material-icons">
@@ -738,10 +744,10 @@
                                   
                                 </div>
                                 <div class="form-group">
-                                  <button style="float:right" type="submit" class="btn btn-solid"><i class="material-icons">
+                                  <button style="float:right" type="submit" class="btn btn-solid-Valider"><i class="material-icons">
                                       
                                     </i>Soumettre</button>
-                                    <button (click)="goetape(1);" class="btn btn-solid">annuler</button>
+                                    <button (click)="goetape(1);" class="btn btn-solid-Annuler">annuler</button>
                                 </div>
                             </form> 
                         </div>                                                   
@@ -753,10 +759,10 @@
                             <form [formGroup]="presentationVideo" (ngSubmit)="onAddPresentation(2)">
                             <input type="file" accept="video/mp4" (change)="onUploadVideo($event)" formControlName="videoPresentation"/>
                             <div >
-                                <button style="float:right" type="submit" class="btn btn-solid"><i class="material-icons">
+                                <button style="float:right" type="submit" class="btn btn-solid-Valider"><i class="material-icons">
                                     
                                   </i>Soumettre</button>
-                                  <button (click)="goetape(1);" class="btn btn-solid">annuler</button>
+                                  <button (click)="goetape(1);" class="btn btn-solid-Annuler">annuler</button>
                               </div>
 
                             </form>

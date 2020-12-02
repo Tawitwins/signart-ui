@@ -34,7 +34,7 @@
         *ngIf="!cartModal">
         <i class="ti-shopping-cart"></i>
       </a>
-      <a href="javascript:void(0)" title="Add to Wishlist" (click)="addToWishlist(oeuvre)">
+      <a href="javascript:void(0)" *ngIf="isFavorite==false" title="Add to Wishlist" (click)="addToWishlist(oeuvre)">
         <i class="ti-heart" aria-hidden="true"></i>
       </a>
       <a href="javascript:void(0)" title="Quick View" (click)="QuickView.openModal()">

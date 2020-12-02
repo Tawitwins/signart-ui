@@ -239,10 +239,10 @@
                                                             </tr> -->
 
               <div *ngIf="isAuthenticated" colspan="2" class="content-center">
-                <button class="btn btn-solid" [disabled]="!addressForm.valid">Valider</button>
+                <button class="btn btn-solid-Valider" [disabled]="!addressForm.valid">Valider</button>
               </div>
               <div *ngIf="!isAuthenticated" colspan="2" class="content-center">
-                <button class="btn btn-solid"
+                <button class="btn btn-solid-Valider"
                   [disabled]="!addressForm.valid && !emailForm.valid">Valider</button>
               </div>
 
