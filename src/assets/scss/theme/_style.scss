@@ -4890,9 +4890,9 @@ footer {
 .subscribe {
     text-align: center;
     h4 {
-        color:#363636;
+        color:#000000;
         text-transform: uppercase;
-        font-weight: 700;
+        font-weight: 900;
         display: block;
         margin-bottom: 15px;
         margin-top: -5px;
@@ -5646,13 +5646,13 @@ footer {
         background-color: transparent;
         justify-content: flex-end;
         text-transform: uppercase;
-        font-size: 14px;
-        color: $grey2;
+        font-size: 15px;
+        color: rgb(0, 0, 0);
         font-weight: 600;
         margin: 0;
         padding-right: 0;
         a {
-            color: $grey2;
+            color: rgb(0, 0, 0);
             font-weight: 600;
         }
     }
@@ -8280,7 +8280,7 @@ footer {
         h2 {
             font-size: 22px;
             margin: 20px 0 0;
-            text-transform: capitalize;
+            text-transform: none;
             color: #333;
         }
     }

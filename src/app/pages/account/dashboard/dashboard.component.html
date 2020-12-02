@@ -198,7 +198,7 @@
                                             </h4>                                         
                                         </td>
                                         <td>
-                                            <a href="javascript:void(0)" class="icon">
+                                            <a href="javascript:void(0)" (click)="showDetailsCommande(commande.id)" class="icon">
                                             details
                                         </a>
                                         </td>
@@ -267,8 +267,14 @@
                             </div>
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 5">
+                            <div class="box-head">
+                                <h2>Mes abonnements</h2>
+                            </div> <br><hr>
                             <div class="row">
-                                <div class="col-sm-12"> 
+                                <p *ngIf="abonnements?.length == 0">
+                                    liste vide
+                                </p>
+                                <div class="col-sm-12" *ngIf="abonnements?.length != 0"> 
                                     <table class="table cart-table table-responsive-xs">
                                         <thead>
                                         <tr class="table-head">
@@ -294,6 +300,7 @@
                                     </table>
                                 </div>
                             </div>
+
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 6">
                             <div class="box-head">
@@ -372,12 +379,11 @@
                             </div> <br><br>
                             <div class="row">
                                 
-                                    <div class="box">
-                                        <div class="box-content">
+                                    
                                             <p *ngIf="artistes?.length == 0">
                                                 liste vide
                                             </p>
-                                            <div *ngIf="artistes?.length != 0">
+                                            <div class="col-md-12" *ngIf="artistes?.length != 0">
                                                 <table class="table cart-table table-responsive-xs">
                                                     <thead>
                                                         <tr class="table-head">
@@ -413,14 +419,13 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                        </div>
-                                    </div>
+                                    
                                
                             </div>
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 10">
                             <div class="box-head">
-                                <h2>Details de l'abonnement numabonnement</h2>
+                                <h2>Details de l'abonnement 000{{abonnementAffiche.id}}</h2>
                             </div> <br><br>
                             <div class="row">
                                 <section class="section-b-space">
@@ -509,6 +514,100 @@
                                         </div>
                                     </div>
                                   </section>
+                                   
+                               
+                            </div>
+                        </div>
+                        <div class="box-account box-info" *ngIf="infopage == 11">
+                            <div class="box-head">
+                                <h2>Details de la commande 000{{commande?.id}}</h2>
+                            </div> <br><br>
+                            <div class="row">
+                                <section class="section-b-space">
+        <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="col-lg-12">
+                    <div class="row order-success-sec">
+                        <div class="col-sm-6">
+                            <h4>Sommaire</h4>
+                            <ul class="order-detail">
+                                <li>ID Commande: 000{{commande?.id}}</li>
+                                <li>Date de commande: {{commande.dateCreation}}</li>
+                                <li>Commande totale: {{Sum}} FCFA</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4>Adresse de livraison</h4>
+                            <ul class="order-detail">
+                                
+                                <li>{{adressLivraison.prenom}} {{adressLivraison.nom}}</li>
+                                <li>Adresse: {{adressLivraison.adresse}}</li>
+                                <li>Mode de livraison: {{livraison.libelleModeLivraison}} </li>
+                            </ul>
+                        </div><br>
+    
+                        <div class="col-sm-12 payment-mode">
+                            <h4>Méthode de paiement</h4>
+                            <p>Paiement à la livraison (Cash/Card).</p>
+                        </div>
+                        
+                    </div>
+                    
+                </div><br><hr>
+                <div class="product-order">
+                    <h3>Détails de votre commande</h3>
+                    <div class="row product-order-detail" *ngFor="let p of commande.lignesCommande;let i=index">
+                        <div class="col-2">
+                            <img [src]="get(i)"  style="width: 80px;height:100px" class="img-fluid" alt="quixote">                        
+                        </div>
+                        <div class="col-2 order_detail">
+                            <div>
+                                <h4>Article</h4>
+                                <h5>{{p.oeuvre.nom}}</h5>
+                            </div>
+                        </div>
+                        <div class="col-2 order_detail">
+                            <div>
+                                <h4>quantité</h4>
+                                <h5>{{p.quantite}}</h5>
+                            </div>
+                        </div>
+                        <div class="col-2 order_detail">
+                            <div>
+                                <h4>prix</h4>
+                                <h5>{{p.prix}} FCFA</h5>
+                            </div>
+                        </div>
+                        <div class="col-2 order_detail">
+                            <div>
+                                <h4>prix livraison</h4>
+                                <h5>{{p.oeuvre.fraisLivraison}} FCFA</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="total-sec">
+                        <ul>
+                            <li>Sous-Total <span> {{commande.total}} FCFA</span></li>
+                            <li>Livraison <span>{{commande.totalLivraison}} FCFA</span></li>
+                        </ul>
+                    </div>
+                    <div class="final-total">
+                        <h3>Total de la commande : <span> {{Sum}} FCFA</span></h3>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="col-md-12">
+                <div class="delivery-sec">
+                    <h3>Date prévue de livraison</h3>
+                    <h2>30/07/2020</h2>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
                                    
                                
                             </div>
