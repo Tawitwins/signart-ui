@@ -57,7 +57,14 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="review">Téléphone</label>
-                                <input type="text" class="form-control" id="review" placeholder="+221 77 000 00 00" [(ngModel)]="indicatifpays" formControlName="telephone" [value]="form1Value.telephone">
+                                <div class="row">
+                                    <div  class="col-md-2">
+                                        <input type="text" class="form-control" formControlName="indicatif" [(ngModel)]="indicatifpays" disabled="true">
+                                    </div>
+                                    <div  class="col-md-10">
+                                        <input type="text" class="form-control" id="review" placeholder="00 000 00 00" formControlName="telephone" [value]="form1Value.telephone">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-row">

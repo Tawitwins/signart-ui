@@ -30,6 +30,7 @@ import { Livraison } from '../../../shared/modeles/livraison';
 import { ToastrService } from 'ngx-toastr';
 import { CheckoutService } from '../../../shared/services/checkout.service';
 import { Address } from '../../../shared/modeles/address';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-dashboard',
@@ -110,7 +111,7 @@ export class DashboardComponent implements OnInit {
     private oeuvreS:OeuvreService,private fb:FormBuilder,
     private artisteService:ArtisteService,
     private imageService: ImageService,
-    public jwtHelper: JwtHelperService,
+    public jwtHelper: JwtHelperService,private ngxService: NgxUiLoaderService,
     private route: ActivatedRoute,public domSanitizer: DomSanitizer,private checkoutService:CheckoutService) {
     this.infopage = 0;
     this.initmdpForm();
@@ -399,6 +400,7 @@ infoClient(){
 
 
 commandesClient(){
+  this.ngxService.startLoader("loader-01");
   this.infopage = 3;
  this.idUser=this.user.id;
  this.oeuvreS.getClientByUser(this.idUser)
@@ -412,6 +414,10 @@ commandesClient(){
          //this.size=this.commandes.length;
          this.commandes=this.commandes.reverse();
          console.log('les commandes:' ,this.commandes);
+         this.ngxService.stopLoader("loader-01");
+         /*setTimeout(() => {
+          // stop foreground spinner of the loader "loader-01" with 'default' taskId
+        }, 500);*/
        },
        error => {
          console.log(error)
@@ -425,6 +431,7 @@ favorisClient(){
 
 
 getAdresse(){
+  this.ngxService.startLoader("loader-01");
   this.infopage = 2
  this.idUser=this.user.id;
  this.oeuvreS.getClientByUser(this.idUser)
@@ -435,6 +442,10 @@ getAdresse(){
     (adr:any)=>{
       this.adresses=adr;
       console.log('adresses:',this.adresses);
+      this.ngxService.stopLoader("loader-01");
+      /*setTimeout(() => {
+         // stop foreground spinner of the loader "loader-01" with 'default' taskId
+      }, 500);*/
     },
     error=>{
       console.log(error)

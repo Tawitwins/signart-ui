@@ -34,6 +34,7 @@ export class RegisterArtistComponent implements OnInit {
     'prenom': ['',Validators.required],
     'nom': ['',Validators.required],
     'telephone':['',Validators.required],
+    'indicatif':[''],
     'email': ['',Validators.pattern(this.emailPattern)],
     'genre': ['',Validators.required],
     'nomGalerie': ['',Validators.required],
@@ -233,6 +234,7 @@ export class RegisterArtistComponent implements OnInit {
   }
   onSubmitForm1(){
     this.form1Value = this.infoArtisteForm.value;
+    this.form1Value.telephone = this.indicatifpays+''+this.infoArtisteForm.get('telephone').value;
 
     this.titreInfoArtistes = [
       {
@@ -321,7 +323,7 @@ export class RegisterArtistComponent implements OnInit {
       'valeur':[]
     }*/
     
-    console.log(this.form1Value)
+    console.log('formuleeeeeeeeeairre',this.form1Value)
     console.log(this.titreInfoArtistes)
     this.etape=3;
   }

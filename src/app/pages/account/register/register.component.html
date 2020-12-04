@@ -6,7 +6,7 @@
             <div class="col-lg-12">
                 <h3>Créer un compte Client</h3>
                 <div class="theme-card">
-                    <form class="theme-form" novalidate="" [formGroup]="signUpForm" (ngSubmit)="onSubmit(); signUpForm.reset();" class="text-center">
+                    <form class="theme-form" novalidate="" [formGroup]="signUpForm" (ngSubmit)="onSubmit();" class="text-center">
                         <label> <strong>Pays</strong></label>
                         <select class="mdb-select md-form form-control" (change)="choisirPays($event)" formControlName="codePays" required>
                             <option value="">Choisir votre pays</option>
@@ -61,10 +61,18 @@
                         <div class="form-row">
                             <div class="col-md-6">
                                 <label><strong> Téléphone </strong> </label>
-                                <input type="text" class="form-control" formControlName="mobile" [(ngModel)]="indicatifpays" required>
-                                <div *ngIf="signUpForm.get('mobile').errors && signUpForm.get('mobile').touched">
-                                    <p class="register-error-message" style="color: red;">SVP entrer un numéro valide !</p>
+                                <div class="row">
+                                    <div  class="col-md-2">
+                                        <input type="text" class="form-control" formControlName="indicatif" [(ngModel)]="indicatifpays" disabled="true">
+                                    </div>
+                                    <div  class="col-md-10">
+                                        <input type="text" class="form-control" formControlName="mobile" required>
+                                        <div *ngIf="signUpForm.get('mobile').errors && signUpForm.get('mobile').touched">
+                                            <p class="register-error-message" style="color: red;">SVP entrer un numéro valide !</p>
+                                        </div>
+                                    </div>
                                 </div>
+                                
                             </div>
                             <div class="col-md-6">
                                 <label><strong> Email </strong> </label>

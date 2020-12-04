@@ -72,6 +72,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
 
   onSubmit() {
+    console.log('valueszzzzzzzzzzzzzzzzzzz: ', this.signUpForm.value)
     Swal.fire({ 
       title: 'Vous confirmez l\'envoie du formulaire d\'inscription?',
       //text: "Ceci sera irreversible!",
@@ -83,7 +84,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
       cancelButtonText: 'Anuler'
     }).then((result) => {
       if (result.value) {
-        const values = this.signUpForm.value;
+        console.log('im innnnnnnnnnnnnnnnnnnnnn')
+        console.log('valueszzzzzzzzzzzzzzzzzzz22222: ', this.signUpForm.value)
+        let values = this.signUpForm.value;
+        values.mobile = this.indicatifpays+''+this.signUpForm.get('mobile').value;
         console.log('values: ', values)
         const keys = Object.keys(values);
         this.formSubmit = true;
@@ -121,6 +125,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     const password = '';
     const password_confirmation = '';
     const mobile = '';
+    const indicatif = '+221';
     const gender = '';
     const codePays = '';
     const codeProfil = 'CLIENT';
@@ -133,6 +138,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       'password_confirmation': [password_confirmation, Validators.compose([Validators.required, Validators.minLength(6)])],
       //'mobile': [mobile, Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern('[0-9]{9}')])],
       'mobile': [mobile, Validators.required],
+      'indicatif': [indicatif],
       'gender': [gender, Validators.required],
       'codePays': [codePays, Validators.required],
       'codeProfil': [codeProfil],
