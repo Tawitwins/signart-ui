@@ -45,6 +45,9 @@ import { AddOeuvreComponent } from './add-oeuvre/add-oeuvre.component';
 import { TchatComponent } from '../shared/components/menu/TchatSpace/tchat.component';
 import { RightClicMenuTchatComponent } from '../shared/components/menu/TchatSpace/rightClicMenuTchat.component';
 import { AddAddressComponent } from '../checkout/address/add-address/add-address.component';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -91,6 +94,7 @@ import { AddAddressComponent } from '../checkout/address/add-address/add-address
     GalleryModule.forRoot(),
     SharedModule,
     PagesRoutingModule,
+    NgxUiLoaderModule 
   ]
 })
 export class PagesModule { }

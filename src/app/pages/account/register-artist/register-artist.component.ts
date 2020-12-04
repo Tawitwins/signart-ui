@@ -26,6 +26,8 @@ export class RegisterArtistComponent implements OnInit {
   titreInfoOeuvre1: any[];
   titreInfoOeuvre2: any[];
   techniques : any = null;
+  indicatifpays: string;
+  libellePays: string;
 
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   infoArtisteForm = this.formbuilder.group({
@@ -68,6 +70,8 @@ export class RegisterArtistComponent implements OnInit {
   constructor(  private formbuilder: FormBuilder, 
     private oeuvreService: OeuvreService,
     private artisteService: ArtisteService,private paysService: PaysService) {
+      this.indicatifpays = "+221";
+      this.libellePays = "Sénégal";
       this.oeuvreService.getTechnique().subscribe(
         resp => {
           
@@ -109,6 +113,18 @@ export class RegisterArtistComponent implements OnInit {
     console.log("file", file)
      
   }
+
+  choisirPays(event) {
+    //console.log(event.target.value)
+    for (let i = 0; i < this.allPays.length; i++) {
+       if(this.allPays[i].code === event.target.value){
+         //console.log(this.allPays[i].indicatif)
+         this.indicatifpays = this.allPays[i].indicatif;
+       }
+      
+    }
+  }
+
   onSubmit() {
     console.log("Soumission en cours");
     this.onSubmitForm1();

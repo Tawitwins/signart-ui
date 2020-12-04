@@ -6,16 +6,14 @@
             <div class="col-lg-12">
                 <h3>Créer un compte Client</h3>
                 <div class="theme-card">
-                    <form class="theme-form" novalidate="" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
-                        <div class="form-row">
-                            <label> <strong>Pays</strong></label>
-                            <select class="mdb-select md-form form-control" name="pays" id="pays" formControlName="codePays" required>
-                                <option value="">Choisir votre pays</option>
-                                <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>
-                            </select>
-                            <div *ngIf="signUpForm.get('codePays').errors && signUpForm.get('codePays').touched">
-                            <p class="register-error-message" style="color: red;">Veuillez choisir votre pays !</p>
-                            </div>
+                    <form class="theme-form" novalidate="" [formGroup]="signUpForm" (ngSubmit)="onSubmit(); signUpForm.reset();" class="text-center">
+                        <label> <strong>Pays</strong></label>
+                        <select class="mdb-select md-form form-control" (change)="choisirPays($event)" formControlName="codePays" required>
+                            <option value="">Choisir votre pays</option>
+                            <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>
+                        </select>
+                        <div *ngIf="signUpForm.get('codePays').errors && signUpForm.get('codePays').touched">
+                          <p class="register-error-message" style="color: red;">Veuillez choisir votre pays !</p>
                         </div>
                         <hr>
                         <div class="form-row">
@@ -63,17 +61,17 @@
                         <div class="form-row">
                             <div class="col-md-6">
                                 <label><strong> Téléphone </strong> </label>
-                                <input type="number" class="form-control" id="phone" formControlName="mobile" name="mobile" placeholder="00 221 70 000 00 00" required="">
+                                <input type="text" class="form-control" formControlName="mobile" [(ngModel)]="indicatifpays" required>
                                 <div *ngIf="signUpForm.get('mobile').errors && signUpForm.get('mobile').touched">
-                                    <p class="register-error-message" style="color: red;">SVP entrer un numéro valide (9 chiffres) !</p>
-                                  </div>
+                                    <p class="register-error-message" style="color: red;">SVP entrer un numéro valide !</p>
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <label><strong> Email </strong> </label>
                                 <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" required="" formControlName="email" autocomplete="off">
                                 <div *ngIf="signUpForm.get('email').errors && signUpForm.get('email').touched">
                                     <p class="register-error-message" style="color: red;">Entrez une adresse mail valide !</p>
-                                  </div>
+                                </div>
                             </div>
                         </div>
                         <br><br>

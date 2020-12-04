@@ -87,7 +87,7 @@ export class DashboardComponent implements OnInit {
   traitementForm: FormGroup;
   traitementAbonnement: number;
   isValid: number;
-  activePaiement: boolean;
+  public activePaiement: boolean;
   abonneAffiche: Abonne;
   terminalAffiche: Terminal;
   public montantOeuvres: number;
@@ -533,8 +533,11 @@ showDetailsAbonnement(id: number){
       
       for (let i = 0; i < this.etatAbonnements.length; i++) {
         if(this.abonnementAffiche.etatAbonnement == this.etatAbonnements[i].id){
-          if(this.etatAbonnements[i].libelle === "en_attente_paiement"){
+          console.log("activePaiementttttttttttttttttt",this.etatAbonnements[i] )
+          if(this.etatAbonnements[i].code === 'NON_PAYE'){
+            console.log("activePaiementttttttttttttttttt2")
             this.activePaiement = true;
+            console.log("activePaiementttttttttttttttttt", this.activePaiement)
           }
         }
         

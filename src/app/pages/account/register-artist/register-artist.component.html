@@ -36,12 +36,6 @@
                                 <label for="email">email</label>
                                 <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email" [value]="form1Value.email">
                             </div>
-                            <div class="col-md-6">
-                                <label for="review">Téléphone</label>
-                                <input type="text" class="form-control" id="review" placeholder="+221 77 000 00 00"  formControlName="telephone" [value]="form1Value.telephone">
-                            </div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                 <label for="review">Genre</label>
                                 <select name="genre" class="form-control" formControlName="genre" [value]="form1Value.genre">
@@ -49,15 +43,21 @@
                                     <option value="F">Femme</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="form-row">
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                 <label for="review">Pays</label>
-                                <select name="pays" class="form-control" formControlName="codePays" [value]="form1Value.codePays">
+                                <select (change)="choisirPays($event)" class="form-control" formControlName="codePays" [value]="form1Value.codePays">
                                     <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>
                                     <!-- <option value="selected">Selectionner un pays</option>
                                     <option value="sn">Sénégal</option>
                                     <option value="USA">Guinée Bissau</option>
                                     <option value="Australia">Mali</option> -->
                                 </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="review">Téléphone</label>
+                                <input type="text" class="form-control" id="review" placeholder="+221 77 000 00 00" [(ngModel)]="indicatifpays" formControlName="telephone" [value]="form1Value.telephone">
                             </div>
                         </div>
                         <div class="form-row">

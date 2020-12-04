@@ -109,7 +109,7 @@ export class DetailsAbonnementComponent implements OnInit {
         this.etatAbonnements = res;
         for (let i = 0; i < this.etatAbonnements.length; i++) {
           if(this.abonnement.etatAbonnement == this.etatAbonnements[i].id){
-            if(this.etatAbonnements[i].libelle === "en_attente_paiement"){
+            if(this.etatAbonnements[i].code === "NON_PAYE"){
               this.activePaiement = true;
             }
           }

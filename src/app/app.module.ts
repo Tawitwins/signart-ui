@@ -46,6 +46,7 @@ import { VisiteurService } from './shared/services/visiteur.service';
 import { ArticleService } from './shared/services/article.service';
 import { environment } from '../environments/environment';
 import { AuthActions } from './auth/actions/auth.actions';
+
 import { CheckoutActions } from './checkout/actions/checkout.actions';
 import { PanierEtMarquageService } from './shared/services/panierEtMarquage.service';
 

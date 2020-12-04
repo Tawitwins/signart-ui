@@ -25,6 +25,7 @@ import { BrandsComponent } from './collection/widgets/brands/brands.component';
 import { ColorsComponent } from './collection/widgets/colors/colors.component';
 import { SizeComponent } from './collection/widgets/size/size.component';
 import { PriceComponent } from './collection/widgets/price/price.component';
+import { NgxUiLoaderConfig, NgxUiLoaderModule, POSITION, SPINNER } from 'ngx-ui-loader';
 
 import { CartComponent } from './cart/cart.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
@@ -34,6 +35,17 @@ import { AbonnementCatalogueComponent } from './collection/abonnement-catalogue/
 import { PaydunyaComponent } from '../checkout/payment/payment-modes-list/paydunya/paydunya.component';
 import { PaypalComponent } from '../checkout/payment/payment-modes-list/paypal/paypal.component';
 import { CashOnDeliveryComponent } from '../checkout/payment/payment-modes-list/cash-on-delivery/cash-on-delivery.component';
+/*const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  bgsColor: 'rgba(12,80,219,0.98)',
+  bgsOpacity: 1,
+  bgsPosition: POSITION.bottomRight,
+  bgsSize: 40,
+  bgsType: SPINNER.,
+  fgsColor: 'rgba(12,80,219,0.98)',
+  fgsPosition: POSITION.centerCenter,
+  logoUrl: "src/assets/images/logo_signart.png"
+  };*/
+
 @NgModule({
   declarations: [
     ProductLeftSidebarComponent, 
@@ -66,7 +78,8 @@ import { CashOnDeliveryComponent } from '../checkout/payment/payment-modes-list/
     NgxPayPalModule,
     Ng5SliderModule,
     SharedModule,
-    ShopRoutingModule
+    ShopRoutingModule,
+    NgxUiLoaderModule,
   ]
 })
 export class ShopModule { }

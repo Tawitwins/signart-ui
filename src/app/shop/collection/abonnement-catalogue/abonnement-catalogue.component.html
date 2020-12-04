@@ -187,12 +187,12 @@
                                                                             </oeuvre-numerique-box-one>     
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="!oeuvres.length">
+                                                                <!--div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="!oeuvres.length">
                                                                     <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
                                                                     <h3>Sorry! Couldn't find the product you were looking For!!! </h3>
                                                                     <p>Please check if you have misspelt something or try searching with other words.</p>
                                                                     <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continue shopping</a>
-                                                                </div>
+                                                                </div-->
                                                             </div>
                                                         </div>
                                                         <ngb-pagination [collectionSize]="imageFiltres.length" [(page)]="pag" [pageSize]="pageSize" aria-label="Default pagination">
@@ -288,7 +288,8 @@
                                                                 <form class="theme-form" novalidate="" [formGroup]="abonneeForm" class="text-center">
                                                                     <div class="form-row">
                                                                       <div class="col-md-6">                             
-                                                                        <select type="select" class="form-control" placeholder="Nom" formControlName="pays" [(ngModel)]="clientAdresse.libellePays" required>                                                                            <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>
+                                                                        <select type="select" class="form-control" placeholder="Nom" (change)="choisirPays($event)" formControlName="pays" [(ngModel)]="clientAdresse.libellePays" required>     
+                                                                            <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>                                                                       <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>
                                                                         </select>
                                                                       </div>
                                                                     </div>
@@ -306,7 +307,7 @@
                                                                     <br><br>
                                                                     <div class="form-row">
                                                                         <div class="col-md-6">
-                                                                            <input type="number" class="form-control" formControlName="telephone" [(ngModel)]="clientAdresse.telephone" placeholder="00 221 70 000 00 00" required="">
+                                                                            <input type="text" class="form-control" formControlName="telephone" [(ngModel)]="indicatifpays" placeholder="00 221 70 000 00 00" required="">
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <input type="email" class="form-control" placeholder="E-mail" required="" formControlName="email" [(ngModel)]="userConnect.email" autocomplete="off">
@@ -462,7 +463,10 @@
                                                         </div> 
                                                        
                                                     </div>
+
                                                    </div>
+                                                   <ngx-ui-loader [loaderId]="'loader-01'" logoUrl="assets/images/icon/LogoGif.gif" logoSize="300" fgsType="rectangle-bounce" fgsColor="rgba(255,255,255,0.8)" [hasProgressBar]="false" logoPosition="center-center" overlayColor="rgba(255,255,255,0.8)"  blur="1"></ngx-ui-loader>
+
                                                 </ng-template>
                                             </ngb-tab>
                                         </ngb-tabset>
@@ -475,6 +479,7 @@
                 </div>
             </div>
         </div>
+        
     </div>
 </section>
 <!-- section End -->

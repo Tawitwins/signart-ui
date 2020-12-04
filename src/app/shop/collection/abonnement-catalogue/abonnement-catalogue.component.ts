@@ -20,6 +20,20 @@ import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { NgxUiLoaderConfig, NgxUiLoaderService, POSITION, SPINNER } from 'ngx-ui-loader';
+
+/*const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  bgsColor: 'rgba(12,80,219,0.98)',
+  bgsOpacity: 1,
+  bgsPosition: POSITION.bottomRight,
+  bgsSize: 40,
+  bgsType: SPINNER.ballScaleMultiple,
+  fgsColor: 'rgba(12,80,219,0.98)',
+  fgsPosition: POSITION.centerCenter,
+  logoUrl: "src/assets/images/logo_signart.png",
+  masterLoaderId: "loader-01"
+  };*/
+  
 import { OeuvreNumerique } from '../../../shared/modeles/imageNumerique';
 import { Artiste } from '../../../shared/modeles/artiste';
 import { Pays } from '../../../shared/modeles/pays';
@@ -41,6 +55,7 @@ import { ListSelection, Abonne, Abonnement, Terminal, EtatAbonnement, DelaieAbon
 })
 export class AbonnementCatalogueComponent implements OnInit {
   
+
   public grid: string = 'col-xl-3 col-md-6';
   public layoutView: string = 'grid-view';
   public techSelect: string;
@@ -154,6 +169,9 @@ export class AbonnementCatalogueComponent implements OnInit {
   pageFormu: number;
   public terminalChoix: Terminal;
   public delaiChoix: DelaieAbonnement;
+  public indicatifpays: string;
+  public libellePays: string;
+  
   
   abonneeForm = new FormGroup({
     nom: new FormControl('',Validators.required),
@@ -186,13 +204,17 @@ export class AbonnementCatalogueComponent implements OnInit {
   }
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private viewScroller: ViewportScroller, public productService: ProductService, 
+    private viewScroller: ViewportScroller, public productService: ProductService, private ngxService: NgxUiLoaderService,
     private articleService: ArticleService, private expoService: OeuvreService,
     private fb: FormBuilder,private imageService: ImageService, private artisteService:ArtisteService,
     private authS:AuthServiceS,private checkoutService:CheckoutService,private httpClient: HttpClient, 
     public domSanitizer: DomSanitizer,private paysService: PaysService, private toastrService: ToastrService ) { 
 
+      this.indicatifpays = "+221";
+      this.libellePays = "Sénégal";
+      
 
+      
       this.annee = [2020,2019,2018,2011];
       this.currency = this.productService.Currency;
       this.cartModal = false;
@@ -242,6 +264,7 @@ export class AbonnementCatalogueComponent implements OnInit {
               this.allClientAdresse = resp;
               if(this.allClientAdresse.length > 0){
                 this.clientAdresse = this.allClientAdresse[0];
+                this.indicatifpays = this.clientAdresse.telephone;
                 //console.log("adressssssssssssse clienttttttt",this.clientAdresse)  
               }
               this.onglet=2;
@@ -307,9 +330,21 @@ export class AbonnementCatalogueComponent implements OnInit {
   }
 
   ngOnInit(): void {
+   
    /* if(this.loader) {
       setTimeout(() => { this.loader = false; }, 2000); // Skeleton Loader
     }*/
+  }
+
+  choisirPays(event) {
+    console.log(event.target.value)
+    for (let i = 0; i < this.allPays.length; i++) {
+       if(this.allPays[i].code === event.target.value){
+         console.log(this.allPays[i].indicatif)
+         this.indicatifpays = this.allPays[i].indicatif;
+       }
+      
+    }
   }
 
   onSubmitFormuAbonne(){
@@ -627,7 +662,7 @@ export class AbonnementCatalogueComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'OUI!'
     }).then((result) => {
-      ////console.log("abonne",this.abonne)
+      this.ngxService.startLoader("loader-01"); // start foreground spinner of the loader "loader-01" with 'default' taskId
 
       this.imageService.addAbonne(this.abonne).subscribe(
         respon =>{
@@ -658,7 +693,7 @@ export class AbonnementCatalogueComponent implements OnInit {
                       }
                       
                       for(var i=0; i<this.etats.length; i++){
-                        if(this.etats[i].libelle === "en_attente_validation"){
+                        if(this.etats[i].code === "EN_COURS"){
                           this.idEtatAbonnement = this.etats[i].id;
                         }
                       }
@@ -685,6 +720,10 @@ export class AbonnementCatalogueComponent implements OnInit {
                         resp =>{
                           ////console.log(resp)
                           console.log("abonnement",this.abonnement)
+                          this.oeuvresNumeriques = [];
+                          setTimeout(() => {
+                            this.ngxService.stopLoader("loader-01"); // stop foreground spinner of the loader "loader-01" with 'default' taskId
+                          }, 3000);
                           this.toastrService.success('Abonnement soumis avec succés!');
                           this.onReset(0);
                           
