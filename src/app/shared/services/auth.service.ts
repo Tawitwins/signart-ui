@@ -84,6 +84,8 @@ export class AuthServiceS {
           // console.log('utilisateur.token' + utilisateur.token);
           // console.log('utilisateur.email' + utilisateur.email);
           this.setTokenInLocalStorage(utilisateur);
+          this.setWishlistInLocalStorage();
+          this.setPanierInLocalStorage();
           this.store.dispatch(this.actions.loginSuccess());
 
          /* if(utilisateur.userType === "CLIENT"){
@@ -227,14 +229,22 @@ export class AuthServiceS {
     // console.log('herhrr' + jsonData)
     localStorage.setItem('user', jsonData);
   }
+  setPanierInLocalStorage(){
+
+  }
+  setWishlistInLocalStorage(){
+    
+  }
 signOut() {
     localStorage.removeItem('user'); 
     localStorage.removeItem('client');
     localStorage.removeItem('artiste');
     localStorage.removeItem('order');
+    localStorage.clear();
     //localStorage.clear();
     //localStorage.setItem('Authstatus',JSON.stringify(false));
     this.store.dispatch(this.actions.logoutSuccess());
+    location.reload();
   }
   getTaoken(): string {
     return localStorage.getItem('token');

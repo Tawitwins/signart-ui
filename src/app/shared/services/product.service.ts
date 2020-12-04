@@ -21,7 +21,7 @@ import { PanierEtMarquageService } from './panierEtMarquage.service';
 import { LignePanier } from '../modeles/ligne_panier';
 import { OeuvreNumerique } from '../modeles/imageNumerique';
 
-const state = {
+var state = {
   products: JSON.parse(localStorage['products'] || '[]'),
   wishlist: JSON.parse(localStorage['wishlistItems'] || '[]'),
   compare: JSON.parse(localStorage['compareItems'] || '[]'),
@@ -46,7 +46,7 @@ export class ProductService {
   public Oeuvres: any;
   public oeuvs: Oeuvre[];
   public panier: Panier;
-  public client: Client;
+  public client: Client=new Client("",0,0,new Date(),"","",0,"","","","","",0,"");
 
   constructor(private http: HttpClient,private newCheckoutService:CheckoutService,
     private toastrService: ToastrService, private articleService: ArticleService,
@@ -59,6 +59,11 @@ export class ProductService {
     ---------------------------------------------
   */
 
+ initState(){
+   console.log("ca kass un peu les pied quand meme");
+   state.cart =JSON.parse(localStorage['cartItems'] || '[]');
+   state.wishlist= JSON.parse(localStorage['wishlistItems'] || '[]');
+ }
   // Product
   private get products(): Observable<Product[]> {
 
@@ -253,38 +258,47 @@ export class ProductService {
   }*/
 
   public addToCart(oeuvre: Oeuvre): any {
-    oeuvre.image=null;
-    const cartItem = state.cart.find(item => item.id === oeuvre.id);
-    const qty = 1;// oeuvre.stock ? oeuvre.stock : 1;
-    const items = cartItem ? cartItem : oeuvre;
-    const stock = this.calculateStockCounts(items, qty);
-    this.client = this.authService.getClientConnected();
-    console.log("client", this.client)
-    console.log("oeuvre", oeuvre)
-    
-    if(!stock) return false
-
-    if (cartItem) {
-        cartItem.quantity += qty    
-    } else {
-      state.cart.push({
-        ...oeuvre,
-        quantity: qty
+    let User=this.authService.getUserConnected();
+    if(User.userType=="CLIENT")
+    {
+      oeuvre.image=null;
+      const cartItem = state.cart.find(item => item.id === oeuvre.id);
+      const qty = 1;// oeuvre.stock ? oeuvre.stock : 1;
+      const items = cartItem ? cartItem : oeuvre;
+      const stock = this.calculateStockCounts(items, qty);
+      this.client = this.authService.getClientConnected();
+      console.log("client", this.client)
+      console.log("oeuvre", oeuvre)
+      
+      if(!stock) return false
+  
+      if (cartItem) {
+          cartItem.quantity += qty    
+      } else {
+        state.cart.push({
+          ...oeuvre,
+          quantity: qty
+        })
+      }
+  
+      this.newCheckoutService.createNewLineItemInLocalStorage(oeuvre,this.client.id);
+      this.panierEtMarquateService.createNewLineItem(oeuvre).subscribe(resp=>{
+        if(resp.id!=null)
+        {
+          this.OpenCart = true; // If we use cart variation modal
+          localStorage.setItem("cartItems", JSON.stringify(state.cart));
+          return true;
+        }
+        else{
+          return false;
+        }
       })
     }
-
-    this.newCheckoutService.createNewLineItemInLocalStorage(oeuvre,this.client.id);
-    this.panierEtMarquateService.createNewLineItem(oeuvre).subscribe(resp=>{
-      if(resp.id!=null)
-      {
-        this.OpenCart = true; // If we use cart variation modal
-        localStorage.setItem("cartItems", JSON.stringify(state.cart));
-        return true;
-      }
-      else{
-        return false;
-      }
-    })
+    else{
+      this.toastrService.info("Seuls les clients peuvent faire des achats et utiliser le panier!","Attention !!");
+      return false;
+    }
+    
   }
 
   public addToList(oeuvreNumerique: OeuvreNumerique): any {
@@ -317,35 +331,45 @@ export class ProductService {
    
   }
 
-  public addToCartOeuvre(oeuvre): any {
-    const cartItem = state.cart.find(item => item.id === oeuvre.id);
-    const qty = 1; //oeuvre.stock ? oeuvre.stock : 1;
-    const items = cartItem ? cartItem : oeuvre;
-    const stock = this.calculateStockCounts(items, qty);
-    
-    if(!stock) return false
+  public addToCartOeuvre(oeuvre:Oeuvre): any {
+    oeuvre.quantity=1;
+    let User=this.authService.getUserConnected();
+    if(User.userType=="CLIENT")
+    {
+      const cartItem = state.cart.find(item => item.id === oeuvre.id);
+      const qty = 1; //oeuvre.stock ? oeuvre.stock : 1;
+      const items = cartItem ? cartItem : oeuvre;
+      const stock = this.calculateStockCounts(items, qty);
+      
+      if(!stock) return false
 
-    if (cartItem) {
-        cartItem.stock += qty    
-    } else {
-      state.cart.push({
-        ...oeuvre,
-        stock: qty
+      if (cartItem) {
+        this.updateCartQuantity(cartItem,+1);    
+      } else {
+        state.cart.push({
+          ...oeuvre,
+          //stock: qty
+        })
+      }
+
+      this.newCheckoutService.createNewLineItemInLocalStorage(oeuvre,this.client.id);
+      this.panierEtMarquateService.createNewLineItem(oeuvre).subscribe(resp=>{
+        if(resp.id!=null)
+        {
+          this.OpenCart = true; // If we use cart variation modal
+          localStorage.setItem("cartItems", JSON.stringify(state.cart));
+          return true;
+        }
+        else{
+          return false;
+        }
       })
     }
-
-    this.newCheckoutService.createNewLineItemInLocalStorage(oeuvre,this.client.id);
-    this.panierEtMarquateService.createNewLineItem(oeuvre).subscribe(resp=>{
-      if(resp.id!=null)
-      {
-        this.OpenCart = true; // If we use cart variation modal
-        localStorage.setItem("cartItems", JSON.stringify(state.cart));
-        return true;
-      }
-      else{
-        return false;
-      }
-    })
+    else{
+      this.toastrService.info("Seuls les clients peuvent faire des achats et utiliser le panier!","Attention !!");
+      return false;
+    }
+    
   }
 
   // Update Cart Quantity
@@ -356,26 +380,26 @@ export class ProductService {
         const stock = this.calculateStockCounts(state.cart[index], quantity)
         if (qty !== 0 && stock) {
           state.cart[index].quantity = qty
-        }
-        this.newCheckoutService.createNewLineItemInLocalStorage(product,this.client.id);
-        localStorage.setItem("cartItems", JSON.stringify(state.cart));
-        this.client = this.authService.getClientConnected();
-        console.log(this.client);
-        this.panierEtMarquateService.getLineItemsByClient(this.client.id).subscribe(resp=>{
-          let lignePaniers = <LignePanier[]> resp;
-          console.log(lignePaniers); 
-          let lp=lignePaniers.find(lp=>lp.oeuvre.id===product.id);
-          console.log(lp);
-          if(lp!=null || lp != undefined)
-          {
-            console.log(lignePaniers);
+          this.newCheckoutService.createNewLineItemInLocalStorage(product,this.client.id);
+          localStorage.setItem("cartItems", JSON.stringify(state.cart));
+          this.client = this.authService.getClientConnected();
+          console.log(this.client);
+          this.panierEtMarquateService.getLineItemsByClient(this.client.id).subscribe(resp=>{
+            let lignePaniers = <LignePanier[]> resp;
+            console.log(lignePaniers); 
+            let lp=lignePaniers.find(lp=>lp.oeuvre.id===product.id);
             console.log(lp);
-            lp.quantite=state.cart[index].quantity;
-            lp.oeuvre.image=null;
-            lp.idClient=this.client.id;
-            this.panierEtMarquateService.updateLigneItems(lp).subscribe(resp=> console.log(resp));
-          }
-        })
+            if(lp!=null || lp != undefined)
+            {
+              console.log(lignePaniers);
+              console.log(lp);
+              lp.quantite=state.cart[index].quantity;
+              lp.oeuvre.image=null;
+              lp.idClient=this.client.id;
+              this.panierEtMarquateService.updateLigneItems(lp).subscribe(resp=> console.log(resp));
+            }
+          })
+        }
         return true
       }
     })

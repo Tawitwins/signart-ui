@@ -83,7 +83,9 @@ export class SettingsComponent implements OnInit {
         private store: Store<AppState>,
         private authActions: AuthActions,
         private oeuvreS:OeuvreService) {
-    this.productService.cartItems.subscribe(response => this.oeuvres = response);
+          setTimeout(() => {this.productService.cartItems.subscribe(response =>{ this.oeuvres = response;
+            console.log("helloooooooo")});}, 2500); // Skeleton Loader
+    
 
     this.isAdd = true;
         this.user = this.authService.getUserConnected();

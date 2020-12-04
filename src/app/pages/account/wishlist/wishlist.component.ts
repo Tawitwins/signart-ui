@@ -11,7 +11,8 @@ export class WishlistComponent implements OnInit {
 
   oeuvres:any;
   constructor(private productService: ProductService,) { 
-    this.productService.wishlistItems.subscribe(resp=> this.oeuvres=resp);
+    setTimeout(() => {  this.productService.wishlistItems.subscribe(resp=> this.oeuvres=resp);}, 2000); // Skeleton Loader
+
     console.log(this.oeuvres);
   }
 
