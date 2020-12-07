@@ -7,11 +7,11 @@
                 <table class="table cart-table table-responsive-xs">
                     <thead>
                     <tr class="table-head">
-                        <th scope="col">image</th>
+                        <th scope="col">Image</th>
                         <th scope="col">Article</th>
                         <th scope="col">Prix</th>
                         <th scope="col">Disponibilité</th>
-                        <th scope="col">action</th>
+                        <th scope="col">Action</th>
                     </tr>
                     </thead>
                     <tbody  *ngFor="let oeuvre of oeuvres">
@@ -24,7 +24,7 @@
                             <td><a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">{{oeuvre.nom}}</a>
                                 <div class="mobile-cart-content row">
                                     <div class="col-xs-3">
-                                        <p>En stock: {{oeuvre.stock}}</p>
+                                        <p> {{oeuvre.stock}}</p>
                                     </div>
                                     <div class="col-xs-3">
                                         <h2 class="td-color">{{oeuvre.prix}} FCFA</h2>
@@ -41,9 +41,9 @@
                                     </div>
                                 </div>
                             </td>
-                            <td><h2>{{oeuvre.prix}} FCFA</h2></td>
+                            <td>{{oeuvre.prix}} FCFA</td>
                             <td >
-                                <p>EN stock: {{oeuvre.stock}}</p>
+                                <p>{{oeuvre.stock}}</p>
                             </td>
                             <td>
                                 <a (click)="removeOeuvre(oeuvre)" class="icon mr-3">

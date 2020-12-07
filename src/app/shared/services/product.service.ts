@@ -20,6 +20,7 @@ import { environment } from '../../../environments/environment';
 import { PanierEtMarquageService } from './panierEtMarquage.service';
 import { LignePanier } from '../modeles/ligne_panier';
 import { OeuvreNumerique } from '../modeles/imageNumerique';
+import { WishItem } from '../modeles/wish_item';
 
 var state = {
   products: JSON.parse(localStorage['products'] || '[]'),
@@ -158,6 +159,13 @@ export class ProductService {
       state.wishlist.push({
         ...product
       })
+      /* let wishedItem = new WishItem();
+      wishedItem.idClient=JSON.parse(localStorage.getItem('client')).id;
+      wishedItem.idOeuvre=product.id;
+      wishedItem.codeTypeMarquage= environment.MarquageFavori;
+      wishedItem.dateMarquage= new Date();
+    
+      this.panierEtMarquateService.postWishlistItem(wishedItem); */
     }
     else{
       return false;
@@ -420,7 +428,7 @@ export class ProductService {
     const qty = oeuvre.quantity + quantity
     const stock = oeuvre.stock
     if (stock < qty || stock == 0) {
-      this.toastrService.error('Vous ne pouvez pas ajouter plus d\'articles qu\'il y\'en a dans le stock: '+ stock +' article(s) restante(s).');
+      this.toastrService.error('Article déja dans le panier. '+ stock +' article(s) restant(s).');
       return false
     }
     return true

@@ -15,7 +15,7 @@
             <a [routerLink]="['/pages/login']">Se connecter</a>
           </li>
           <li>
-            <a [routerLink]="['/pages/register']">S'enregistrer</a>
+            <a [routerLink]="['/pages/register']">S'inscrire</a>
           </li>
 
           <li>
@@ -24,7 +24,7 @@
         </ul>
         <ul *ngIf="isAuthenticated | async">
           <li>
-            <a [routerLink]="['/pages/dashboard']">Tableau de bord</a>
+            <a [routerLink]="['/pages/dashboard']">Espace personnel</a>
           </li>
           <li>
             <a [routerLink]="['/pages/wishlist']">Favoris</a>

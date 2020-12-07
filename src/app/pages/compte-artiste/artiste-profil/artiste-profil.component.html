@@ -385,7 +385,7 @@
                                                     <ng-template #content2 let-c="close" let-d="dismiss">                                                                                        
                                                             <div class="modal-content">
                                                                 <div class="modal-header back white-text">
-                                                                    <h4 class="title" style="color:white">Modifier son mot de passe</h4>
+                                                                    <h4 class="title" style="color:white">Modifier mot de passe</h4>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="c('Close click')"><span
                                                                         aria-hidden="true">&times;</span></button>
                                                                 </div>
@@ -443,7 +443,7 @@
                                                                                 <!--div *ngIf="this.mdpForm.errors.checkPasswords" >les mots de passe doivent etre identique </div-->
                                                                                 
                                                                             </div>
-                                                                            <div class="alert alert-danger" *ngIf="this.mdpForm.get('mdpConf').touched && (this.mdpForm.value.mdpNouv !== this.mdpForm.value.mdpConf)">les mots de passe doivent etre identique </div>
+                                                                            <div class="alert alert-danger" *ngIf="this.mdpForm.get('mdpConf').touched && (this.mdpForm.value.mdpNouv !== this.mdpForm.value.mdpConf)">les mots de passe doivent être identiques </div>
     
                                                                         </div> 
                                                                     </div>   
@@ -460,7 +460,7 @@
                                                     </ng-template>
                                                     <button type="button" (click)="open(content2)" data-toggle="modal" data-target="#modifPWD" class="btn btn-outline-danger"><i class="material-icons">
                                                         
-                                                    </i>Modifier son Mot de passe</button>                                                                               
+                                                    </i>Modifier mot de passe</button>                                                                               
                                                 </div>
 
                                                 <div class="col-md-5">                           
@@ -468,7 +468,7 @@
                                                             
                                                                 <div class="modal-content">
                                                                     <div class="modal-header back white-text">
-                                                                        <h4 class="title" style="color:white">Modifier sa photo de profil</h4>
+                                                                        <h4 class="title" style="color:white">Modifier photo de profil</h4>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="c('Close click')"><span
                                                                             aria-hidden="true">&times;</span></button>
                                                                     </div>
@@ -494,7 +494,7 @@
                                                     </ng-template>
                                                     <button type="button" data-toggle="modal"  (click)="open(content)" data-target="#modifPhotoProfil" class="btn btn-outline-success" ><i class="material-icons">
                                                         
-                                                    </i>Modifier sa photo de profil</button>                                                                                  
+                                                    </i>Modifier photo de profil</button>                                                                                  
                                                 </div>
                                             </div>
                                             
@@ -518,7 +518,7 @@
                                             </div>
                                             <div class="col-md-5">
                                                 <div class="form-group">
-                                                    <label>téléphone</label>
+                                                    <label>Téléphone</label>
                                                     <input type="text" class="form-control" formControlName="telephone" [(ngModel)]="artiste.telephone" autocomplete="off"/>
                                                 </div>
                                                 <div class="form-group">
@@ -596,7 +596,7 @@
               </ng-template>
           </ngb-tab>
           <ngb-tab>
-              <ng-template ngbTabTitle>Formations</ng-template>
+              <ng-template ngbTabTitle>Formation</ng-template>
               <ng-template ngbTabContent>
                 <!-- <div class="col s12 card horizontal hoverable" style="width: auto; height: auto">
                   <div *ngFor="let formation of listesFormation">
@@ -648,15 +648,15 @@
                     </div>
                     <div class="form-group">
                         <label><strong>Année de début</strong></label>
-                            <input type="number" class="form-control" formControlName="anneeDebut" placeholder="année début">
+                            <input type="number" class="form-control" formControlName="anneeDebut" placeholder="Année début">
                     </div>
                     <div class="form-group">
                         <label><strong>Année de fin</strong></label>
-                            <input type="number" class="form-control" formControlName="anneeFin" placeholder="année fin">
+                            <input type="number" class="form-control" formControlName="anneeFin" placeholder="Année fin">
                     </div>
                     <div class="form-group">
                         <label><strong>Spécialisation</strong></label>
-                            <input type="text" class="form-control" formControlName="specialisation" placeholder="specialisation">
+                            <input type="text" class="form-control" formControlName="specialisation" placeholder="Spécialisation">
                     </div>
                      <div class="row">
                             <div class="col-md-2">

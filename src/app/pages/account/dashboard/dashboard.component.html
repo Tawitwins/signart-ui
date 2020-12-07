@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="'Tableau de bord'" [breadcrumb]="'Tableau de bord'"></app-breadcrumb>
+<app-breadcrumb [title]="'Espace personnel'" [breadcrumb]="'Espace personnel'"></app-breadcrumb>
 <!-- section start -->
 <section class="section-b-space">
     <div *ngIf="user.userType=='CLIENT'" class="container">
@@ -36,11 +36,11 @@
                 <div class="dashboard-right">
                     <div class="dashboard">
                         <div class="page-title">
-                            <h2>Mon Tableau de bord</h2>
+                            <h2>Mon espace personnel</h2>
                         </div>
                         <div class="welcome-msg">
                             <p>Bonjour, {{client.prenom}} {{client.nom}} !</p>
-                            <p>À partir de votre tableau de bord ("Mon compte"), vous avez la possibilité d'afficher l'activité récente de votre compte et de mettre à jour les informations de votre compte.</p>
+                            <p>À partir de votre espace personnel, vous avez la possibilité d'afficher l'activité récente de votre compte et de mettre à jour les informations de votre compte.</p>
                         </div>
                         <hr>
                         <div class="box-account box-info" *ngIf="infopage == 0">
@@ -68,7 +68,7 @@
                                     <div class="box">
                                         <div class="box-title">
                                             <h3>Abonnement</h3>
-                                            <a [routerLink]="['/shop/collection/abonnement-catalogue']">voir le catalogue</a>
+                                            <a [routerLink]="['/shop/collection/abonnement-catalogue']">Voir le catalogue</a>
                                         </div>                               
                                     </div>
                                 </div>
@@ -157,7 +157,7 @@
                                         </td>
                                         <td>
                                             <a href="javascript:void(0)" (click)="onDeleteAdresseOfUser(adr.id)" class="icon">
-                                            supprimer
+                                            Supprimer
                                         </a>
                                         </td>
                                     </tr>
@@ -210,14 +210,14 @@
                         <div class="box-account box-info" *ngIf="infopage == 4">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table class="table cart-table table-responsive-xs">
+                                    <table class="table cart-table table-responsive-xs" style="text-align: center;">
                                         <thead>
                                         <tr class="table-head">
-                                            <th scope="col">image</th>
+                                            <th scope="col">Image</th>
                                             <th scope="col">Article</th>
                                             <th scope="col">Prix</th>
                                             <th scope="col">Disponibilité</th>
-                                            <th scope="col">action</th>
+                                            <th scope="col">Action</th>
                                         </tr>
                                         </thead>
                                         <p *ngIf="oeuvresFav.length == 0">Votre liste est vide!</p>
@@ -248,9 +248,9 @@
                                                         </div>
                                                     </div> -->
                                                 </td>
-                                                <td><h3>{{oeuvre.prix}} FCFA</h3></td>
+                                                <td>{{oeuvre.prix}} FCFA</td>
                                                 <td >
-                                                    <p>EN stock: {{oeuvre.stock}}</p>
+                                                    <p>{{oeuvre.stock}}</p>
                                                 </td>
                                                 <td>
                                                     <a (click)="removeOeuvre(oeuvre)" class="icon mr-3">
@@ -275,13 +275,13 @@
                                     liste vide
                                 </p>
                                 <div class="col-sm-12" *ngIf="abonnements?.length != 0"> 
-                                    <table class="table cart-table table-responsive-xs">
+                                    <table class="table cart-table table-responsive-xs" style="text-align: center;">
                                         <thead>
                                         <tr class="table-head">
                                             <th scope="col">Numéro</th>
                                             <th scope="col">Montant</th>
                                             <th scope="col">Etat</th>
-                                            <th scope="col">action</th>
+                                            <th scope="col">Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -333,7 +333,7 @@
   
                                     <br>
                                     <div class="form-row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-8">
                                             <label><strong>Nouveau mot de passe</strong></label>
                                             <input type="password" class="form-control" formControlName="mdpNouv" id="mdpNouv" placeholder="Nouveau mot de passe" required="" autocomplete="off">
                                             
@@ -345,9 +345,10 @@
                                             
                                         </div>
                                         <br><br>
-                                        <div class="col-md-6">
-                                            <label><strong>Confirmation nouveau mdp</strong></label>
-                                            <input type="password" class="form-control" placeholder="confirmation" required="" formControlName="mdpConf" autocomplete="off">
+                                        <div class="col-md-8">
+                                            <br><br>
+                                            <label><strong>Confirmer nouveau mot de passe</strong></label>
+                                            <input type="password" class="form-control" placeholder="Confirmer nouveau mot de passe" required="" formControlName="mdpConf" autocomplete="off">
                                             <!--div *ngIf="(mdpForm.get('mdpNouv').errors || mdpForm.hasError('mismatchedPasswords')) && mdpForm.get('mdpConf').touched">
                                                 <p class="register-error-message" style="color: red;">{{ 'les mots de passe doivent etre identiques'}} !</p>
                                             </div-->
@@ -355,7 +356,7 @@
                                             <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpConf').touched && this.mdpForm.get('mdpConf').invalid">
                                                 <div *ngIf="this.mdpForm.get('mdpConf').errors.required" >Veuillez confirmer votre nouveau mot de passe</div>                                                 
                                             </div>
-                                            <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpConf').touched && (this.mdpForm.value.mdpNouv !== this.mdpForm.value.mdpConf)">les mots de passe doivent etre identique </div>
+                                            <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpConf').touched && (this.mdpForm.value.mdpNouv !== this.mdpForm.value.mdpConf)">les mots de passe doivent etre identiques </div>
                                         </div>
                                     </div>
                                         
@@ -384,7 +385,7 @@
                                                 liste vide
                                             </p>
                                             <div class="col-md-12" *ngIf="artistes?.length != 0">
-                                                <table class="table cart-table table-responsive-xs">
+                                                <table class="table cart-table table-responsive-xs" style="text-align: center;">
                                                     <thead>
                                                         <tr class="table-head">
                                                             <th scope="col">Prénom</th>

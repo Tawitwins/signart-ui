@@ -74,7 +74,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   onSubmit() {
     console.log('valueszzzzzzzzzzzzzzzzzzz: ', this.signUpForm.value)
     Swal.fire({ 
-      title: 'Vous confirmez l\'envoie du formulaire d\'inscription?',
+      title: 'Confirmer l\'envoi du formulaire d\'inscription?',
       //text: "Ceci sera irreversible!",
       icon: 'warning',
       showCancelButton: true,

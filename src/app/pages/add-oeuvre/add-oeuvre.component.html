@@ -9,12 +9,11 @@
                         <input type="text" class="form-control" id="fname" placeholder="Nom de l'oeuvre" formControlName="nom">
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group col-md-12 col-sm-6 col-xs-12">
                             <label for="review">Technique</label>
                             <select name="Technique" class="form-control" formControlName="technique">
+                                <option value="">Selectionner une technique</option>
                               <option *ngFor="let technique of techniques" [value]="technique.id">{{technique.libelle}}</option>
                           </select>
-                        </div>
                        
                     </div>
                 </div>
