@@ -243,8 +243,11 @@
                                                                         </td>
                                                                         <td style="vertical-align: middle;">
                                                                             <h5 class="td-color">
-                                                                                {{imgSelect.tarif | currency:productService?.Currency.currency:'symbol' }}
+                                                                                {{imgSelect.tarif}} FCFA
                                                                             </h5>
+                                                                            <!--h5 class="td-color">
+                                                                                {{imgSelect.tarif | currency:productService?.Currency.currency:'symbol' }}
+                                                                            </h5-->
                                                                         
                                                                         </td>
                                                                         <td style="vertical-align: middle;">
@@ -259,9 +262,19 @@
                                                             <table class="table cart-table table-responsive-md">
                                                                 <tfoot>
                                                                     <tr>
-                                                                        <td>montant total :</td>
                                                                         <td>
-                                                                            <h4> {{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</h4>
+                                                                            <h4>
+                                                                                montant total :
+                                                                            </h4> 
+                                                                        </td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>
+                                                                            <!--h4> {{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</h4-->
+                                                                            <h4> {{ getTotal | async}} FCFA</h4> 
                                                                         </td>
                                                                     </tr>
                                                                 </tfoot>
@@ -427,7 +440,8 @@
                                                           <div class="total-sec">
                                                             <h4>Montant total des oeuvres</h4>
                                                             <ul>
-                                                                <li>Total Oeuvre: <span>{{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</span></li><br>
+                                                                <li>Total Oeuvre: <span>{{ getTotal | async}} FCFA</span></li><br>
+                                                                <!--li>Total Oeuvre: <span>{{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</span></li><br-->
                                                             </ul>
                                                         </div>
                                                         </div><br>
@@ -437,7 +451,8 @@
                                                         
                                                         <div class="col-sm-6">
                                                         <div class="final-total">
-                                                            <h3>Montant Total <span>{{montantTotal | currency:productService?.Currency.currency:'symbol'}}</span></h3>
+                                                            <h3>Montant Total <span>{{montantTotal}} FCFA</span></h3>
+                                                            <!--h3>Montant Total <span>{{montantTotal | currency:productService?.Currency.currency:'symbol'}}</span></h3-->
                                                         </div>
                                                         </div>
                                                     </div>

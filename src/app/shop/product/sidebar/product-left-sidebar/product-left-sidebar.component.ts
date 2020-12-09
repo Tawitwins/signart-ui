@@ -9,6 +9,8 @@ import { Resolver } from 'src/app/shared/services/resolver.service';
 import { environment } from 'src/environments/environment';
 import { ArtisteService } from 'src/app/shared/services/artiste.service';
 import { Artiste } from 'src/app/shared/modeles/artiste';
+import Swal from 'sweetalert2';
+import { AuthServiceS } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-product-left-sidebar',
@@ -27,6 +29,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   public loader: boolean = true;
   public artiste: Artiste;
   public name: string;
+  user: any;
 
   @ViewChild("sizeChart") SizeChart: SizeModalComponent;
   
@@ -34,7 +37,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   public ProductDetailsThumbConfig: any = ProductDetailsThumbSlider;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    public productService: ProductService, private artisteService: ArtisteService) { 
+    public productService: ProductService, private artisteService: ArtisteService, private authService: AuthServiceS) { 
       this.nbimages = [1,2,3];
       this.route.params.subscribe(
         (params: any) => {
@@ -119,10 +122,27 @@ export class ProductLeftSidebarComponent implements OnInit {
   }*/
 
   async addToCart(oeuvre: any) {
+    this.user = this.authService.getUserConnected();
+    if(this.user==null){
+      Swal.fire({
+        //title: 'Are you sure?',
+        text: "Vous devez vous connecter pour effectuer cet action",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#376809',
+        cancelButtonColor: '#601A17',
+        confirmButtonText: 'Oui, se connecter!'
+      }).then((result) => {
+        if (result.value) {
+          console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+          this.router.navigate(['/pages/login']);
+        }
+      })  
+     }else{
     oeuvre.stock = this.counter || 1;
     const status = await this.productService.addToCart(oeuvre);
     if(status)
-      this.router.navigate(['/shop/cart']);
+      this.router.navigate(['/shop/cart']);}
   }
 
   // Buy Now
@@ -135,7 +155,23 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   // Add to Wishlist
   addToWishlist(product: any) {
-    this.productService.addToWishlist(product);
+    if(this.user==null){
+      Swal.fire({
+        //title: 'Are you sure?',
+        text: "Vous devez vous connecter pour effectuer cet action",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#376809',
+        cancelButtonColor: '#601A17',
+        confirmButtonText: 'Oui, se connecter!'
+      }).then((result) => {
+        if (result.value) {
+          console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+          this.router.navigate(['/pages/login']);
+        }
+      })  
+     }else{
+    this.productService.addToWishlist(product);}
   }
 
   // Toggle Mobile Sidebar

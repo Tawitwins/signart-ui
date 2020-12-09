@@ -125,6 +125,20 @@
                                     </app-grid-->
                                     <app-grid [oeuvres]="oeuvres" [paginate]="paginate" [layoutView]="layoutView" [sortBy]="sortBy" (setGrid)="updateGridLayout($event)" (setLayout)="updateLayoutView($event)" (sortedBy)="sortByFilter($event)">
                                     </app-grid>
+                                    <section class="search-block">
+                                        <div class="container">
+                                          <div class="row">
+                                            <div class="col-lg-6 offset-lg-3">
+                                                <div class="form-header">
+                                                <div class="form-group">
+                                                  <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="Recherchez une oeuvre">
+                                                </div>
+                                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                            </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </section>
                                     <div class="product-wrapper-grid" [ngClass]="layoutView">
                                         <!--div class="row">
                                             <div class="col-grid-box" [ngClass]="grid" *ngFor="let product of products">

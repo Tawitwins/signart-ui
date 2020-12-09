@@ -132,19 +132,19 @@
                             <table *ngIf="listAdress==true" class="table cart-table table-responsive-xs">
                                 <thead>
                                     <tr class="table-head">
-                                        <th scope="col">Numéro</th>
+                                        <!--th scope="col">Numéro</th-->
                                         <th scope="col">Adresse</th>
                                         <th scope="col">Type</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody *ngFor="let adr of adresses;let i=index">
+                                <tbody *ngFor="let adr of adresses | slice: (pagAdress-1) * pageSizeAdress : (pagAdress-1) * pageSizeAdress + pageSizeAdress">
                                     <tr>
-                                        <td>
+                                        <!--td>
                                             <h4>
                                                 {{i+1}}
                                             </h4>
-                                        </td>
+                                        </td-->
                                         <td>
                                             <h4>
                                                 {{adr.adresse}}, {{adr.ville}} - {{adr.region}} / {{adr.libellePays}}
@@ -163,6 +163,8 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <ngb-pagination [collectionSize]="adresses.length" [(page)]="pagAdress" [pageSize]="pageSizeAdress" aria-label="Default pagination">
+                            </ngb-pagination>
                             
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 3">
@@ -171,45 +173,49 @@
                             </div>
                             <hr>
                             <p *ngIf="commandes.length == 0">Votre liste est vide!</p>
-                            <table class="table cart-table table-responsive-xs" *ngIf="commandes.length > 0">
-                                <thead>
-                                    <tr class="table-head">
-                                        <th scope="col">Numéro de la commande</th>
-                                        <th scope="col">Date de la commande</th>
-                                        <th scope="col">Etat de la commande</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody *ngFor="let commande of commandes">
-                                    <tr>
-                                        <td>
-                                            <h4>
-                                                {{commande.numero}}
-                                            </h4>
-                                        </td>
-                                        <td>
-                                            <h4>
-                                                {{commande.dateCreation}}
-                                            </h4>                                         
-                                        </td>
-                                        <td>
-                                            <h4>
-                                                {{commande.libelleEtatCommande}}
-                                            </h4>                                         
-                                        </td>
-                                        <td>
-                                            <a href="javascript:void(0)" (click)="showDetailsCommande(commande.id)" class="icon">
-                                            details
-                                        </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            
+                            <div *ngIf="commandes.length > 0">
+                                <table class="table cart-table table-responsive-xs">
+                                    <thead>
+                                        <tr class="table-head">
+                                            <th scope="col">Numéro de la commande</th>
+                                            <th scope="col">Date de la commande</th>
+                                            <th scope="col">Etat de la commande</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngFor="let commande of commandes | slice: (pagComand-1) * pageSizeComand : (pagComand-1) * pageSizeComand + pageSizeComand">
+                                        <tr>
+                                            <td>
+                                                <h4>
+                                                    {{commande.numero}}
+                                                </h4>
+                                            </td>
+                                            <td>
+                                                <h4>
+                                                    {{commande.dateCreation}}
+                                                </h4>                                         
+                                            </td>
+                                            <td>
+                                                <h4>
+                                                    {{commande.libelleEtatCommande}}
+                                                </h4>                                         
+                                            </td>
+                                            <td>
+                                                <a href="javascript:void(0)" (click)="showDetailsCommande(commande.id)" class="icon">
+                                                Details
+                                            </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <ngb-pagination [collectionSize]="commandes.length" [(page)]="pagComand" [pageSize]="pageSizeComand" aria-label="Default pagination">
+                                </ngb-pagination>
+                            </div> 
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 4">
                             <div class="row">
-                                <div class="col-sm-12">
+                                <p *ngIf="oeuvresFav.length == 0">Votre liste est vide!</p>
+                                <div class="col-sm-12" *ngIf="oeuvresFav.length != 0">
                                     <table class="table cart-table table-responsive-xs" style="text-align: center;">
                                         <thead>
                                         <tr class="table-head">
@@ -220,8 +226,8 @@
                                             <th scope="col">Action</th>
                                         </tr>
                                         </thead>
-                                        <p *ngIf="oeuvresFav.length == 0">Votre liste est vide!</p>
-                                        <tbody  *ngFor="let oeuvre of oeuvresFav">
+                                        
+                                        <tbody  *ngFor="let oeuvre of oeuvresFav | slice: (pagOF-1) * pageSizeOF : (pagOF-1) * pageSizeOF + pageSizeOF">
                                             <tr>
                                                 <td >
                                                     <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
@@ -263,6 +269,8 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <ngb-pagination [collectionSize]="oeuvresFav.length" [(page)]="pagOF" [pageSize]="pageSizeOF" aria-label="Default pagination">
+                                    </ngb-pagination>
                                 </div>
                             </div>
                         </div>
@@ -285,19 +293,21 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let abonnement of abonnements">
+                                            <tr *ngFor="let abonnement of abonnements | slice: (pagAbmt-1) * pageSizeAbmt : (pagAbmt-1) * pageSizeAbmt + pageSizeAbmt">
                                                 <td><h4>000{{abonnement.id}}</h4></td>
                                                 <td><h4>{{abonnement.montantPaiement}}</h4>
                                                 </td>
                                                 <td><h6>{{getLibelleEtatAbonnement(abonnement.etatAbonnement)}}</h6></td>
                                                 <td>
                                                     <a (click)="showDetailsAbonnement(abonnement.id)"  [routerLink]=" " style="cursor: pointer;" class="icon mr-3">
-                                                        details
+                                                        Details
                                                     </a>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <ngb-pagination [collectionSize]="abonnements.length" [(page)]="pagAbmt" [pageSize]="pageSizeAbmt" aria-label="Default pagination">
+                                    </ngb-pagination>
                                 </div>
                             </div>
 
@@ -472,46 +482,50 @@
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="row order-success-sec">
-                                                    <div class="order-detail">
-                                                        <h4>Information de l'abonné</h4>
-                                                        <ul class="order-detail"> 
-                                                            <li>Nom: {{abonneAffiche.nom}}</li>
-                                                            <li>Prenom: {{abonneAffiche.prenom}}</li>
-                                                            <li>Telephone: {{abonneAffiche.telephone}}</li>
-                                                            <li>Email: {{abonneAffiche.email}}</li>
-                                                            <li>Pays: {{abonneAffiche.pays}}</li>
-                                                            <li>Region: {{abonneAffiche.region}}</li>
-                                                            <li>Ville: {{abonneAffiche.ville}}</li>
-                                                            <li>Adresse: {{abonneAffiche.adresse}}</li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <h4>Terminal et delai</h4>
-                                                        <ul class="order-detail">
-                                                            <li>Terminal: {{terminalAffiche.libelle}}</li>
-                                                            <li>Delai: {{delaiAffiche.libelle}}</li>                                                           
-                                                        </ul>
-                                                    </div>
-                                                    <div class="col-md-12" *ngIf="activePaiement == false">
-                                                        <div class="delivery-sec">
-                                                            <h2>Paiement Invalide</h2>
-                                                            <h4>Abonnement en attente de validation</h4>
+                                                    <div class="row">
+                                                        <div class="col-sm-7">
+                                                            <div class="order-detail">
+                                                                <h4>Information de l'abonné</h4>
+                                                                <ul class="order-detail"> 
+                                                                    <li>Nom: {{abonneAffiche.nom}}</li>
+                                                                    <li>Prenom: {{abonneAffiche.prenom}}</li>
+                                                                    <li>Telephone: {{abonneAffiche.telephone}}</li>
+                                                                    <li>Email: {{abonneAffiche.email}}</li>
+                                                                    <li>Pays: {{abonneAffiche.pays}}</li>
+                                                                    <li>Region: {{abonneAffiche.region}}</li>
+                                                                    <li>Ville: {{abonneAffiche.ville}}</li>
+                                                                    <li>Adresse: {{abonneAffiche.adresse}}</li>
+                                                                </ul>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-12" *ngIf="activePaiement == true">
-                                                        <div class="delivery-sec">
-                                                            <h2>Paiement</h2>
-                                                            <div class="product-buttons">
-                                                                <a href="javascript:void(0)" class="btn btn-solid-Valider">Clicker ici pour payer</a>
+                                                        <div class="col-sm-5">
+                                                            <h4>Terminal et delai</h4>
+                                                            <ul class="order-detail">
+                                                                <li>Terminal: {{terminalAffiche.libelle}}</li>
+                                                                <li>Delai: {{delaiAffiche.libelle}}</li>                                                           
+                                                            </ul>
+                                                        </div>
+                                                        <div class="col-md-12" *ngIf="activePaiement == false">
+                                                            <div class="delivery-sec">
+                                                                <h2>Paiement invalide</h2>
+                                                                <h4>Abonnement en attente de validation</h4>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12" *ngIf="activePaiement == true">
+                                                            <div class="delivery-sec">
+                                                                <h2>Paiement</h2>
+                                                                <div class="product-buttons">
+                                                                    <a href="javascript:void(0)" class="btn btn-solid-Valider">Clicker ici pour payer</a>
+                                                                    
+                                                                </div>
                                                                 
                                                             </div>
-                                                            
                                                         </div>
                                                     </div>
+                                                    
                                                 </div>
                                                 
-                                            </div>
-                                  
+                                            </div>                                 
                                         </div>
                                     </div>
                                   </section>

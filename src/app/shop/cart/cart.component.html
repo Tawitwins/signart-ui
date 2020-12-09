@@ -84,7 +84,7 @@
                         </td>
                         <td>
                             <h4 class="td-color">
-                                {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol' }}
+                                {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 }} FCFA
                             </h4>
                         </td>
                     </tr>
@@ -93,10 +93,13 @@
             <table class="table cart-table table-responsive-md">
                 <tfoot>
                     <tr>
-                        <td>total price :</td>
+                        <td>Montant total :</td>
                         <td>
-                            <h2> {{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</h2>
+                            <h4> <strong>{{ getTotal | async}} FCFA</strong></h4>
                         </td>
+                        <!--td>
+                            <h2> {{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</h2>
+                        </td-->
                     </tr>
                 </tfoot>
             </table>

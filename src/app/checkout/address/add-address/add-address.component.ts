@@ -40,6 +40,8 @@ export class AddAddressComponent implements OnInit, OnDestroy {
   nombreAdresses: number;
   listAdressesLength: number;
   public infopage: number=7;
+  indicatifpays: string;
+  libellePays: string;
   
   constructor(
     private fb: FormBuilder, private authActions: AuthActions,
@@ -53,6 +55,8 @@ export class AddAddressComponent implements OnInit, OnDestroy {
     private router: Router,
     private toastrService:ToastrService,
     ) {
+      this.indicatifpays = "+221";
+    this.libellePays = "Sénégal";
       this.addressForm = addrService.initAddressForm();
       this.emailForm = addrService.initEmailForm();
       this.store.select(getAuthStatus).subscribe((auth) => {
@@ -73,6 +77,18 @@ export class AddAddressComponent implements OnInit, OnDestroy {
     );
     
   } 
+
+  choisirPays(event) {
+   // console.log('evennnnt valueeee',event.target.value)
+    for (let i = 0; i < this.allPays.length; i++) {
+       if(this.allPays[i].id == event.target.value){
+         //console.log('indicatiiiiiiiiiif valuuuuuuuue',this.allPays[i].indicatif)
+         this.indicatifpays = this.allPays[i].indicatif;
+       }
+      
+    }
+  }
+
   onSubmit() {
     let address = this.addressForm.value;
     address.idClient = this.client.id;

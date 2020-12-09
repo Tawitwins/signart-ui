@@ -244,7 +244,7 @@ signOut() {
     //localStorage.clear();
     //localStorage.setItem('Authstatus',JSON.stringify(false));
     this.store.dispatch(this.actions.logoutSuccess());
-    location.reload();
+   // location.reload();
   }
   getTaoken(): string {
     return localStorage.getItem('token');

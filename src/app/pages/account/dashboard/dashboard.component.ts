@@ -103,6 +103,17 @@ export class DashboardComponent implements OnInit {
   images:any[];
   Sum:number;
   
+  pageSizeAdress = 4;
+  pagAdress=0;
+
+  pageSizeComand = 4;
+  pagComand=0;
+
+  pageSizeOF = 4;
+  pagOF=0;
+
+  pageSizeAbmt = 4;
+  pagAbmt=0;
   
 
 
@@ -264,8 +275,10 @@ export class DashboardComponent implements OnInit {
     
     this.authService.signOut();
     this.removeList();
-    this.redirectIfUserLoggedOut();
+    //this.redirectIfUserLoggedOut();
+    location.replace('home/signart');
     //location.reload();
+   
  }
 
  public removeList() {
@@ -276,7 +289,8 @@ export class DashboardComponent implements OnInit {
     data => {
       if (data === false) {
       //this.router.navigate(['home']);
-      this.router.navigate([this.returnUrl]);
+      this.router.navigate(['home/signart']);
+      //this.router.navigate([this.returnUrl]);
      }
     }
   );

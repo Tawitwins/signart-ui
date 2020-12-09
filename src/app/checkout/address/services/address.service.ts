@@ -13,7 +13,7 @@ export class AddressService {
       'ville': ['', Validators.required],
       'region': ['', Validators.required],
       'telephone': ['', Validators.required],
-      'indicatif': [221, Validators.required],
+      'indicatif': ['+221', Validators.required],
       'idPays': ['', Validators.required],
       'codeTypeAdresse': ['']
     });

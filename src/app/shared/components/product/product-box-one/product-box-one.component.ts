@@ -15,6 +15,7 @@ import { environment } from '../../../../../environments/environment';
 import { ImageDto } from '../../../modeles/image';
 import { Client } from '../../../modeles/client';
 import { AuthServiceS } from '../../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-box-one',
@@ -63,6 +64,7 @@ export class ProductBoxOneComponent implements OnInit {
       //const result= wishlistItem.find(item => item.id === this.oeuvre.id)
       this.isAdd = true;
       this.user = this.authService.getUserConnected();
+     
       //if(!result)
       //  this.isFavorite = false;
       //else
@@ -123,10 +125,22 @@ export class ProductBoxOneComponent implements OnInit {
 
   addToCart(oeuvre: any) {
     
-
+    this.user = this.authService.getUserConnected();
     if(this.user==null){
-      this.router.navigate(['/auth', 'account']);
-      
+      Swal.fire({
+        //title: 'Are you sure?',
+        text: "Vous devez vous connecter pour effectuer cet action",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#376809',
+        cancelButtonColor: '#601A17',
+        confirmButtonText: 'Oui, se connecter!'
+      }).then((result) => {
+        if (result.value) {
+          console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+          this.router.navigate(['/pages/login']);
+        }
+      })  
      }else{
 
       this.productService.addToCart(oeuvre);
@@ -136,7 +150,26 @@ export class ProductBoxOneComponent implements OnInit {
   
 
   addToWishlist(oeuvre: any) {
-    this.isFavorite=this.productService.addToWishlist(oeuvre);
+    this.user = this.authService.getUserConnected();
+    if(this.user==null){
+      Swal.fire({
+        //title: 'Are you sure?',
+        text: "Vous devez vous connecter pour effectuer cet action",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#376809',
+        cancelButtonColor: '#601A17',
+        confirmButtonText: 'Oui, se connecter!'
+      }).then((result) => {
+        if (result.value) {
+          console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+          this.router.navigate(['/pages/login']);
+        }
+      })  
+     }else{
+      this.isFavorite=this.productService.addToWishlist(oeuvre);
+     }
+    
   }
 
   addToCompare(oeuvre: any) {

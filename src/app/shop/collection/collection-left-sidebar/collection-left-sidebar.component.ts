@@ -37,6 +37,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
   public loader: boolean = true;
   public collapse: boolean = true;
   public techniques: any;
+  private _searchTerm: string;
   public collapseCategorie: boolean = true;
   public options: Options = {
     floor: 0,
@@ -49,6 +50,16 @@ export class CollectionLeftSidebarComponent implements OnInit {
   //size:number;
   pageSizeListe = 2;
 
+
+  get searchTerm(): string {
+    return this._searchTerm;
+  }
+
+  set searchTerm(value: string) {
+    this._searchTerm = value;
+    console.log(value)
+    this.oeuvres = this.filtrerImageName(value);
+  }
 
   constructor(private route: ActivatedRoute, private router: Router,
     private viewScroller: ViewportScroller, public productService: ProductService, 
@@ -130,6 +141,12 @@ export class CollectionLeftSidebarComponent implements OnInit {
     }
   }
 
+
+  filtrerImageName(searchString: string){
+    //console.log("test",this.imageRes)
+    return this.oeuvresSave.filter(image =>
+      image.nom.toLowerCase().indexOf(searchString.toLowerCase()) !== -1);
+  }
   
 
   // Append filter value to Url
