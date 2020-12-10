@@ -297,8 +297,9 @@
                                                                 <form class="theme-form" novalidate="" [formGroup]="abonneeForm" class="text-center">
                                                                     <div class="form-row">
                                                                       <div class="col-md-6">                             
-                                                                        <select type="select" class="form-control" placeholder="Nom" (change)="choisirPays($event)" formControlName="pays" [(ngModel)]="clientAdresse.libellePays" required>     
-                                                                            <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>                                                                       <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>
+                                                                        <select class="mdb-select md-form form-control" (change)="choisirPays($event)" formControlName="pays" required>     
+                                                                            <option value="">Sénégal</option> 
+                                                                            <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>                                                                       
                                                                         </select>
                                                                       </div>
                                                                     </div>
@@ -316,7 +317,15 @@
                                                                     <br><br>
                                                                     <div class="form-row">
                                                                         <div class="col-md-6">
-                                                                            <input type="text" class="form-control" formControlName="telephone" [(ngModel)]="indicatifpays" placeholder="00 221 70 000 00 00" required="">
+                                                                            <label><strong> Téléphone </strong> </label>
+                                                                                <div class="row">
+                                                                                    <div  class="col-md-3">
+                                                                                        <input type="text" class="form-control" formControlName="indicatif" [(ngModel)]="indicatifpays" disabled="true">
+                                                                                    </div>
+                                                                                    <div  class="col-md-9">
+                                                                                        <input type="text" class="form-control" formControlName="telephone" [(ngModel)]="clientAdresse.telephone" placeholder="00 221 70 000 00 00" required="">
+                                                                                    </div>
+                                                                                </div>
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <input type="email" class="form-control" placeholder="E-mail" required="" formControlName="email" [(ngModel)]="userConnect.email" autocomplete="off">

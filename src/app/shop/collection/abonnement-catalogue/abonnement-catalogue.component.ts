@@ -177,8 +177,9 @@ export class AbonnementCatalogueComponent implements OnInit {
     nom: new FormControl('',Validators.required),
     prenom: new FormControl('',Validators.required),
     email: new FormControl('',Validators.required),
-    telephone: new FormControl('',[Validators.required,Validators.pattern('[0-9]{9}')]),
-    pays: new FormControl('',Validators.required),
+    indicatif: new FormControl('+221'),
+    telephone: new FormControl('',Validators.required),
+    pays: new FormControl('SN',Validators.required),
     region: new FormControl('',Validators.required),
     ville: new FormControl('',Validators.required),
     adresse: new FormControl('',Validators.required),
@@ -264,7 +265,7 @@ export class AbonnementCatalogueComponent implements OnInit {
               this.allClientAdresse = resp;
               if(this.allClientAdresse.length > 0){
                 this.clientAdresse = this.allClientAdresse[0];
-                this.indicatifpays = this.clientAdresse.telephone;
+                //this.indicatifpays = this.clientAdresse.telephone;
                 //console.log("adressssssssssssse clienttttttt",this.clientAdresse)  
               }
               this.onglet=2;
@@ -349,6 +350,7 @@ export class AbonnementCatalogueComponent implements OnInit {
 
   onSubmitFormuAbonne(){
     this.abonne = this.abonneeForm.value;
+    this.abonne.telephone = this.indicatifpays+''+this.abonneeForm.get('telephone').value;
     this.abonne.idUtilisateur = this.idUtilisateur;
     this.imageService.getListeByName(this.listeAdd.nomListe).subscribe(
       response => { 
@@ -357,7 +359,7 @@ export class AbonnementCatalogueComponent implements OnInit {
       });
     //console.log(this.abonne)
     //console.log("inof formulaire", this.abonneeForm.value)
-    //console.log("inof abonne", this.abonne)
+    console.log("inof abonne", this.abonne)
     this.pageFormu = 2;
   }
 
