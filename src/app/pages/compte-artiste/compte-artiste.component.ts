@@ -277,10 +277,39 @@ export class CompteArtisteComponent implements OnInit {
             {
               this.listesExpEnAttente.push(element);
             }
+            if(element.dateDebut!=null)
+            {
+              let date=element.dateDebut.toString();
+              date=date.substring(0,19);
+              element.dateDebut = new Date(date);
+            }
+            if(element.dateFin!=null)
+            {
+              let date=element.dateFin.toString();
+              date=date.substring(0,19);
+              element.dateFin = new Date(date);
+            }
         });
         this.listesExp=this.listesExp.filter(exp=>exp.etatExposition==true);
     });
-    this.annonceService.getAnnoceByArtiste(this.artisteId).subscribe(response => { this.listesAnnonce = response; this.listesAnnonceEnAttente=this.listesAnnonce.filter(a=>a.etatPublication===false); this.listesAnnonce=this.listesAnnonce.filter(a=>a.etatPublication===true); });
+    this.annonceService.getAnnoceByArtiste(this.artisteId).subscribe(response => { this.listesAnnonce = response
+      this.listesAnnonce.forEach(element=> {
+        if(element.dateDebut!=null)
+        {
+          let date=element.dateDebut.toString();
+          date=date.substring(0,19);
+          element.dateDebut = new Date(date);
+        }
+        if(element.dateFin!=null)
+        {
+          let date=element.dateFin.toString();
+          date=date.substring(0,19);
+          element.dateFin = new Date(date);
+        }
+      }); 
+      this.listesAnnonceEnAttente=this.listesAnnonce.filter(a=>a.etatPublication===false); 
+      this.listesAnnonce=this.listesAnnonce.filter(a=>a.etatPublication===true); 
+    });
     this.clientService.getClientByArtiste(this.artisteId).subscribe(response => { this.listesClient = response });
     this.expoService.getFormationByArtiste(this.artisteId).subscribe(response => { this.listesFormation = response
         console.log(this.listesFormation);

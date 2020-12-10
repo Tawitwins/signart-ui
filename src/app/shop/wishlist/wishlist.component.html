@@ -9,14 +9,14 @@
     </div>
     <div class="row" *ngIf='products.length'>
       <div class="col-sm-12">
-        <table class="table cart-table table-responsive-xs">
+        <table style="text-align: center;" class="table cart-table table-responsive-xs">
           <thead>
             <tr class="table-head">
-              <th scope="col">image</th>
+              <th scope="col">Image</th>
               <th scope="col">Aticle</th>
               <th scope="col">Prix</th>
-              <th scope="col">disponibilité</th>
-              <th scope="col">action</th>
+              <th scope="col">Disponibilité</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody *ngFor="let product of products">
@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-xs-3">
                       <h2 class="td-color">
-                          {{ (product.price | discount:product) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol' }}
+                          {{ (product.price | discount:product) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}
                       </h2>
                     </div>
                     <div class="col-xs-3">
@@ -51,7 +51,7 @@
               </td>
               <td>
                   <h2>
-                    {{ (product.price | discount:product) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol' }}
+                    {{ (product.price | discount:product) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}
                   </h2>
               </td>
               <td>

@@ -9,15 +9,15 @@
         </div>
         <div class="row" *ngIf="oeuvres.length">
         <div class="col-sm-12">
-            <table class="table cart-table table-responsive-xs">
+            <table style="text-align: center;" class="table cart-table table-responsive-xs">
                 <thead>
                     <tr class="table-head">
-                        <th scope="col">image</th>
+                        <th scope="col">Image</th>
                         <th scope="col">Oeuvre</th>
                         <th scope="col">Prix</th>
-                        <th scope="col">quantité</th>
-                        <th scope="col">action</th>
-                        <th scope="col">total</th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Action</th>
+                        <th scope="col">Total</th>
                     </tr>
                 </thead>
                 <tbody *ngFor="let oeuvre of oeuvres">
@@ -33,31 +33,10 @@
                                     {{ oeuvre.nom | titlecase }}
                                 </h5>
                             </a>
-                            <div class="mobile-cart-content row">
-                                <div class="col-xs-3">
-                                    <div class="qty-box">
-                                        <div class="input-group">
-                                            <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="oeuvre.quantity">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-3">
-                                    <h5 class="td-color">
-                                        {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100  }} FCFA
-                                    </h5>
-                                </div>
-                                <div class="col-xs-3">
-                                    <h2 class="td-color">
-                                        <a (click)="removeItem(oeuvre)" class="icon">
-                                            <i class="ti-plus"></i>
-                                        </a>
-                                    </h2>
-                                </div>
-                            </div>
                         </td>
                         <td>
                             <h5>
-                                {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100  }} FCFA
+                                {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'  }} 
                             </h5>
                         </td>
                         <td>
@@ -84,18 +63,19 @@
                         </td>
                         <td>
                             <h4 class="td-color">
-                                {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 }} FCFA
+                                {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}
                             </h4>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <table class="table cart-table table-responsive-md">
+            <table style="text-align: center;" class="table cart-table table-responsive-md">
                 <tfoot>
                     <tr>
                         <td>Montant total :</td>
+                        <td>Prix total :</td>
                         <td>
-                            <h4> <strong>{{ getTotal | async}} FCFA</strong></h4>
+                            <h2> {{ getTotal  | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h2>
                         </td>
                         <!--td>
                             <h2> {{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</h2>

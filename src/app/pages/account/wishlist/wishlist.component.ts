@@ -10,7 +10,7 @@ import { environment } from '../../../../environments/environment';
 export class WishlistComponent implements OnInit {
 
   oeuvres:any;
-  constructor(private productService: ProductService,) { 
+  constructor(public productService: ProductService,) { 
     setTimeout(() => {  this.productService.wishlistItems.subscribe(resp=> this.oeuvres=resp);}, 2000); // Skeleton Loader
 
     console.log(this.oeuvres);

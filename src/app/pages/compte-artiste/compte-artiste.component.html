@@ -19,16 +19,24 @@
                   <button [ngClass]="(section === 'general')?'btn abonnement': 'btn annonces'" (click)='ChangerSection("general")'> Généralités</button> 
                 </div>
                 <div class="col-md-6">
-                  <button [ngClass]="(section === 'listeOeuvres')?'btn abonnement': 'btn annonces'" (click)='ChangerSection("listeOeuvres")'> <i class="ti-PLUS"></i> Mes oeuvres</button>
+                  <button [ngClass]="(section === 'listeOeuvres' || section === 'addOeuvre' )?'btn abonnement': 'btn annonces'" (click)='ChangerSection("listeOeuvres")'> <i class="ti-PLUS"></i> Mes oeuvres</button>
                 </div>
               </div>
               <div class="row" style="margin-top: 20px;">
                 <div class="col-md-6">
-                  <button [ngClass]="(section === 'listeAnnonces')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeAnnonces")'> Mes annonces</button> 
+                  <button [ngClass]="(section === 'listeAnnonces' || section === 'addAnnonce')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeAnnonces")'> Mes annonces</button> 
                 </div>
                 <div class="col-md-6">
-                  <button [ngClass]="(section === 'listeExpo')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeExpo")'> <i class="ti-PLUS"></i> Mes expositions</button>
+                  <button [ngClass]="(section === 'listeExpo' || section === 'addExpo')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeExpo")'> <i class="ti-PLUS"></i> Mes expositions</button>
                 </div>
+              </div>
+              <div class="row" style="margin-top: 20px;">
+                <div class="col-md-6">
+                  <button [ngClass]="(section === 'parametres')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("parametres")'> Paramètres</button> 
+                </div>
+               <!--  <div class="col-md-6">
+                  <button [ngClass]="(section === 'listeExpo' || section === 'addExpo')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeExpo")'> <i class="ti-PLUS"></i> Mes expositions</button>
+                </div> -->
               </div>
             </div>
             <!-- ------------------------------------------Contenu tableau de bord------------------------------------------------ -->
@@ -117,7 +125,7 @@
                             <br>
                             <h4><strong> Liste des oveures en attente de publication</strong></h4>
                             <div class="table-responsive"> 
-                              <table class="table table-hover">
+                              <table class="table table-hover" style="text-align: center;">
                                   <thead class="text-warning">
                                       <!--th>ID</th-->
                                       <th>Image</th>
@@ -137,7 +145,7 @@
                                           <td>{{oeuvre.auteur}}</td>
                                           <td>{{oeuvre.annee}}</td>
                                         <!-- <td>{{oeuvre.sousTechnique}}</td> -->
-                                          <td >{{oeuvre.prix | myformatcurrency}}</td>
+                                          <td >{{oeuvre.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</td>
                                           <!--<td class="td-actions text-right">
                                               <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="getArticleById(oeuvre.id)">
                                                   <i class="material-icons" style="color:white;">edit</i>
@@ -156,7 +164,7 @@
                         <section *ngIf='section=="listeAnnonces"' class="tab-product m-0">
                           <div class="table-responsive card" style="padding: 20px;">
                             <h4><strong>  Liste des annonces publiées</strong></h4>
-                            <table class="table table-hover">
+                            <table style="text-align: center;" class="table table-hover">
                                 <thead class=" text-dark">
                                     <th>
                                     Titre
@@ -189,10 +197,10 @@
                                             {{annonce.lieu}}
                                         </td>
                                         <td>
-                                            {{annonce.dateDebut}}
+                                            {{annonce.dateDebut | date: "dd/MM/yyyy"}}
                                         </td>                                                     
                                         <td>
-                                            {{annonce.dateFin}}
+                                            {{annonce.dateFin | date: "dd/MM/yyyy"}}
                                         </td>
                                         <td>
                                             {{annonce.description}}
@@ -218,7 +226,7 @@
                             </ngb-pagination>
                             <br>
                             <h4><strong>  Liste des annonces en attente de publication</strong></h4>
-                            <table class="table table-hover">
+                            <table style="text-align: center;" class="table table-hover">
                               <thead class=" text-dark">
                                   <th>
                                   Titre
@@ -251,10 +259,10 @@
                                           {{annonce.lieu}}
                                       </td>
                                       <td>
-                                          {{annonce.dateDebut}}
+                                          {{annonce.dateDebut | date: "dd/MM/yyyy"}}
                                       </td>                                                     
                                       <td>
-                                          {{annonce.dateFin}}
+                                          {{annonce.dateFin | date: "dd/MM/yyyy"}}
                                       </td>
                                       <td>
                                           {{annonce.description}}
@@ -283,7 +291,7 @@
                         <section *ngIf='section=="listeExpo"' class="tab-product m-0">
                           <div class="table-responsive card" style="padding: 20px;">
                             <h4><strong>   Liste des expositions publiées</strong></h4>
-                            <table class="table table-hover">
+                            <table style="text-align: center;" class="table table-hover">
                               <thead class=" text-dark">
                                   <th>
                                   Titre
@@ -316,10 +324,10 @@
                                         {{exposition.adresse}}
                                       </td>
                                       <td>
-                                        {{exposition.dateDebut}}
+                                        {{exposition.dateDebut | date: "dd/MM/yyyy"}}
                                       </td>
                                       <td>
-                                        {{exposition.dateFin}}
+                                        {{exposition.dateFin | date: "dd/MM/yyyy"}}
                                       </td>
                                       <!--td *ngIf="exposition.etatExposition" style="background-color: seagreen;">
                                         Publiée
@@ -334,7 +342,7 @@
                             </ngb-pagination>
                             <br>
                             <h4><strong>   Liste des expositions en attente de publication</strong></h4>
-                            <table class="table table-hover">
+                            <table style="text-align: center;" class="table table-hover">
                               <thead class=" text-dark">
                                   <th>
                                   Titre
@@ -367,10 +375,10 @@
                                         {{exposition.adresse}}
                                       </td>
                                       <td>
-                                        {{exposition.dateDebut}}
+                                        {{exposition.dateDebut | date: "dd/MM/yyyy"}}
                                       </td>
                                       <td>
-                                        {{exposition.dateFin}}
+                                        {{exposition.dateFin | date: "dd/MM/yyyy"}}
                                       </td>
                                       <!--td *ngIf="exposition.etatExposition" style="background-color: seagreen;">
                                         Publiée
@@ -399,6 +407,13 @@
                           <div class="container, table-responsive card" style="padding: 20px;">
                             <app-add-expo></app-add-expo>
                         </div>
+                        </section>
+                        <section *ngIf='section=="parametres"' class="tab-product m-0">
+                          <div class="row">
+                            <div class="col-sm-12 col-lg-12">
+                              <app-artiste-param></app-artiste-param>
+                            </div>
+                          </div>
                         </section>
                     </div>
                       <!-- <div class="top-banner-content small-section">

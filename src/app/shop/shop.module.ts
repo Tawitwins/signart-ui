@@ -35,6 +35,7 @@ import { AbonnementCatalogueComponent } from './collection/abonnement-catalogue/
 import { PaydunyaComponent } from '../checkout/payment/payment-modes-list/paydunya/paydunya.component';
 import { PaypalComponent } from '../checkout/payment/payment-modes-list/paypal/paypal.component';
 import { CashOnDeliveryComponent } from '../checkout/payment/payment-modes-list/cash-on-delivery/cash-on-delivery.component';
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 /*const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'rgba(12,80,219,0.98)',
   bgsOpacity: 1,
@@ -80,6 +81,7 @@ import { CashOnDeliveryComponent } from '../checkout/payment/payment-modes-list/
     SharedModule,
     ShopRoutingModule,
     NgxUiLoaderModule,
+    NgxImageZoomModule,
   ]
 })
 export class ShopModule { }

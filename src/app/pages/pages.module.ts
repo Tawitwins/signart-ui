@@ -48,6 +48,7 @@ import { AddAddressComponent } from '../checkout/address/add-address/add-address
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ArtisteParamComponent } from './compte-artiste/artiste-profil-param/artiste-param.component';
 
 
 @NgModule({
@@ -85,9 +86,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FollowersComponent,
     AbonnementComponent,
     CompteArtisteComponent,
-    MyformatcurrencyPipe,
     ArtisteProfilComponent,
     AddAddressComponent,
+    ArtisteParamComponent,
   ],
   imports: [
     CommonModule,

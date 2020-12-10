@@ -212,7 +212,7 @@
                                                         </div>
                                                     <div class="row" *ngIf="oeuvresNumeriques.length">
                                                         <div class="col-sm-12">
-                                                            <table class="table cart-table table-responsive-xs">
+                                                            <table style="text-align: center;" class="table cart-table table-responsive-xs">
                                                                 <thead>
                                                                     <tr class="table-head">
                                                                         <th scope="col">Image</th>
@@ -243,7 +243,7 @@
                                                                         </td>
                                                                         <td style="vertical-align: middle;">
                                                                             <h5 class="td-color">
-                                                                                {{imgSelect.tarif}} FCFA
+                                                                                {{imgSelect.tarif | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}
                                                                             </h5>
                                                                             <!--h5 class="td-color">
                                                                                 {{imgSelect.tarif | currency:productService?.Currency.currency:'symbol' }}
@@ -259,7 +259,7 @@
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
-                                                            <table class="table cart-table table-responsive-md">
+                                                            <table style="text-align: center;" class="table cart-table table-responsive-md">
                                                                 <tfoot>
                                                                     <tr>
                                                                         <td>
@@ -274,7 +274,7 @@
                                                                         <td></td>
                                                                         <td>
                                                                             <!--h4> {{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</h4-->
-                                                                            <h4> {{ getTotal | async}} FCFA</h4> 
+                                                                            <h4> {{ getTotal  | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h4> 
                                                                         </td>
                                                                     </tr>
                                                                 </tfoot>
@@ -449,8 +449,7 @@
                                                           <div class="total-sec">
                                                             <h4>Montant total des oeuvres</h4>
                                                             <ul>
-                                                                <li>Total Oeuvre: <span>{{ getTotal | async}} FCFA</span></li><br>
-                                                                <!--li>Total Oeuvre: <span>{{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</span></li><br-->
+                                                                <li>Total Oeuvre: <span>{{ getTotal | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span></li><br>
                                                             </ul>
                                                         </div>
                                                         </div><br>
@@ -460,8 +459,7 @@
                                                         
                                                         <div class="col-sm-6">
                                                         <div class="final-total">
-                                                            <h3>Montant Total <span>{{montantTotal}} FCFA</span></h3>
-                                                            <!--h3>Montant Total <span>{{montantTotal | currency:productService?.Currency.currency:'symbol'}}</span></h3-->
+                                                            <h3>Montant Total <span>{{montantTotal | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span></h3>
                                                         </div>
                                                         </div>
                                                     </div>

@@ -11,9 +11,8 @@
                             <label for="email">Email</label>
                             <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email">
                             <div *ngIf="signInForm.get('email').errors && signInForm.get('email').touched">
-                                <span class="login-error-icon text-danger">!</span>
                                 <!-- <p class="login-error-message text-danger">{{signInForm.get('email').errors.msg || 'Please enter a valid email id'}}</p>  -->
-                                <p class="login-error-message text-danger">Entez une adresse vadile</p>
+                                <p class="login-error-message text-danger"> <span class="login-error-icon text-danger">!</span> Entrez une adresse email vadile</p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -23,7 +22,7 @@
                                 <p class="login-error-message text-danger">Identifiant ou mot de passe non valide !</p>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-solid-Valider">Se connecter</button>
+                        <button type="submit" class="btn btn-solid-Valider" [disabled]="!signInForm.valid">Se connecter</button>
                         <button class="btn btn-solid facebook"> <i class="ti-facebook"></i> Facebook</button>
                         <button class="btn btn-solid gplus"><i class="ti-google"></i> Google Plus</button>
                     </form>
@@ -33,7 +32,7 @@
                 <h3>Nouvel utilisateur ?</h3>
                 <div class="theme-card authentication-right">
                     <h6 class="title-font">Créer un compte</h6>
-                    <p>Rejoignez la plateforme SignArt et profitez des nombreuses offres proposées. L'inscription est rapide pour l'artiste comme pour le client. N'attendez plus :) .   </p>
+                    <p>Rejoignez la plateforme SignArt et profitez des nombreuses offres proposées. L'inscription est rapide pour l'artiste comme pour le client. N'attendez plus :) .  </p>
                     <button [routerLink]="['/pages/register']" class="btn btn-solid-Valider">Créer un compte Client</button>
                     <button [routerLink]="['/pages/register-artist']" class="btn btn-solid-Valider lamarge">Devenir artiste SignArt</button>
                 </div>

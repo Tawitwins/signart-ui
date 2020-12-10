@@ -3,11 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 import { ProductService } from "../../../shared/services/product.service";
 import { Product } from '../../../shared/classes/product';
-import { ArticleService } from 'src/app/shared/services/article.service';
-import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
-import { environment } from 'src/environments/environment';
 import { Options } from 'ng5-slider';
-import { OeuvreService } from 'src/app/shared/services/oeuvre.service';
+import { OeuvreService } from '../../../shared/services/oeuvre.service';
+import { Oeuvre } from '../../../shared/modeles/oeuvre';
+import { ArticleService } from '../../../shared/services/article.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-collection-left-sidebar',

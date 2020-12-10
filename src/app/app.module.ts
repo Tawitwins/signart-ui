@@ -49,6 +49,7 @@ import { AuthActions } from './auth/actions/auth.actions';
 
 import { CheckoutActions } from './checkout/actions/checkout.actions';
 import { PanierEtMarquageService } from './shared/services/panierEtMarquage.service';
+import { MyformatcurrencyPipe } from './shared/pipes/myformatcurrency.pipe';
 
 
 // AoT requires an exported function for factories
@@ -182,6 +183,7 @@ export function tokenGetter() {
     AuthActions,
     CheckoutActions,
     PanierEtMarquageService,
+    MyformatcurrencyPipe
     
   ],
   schemas: [ NO_ERRORS_SCHEMA ],

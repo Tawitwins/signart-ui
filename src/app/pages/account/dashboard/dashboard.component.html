@@ -129,7 +129,7 @@
                             <div class="container" *ngIf="listAdress==false">
                                 <app-add-address></app-add-address>
                             </div>
-                            <table *ngIf="listAdress==true" class="table cart-table table-responsive-xs">
+                            <table *ngIf="listAdress==true" class="table cart-table table-responsive-xs" style="text-align: center;">
                                 <thead>
                                     <tr class="table-head">
                                         <!--th scope="col">Numéro</th-->
@@ -174,7 +174,7 @@
                             <hr>
                             <p *ngIf="commandes.length == 0">Votre liste est vide!</p>
                             <div *ngIf="commandes.length > 0">
-                                <table class="table cart-table table-responsive-xs">
+                                <table class="table cart-table table-responsive-xs" style="text-align: center;">
                                     <thead>
                                         <tr class="table-head">
                                             <th scope="col">Numéro de la commande</th>
@@ -254,7 +254,7 @@
                                                         </div>
                                                     </div> -->
                                                 </td>
-                                                <td>{{oeuvre.prix}} FCFA</td>
+                                                <td>{{oeuvre.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </td>
                                                 <td >
                                                     <p>{{oeuvre.stock}}</p>
                                                 </td>
@@ -295,7 +295,7 @@
                                         <tbody>
                                             <tr *ngFor="let abonnement of abonnements | slice: (pagAbmt-1) * pageSizeAbmt : (pagAbmt-1) * pageSizeAbmt + pageSizeAbmt">
                                                 <td><h4>000{{abonnement.id}}</h4></td>
-                                                <td><h4>{{abonnement.montantPaiement}}</h4>
+                                                <td><h4>{{abonnement.montantPaiement | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h4>
                                                 </td>
                                                 <td><h6>{{getLibelleEtatAbonnement(abonnement.etatAbonnement)}}</h6></td>
                                                 <td>
@@ -392,7 +392,7 @@
                                 
                                     
                                             <p *ngIf="artistes?.length == 0">
-                                                liste vide
+                                                Liste vide
                                             </p>
                                             <div class="col-md-12" *ngIf="artistes?.length != 0">
                                                 <table class="table cart-table table-responsive-xs" style="text-align: center;">
@@ -464,15 +464,15 @@
                                                         <div class="col-3 order_detail">
                                                             <div>
                                                                 <h4>prix</h4>
-                                                                <h5>{{oeuvre.tarif}}</h5>
+                                                                <h5>{{oeuvre.tarif| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h5>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="total-sec">
                                                         <ul>
-                                                            <li>Total <span>{{montantOeuvres}} FCFA</span></li>
-                                                            <li>Delai <span>{{delaiAffiche.prix}} FCFA</span></li>
-                                                            <li>Terminal <span>{{terminalAffiche.prix}} FCFA</span></li>
+                                                            <li>Total <span>{{montantOeuvres | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
+                                                            <li>Delai <span>{{delaiAffiche.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
+                                                            <li>Terminal <span>{{terminalAffiche.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
                                                         </ul>
                                                     </div>
                                                     <div class="final-total">
@@ -480,6 +480,31 @@
                                                     </div>
                                                 </div>
                                             </div>
+                       <!--                      <div class="order-detail">
+                                                <h5><strong>Information de l'abonné</strong></h5>
+                                                <ul class="order-detail"> 
+                                                    <li>Nom: {{abonneAffiche.nom}}</li>
+                                                    <li>Prenom: {{abonneAffiche.prenom}}</li>
+                                                    <li>Telephone: {{abonneAffiche.telephone}}</li>
+                                                    <li>Email: {{abonneAffiche.email}}</li>
+                                                    <li>Pays: {{abonneAffiche.pays}}</li>
+                                                    <li>Region: {{abonneAffiche.region}}</li>
+                                                    <li>Ville: {{abonneAffiche.ville}}</li>
+                                                    <li>Adresse: {{abonneAffiche.adresse}}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <h5><strong>Terminal et delai</strong></h5>
+                                                <ul class="order-detail">
+                                                    <li>Terminal: {{terminalAffiche.libelle}}</li>
+                                                    <li>Delai: {{delaiAffiche.libelle}}</li>                                                           
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-12" *ngIf="activePaiement == false">
+                                                <div class="delivery-sec">
+                                                    <h2>Paiement Invalide</h2>
+                                                    <h4>Abonnement en attente de validation</h4>
+======= -->
                                             <div class="col-lg-6">
                                                 <div class="row order-success-sec">
                                                     <div class="row">
@@ -547,7 +572,7 @@
                         <div class="col-sm-6">
                             <h4>Sommaire</h4>
                             <ul class="order-detail">
-                                <li>ID Commande: 000{{commande?.id}}</li>
+                                <li>ID commande: 000{{commande?.id}}</li>
                                 <li>Date de commande: {{commande.dateCreation}}</li>
                                 <li>Commande totale: {{Sum}} FCFA</li>
                             </ul>
@@ -591,24 +616,24 @@
                         <div class="col-2 order_detail">
                             <div>
                                 <h4>prix</h4>
-                                <h5>{{p.prix}} FCFA</h5>
+                                <h5>{{p.prix| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </h5>
                             </div>
                         </div>
                         <div class="col-2 order_detail">
                             <div>
                                 <h4>prix livraison</h4>
-                                <h5>{{p.oeuvre.fraisLivraison}} FCFA</h5>
+                                <h5>{{p.oeuvre.fraisLivraison | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </h5>
                             </div>
                         </div>
                     </div>
                     <div class="total-sec">
                         <ul>
-                            <li>Sous-Total <span> {{commande.total}} FCFA</span></li>
-                            <li>Livraison <span>{{commande.totalLivraison}} FCFA</span></li>
+                            <li>Sous-Total <span> {{commande.total| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
+                            <li>Livraison <span>{{commande.totalLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
                         </ul>
                     </div>
                     <div class="final-total">
-                        <h3>Total de la commande : <span> {{Sum}} FCFA</span></h3>
+                        <h3>Total de la commande : <span> {{Sum | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></h3>
                     </div>
                 </div>
             </div>

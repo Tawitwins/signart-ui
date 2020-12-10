@@ -6,54 +6,71 @@
         <div class="row">
             <div class="col-lg-12">
                 <h3>créer un compte artiste</h3>
-                <h5 class="text-large">
+                <p style="font-size: large;" class="text-large">
                     Vous souhaitez vous référencer sur <strong>SignArt</strong> ? Nous serions heureux de prendre connaissance de votre travail !
       
                   <a style="color: #f07c10;text-decoration:underline" [routerLink]="['/critere']">Vous pouvez consulter les conditions que nous proposons aux artistes dans la rubrique  correspondante</a>.
                             
                             Pour nous adresser votre candidature, merci de remplir le petit formulaire ci-aprés. Notre Comité de sélection en prendra connaissance et nous vous reviendrons.
-                </h5>
-                        <h5>      
+                </p>
+                        <p style="font-size: large;">      
                             Merci pour votre intérêt pour SignArt, et à bientôt !
-                        </h5>    
-                        <h5>
+                        </p>    
+                        <p  style="font-size: large;">
                          SignArt !
-                        </h5>  
+                        </p>  
                 <div class="theme-card">
                     <form [formGroup]="infoArtisteForm" class="theme-form">
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="email">Prénom(s)</label>
+                                <label for="email">Prénom</label>
                                 <input type="text" class="form-control" id="fname" placeholder="Prénom" formControlName="prenom" [value]="form1Value.prenom">
+                                <div *ngIf="infoArtisteForm.get('prenom').errors && infoArtisteForm.get('prenom').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez saisir votre prénom !</p>
+                                  </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="review">Nom</label>
                                 <input type="text" class="form-control" id="lname" placeholder="Nom" formControlName="nom" [value]="form1Value.nom">
+                                <div *ngIf="infoArtisteForm.get('nom').errors && infoArtisteForm.get('nom').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez saisir votre nom !</p>
+                                  </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
                                 <label for="email">email</label>
                                 <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email" [value]="form1Value.email">
+                                <div *ngIf="infoArtisteForm.get('email').errors && infoArtisteForm.get('email').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez saisir un email valide !</p>
+                                  </div>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                 <label for="review">Genre</label>
                                 <select name="genre" class="form-control" formControlName="genre" [value]="form1Value.genre">
+                                    <option value="">-- Selectionner un genre --</option>
                                     <option value="H">Homme</option>
                                     <option value="F">Femme</option>
                                 </select>
+                                <div *ngIf="infoArtisteForm.get('genre').errors && infoArtisteForm.get('genre').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez choisir un genre !</p>
+                                  </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                 <label for="review">Pays</label>
                                 <select (change)="choisirPays($event)" class="form-control" formControlName="codePays" [value]="form1Value.codePays">
+                                    <option value="">-- Selectionner un pays --</option>
                                     <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>
                                     <!-- <option value="selected">Selectionner un pays</option>
                                     <option value="sn">Sénégal</option>
                                     <option value="USA">Guinée Bissau</option>
                                     <option value="Australia">Mali</option> -->
                                 </select>
+                                <div *ngIf="infoArtisteForm.get('codePays').errors && infoArtisteForm.get('codePays').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez choisir un pays !</p>
+                                  </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="review">Téléphone</label>
@@ -65,6 +82,9 @@
                                         <input type="text" class="form-control" id="review" placeholder="00 000 00 00" formControlName="telephone" [value]="form1Value.telephone">
                                     </div>
                                 </div>
+                                <div *ngIf="infoArtisteForm.get('telephone').errors && infoArtisteForm.get('telephone').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez saisir votre numéro de téléphone !</p>
+                                  </div>
                             </div>
                         </div>
                         <div class="form-row">
@@ -105,8 +125,12 @@
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                 <label for="review">Spécialités</label>
                                 <select name="genre" class="form-control" formControlName="specialite" [value]="form1Value.specialite">
+                                    <option value="">-- Selectionner une spécialités --</option>
                                     <option *ngFor="let technique of techniques" [value]="technique.libelle">{{technique.libelle}}</option>
                                 </select>
+                                <div *ngIf="infoArtisteForm.get('specialite').errors && infoArtisteForm.get('specialite').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez choisir une spécialité !</p>
+                                  </div>
                             </div>
                             <div class="col-md-6">
 
@@ -116,7 +140,7 @@
                 </div>
             </div>
         </div>
-        <strong><h5 style="margin-top: 30px;"> NB: La soumission de deux oeuvres est obligatoire pour un compte artiste. Veuillez renseigner les champs suivants pour chaque oeuvre.</h5></strong><br>
+        <strong><p style="margin-top: 30px;font-size: large;"><a style="text-decoration:underline"> NB </a>:  La soumission de deux oeuvres est obligatoire pour un compte artiste. Veuillez renseigner les champs suivants pour chaque oeuvre.</p></strong><br>
         <div class="row">
             <div class="col-md-6">
                 <h3>Oeuvre n°1</h3>
@@ -124,33 +148,52 @@
                     <form [formGroup]="oeuvre1Form" class="theme-form">
                         <!-- <strong><p>Deuxième oeuvre à Uploader</p></strong> -->
                         <label>Image : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                        <input type="file" (change)="onFileSelected($event,1)">  
+                        <input type="file" (change)="onFileSelected($event,1)" formControlName="image">  
+                        <div *ngIf="oeuvre1Form.get('image').errors && oeuvre1Form.get('image').touched">
+                            <p class="register-error-message" style="color: red;">Veuillez choisir une image !</p>
+                          </div>
                         <div class="form-row">
                             <div class="col-md-6">
                                 <label for="Titre">Titre</label>
                                 <input type="text" class="form-control" id="fname" placeholder="Titre" formControlName="nom" [value]="form2Value.nom">
+                                <div *ngIf="oeuvre1Form.get('nom').errors && oeuvre1Form.get('nom').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez saisir un titre !</p>
+                                  </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="review">Auteur</label>
                                 <input type="text" class="form-control" id="lname" placeholder="Auteur" formControlName="auteur" [value]="form2Value.auteur" >
+                                <div *ngIf="oeuvre1Form.get('auteur').errors && oeuvre1Form.get('auteur').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez donner un auteur !</p>
+                                  </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-10 col-sm-10 col-xs-12">
                                 <label for="review">Technique</label>
                                 <select name="Technique" class="form-control" formControlName="idTechnique" [value]="form2Value.idTechnique">
+                                    <option value="">-- Selectionner une technique --</option>
                                     <option *ngFor="let technique of techniques" [value]="technique.id">{{technique.libelle}}</option>
                                 </select>
+                                <div *ngIf="oeuvre1Form.get('idTechnique').errors && oeuvre1Form.get('idTechnique').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez choisir une technique !</p>
+                                  </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
                                 <label for="annee">Année</label>
                                 <input type="number" class="form-control" id="email" placeholder="Annee" formControlName="annee" [value]="form2Value.annee">
+                                <div *ngIf="oeuvre1Form.get('annee').errors && oeuvre1Form.get('annee').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez saisir l'année!</p>
+                                  </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="review">Dimensions</label>
                                 <input type="text" class="form-control" id="review" placeholder="50x60x1cm (Lxlxh)" formControlName="dimensions" [value]="form2Value.dimensions">
+                                <div *ngIf="oeuvre1Form.get('dimensions').errors && oeuvre1Form.get('dimensions').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez donner l'annee !</p>
+                                  </div>
                             </div>
                         </div>
                     </form>
@@ -162,33 +205,52 @@
                     <form [formGroup]="oeuvre2Form" class="theme-form">
                         <!-- <strong><p>Deuxième oeuvre à Uploader</p></strong> -->
                         <label>Image : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                        <input type="file" (change)="onFileSelected($event,2)">  
+                        <input type="file" (change)="onFileSelected($event,2)" formControlName="image">  
+                        <div *ngIf="oeuvre2Form.get('image').errors && oeuvre2Form.get('image').touched">
+                            <p class="register-error-message" style="color: red;">Veuillez choisir une image !</p>
+                          </div>
                         <div class="form-row">
                             <div class="col-md-6">
                                 <label for="Titre">Titre</label>
                                 <input type="text" class="form-control" id="fname" placeholder="Titre" formControlName="nom" [value]="form3Value.nom">
+                                <div *ngIf="oeuvre2Form.get('nom').errors && oeuvre2Form.get('nom').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez saisir un titre !</p>
+                                  </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="review">Auteur</label>
                                 <input type="text" class="form-control" id="lname" placeholder="Auteur" formControlName="auteur" [value]="form3Value.auteur" >
+                                <div *ngIf="oeuvre2Form.get('auteur').errors && oeuvre2Form.get('auteur').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez donner un auteur !</p>
+                                  </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-10 col-sm-10 col-xs-12">
                                 <label for="review">Technique</label>
                                 <select name="Technique" class="form-control" formControlName="idTechnique" [value]="form3Value.idTechnique">
+                                    <option value="">-- Selectionner une technique --</option>
                                     <option *ngFor="let technique of techniques" [value]="technique.id">{{technique.libelle}}</option>
                                 </select>
+                                <div *ngIf="oeuvre2Form.get('idTechnique').errors && oeuvre2Form.get('idTechnique').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez choisir une technique !</p>
+                                  </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
                                 <label for="annee">Année</label>
                                 <input type="number" class="form-control" id="email" placeholder="Annee" formControlName="annee" [value]="form3Value.annee">
+                                <div *ngIf="oeuvre2Form.get('annee').errors && oeuvre2Form.get('annee').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez saisir l'année!</p>
+                                  </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="review">Dimensions</label>
                                 <input type="text" class="form-control" id="review" placeholder="50x60x1cm (Lxlxh)" formControlName="dimensions" [value]="form3Value.dimensions">
+                                <div *ngIf="oeuvre2Form.get('dimensions').errors && oeuvre2Form.get('dimensions').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez donner l'annee !</p>
+                                  </div>
                             </div>
                         </div>
                     </form>
@@ -197,7 +259,7 @@
         </div>
         <br>
         <br>
-        <button class="btn btn-solid-Valider"  (click)="onSubmit();" >Valider</button>
+        <button class="btn btn-solid-Valider" [disabled]="!infoArtisteForm.valid || !oeuvre1Form.valid || !oeuvre2Form.valid"  (click)="onSubmit();" >Valider</button>
     </div>
 </div>
 </section>

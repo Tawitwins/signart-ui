@@ -73,7 +73,7 @@ export class CheckoutComponent implements OnInit {
       firstname: [this.client.prenom, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       lastname: [this.client.nom, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       phone: [this.client.telephone, [Validators.required, Validators.pattern('[0-9]+')]],
-      email: ['', [Validators.required, Validators.email]],
+      //email: ['', [Validators.required, Validators.email]],
       address: [this.client.adresseLivraison, [Validators.required, Validators.maxLength(50)]],
       country: [this.client.pays, Validators.required],
       //town: [this.client.ville, Validators.required],

@@ -75,8 +75,7 @@
                 </span-->
                 <span>
                   {{ oeuvre?.quantity }} x 
-                  {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 }} FCFA                
-                </span>
+                  {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}                </span>
               </h4>
             </div>
           </div>
@@ -86,9 +85,7 @@
         </li>
         <li>
           <div class="total">
-            <!--h5>Total : <span>{{ getTotal | async | currency:productService?.Currency.currency:'symbol' }}</span></h5-->
-            <h5>Total : <span>{{ getTotal | async }} FCFA</span></h5>
-
+            <h5>Total : <span>{{ getTotal | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}</span></h5>
           </div>
         </li>
         <li>

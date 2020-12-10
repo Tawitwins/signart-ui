@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <table class="table cart-table table-responsive-xs">
+                <table class="table cart-table table-responsive-xs" style="text-align: center;">
                     <thead>
                     <tr class="table-head">
                         <th scope="col">Image</th>
@@ -22,26 +22,9 @@
                                 </a>
                             </td>
                             <td><a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">{{oeuvre.nom}}</a>
-                                <div class="mobile-cart-content row">
-                                    <div class="col-xs-3">
-                                        <p> {{oeuvre.stock}}</p>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <h2 class="td-color">{{oeuvre.prix}} FCFA</h2>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <h2 class="td-color">
-                                            <a (click)="removeOeuvre(oeuvre)" class="icon mr-1">
-                                                <i class="ti-close"></i>
-                                            </a>
-                                            <a (click)="addOeuvreToCart(oeuvre)" class="cart">
-                                                <i class="ti-shopping-cart"></i>
-                                            </a>
-                                        </h2>
-                                    </div>
-                                </div>
+                                
                             </td>
-                            <td>{{oeuvre.prix}} FCFA</td>
+                            <td>{{oeuvre.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </td>
                             <td >
                                 <p>{{oeuvre.stock}}</p>
                             </td>

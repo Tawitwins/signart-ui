@@ -77,8 +77,9 @@
                                 <p class="card-text">{{artiste.biographie |  slice:0:100}}... </p>
                                 <div class="icon-block"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"> <i class="fa fa-twitter"></i></a></div>
                                 <div class="fans"> {{artiste.nbFans}} 
-                                    <i data-toggle="modal"  data-target="#Visiteur" class="fa fa-times" title="Ne plus suivre l'artiste" *ngIf="marq[i]==true" (click)="followArtiste(artiste,i)"></i>
-                                    <i data-toggle="modal"  data-target="#Visiteur" *ngIf="marq[i]==false" title="Suivre l'artiste" class="fa fa-plus" (click)="followArtiste(artiste,i)"></i>
+                                    <!-- style="background-color: #9b1104;color: #fff;" -->
+                                    <i data-toggle="modal"  data-target="#Visiteur" id="PlusSuivre"  class="fa fa-plus" title="Ne plus suivre l'artiste" *ngIf="marq[i]==true" (click)="followArtiste(artiste,i)"></i>
+                                    <strong><i data-toggle="modal"   data-target="#Visiteur" *ngIf="marq[i]==false" title="Suivre l'artiste" class="fa fa-plus" (click)="followArtiste(artiste,i)"></i></strong>
                                 </div>
                             </div>
                         </div>

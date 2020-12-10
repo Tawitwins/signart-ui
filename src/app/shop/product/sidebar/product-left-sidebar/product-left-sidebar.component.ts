@@ -4,14 +4,15 @@ import { ProductDetailsMainSlider, ProductDetailsThumbSlider } from '../../../..
 import { Product } from '../../../../shared/classes/product';
 import { ProductService } from '../../../../shared/services/product.service';
 import { SizeModalComponent } from "../../../../shared/components/modal/size-modal/size-modal.component";
-import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
-import { Resolver } from 'src/app/shared/services/resolver.service';
-import { environment } from 'src/environments/environment';
-import { ArtisteService } from 'src/app/shared/services/artiste.service';
-import { Artiste } from 'src/app/shared/modeles/artiste';
-import Swal from 'sweetalert2';
-import { AuthServiceS } from 'src/app/shared/services/auth.service';
 
+import Swal from 'sweetalert2';
+import { Oeuvre } from '../../../../shared/modeles/oeuvre';
+import { Artiste } from '../../../../shared/modeles/artiste';
+import { AuthServiceS } from '../../../../shared/services/auth.service';
+import { environment } from '../../../../../environments/environment';
+import { ArtisteService } from '../../../../shared/services/artiste.service';
+
+declare var $: any;
 @Component({
   selector: 'app-product-left-sidebar',
   templateUrl: './product-left-sidebar.component.html',
@@ -29,6 +30,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   public loader: boolean = true;
   public artiste: Artiste;
   public name: string;
+  public magnificationInt: number;
   user: any;
 
   @ViewChild("sizeChart") SizeChart: SizeModalComponent;
@@ -75,8 +77,43 @@ export class ProductLeftSidebarComponent implements OnInit {
       if(this.loader) {
         setTimeout(() => { this.loader = false; }, 2000); // Skeleton Loader
       }
-    }
+      (function ($) {
+        $(document).ready(function(){
+          console.log("Hello from jQuery!");
+        });
+      });
+      /* $( "#imgOeuvr" ).on( "click", function() {
+        alert( $( this ).text() );
+      });
+      $( "#imgOeuvr" ).trigger( "click" ); */
 
+      $('.tile')
+      // tile mouse actions
+      .on('mouseover', function(){
+        console.log("ici over mouse bro");
+        $(this).children('.photo').css({'transform': 'scale('+ $(this).attr('data-scale') +')'});
+      })
+      .on('mouseout', function(){
+        console.log("ici out mouse bro");
+        $(this).children('.photo').css({'transform': 'scale(1)'});
+      })
+      .on('mousemove', function(e){
+        console.log("ici move mouse bro");
+        $(this).children('.photo').css({'transform-origin': ((e.pageX - $(this).offset().left) / $(this).width()) * 100 + '% ' + ((e.pageY - $(this).offset().top) / $(this).height()) * 100 +'%'});
+      })
+      // tiles set up
+      .each(function(){
+        $(this)
+          .children('.photo').css({'background-image': 'url('+ $(this).attr('src') +')'}); 
+      }) 
+    } 
+
+    setMagnification(i){
+      if(i==1)
+        this.magnificationInt=1.6;
+      else
+        this.magnificationInt=1;
+    }
   // Get Product Color
   Color(variants) {
     const uniqColor = []
@@ -188,5 +225,7 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   }
 
-
+  cancelContextMenu(){
+    return false;
+  }
 }

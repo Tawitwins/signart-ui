@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
 import { Product } from '../../../../shared/classes/product';
+import { Oeuvre } from '../../../../shared/modeles/oeuvre';
 
 @Component({
   selector: 'app-grid',

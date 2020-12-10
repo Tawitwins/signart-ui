@@ -127,14 +127,14 @@
                   <label for="prenom">Prénom</label>
                     <input class="form-control" formControlName="prenom"  placeholder="Prénom" [(ngModel)]="client.prenom">
                   <div>
-                    <span *ngIf="!addressForm.get('prenom').valid && addressForm.get('prenom').touched"></span>
+                    <span *ngIf="addressForm.get('prenom').errors && addressForm.get('prenom').touched" style="color: red;"> Veuillez saisir un prénom !</span>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <label for="nom">Nom</label>
                     <input class="form-control" formControlName="nom"  placeholder="Nom" [(ngModel)]="client.nom">
                   <div>
-                    <span *ngIf="!addressForm.get('nom').valid && addressForm.get('nom').touched"></span>
+                    <span *ngIf="addressForm.get('nom').errors && addressForm.get('nom').touched" style="color: red;" >Veuillez saisir un nom !</span>
                   </div>
                 </div>
 
@@ -145,14 +145,14 @@
                   <label for="ville">Ville</label>
                     <input class="form-control" formControlName="ville"  placeholder="Ville">
                   <div>
-                    <span *ngIf="!addressForm.get('ville').valid && addressForm.get('ville').touched"></span>
+                    <span *ngIf="addressForm.get('ville').errors && addressForm.get('ville').touched" style="color: red;"> Veuillez donner une ville !</span>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <label for="region">Région</label>
                     <input class="form-control" formControlName="region"  placeholder="Région">
                   <div>
-                    <span *ngIf="!addressForm.get('region').valid && addressForm.get('region').touched">
+                    <span *ngIf="addressForm.get('region').errors && addressForm.get('region').touched" style="color: red;"> Veuillez donner une région
                     </span>
                   </div>
                 </div>
@@ -163,7 +163,7 @@
                   <label for="adresse">Adresse</label>
                     <input class="form-control" formControlName="adresse"  placeholder="Adresse">
                   <div>
-                    <span *ngIf="!addressForm.get('adresse').valid && addressForm.get('adresse').touched"></span>
+                    <span *ngIf="addressForm.get('adresse').errors && addressForm.get('adresse').touched" style="color: red;"> Veuillez donner une adresse</span>
                   </div>
                 </div>
               </div>
@@ -178,7 +178,17 @@
                                                                       <span *ngIf="!addressForm.get('DOB').valid && addressForm.get('DOB').touched">Please select any Date !!!</span>  
                                                                   </div>  
                                                               </td>  
-                                                          </tr>   -->
+                                                          </tr>   --> 
+              <br>
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="telephone">Téléphone</label>
+                    <input class="form-control" formControlName="telephone"  placeholder="Téléphone" [(ngModel)]="client.telephone">
+                  <div>
+                    <span *ngIf="addressForm.get('telephone').errors && addressForm.get('telephone').touched" style="color: red;"> Veuillez donner un numéro !</span>
+                  </div>
+                </div>
+              </div>
               <br>
               <div class="row">
                 <div class="col-md-12">
@@ -190,7 +200,7 @@
                     </select>
                     <br>
                     <div>
-                      <span *ngIf="!addressForm.get('idPays').valid && addressForm.get('idPays').touched"></span>
+                      <span *ngIf="addressForm.get('idPays').errors && addressForm.get('idPays').touched" style="color: red;"> Veuillez choisir un pays !</span>
                     </div>
 
                   </div>
