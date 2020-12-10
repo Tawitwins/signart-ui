@@ -6,35 +6,54 @@
                   <div class="col-md-6">
                       <label for="email">Titre</label>
                       <input type="text" formControlName="titre" class="form-control" id="fname" placeholder="Prénom" required="">
+                      <div>
+                        <span *ngIf="form.get('titre').errors && form.get('titre').touched" style="color: red;"> Veuillez saisir un titre !</span>
+                      </div>
                   </div>
                   <div class="col-md-6">
                       <label for="email">Lieu</label>
                       <input formControlName="adresse" type="text" class="form-control" id="fname" placeholder="Lieu" required="">
+                      <div>
+                        <span *ngIf="form.get('adresse').errors && form.get('adresse').touched" style="color: red;"> Veuillez saisir une adresse !</span>
+                      </div>
                   </div>
               </div>
               <div class="form-row">
                 <div class="col-md-12">
                   <label for="email">Type d'expostion</label>
                   <select formControlName="type" name="typeExpo" class="form-control">
+                    <option value="">Selectionner un type</option>
                     <option value="personnel">personnel</option>
                     <option value="collectif">collectif</option>
                   </select>
+                  <div>
+                    <span *ngIf="form.get('type').errors && form.get('type').touched" style="color: red;"> Veuillez choisir un type !</span>
+                  </div>
                 </div>
               </div>
               <div class="form-row">
                   <div class="form-group col-md-6 col-sm-6 col-xs-12">
                       <label for="email">Date de début</label>
                       <input formControlName="dateDebut" type="datetime-local" class="form-control" id="fname" placeholder="Date" required="">
+                      <div>
+                        <span *ngIf="form.get('dateDebut').errors && form.get('dateDebut').touched" style="color: red;"> Veuillez choisir une date de début !</span>
+                      </div>
                   </div>
                   <div class="form-group col-md-6 col-sm-6 col-xs-12">
                       <label for="email">Date de fin</label>
                       <input formControlName="dateFin" type="datetime-local" class="form-control" id="fname" placeholder="Date de fin" required="">
+                      <div>
+                        <span *ngIf="form.get('dateFin').errors && form.get('dateFin').touched" style="color: red;"> Veuillez choisir un date de fin !</span>
+                      </div>
                   </div>
               </div>
               <div class="form-row">
                   <div class="col-md-12">
                       <label for="review">Description</label>
                       <textarea  formControlName="description"  ></textarea>
+                      <div>
+                        <span *ngIf="form.get('description').errors && form.get('description').touched" style="color: red;"> Veuillez saisir une description !</span>
+                      </div>
                   </div>
                   
                   <button class="btn btn-solid-Valider"  type="submit"  [disabled]="this.isValid === false || this.form.invalid" (click)="onAddExposition()">Valider</button>

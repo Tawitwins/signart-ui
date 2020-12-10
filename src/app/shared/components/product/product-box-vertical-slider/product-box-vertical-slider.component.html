@@ -16,10 +16,10 @@
                       <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
                       <h6>{{ product.title | titlecase }}</h6></a>
                       <h4>
-                        {{ product?.price * productService.Currency?.price | discount:product | currency:productService.Currency?.currency:'symbol' }}
+                        {{ product?.price * productService.Currency?.price | discount:product | currency:productService.Currency?.currency:'symbol':'4.0-0':'fr' }}
                         <del *ngIf="product?.discount">
                           <span class="money"> 
-                            {{ product?.price * productService.Currency?.price | currency:productService.Currency?.currency:'symbol' }}
+                            {{ product?.price * productService.Currency?.price | currency:productService.Currency?.currency:'symbol':'4.0-0':'fr' }}
                           </span>
                         </del>
                       </h4>
@@ -40,10 +40,10 @@
                       <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
                       <h6>{{ product.title | titlecase }}</h6></a>
                       <h4>
-                        {{ product?.price * productService.Currency?.price | discount:product | currency:productService.Currency?.currency:'symbol' }}
+                        {{ product?.price * productService.Currency?.price | discount:product | currency:productService.Currency?.currency:'symbol':'4.0-0':'fr' }}
                         <del *ngIf="product?.discount">
                           <span class="money"> 
-                            {{ product?.price * productService.Currency?.price | currency:productService.Currency?.currency:'symbol' }}
+                            {{ product?.price * productService.Currency?.price | currency:productService.Currency?.currency:'symbol':'4.0-0':'fr' }}
                           </span>
                         </del>
                       </h4>

@@ -106,7 +106,7 @@ export class DashboardComponent implements OnInit {
   
 
 
-  constructor(private authService: AuthServiceS,private toastrService:ToastrService, private productService: ProductService,  private store: Store<AppState>, private router: Router,
+  constructor(private authService: AuthServiceS,private toastrService:ToastrService, public productService: ProductService,  private store: Store<AppState>, private router: Router,
     private authS:AuthServiceS,
     private oeuvreS:OeuvreService,private fb:FormBuilder,
     private artisteService:ArtisteService,

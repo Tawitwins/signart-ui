@@ -135,12 +135,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.signInForm.controls[ctrl_name].setErrors({ 'msg': msg });
   }
 
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   initForm() {
     const email = '';
     const password = '';
 
     this.signInForm = this.fb.group({
-      'email': [email, Validators.required],
+      'email': [email, Validators.pattern(this.emailPattern)],
       'password': [password, Validators.required]
     });
   }

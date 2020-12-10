@@ -55,7 +55,7 @@ export class ProductBoxOneComponent implements OnInit {
   public ImageSrc : string
   public isFavorite:boolean;
 
-  constructor(private productService: ProductService,
+  constructor(public productService: ProductService,
     private authService: AuthServiceS,
     private router:Router) { 
       //const wishlistItem=JSON.parse(localStorage['wishlistItems'] || '[]');

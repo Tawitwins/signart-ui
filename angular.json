@@ -43,7 +43,8 @@
               "node_modules/@ctrl/ngx-emoji-mart/picker.css"
             ],
             "scripts": [
-              "node_modules/isotope-layout/dist/isotope.pkgd.min.js"
+              "node_modules/isotope-layout/dist/isotope.pkgd.min.js",
+              "node_modules/jquery/dist/jquery.min.js"
             ]
           },
           "configurations": {

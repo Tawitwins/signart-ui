@@ -11,36 +11,36 @@
                             </div>
                             <div class="row check-out">
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <div class="field-label">Prénom(s)</div>
+                                    <div class="field-label">Prénom</div>
                                     <input type="text" name="firstname" [formControl]="checkoutForm.controls['firstname']" value="" placeholder="" autocomplete="off">
                                     <div *ngIf="checkoutForm.controls.firstname.touched && checkoutForm.controls.firstname.errors?.required" class="text text-danger">
-                                    First Name is required.
+                                    Prénom obligatoire !
                                     </div>
-                                    <div *ngIf="checkoutForm.controls.firstname.touched && checkoutForm.controls.firstname.errors?.pattern" class="text text-danger">
+                                    <!-- <div *ngIf="checkoutForm.controls.firstname.touched && checkoutForm.controls.firstname.errors?.pattern" class="text text-danger">
                                     First Name must be an alphabates.
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">Nom </div>
                                     <input type="text" name="lastname" [formControl]="checkoutForm.controls['lastname']" value="" placeholder="" autocomplete="off">
                                     <div *ngIf="checkoutForm.controls.lastname.touched && checkoutForm.controls.lastname.errors?.required" class="text text-danger">
-                                    Last Name is required.
+                                    Nom obligatoire!
                                     </div>
-                                    <div *ngIf="checkoutForm.controls.lastname.touched && checkoutForm.controls.lastname.errors?.pattern" class="text text-danger">
+                                    <!-- <div *ngIf="checkoutForm.controls.lastname.touched && checkoutForm.controls.lastname.errors?.pattern" class="text text-danger">
                                     Last Name must be an alphabates.
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">Téléphone</div>
                                     <input type="text" name="phone" [formControl]="checkoutForm.controls['phone']" value="" placeholder="" autocomplete="off">
                                     <div *ngIf="checkoutForm.controls.phone.touched && checkoutForm.controls.phone.errors?.required" class="text text-danger">
-                                     Phone No is required.
+                                     Téléphone obligatoire!
                                     </div>
-                                    <div *ngIf="checkoutForm.controls.phone.touched && checkoutForm.controls.phone.errors?.pattern" class="text text-danger">
+                                    <!-- <div *ngIf="checkoutForm.controls.phone.touched && checkoutForm.controls.phone.errors?.pattern" class="text text-danger">
                                       Phone No is must be number.
-                                    </div>
+                                    </div> -->
                                 </div>
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                               <!--  <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">Email</div>
                                     <input type="text" name="email" [formControl]="checkoutForm.controls['email']" value="" placeholder="" autocomplete="off">
                                     <div *ngIf="checkoutForm.controls.email.touched && checkoutForm.controls.email.errors?.required" class="text text-danger">
@@ -49,7 +49,7 @@
                                     <div *ngIf="checkoutForm.controls.email.touched && checkoutForm.controls.email.errors?.email" class="text text-danger">
                                      Invalid Email
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">Date de début</div>
                                             <input type="date" class="form-control" id="email" placeholder="Date" required="">
@@ -67,7 +67,7 @@
                                         <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>
                                     </select>
                                     <div *ngIf="checkoutForm.controls.country.touched && checkoutForm.controls.country.errors?.required" class="text text-danger">
-                                     Country is required
+                                     Pays obligatoire!
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -77,7 +77,7 @@
                                         <option *ngFor="let a of listAdresses; let index = index" [value]="index">{{a.adresse}}</option>
                                     </select>
                                     <div *ngIf="checkoutForm.controls.address.touched && checkoutForm.controls.address.errors?.required" class="text text-danger">
-                                     Address is required
+                                     Adresse obligatoire!
                                     </div>
                                    <!--  <div *ngIf="checkoutForm.controls.address.touched && checkoutForm.controls.address.errors?.maxlength" class="text text-danger">
                                       Maximum 50 character
@@ -163,9 +163,9 @@
                                     </div>
                                     <ul class="qty" *ngIf='products.length'>
                                         <li *ngFor="let product of products">
-                                        	 {{ product.nom }} × {{ product.quantity }}
+                                        	 {{ product.nom }} (× {{ product.quantity }})
                                         	<span>
-                                                {{ product?.prix - (product?.tauxremise * product?.prix)/100 | currency:productService?.Currency.currency:'symbol' }}
+                                                {{ product?.prix - (product?.tauxremise * product?.prix)/100 | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}
                                             </span>
                                         </li>
                                     </ul>
@@ -174,7 +174,7 @@
                                     </ul>
                                     <ul class="sub-total">
                                         <li>
-                                        	Total <span class="count">{{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</span>
+                                        	Total <span class="count">{{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span>
                                         </li>
                                         <li *ngIf='products.length'>
                                             Livraison
@@ -203,7 +203,7 @@
                                         </li>
                                     </ul>
                                     <ul class="total">
-                                        <li>Total <span class="count">{{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</span></li>
+                                        <li>Total <span class="count">{{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span></li>
                                     </ul>
                                 </div>
 

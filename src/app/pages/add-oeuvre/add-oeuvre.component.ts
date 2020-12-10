@@ -28,8 +28,8 @@ export class AddOeuvreComponent implements OnInit {
     this.oeuvreForm = this.formbuilder.group({
        'nom': ['',Validators.required],
        'technique': ['',Validators.required],
-       'couleur': [null,Validators.required],
-       'nouveau': [null,Validators.required],
+       'couleur': ["",Validators.required],
+       'nouveau': ["",Validators.required],
        //'lithographie': [null,Validators.required],
        'auteur': [null,Validators.required],
        'dimensions': [null,Validators.required],

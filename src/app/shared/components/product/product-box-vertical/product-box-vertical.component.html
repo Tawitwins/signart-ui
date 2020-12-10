@@ -11,7 +11,7 @@
         <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
             <h6>{{ product.title | titlecase }}</h6>
         </a>
-		<h4>{{ product?.price * currency?.price | discount:product | currency:currency?.currency:'symbol' }}</h4>
+		<h4>{{ product?.price * currency?.price | discount:product | currency:currency?.currency:'symbol':'4.0-0':'fr' }}</h4>
         <ul class="color-variant">
             <li [class]="color" 
                 *ngFor="let color of Color(product?.variants)" 

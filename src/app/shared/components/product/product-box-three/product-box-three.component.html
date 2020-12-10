@@ -35,7 +35,7 @@
     <a [routerLink]="['/shop/product/left/sidebar/', product?.title.replace(' ', '-')]">
     	<h6>{{ product?.title | titlecase }}</h6>
     </a>
-    <h4>{{ product?.price * currency?.price | discount:product | currency:currency?.currency:'symbol' }}</h4>
+    <h4>{{ product?.price * currency?.price | discount:product | currency:currency?.currency:'symbol':'4.0-0':'fr' }}</h4>
 </div>
 
 <app-quick-view #quickView [product]="product" [currency]="currency"></app-quick-view>

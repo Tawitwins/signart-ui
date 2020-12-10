@@ -36,13 +36,14 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar  class="product-slick">
+                <owl-carousel-o [options]="ProductDetailsMainSliderConfig"  class="tile" #owlCar  class="product-slick">
                     <ng-container *ngFor="let nb of nbimages; index as i">
                         <ng-template carouselSlide [id]="i">
-                            <div>
-                              <img [defaultImage]="getOeuvreImageUrl(oeuvre?.id)" 
+                            <div id="imgOeuvr" class="tile" aria-expanded="true" data-scale="2.4" style="cursor: pointer; width: 450; height: 400px;">
+                              <lib-ngx-image-zoom (mouseenter) ="setMagnification(1)"  (mouseleave) ="setMagnification(2)" [thumbImage]=getOeuvreImageUrl(oeuvre?.id) [magnification]="magnificationInt" minZoomRatio="0.1" enableScrollZoom="true" (contextmenu)="cancelContextMenu()" ></lib-ngx-image-zoom>
+                              <!-- <img [defaultImage]="getOeuvreImageUrl(oeuvre?.id)" (contextmenu)="cancelContextMenu()" class="photo"
                                    [lazyLoad]="getOeuvreImageUrl(oeuvre?.id)" 
-                                   [alt]="getOeuvreImageUrl(oeuvre?.id)" class="img-fluid">
+                                   [alt]="getOeuvreImageUrl(oeuvre?.id)" > -->
                             </div>
                         </ng-template>
                     </ng-container>
@@ -53,7 +54,7 @@
                             <ng-container *ngFor="let nb of nbimages; index as i">
                                 <ng-template carouselSlide [id]="i">
                                     <div class="owl-thumb" [class.active]="i == activeSlide">
-                                      <img [defaultImage]="getOeuvreImageUrl(oeuvre?.id)" 
+                                      <img [defaultImage]="getOeuvreImageUrl(oeuvre?.id)" (contextmenu)="cancelContextMenu()"
                                            [lazyLoad]="getOeuvreImageUrl(oeuvre?.id)" 
                                            [alt]="getOeuvreImageUrl(oeuvre?.id)" class="img-fluid" 
                                            (click)="owlCar.to(activeSlide = i.toString())">

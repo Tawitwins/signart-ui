@@ -61,19 +61,19 @@
                         <div class="col-3 order_detail">
                             <div>
                                 <h4>price</h4>
-                                <h5>{{ product?.price * productService?.Currency?.price | discount:product | currency:productService?.Currency.currency:'symbol' }}</h5>
+                                <h5>{{ product?.price * productService?.Currency?.price | discount:product | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}</h5>
                             </div>
                         </div>
                     </div>
                     <div class="total-sec">
                         <ul>
-                            <li>Subtotal <span>{{ orderDetails.totalAmount | currency:productService?.Currency.currency:'symbol' }}</span></li>
+                            <li>Subtotal <span>{{ orderDetails.totalAmount | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}</span></li>
                             <li>Shipping <span>$00.00</span></li>
                             <li>Tax <span>$00.00</span></li>
                         </ul>
                     </div>
                     <div class="final-total">
-                        <h3>total <span>{{ orderDetails.totalAmount | currency:productService?.Currency.currency:'symbol' }}</span></h3>
+                        <h3>total <span>{{ orderDetails.totalAmount | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}</span></h3>
                     </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@
                         <ul class="order-detail">
                             <li>order ID: {{ orderDetails.orderId }}</li>
                             <li>Order Date: October 22, 2021</li>
-                            <li>Order Total: {{ orderDetails.totalAmount | currency:productService?.Currency.currency:'symbol' }}</li>
+                            <li>Order Total: {{ orderDetails.totalAmount | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}</li>
                         </ul>
                     </div>
                     <div class="col-sm-6">
