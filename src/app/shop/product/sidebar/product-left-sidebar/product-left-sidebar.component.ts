@@ -4,10 +4,13 @@ import { ProductDetailsMainSlider, ProductDetailsThumbSlider } from '../../../..
 import { Product } from '../../../../shared/classes/product';
 import { ProductService } from '../../../../shared/services/product.service';
 import { SizeModalComponent } from "../../../../shared/components/modal/size-modal/size-modal.component";
+
+import Swal from 'sweetalert2';
 import { Oeuvre } from '../../../../shared/modeles/oeuvre';
 import { Artiste } from '../../../../shared/modeles/artiste';
-import { ArtisteService } from '../../../../shared/services/artiste.service';
+import { AuthServiceS } from '../../../../shared/services/auth.service';
 import { environment } from '../../../../../environments/environment';
+import { ArtisteService } from '../../../../shared/services/artiste.service';
 
 declare var $: any;
 @Component({
@@ -28,6 +31,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   public artiste: Artiste;
   public name: string;
   public magnificationInt: number;
+  user: any;
 
   @ViewChild("sizeChart") SizeChart: SizeModalComponent;
   
@@ -35,7 +39,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   public ProductDetailsThumbConfig: any = ProductDetailsThumbSlider;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    public productService: ProductService, private artisteService: ArtisteService) { 
+    public productService: ProductService, private artisteService: ArtisteService, private authService: AuthServiceS) { 
       this.nbimages = [1,2,3];
       this.route.params.subscribe(
         (params: any) => {
@@ -155,10 +159,27 @@ export class ProductLeftSidebarComponent implements OnInit {
   }*/
 
   async addToCart(oeuvre: any) {
+    this.user = this.authService.getUserConnected();
+    if(this.user==null){
+      Swal.fire({
+        //title: 'Are you sure?',
+        text: "Vous devez vous connecter pour effectuer cet action",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#376809',
+        cancelButtonColor: '#601A17',
+        confirmButtonText: 'Oui, se connecter!'
+      }).then((result) => {
+        if (result.value) {
+          console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+          this.router.navigate(['/pages/login']);
+        }
+      })  
+     }else{
     oeuvre.stock = this.counter || 1;
     const status = await this.productService.addToCart(oeuvre);
     if(status)
-      this.router.navigate(['/shop/cart']);
+      this.router.navigate(['/shop/cart']);}
   }
 
   // Buy Now
@@ -171,7 +192,23 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   // Add to Wishlist
   addToWishlist(product: any) {
-    this.productService.addToWishlist(product);
+    if(this.user==null){
+      Swal.fire({
+        //title: 'Are you sure?',
+        text: "Vous devez vous connecter pour effectuer cet action",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#376809',
+        cancelButtonColor: '#601A17',
+        confirmButtonText: 'Oui, se connecter!'
+      }).then((result) => {
+        if (result.value) {
+          console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+          this.router.navigate(['/pages/login']);
+        }
+      })  
+     }else{
+    this.productService.addToWishlist(product);}
   }
 
   // Toggle Mobile Sidebar

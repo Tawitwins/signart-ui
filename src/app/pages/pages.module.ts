@@ -86,7 +86,6 @@ import { ArtisteParamComponent } from './compte-artiste/artiste-profil-param/art
     FollowersComponent,
     AbonnementComponent,
     CompteArtisteComponent,
-    MyformatcurrencyPipe,
     ArtisteProfilComponent,
     AddAddressComponent,
     ArtisteParamComponent,

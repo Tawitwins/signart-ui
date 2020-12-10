@@ -72,10 +72,14 @@
             <table style="text-align: center;" class="table cart-table table-responsive-md">
                 <tfoot>
                     <tr>
+                        <td>Montant total :</td>
                         <td>Prix total :</td>
                         <td>
-                            <h2> {{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h2>
+                            <h2> {{ getTotal  | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h2>
                         </td>
+                        <!--td>
+                            <h2> {{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</h2>
+                        </td-->
                     </tr>
                 </tfoot>
             </table>

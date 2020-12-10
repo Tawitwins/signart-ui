@@ -70,6 +70,22 @@ export class CompteArtisteComponent implements OnInit {
   actionsSubscription: Subscription;
   public section:string="general"
 
+  pageSizeOAP = 3;
+  pagOAP=0;
+
+  pageSizeAP = 3;
+  pagAP=0;
+
+  pageSizeAAP = 3;
+  pagAAP=0;
+
+  pageSizeEP = 3;
+  pagEP=0;
+
+  pageSizeEAP = 3;
+  pagEAP=0;
+ 
+
   suivre: Suivre;
     navigations: any[];
     artisteId: number= 0;
@@ -179,7 +195,6 @@ export class CompteArtisteComponent implements OnInit {
               blob = new Blob([response], { type: 'application/octet-stream' });
               murl = urlCreator.createObjectURL(blob);
               this.urlSous[i] = this.sanitizer.bypassSecurityTrustResourceUrl(murl);
-              
             }/*,
               error => {
                 console.log('Erreur récupération image oeuvre');
@@ -230,6 +245,14 @@ export class CompteArtisteComponent implements OnInit {
    // this.user = this.userAuth.getUserConnected();
     this.isVisiteur=false;
   }
+
+  getImageSous(idOeuvre: number){
+   for (let i = 0; i < this.oeuvresEnAttenteValidation.length; i++) {
+     if(this.oeuvresEnAttenteValidation[i].id == idOeuvre){
+       return  this.urlSous[i];
+     }    
+   }
+}
 
   ngOnInit() {
     this.navigations = NAVIGATION.filter(navigation => navigation);

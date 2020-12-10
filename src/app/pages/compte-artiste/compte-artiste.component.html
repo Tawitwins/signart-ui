@@ -127,7 +127,7 @@
                             <div class="table-responsive"> 
                               <table class="table table-hover" style="text-align: center;">
                                   <thead class="text-warning">
-                                      <th>ID</th>
+                                      <!--th>ID</th-->
                                       <th>Image</th>
                                       <th>Nom</th>
                                       <th>Auteur</th>
@@ -138,9 +138,9 @@
                                     
                                   </thead>
                                   <tbody>
-                                      <tr *ngFor="let oeuvre of oeuvresEnAttenteValidation; let index = index">
-                                          <td>{{index + 1}}</td>
-                                          <td><img [src]="urlSous[index]" style="width: 100px; height: 100px;" alt=""></td>
+                                      <tr *ngFor="let oeuvre of oeuvresEnAttenteValidation | slice: (pagOAP-1) * pageSizeOAP : (pagOAP-1) * pageSizeOAP + pageSizeOAP;">
+                                          <!--td>{{index + 1}}</td-->
+                                          <td><img [src]="getImageSous(oeuvre.id)" style="width: 100px; height: 100px;" alt=""></td>
                                           <td>{{oeuvre.nom}}</td>
                                           <td>{{oeuvre.auteur}}</td>
                                           <td>{{oeuvre.annee}}</td>
@@ -156,7 +156,8 @@
                                           </td>-->
                                   </tbody>
                               </table>
-
+                              <ngb-pagination [collectionSize]="oeuvresEnAttenteValidation.length" [(page)]="pagOAP" [pageSize]="pageSizeOAP" aria-label="Default pagination">
+                              </ngb-pagination>
                           </div>
                           </div>
                         </section>
@@ -188,7 +189,7 @@
                                     </th>-->
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let annonce of listesAnnonce">
+                                    <tr *ngFor="let annonce of listesAnnonce | slice: (pagAP-1) * pageSizeAP : (pagAP-1) * pageSizeAP + pageSizeAP">
                                         <td>
                                             {{annonce.titre}}
                                         </td>
@@ -221,6 +222,8 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <ngb-pagination [collectionSize]="listesAnnonce.length" [(page)]="pagAP" [pageSize]="pageSizeAP" aria-label="Default pagination">
+                            </ngb-pagination>
                             <br>
                             <h4><strong>  Liste des annonces en attente de publication</strong></h4>
                             <table style="text-align: center;" class="table table-hover">
@@ -248,7 +251,7 @@
                                   </th>-->
                               </thead>
                               <tbody>
-                                  <tr *ngFor="let annonce of listesAnnonceEnAttente">
+                                  <tr *ngFor="let annonce of listesAnnonceEnAttente | slice: (pagAAP-1) * pageSizeAAP : (pagAAP-1) * pageSizeAAP + pageSizeAAP">
                                       <td>
                                           {{annonce.titre}}
                                       </td>
@@ -281,6 +284,8 @@
                                   </tr>
                               </tbody>
                           </table>
+                          <ngb-pagination [collectionSize]="listesAnnonceEnAttente.length" [(page)]="pagAAP" [pageSize]="pageSizeAAP" aria-label="Default pagination">
+                          </ngb-pagination>
                           </div>
                         </section>
                         <section *ngIf='section=="listeExpo"' class="tab-product m-0">
@@ -308,7 +313,7 @@
                                 </th-->
                               </thead>
                               <tbody>
-                                  <tr *ngFor="let exposition of listesExp">
+                                  <tr *ngFor="let exposition of listesExp | slice: (pagEP-1) * pageSizeEP : (pagEP-1) * pageSizeEP + pageSizeEP">
                                       <td>
                                           {{exposition.titre}}
                                       </td>
@@ -333,6 +338,8 @@
                                   </tr>
                               </tbody>
                             </table>
+                            <ngb-pagination [collectionSize]="listesExpEnAttente.length" [(page)]="pagEP" [pageSize]="pageSizeEP" aria-label="Default pagination">
+                            </ngb-pagination>
                             <br>
                             <h4><strong>   Liste des expositions en attente de publication</strong></h4>
                             <table style="text-align: center;" class="table table-hover">
@@ -357,7 +364,7 @@
                                 </th-->
                               </thead>
                               <tbody>
-                                  <tr *ngFor="let exposition of listesExpEnAttente">
+                                  <tr *ngFor="let exposition of listesExpEnAttente | slice: (pagEAP-1) * pageSizeEAP : (pagEAP-1) * pageSizeEAP + pageSizeEAP">
                                       <td>
                                           {{exposition.titre}}
                                       </td>
@@ -382,6 +389,8 @@
                                   </tr>
                               </tbody>
                             </table>
+                            <ngb-pagination [collectionSize]="listesExpEnAttente.length" [(page)]="pagEAP" [pageSize]="pageSizeEAP" aria-label="Default pagination">
+                            </ngb-pagination>
                           </div>
                         </section>
                         <section *ngIf='section=="addOeuvre"' class="tab-product m-0">
@@ -416,7 +425,13 @@
                             survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
                             and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                         </p>
-                    </div> -->
+                    </div> 
+                  <tbody *ngFor="let commande of commandes | slice: (pag1-1) * pageSize1 : (pag1-1) * pageSize1 + pageSize1">
+                  
+                  <ngb-pagination [collectionSize]="adresses.length" [(page)]="pag1" [pageSize]="pageSize1" aria-label="Default pagination">
+                            </ngb-pagination>
+                  
+                  -->
                 </div>
                 </div>
             </div>

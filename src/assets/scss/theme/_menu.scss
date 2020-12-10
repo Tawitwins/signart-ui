@@ -98,7 +98,7 @@ header {
                             border-radius: 0 !important;
                             font-size: 14px;
                             font-weight: 400;
-                            text-transform: capitalize;
+                            text-transform: none;
                             padding: 5px 35px;
                             display: block;
                             letter-spacing: 0.07em;
@@ -159,7 +159,7 @@ header {
                             .menu-title {
                                 h5 {
                                     font-weight: 700;
-                                    text-transform: capitalize;
+                                    text-transform: none;
                                     font-size: 14px;
                                 }
                             }
@@ -182,7 +182,7 @@ header {
                                             border-radius: 0 !important;
                                             font-size: 14px;
                                             font-weight: 400;
-                                            text-transform: capitalize;
+                                            text-transform: none;
                                             padding: 3px 0;
                                             display: block;
                                             letter-spacing: 0.07em;
@@ -417,7 +417,7 @@ header {
                     float: left;
                     display: block;
                     >a {
-                        text-transform: capitalize;
+                        text-transform: none;
                         padding-right: 34px;
                         letter-spacing: 0.04em;
                     }
@@ -622,7 +622,7 @@ header {
                         li {
                             a {
                                 padding: 5px 35px;
-                                text-transform: capitalize;
+                                text-transform: none;
                                 &:before {
                                     position: absolute;
                                     bottom: 0;
@@ -663,7 +663,7 @@ header {
                             .link-section {
                                 h5 {
                                     font-weight: 700;
-                                    text-transform: capitalize;
+                                    text-transform: none;
                                     font-size: 14px;
                                     margin-top: 15px;
                                 }
@@ -771,7 +771,7 @@ header {
     .layout3-menu {
         .pixelstrap {
             a {
-                text-transform: capitalize;
+                text-transform: none;
                 padding-right: 34px;
                 letter-spacing: 0.04em;
             }
@@ -1147,7 +1147,7 @@ header {
                             h5 {
                                 font-weight: 700;
                                 font-size: 14px;
-                                text-transform: capitalize;
+                                text-transform: none;
                             }
                             ul {
                                 display: block;

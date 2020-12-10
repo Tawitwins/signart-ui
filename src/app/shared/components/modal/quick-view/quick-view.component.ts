@@ -7,6 +7,8 @@ import { Product } from "../../../classes/product";
 import { ProductService } from '../../../../shared/services/product.service';
 import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
 import { environment } from 'src/environments/environment';
+import { AuthServiceS } from 'src/app/shared/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-quick-view',
@@ -24,10 +26,11 @@ export class QuickViewComponent implements OnInit, OnDestroy  {
   public ImageSrc: string;
   public counter: number = 1;
   public modalOpen: boolean = false;
+  user: any;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object,
     private router: Router, private modalService: NgbModal,
-    public productService: ProductService) { }
+    public productService: ProductService, private authService: AuthServiceS) { }
 
   ngOnInit(): void {
   }
@@ -128,10 +131,29 @@ export class QuickViewComponent implements OnInit, OnDestroy  {
   }*/
 
   async addToCart(oeuvre: any) {
-    oeuvre.stock = this.counter || 1;
-    const status = await this.productService.addToCart(oeuvre);
-    //if(status)
-     // this.router.navigate(['/shop/cart']);
+    this.user = this.authService.getUserConnected();
+    if(this.user==null){
+      Swal.fire({
+        //title: 'Are you sure?',
+        text: "Vous devez vous connecter pour effectuer cet action",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#376809',
+        cancelButtonColor: '#601A17',
+        confirmButtonText: 'Oui, se connecter!'
+      }).then((result) => {
+        if (result.value) {
+          console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+          this.router.navigate(['/pages/login']);
+        }
+      })  
+     }else{
+      oeuvre.stock = this.counter || 1;
+      const status = await this.productService.addToCart(oeuvre);
+      //if(status)
+       // this.router.navigate(['/shop/cart']);
+     }
+    
   }
 
   ngOnDestroy() {

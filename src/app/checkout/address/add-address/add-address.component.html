@@ -178,7 +178,7 @@
                                                                       <span *ngIf="!addressForm.get('DOB').valid && addressForm.get('DOB').touched">Please select any Date !!!</span>  
                                                                   </div>  
                                                               </td>  
-                                                          </tr>   -->
+                                                          </tr>   --> 
               <br>
               <div class="row">
                 <div class="col-md-12">
@@ -194,8 +194,8 @@
                 <div class="col-md-12">
                   <div>
                     <label for="pays">Pays</label>
-                    <select  class="form-control"  formControlName="idPays" placeholder="Pays" value="{{pays}}">
-                      <option value="">-- Selectionner --</option>
+                    <select  class="form-control"  (change)="choisirPays($event)" formControlName="idPays" placeholder="Pays" value="{{pays}}">
+                      <option>-- Selectionner --</option>
                       <option *ngFor="let p of allPays" [value]="p.id">{{p.libelle}}</option>
                     </select>
                     <br>
@@ -206,6 +206,25 @@
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="telephone">Téléphone</label>
+                  <div class="row">
+                    <div  class="col-md-2">
+                      <input type="text" class="form-control" formControlName="indicatif" [(ngModel)]="indicatifpays" disabled="true">
+                    </div>
+                    <div  class="col-md-10">
+                      <input class="form-control" formControlName="telephone"  placeholder="Téléphone" [(ngModel)]="client.telephone">
+                    </div>
+                    <div>
+                      <span *ngIf="!addressForm.get('telephone').valid && addressForm.get('telephone').touched"></span>
+                    </div>
+                  </div>
+                 
+                </div>
+              </div>
+              <br>
+             
               <!-- <tr>  
                                                               <td>  
                                                                   <span>Gender</span><br><br>  
