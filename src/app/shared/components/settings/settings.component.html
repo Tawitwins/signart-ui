@@ -85,7 +85,7 @@
         </li>
         <li>
           <div class="total">
-            <h5>Total : <span>{{ getTotal | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}</span></h5>
+            <h5>Total : <span>{{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}</span></h5>
           </div>
         </li>
         <li>

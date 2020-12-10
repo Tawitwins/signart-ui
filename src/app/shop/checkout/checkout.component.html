@@ -174,7 +174,7 @@
                                     </ul>
                                     <ul class="sub-total">
                                         <li>
-                                        	Total <span class="count">{{ getTotal | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span>
+                                        	Total <span class="count">{{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span>
                                         </li>
                                         <!--li>
                                         	Total <span class="count">{{ getTotal | async | currency:productService?.Currency.currency:'symbol'}} </span>
@@ -206,7 +206,7 @@
                                         </li>
                                     </ul>
                                     <ul class="total">
-                                        <li>Total <span class="count">{{ getTotal | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span></li>
+                                        <li>Total <span class="count">{{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span></li>
                                     </ul>
                                 </div>
 
