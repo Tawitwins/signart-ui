@@ -7,10 +7,10 @@
               <div class="card-body">
                 <h5 class="card-title">
                   <!--img src="assets/images/profile/artist.jpg" alt="Placeholder image" width="90" class="rounded-circle img-fluid"-->
-                  <img [src]="getArtisteImageUrl(artiste.id)" onError="this.src='assets/images/artists/profile.jpg'" alt="Placeholder image" width="300" height="500" class=" img-fluid">
+                  <img [src]="getArtisteImageUrl(artiste?.id)" onError="this.src='assets/images/artists/profile.jpg'" alt="Placeholder image" width="300" height="500" class=" img-fluid">
                 </h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{artiste.prenom}} {{artiste.nom}}</h6>
-                <p class="card-text">{{artiste.profession}}</p>
+                <h6 class="card-subtitle mb-2 text-muted">{{artiste?.prenom}} {{artiste?.nom}}</h6>
+                <p class="card-text">{{artiste?.profession}}</p>
                 <!--a href="#" class="card-link">Détails</a--></div>
             </div>
             <br>
@@ -34,13 +34,13 @@
               </div>
               <div class="col-xl-3 col-sm-6">
                <div class="bbleu">
-                  <div class="side-l"><a [routerLink]="['/pages/followers/',artiste.id]"><p class="big-l">{{artiste?.nbFans}}</p></a> <p class="col-p">Followers</p></div>
+                  <div class="side-l"><a [routerLink]="['/pages/followers/',artiste?.id]"><p class="big-l">{{artiste?.nbFans}}</p></a> <p class="col-p">Followers</p></div>
               </div> 
                
               </div>
               <div class="col-xl-3 col-sm-6">
                 <div class="marrons">
-                  <div class="side-l"><p class="big-l">Art Plastique</p> <p class="col-p">{{artiste.profession}}</p></div>
+                  <div class="side-l"><p class="big-l">Art Plastique</p> <p class="col-p">{{artiste?.profession}}</p></div>
               </div> 
                 </div>
               <div class="col-xl-3 col-sm-6">	  
@@ -71,7 +71,7 @@
                                 <ngb-tab>
                                     <ng-template ngbTabTitle>Biographie</ng-template>
                                     <ng-template ngbTabContent>
-                                      <p> {{artiste.biographie}} </p>
+                                      <p> {{artiste?.biographie}} </p>
                                     </ng-template>
                                 </ngb-tab>
                                 <ngb-tab>
@@ -106,7 +106,7 @@
                       </section>
                     <div class="top-banner-content small-section">
                         <h4>Oeuvre d'art </h4>
-                        <h5>Voici des oeuvres de {{artiste.prenom}} {{artiste.nom}} que vous pourriez apprécier:
+                        <h5>Voici des oeuvres de {{artiste?.prenom}} {{artiste?.nom}} que vous pourriez apprécier:
                         </h5>
                        <!--  <p>
                            Ces oeuvres 

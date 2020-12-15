@@ -11,6 +11,7 @@ export class Artiste {
     biographie: string;
     profession: string;
     nbFans:number;
+    nbOeuvres: number;
     constructor(
         prenom: string,
     nom: string,
@@ -21,7 +22,8 @@ export class Artiste {
     ville: string,
     pays: string,
     biographie: string,
-    profession: string
+    profession: string,
+    nbOeuvres: number,
         ){
            
            
