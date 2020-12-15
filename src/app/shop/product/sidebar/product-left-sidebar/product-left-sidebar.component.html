@@ -79,9 +79,7 @@
                     <h6 class="product-title size-text">
                         Artiste: {{name}}
                     </h6>
-                    <h5 class="avalibility" *ngIf="counter <= oeuvre?.stock"><span>En Stock</span></h5>
-                    <h5 class="avalibility" *ngIf="counter > oeuvre?.stock"><span>Rupture</span></h5>
-                    <h6 class="product-title">quantité</h6>
+                    <h6 class="product-title">Quantité</h6>
                     <div class="qty-box">
                       <div class="input-group">
                         <span class="input-group-prepend">
@@ -97,9 +95,11 @@
                         </span>
                       </div>
                     </div>
+                    <h5 class="avalibility" *ngIf="counter <= oeuvre?.stock"><span>Disponible</span></h5>
+                    <h5 class="avalibility" *ngIf="counter > oeuvre?.stock"><span>En rupture de stock </span></h5>
                   </div>
                   <div class="product-buttons">
-                    <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > oeuvre?.stock" (click)="addToCart(oeuvre)">Au Panier</a>
+                    <a href="javascrip:void(0)" class="btn btn-solid-Valider" [class.disabled]="counter > oeuvre?.stock" (click)="addToCart(oeuvre)">Ajouter au panier</a>
                     <!--a [routerLink]="['/pages/wishlist']" class="btn btn-solid" [class.disabled]="counter > oeuvre?.stock">S'abonner</a-->
                   </div>
                   <div class="border-product">
@@ -111,7 +111,7 @@
                     <div class="product-icon">
                       <app-social></app-social>
                       <form class="d-inline-block">
-                        <button class="wishlist-btn">
+                        <button class="wishlist-btn"  (click)="addToWishlist(oeuvre)">
                           <i class="fa fa-heart"></i>
                           <span class="title-font">Favoris</span>
                         </button>

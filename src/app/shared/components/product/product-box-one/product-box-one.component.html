@@ -34,8 +34,11 @@
         *ngIf="!cartModal">
         <i class="ti-shopping-cart"></i>
       </a>
-      <a href="javascript:void(0)" *ngIf="isFavorite==false" title="Add to Wishlist" (click)="addToWishlist(oeuvre)">
+      <a href="javascript:void(0)" *ngIf="isFavorite==false" title="Ajouter au favoris" (click)="addToWishlist(oeuvre)">
         <i class="ti-heart" aria-hidden="true"></i>
+      </a>
+      <a href="javascript:void(0)" *ngIf="isFavorite==true" title="Supprimer des favoris" (click)="removeFromWishlist(oeuvre)">
+        <i class="fa fa-heart" aria-hidden="true"></i>
       </a>
       <a href="javascript:void(0)" title="Quick View" (click)="QuickView.openModal()">
         <i class="ti-search" aria-hidden="true"></i>

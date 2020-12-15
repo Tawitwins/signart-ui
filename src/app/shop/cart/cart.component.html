@@ -12,12 +12,12 @@
             <table style="text-align: center;" class="table cart-table table-responsive-xs">
                 <thead>
                     <tr class="table-head">
-                        <th scope="col">Image</th>
                         <th scope="col">Oeuvre</th>
+                        <th scope="col">Titre</th>
                         <th scope="col">Prix</th>
                         <th scope="col">Quantité</th>
-                        <th scope="col">Action</th>
                         <th scope="col">Total</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody *ngFor="let oeuvre of oeuvres">
@@ -57,14 +57,14 @@
                             </div>
                         </td>
                         <td>
-                            <a href="javascript:void(0)" (click)="removeItem(oeuvre)" class="icon">
-                            <i class="ti-close"></i>
-                        </a>
+                            <h4 class="td-color">
+                                {{ (oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100) * oeuvre?.quantity | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}
+                            </h4>
                         </td>
                         <td>
-                            <h4 class="td-color">
-                                {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}
-                            </h4>
+                            <a title="Supprimer du panier" href="javascript:void(0)" (click)="removeItem(oeuvre)" class="icon">
+                            <i class="ti-close"></i>
+                        </a>
                         </td>
                     </tr>
                 </tbody>
@@ -73,9 +73,8 @@
                 <tfoot>
                     <tr>
                         <td>Montant total :</td>
-                        <td>Prix total :</td>
-                        <td>
-                            <h2> {{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h2>
+                        <td >
+                            <h2 class="td-color"> {{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h2>
                         </td>
                         <!--td>
                             <h2> {{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</h2>
@@ -87,7 +86,7 @@
         </div>
         <div class="row cart-buttons" *ngIf='oeuvres.length'>
             <div class="col-6">
-                <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continuer l'exploration</a>
+                <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">Continuer l'exploration</a>
             </div>
             <div class="col-6">
                 <div (click)="confirmer()" class="btn btn-solid-Valider">Commander</div>

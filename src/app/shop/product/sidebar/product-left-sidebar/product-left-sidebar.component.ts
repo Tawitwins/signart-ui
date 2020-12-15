@@ -37,6 +37,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   
   public ProductDetailsMainSliderConfig: any = ProductDetailsMainSlider;
   public ProductDetailsThumbConfig: any = ProductDetailsThumbSlider;
+  isFavorite: any;
 
   constructor(private route: ActivatedRoute, private router: Router,
     public productService: ProductService, private artisteService: ArtisteService, private authService: AuthServiceS) { 
@@ -110,7 +111,7 @@ export class ProductLeftSidebarComponent implements OnInit {
 
     setMagnification(i){
       if(i==1)
-        this.magnificationInt=1.6;
+        this.magnificationInt=2;
       else
         this.magnificationInt=1;
     }
@@ -189,9 +190,8 @@ export class ProductLeftSidebarComponent implements OnInit {
     if(status)
       this.router.navigate(['/shop/checkout']);
   }
-
-  // Add to Wishlist
-  addToWishlist(product: any) {
+  addToWishlist(oeuvre: any) {
+    this.user = this.authService.getUserConnected();
     if(this.user==null){
       Swal.fire({
         //title: 'Are you sure?',
@@ -208,8 +208,11 @@ export class ProductLeftSidebarComponent implements OnInit {
         }
       })  
      }else{
-    this.productService.addToWishlist(product);}
+      this.isFavorite=this.productService.addToWishlist(oeuvre);
+     }
+    
   }
+  
 
   // Toggle Mobile Sidebar
   toggleMobileSidebar() {

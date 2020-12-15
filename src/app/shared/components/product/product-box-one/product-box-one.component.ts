@@ -171,6 +171,10 @@ export class ProductBoxOneComponent implements OnInit {
      }
     
   }
+  removeFromWishlist(oeuvre: any) {
+    if(this.productService.removeWishlistItem(oeuvre))
+      this.isFavorite=false;
+  }
 
   addToCompare(oeuvre: any) {
     this.productService.addToCompare(oeuvre);

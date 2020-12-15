@@ -179,6 +179,7 @@ export class ProductService {
   public removeWishlistItem(product: Product): any {
     const index = state.wishlist.indexOf(product);
     state.wishlist.splice(index, 1);
+    this.toastrService.success('Le produit a été retiré de vos favoris.');
     localStorage.setItem("wishlistItems", JSON.stringify(state.wishlist));
     return true
   }
