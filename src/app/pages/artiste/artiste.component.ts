@@ -158,7 +158,9 @@ export class ArtisteComponent implements OnInit {
             this.artisteService
                 .getArtiste(this.artisteId)
                 .subscribe(response => {
-                    this.artiste = response
+                 
+                    this.artiste = response;
+                    console.log("aaaaaaaaaaarrrrrrrrttttttttt", this.artiste)
                     this.expoService.getOeuvreByArtiste(this.artiste.id).subscribe(response => { 
                       this.oeuvres = response;
                      });

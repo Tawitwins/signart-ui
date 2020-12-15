@@ -31,7 +31,7 @@ export class ExpositionComponent implements OnInit {
   //expositions: Exposition[]=[];
   ExpositionsValide: Exposition[]=[];
   newLocationMapTmp: LocationOnMap;
-  lartiste:Artiste=new Artiste('','','','','','','','','','');
+  lartiste:Artiste=new Artiste('','','','','','','','','','',null);
   pipe:DatePipe=new DatePipe('en-US');
   Expos: Exposition| any =[];
 
