@@ -194,6 +194,7 @@
                                                                     <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continue shopping</a>
                                                                 </div-->
                                                             </div>
+                                                            
                                                         </div>
                                                         <ngb-pagination [collectionSize]="imageFiltres.length" [(page)]="pag" [pageSize]="pageSize" aria-label="Default pagination">
                                                         </ngb-pagination>
@@ -259,19 +260,15 @@
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
-                                                            <table style="text-align: center;" class="table cart-table table-responsive-md">
+                                                            <table style="text-align: center;" class="table cart-table table-responsive-xs">
                                                                 <tfoot>
                                                                     <tr>
                                                                         <td>
                                                                             <h4>
-                                                                                montant total :
+                                                                                Montant total :
                                                                             </h4> 
                                                                         </td>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td></td>
+                                                                        
                                                                         <td>
                                                                             <!--h4> {{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</h4-->
                                                                             <h4> {{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h4> 

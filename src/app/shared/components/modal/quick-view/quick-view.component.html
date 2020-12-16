@@ -29,8 +29,9 @@
                                     </li>
                                 </ul>
                             </div> -->
-                            <h5 class="avalibility" *ngIf="counter <= oeuvre.stock"><span>En stock</span></h5>
-                            <h5 class="avalibility" *ngIf="counter > oeuvre.stock"><span>Rupture de stock</span></h5>
+                            <h5 class="avalibility" *ngIf="counter <= oeuvre?.stock && oeuvre?.stock > 1" style="color: green;"><span>Disponible</span></h5>
+                            <h5 class="avalibility" *ngIf="oeuvre?.stock == 1" style="color: green;"><span>1 seul élément disponible</span></h5>
+                            <h5 class="avalibility" *ngIf="counter > oeuvre?.stock" style="color: darkred;"><span>Non disponible</span></h5>
                             <h6 class="product-title">quantité</h6>
                             <div class="qty-box">
                                 <div class="input-group">
@@ -41,7 +42,7 @@
                                     </span>
                                     <input type="text" name="quantity" class="form-control input-number"  [value]="counter" disabled>
                                     <span class="input-group-prepend">
-                                        <button type="button" class="btn quantity-right-plus" data-type="plus" (click)="increment()">
+                                        <button type="button" class="btn quantity-right-plus" [disabled]="counter == oeuvre?.stock" data-type="plus" (click)="increment()">
                                             <i class="ti-angle-right"></i>
                                         </button>
                                     </span>

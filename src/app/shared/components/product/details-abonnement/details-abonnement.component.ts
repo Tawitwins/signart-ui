@@ -236,8 +236,8 @@ export class DetailsAbonnementComponent implements OnInit {
     this.oeuvreNumeriqueSave.description = oeuvreNumerique.description;
     this.oeuvreNumeriqueSave.id = oeuvreNumerique.id;
     this.oeuvreNumeriqueSave.identiteAuteur = oeuvreNumerique.identiteAuteur;
-    this.oeuvreNumeriqueSave.isDisabledAdd = oeuvreNumerique.isDisabledAdd;
-    this.oeuvreNumeriqueSave.isDisabledRemove = oeuvreNumerique.isDisabledRemove;
+    //this.oeuvreNumeriqueSave.isDisabledAdd = oeuvreNumerique.isDisabledAdd;
+    //this.oeuvreNumeriqueSave.isDisabledRemove = oeuvreNumerique.isDisabledRemove;
     this.oeuvreNumeriqueSave.largeur = oeuvreNumerique.largeur;
     this.oeuvreNumeriqueSave.longueur = oeuvreNumerique.longueur;
     this.oeuvreNumeriqueSave.motscles = oeuvreNumerique.motscles;

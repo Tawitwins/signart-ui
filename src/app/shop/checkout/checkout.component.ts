@@ -19,6 +19,7 @@ import { Livraison } from '../../shared/modeles/livraison';
 import { LigneCommande } from '../../shared/modeles/ligneCommande';
 import { ModeLivraison } from '../../shared/modeles/mode_livraison';
 import { Address } from 'cluster';
+import { AddressService } from 'src/app/checkout/address/services/address.service';
 
 @Component({
   selector: 'app-checkout',
@@ -46,10 +47,31 @@ export class CheckoutComponent implements OnInit {
   listAdresses: any;
   adresseLivraison: any;
   selectedModeLiv: any;
+  addAdresse: number;
+  indicatifpays: string;
+  libellePays: string;
+  addressForm: FormGroup;
+  listAdressesLength: number;
+  emailForm: FormGroup;
 
   constructor(private fb: FormBuilder,private toastService:ToastrService,private authService:AuthServiceS,
     public productService: ProductService,private newCheckoutService:CheckoutService,private paysService:PaysService,
-    private orderService: OrderService) { 
+    private orderService: OrderService, private checkoutService: CheckoutService,
+    private addrService: AddressService, private toastrService:ToastrService, 
+    //private store: Store<AppState>, 
+    ) { 
+
+     /* this.indicatifpays = "+221";
+    this.libellePays = "Sénégal";
+      this.addressForm = addrService.initAddressForm();
+      this.emailForm = addrService.initEmailForm();
+      this.store.select(getAuthStatus).subscribe((auth) => {
+        this.isAuthenticated = auth;
+      });
+      this.user=this.authS.getUserConnected();
+      this.client={id:0,nom: '',prenom: '',sexe: '',adresseFacturation:'',adresseLivraison:'',ville:'',telephone: '',dateNaissance:new Date(),etatClient:'',idEtatClient: 0,idPays:1,pays: '',idUser:0}
+*/
+    this.addAdresse = 0;
     this.client = this.authService.getClientConnected();
     this.paysService.getAllPays().subscribe(pays => this.allPays = pays);
     this.newCheckoutService.availablePaymentMethods().subscribe(resp=> {
@@ -94,6 +116,10 @@ export class CheckoutComponent implements OnInit {
     return this.productService.cartTotalAmount();
   }
 
+  addNewAdresse(){
+    this.addAdresse = 1;
+  }
+
   // Stripe Payment Gateway
   stripeCheckout() {
     var handler = (<any>window).StripeCheckout.configure({
@@ -111,6 +137,37 @@ export class CheckoutComponent implements OnInit {
       amount: this.amount * 100
     }) 
   }
+
+  /*choisirPays(event) {
+    // console.log('evennnnt valueeee',event.target.value)
+     for (let i = 0; i < this.allPays.length; i++) {
+        if(this.allPays[i].id == event.target.value){
+          //console.log('indicatiiiiiiiiiif valuuuuuuuue',this.allPays[i].indicatif)
+          this.indicatifpays = this.allPays[i].indicatif;
+        }
+       
+     }
+   }
+ 
+   onSubmit() {
+     let address = this.addressForm.value;
+     address.idClient = this.client.id;
+     let addressAttributes;
+     addressAttributes = this.addrService.createAddresAttributes(address);
+     console.log('adresses : ', addressAttributes);
+     this.checkoutService.addAdressesLivEtFact(addressAttributes).subscribe(
+       resp=>{
+         console.log(resp);
+         this.toastrService.success("Adresse ajouté","Succés");
+       }
+     );
+     this.listAdressesLength = 1;
+     //this.store.dispatch(this.actions.updateOrderAdressNumberSuccess(this.listAdressesLength));
+     
+     //this.router.navigate(['/checkout', 'address']);
+     //location.reload();
+   }*/
+ 
 
   // Paypal Payment Gateway
   private initConfig(): void {

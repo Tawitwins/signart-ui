@@ -254,6 +254,7 @@ export class AbonnementCatalogueComponent implements OnInit {
       this.imageFiltresSave = [];
       this.techSelect = "Tout";
       this.onGetImage();
+      //this.setBouttons();
       this.productService.listItems.subscribe(response => this.oeuvresNumeriques = response);
       this.userConnect=this.authS.getUserConnected();
       this.idUtilisateur = this.userConnect.id;
@@ -559,19 +560,46 @@ export class AbonnementCatalogueComponent implements OnInit {
   }
 
   onGetImage(){
+    let tabList: OeuvreNumerique[] = this.productService.checkItemList();
     this.imageService.getAllImage().subscribe(
       response => { 
         this.imageRes = response;
-        ////console.log("image",this.imageRes);
+        
         for (let i = 0; i < this.imageRes.length; i++) {
+          this.imageRes[i].isInList = false;
           this.allYears.push(this.imageRes[i].annee);
           this.findMinMax(this.allYears);
+          //console.log("checkkkkkkkkkkk",this.productService.checkItemList(this.imageRes[i]));
         }
+
+        for (let i = 0; i < tabList.length; i++) {
+          for (let j = 0; j < this.imageRes.length; j++) {
+            if(this.imageRes[j].id == tabList[i].id){
+              this.imageRes[j].isInList = true;
+            }      
+          }   
+        }
+        console.log("imageeeeeeeeeee",this.imageRes);
         this.imageFiltres = this.imageRes;
         this.imageFiltresSave = this.imageRes;
         ////console.log("imageFiltres",this.imageFiltres)
-      });   
+      }); 
+      //console.log("checkkkkkkkkkkk",this.productService.checkItemList());  
   }
+
+  /*setBouttons(){
+    let tabList = this.productService.checkItemList();
+    for (let i = 0; i < tabList.length; i++) {
+      for (let j = 0; j < this.imageRes.length; j++) {
+        if(this.imageRes[j] == tabList[i]){
+          this.imageRes[j].isInList = true;
+        }
+        
+      }
+      
+    }
+    console.log("modiiiiiffff stuuuutttatt oeuvreeeee",this.imageRes);  
+  }*/
 
   findMinMax(tab: number[]){
    // //console.log("table des aneeeeeeeeeeeee",tab)
@@ -601,7 +629,7 @@ export class AbonnementCatalogueComponent implements OnInit {
     return this.artisteName;
   }
 
-  addToList(item: OeuvreNumerique){   
+  /*addToList(item: OeuvreNumerique){   
     if(this.userWho == 1){
       Swal.fire({
         icon: 'error',
@@ -618,12 +646,13 @@ export class AbonnementCatalogueComponent implements OnInit {
     
     }
     
-  }
+  }*/
 
  
 
-  public removeListItem(oeuvreNumeriques: any) {
-    this.productService.removeListItem(oeuvreNumeriques);
+  public removeListItem(oeuvreNumerique: any) {
+    oeuvreNumerique.isInList = false;
+    this.productService.removeListItem(oeuvreNumerique);
   }
 
   public removeList() {

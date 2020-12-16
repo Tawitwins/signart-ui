@@ -14,6 +14,7 @@
         <img [src]="domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+oeuvreNumerique.avatar?.value)" class="img-fluid lazy-loading" alt="oeuvreNumerique.titre">
       </a>
     </div>
+    
     <!--ul class="product-thumb-list" *ngIf="thumbnail">
       <li class="grid_thumb_img" [class.active]="ImageSrc == image.src" *ngFor="let image of product.images">
         <a href="javascript:void(0)" (mouseover)="ChangeVariantsImage(image.src)">
@@ -51,16 +52,23 @@
                <i title="Ajouter à la liste" class="fa fa-plus-circle" style="font-size: 160%; color: #601A17;"></i>
             </a-->
           </h6><br>
-          <h6>{{oeuvreNumerique?.annee }}   </h6>
+          <h6>{{oeuvreNumerique?.annee }}  {{oeuvreNumerique?.isInList}}   </h6>
         </a>
         <h4>
          {{oeuvreNumerique?.titre | titlecase }} 
         </h4>
         
-      </div>
-      <div class="col-md-3">
+      </div>      
+      <div class="col-md-3" *ngIf="oeuvreNumerique.isInList == false">
         
         <a href="javascript:void(0)" title="Add to cart" (click)="addToList(oeuvreNumerique)">
+          <i title="Ajouter à la liste" class="fa fa-plus
+          " style="font-size: 200%; color: #601A17;"></i>
+        </a>
+        </div>
+      <div class="col-md-3" *ngIf="oeuvreNumerique.isInList == true">
+        
+        <a href="javascript:void(0)" title="Add to cart" (click)="removeListItem(oeuvreNumerique)">
           <i title="Ajouter à la liste" class="fa fa-plus-square" style="font-size: 200%; color: #601A17;"></i>
         </a>
       </div>
