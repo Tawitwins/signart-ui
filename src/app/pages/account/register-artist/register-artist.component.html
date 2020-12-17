@@ -4,10 +4,9 @@
     <div class="container">
         <div class="theme-card">
         <div class="row">
-            <div class="col-lg-12">
-                <h3>créer un compte artiste</h3>
+            <!--h3>créer un compte artiste</h3>
                 <p style="font-size: large;" class="text-large">
-                    Vous souhaitez vous référencer sur <strong>SignArt</strong> ? Nous serions heureux de prendre connaissance de votre travail !
+                    Vous souhaitez vous référencer sur <strong>SignArt</strong> ? Nous serions heureux de prendre connaissance de votre travail.
       
                   <a style="color: #f07c10;text-decoration:underline" [routerLink]="['/critere']">Vous pouvez consulter les conditions que nous proposons aux artistes dans la rubrique  correspondante</a>.
                             
@@ -18,8 +17,27 @@
                         </p>    
                         <p  style="font-size: large;">
                          SignArt !
+                        </p--> 
+            <div class="col-lg-12">
+                <h3>créer un compte artiste</h3>
+                <p style="font-size: large;" class="text-large">
+                    Vous souhaitez vous référencer sur <strong>SignArt</strong> ? Nous serions heureux de prendre connaissance de votre travail.
+      
+                  <a style="color: #f07c10;text-decoration:underline" [routerLink]="['/critere']">Consultez les conditions</a>. <br>
+                            
+                            Soumettez votre condidature en remplissant le formulaire ci-dessous.
+                </p>
+                        <p style="font-size: large;">      
+                            Merci pour votre intérêt pour SignArt, et à bientôt !
+                        </p>    
+                        <p  style="font-size: large;">
+                         SignArt !
                         </p>  
                 <div class="theme-card">
+                    <!--div class="col-md-6">
+                        <a (click)="onSubmitForm1()"> show info</a>
+
+                    </div-->
                     <form [formGroup]="infoArtisteForm" class="theme-form">
                         <div class="form-row">
                             <div class="col-md-6">
@@ -123,18 +141,24 @@
                                 <input type="password" class="form-control" id="review" placeholder="Enter your password" required="">
                             </div> -->
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                <label for="review">Spécialités</label>
-                                <select name="genre" class="form-control" formControlName="specialite" [value]="form1Value.specialite">
+                                <label for="review">Spécialité</label>
+                                <select (change)="specialiteSelected($event)" name="genre" class="form-control" formControlName="specialites" [value]="form1Value.specialite">
                                     <option value="">-- Selectionner une spécialités --</option>
                                     <option *ngFor="let technique of techniques" [value]="technique.libelle">{{technique.libelle}}</option>
+                                    <option value="autres">Autres</option>
                                 </select>
-                                <div *ngIf="infoArtisteForm.get('specialite').errors && infoArtisteForm.get('specialite').touched">
+                                <div *ngIf="infoArtisteForm.get('specialites').errors && infoArtisteForm.get('specialites').touched">
                                     <p class="register-error-message" style="color: red;">Veuillez choisir une spécialité !</p>
                                   </div>
                             </div>
-                            <div class="col-md-6">
-
+                            <div class="form-group col-md-6 col-sm-6 col-xs-12" *ngIf="autreSpecialite == true">
+                                <label for="review">Précisez votre spécialité</label>
+                                <input type="text" class="form-control" id="lname" placeholder="Spécialité" formControlName="autreSepecialite" >
+                                <!--div *ngIf="infoArtisteForm.get('specialite').errors && infoArtisteForm.get('specialite').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez saisir votre spécialité</p>
+                                  </div-->
                             </div>
+                           
                         </div>
                     </form>
                 </div>

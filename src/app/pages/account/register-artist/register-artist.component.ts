@@ -28,6 +28,8 @@ export class RegisterArtistComponent implements OnInit {
   techniques : any = null;
   indicatifpays: string;
   libellePays: string;
+  autreSpecialite: boolean;
+  autreSpecialiteValue: string;
 
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   infoArtisteForm = this.formbuilder.group({
@@ -41,7 +43,8 @@ export class RegisterArtistComponent implements OnInit {
     'siteWeb': ['',],
     'adresseGalerie': ['',],
     'ville': ['',],
-    'specialite': ['',Validators.required],
+    'specialites': ['',Validators.required],
+    'autreSepecialite': [''],
     'formation': ['',],
     'exposition': ['',],
     'codePays':['',Validators.required],
@@ -73,6 +76,8 @@ export class RegisterArtistComponent implements OnInit {
     private artisteService: ArtisteService,private paysService: PaysService) {
       this.indicatifpays = "+221";
       this.libellePays = "Sénégal";
+      this.autreSpecialite = false;
+      this.autreSpecialiteValue = "";
       this.oeuvreService.getTechnique().subscribe(
         resp => {
           
@@ -84,6 +89,18 @@ export class RegisterArtistComponent implements OnInit {
     }
 
   ngOnInit(): void {
+  }
+
+  showInfo(){
+    this.autreSpecialiteValue = this.infoArtisteForm.get("autreSepecialite").value;
+    if(this.autreSpecialiteValue !== ""){
+      console.log("infoooo specialite not null", this.autreSpecialiteValue)
+
+    }else{
+      console.log("infoooo specialite null", this.autreSpecialiteValue)
+    }
+   var infoValues = this.infoArtisteForm.value
+    console.log("infoooo valueeee", infoValues)
   }
 
   onFileSelected(event,i){
@@ -123,6 +140,13 @@ export class RegisterArtistComponent implements OnInit {
          this.indicatifpays = this.allPays[i].indicatif;
        }
       
+    }
+  }
+
+  specialiteSelected(event){
+
+    if(event.target.value == "autres"){
+      this.autreSpecialite = true;
     }
   }
 
@@ -236,6 +260,14 @@ export class RegisterArtistComponent implements OnInit {
     this.form1Value = this.infoArtisteForm.value;
     this.form1Value.telephone = this.indicatifpays+''+this.infoArtisteForm.get('telephone').value;
 
+    this.autreSpecialiteValue = this.infoArtisteForm.get("autreSepecialite").value;
+    if(this.autreSpecialiteValue !== ""){
+      //console.log("infoooo specialite not null", this.autreSpecialiteValue)
+      this.form1Value.specialites = this.autreSpecialiteValue;
+    }else{
+      //console.log("infoooo specialite null", this.autreSpecialiteValue)
+    }
+
     this.titreInfoArtistes = [
       {
         titre: 'Prenom',
@@ -274,8 +306,8 @@ export class RegisterArtistComponent implements OnInit {
         valeur: this.form1Value.ville,
       },
       {
-        titre: 'Specialite',
-        valeur: this.form1Value.specialite,
+        titre: 'Specialites',
+        valeur: this.form1Value.specialites,
       },
       {
         titre: 'Formation',

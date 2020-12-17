@@ -20,6 +20,9 @@ import { LigneCommande } from '../../shared/modeles/ligneCommande';
 import { ModeLivraison } from '../../shared/modeles/mode_livraison';
 import { Address } from 'cluster';
 import { AddressService } from 'src/app/checkout/address/services/address.service';
+import { AppState } from 'src/app/interfaces';
+import { Store } from '@ngrx/store';
+import { getAuthStatus } from 'src/app/auth/reducers/selectors';
 
 @Component({
   selector: 'app-checkout',
@@ -53,15 +56,17 @@ export class CheckoutComponent implements OnInit {
   addressForm: FormGroup;
   listAdressesLength: number;
   emailForm: FormGroup;
+  isAuthenticated: boolean;
+  user:any;
 
   constructor(private fb: FormBuilder,private toastService:ToastrService,private authService:AuthServiceS,
     public productService: ProductService,private newCheckoutService:CheckoutService,private paysService:PaysService,
     private orderService: OrderService, private checkoutService: CheckoutService,
     private addrService: AddressService, private toastrService:ToastrService, 
-    //private store: Store<AppState>, 
+    private store: Store<AppState>,private authS:AuthServiceS, 
     ) { 
 
-     /* this.indicatifpays = "+221";
+   this.indicatifpays = "+221";
     this.libellePays = "Sénégal";
       this.addressForm = addrService.initAddressForm();
       this.emailForm = addrService.initEmailForm();
@@ -70,7 +75,7 @@ export class CheckoutComponent implements OnInit {
       });
       this.user=this.authS.getUserConnected();
       this.client={id:0,nom: '',prenom: '',sexe: '',adresseFacturation:'',adresseLivraison:'',ville:'',telephone: '',dateNaissance:new Date(),etatClient:'',idEtatClient: 0,idPays:1,pays: '',idUser:0}
-*/
+
     this.addAdresse = 0;
     this.client = this.authService.getClientConnected();
     this.paysService.getAllPays().subscribe(pays => this.allPays = pays);
@@ -138,7 +143,7 @@ export class CheckoutComponent implements OnInit {
     }) 
   }
 
-  /*choisirPays(event) {
+  choisirPays(event) {
     // console.log('evennnnt valueeee',event.target.value)
      for (let i = 0; i < this.allPays.length; i++) {
         if(this.allPays[i].id == event.target.value){
@@ -151,6 +156,7 @@ export class CheckoutComponent implements OnInit {
  
    onSubmit() {
      let address = this.addressForm.value;
+     console.log('adresses : ', address);
      address.idClient = this.client.id;
      let addressAttributes;
      addressAttributes = this.addrService.createAddresAttributes(address);
@@ -159,6 +165,19 @@ export class CheckoutComponent implements OnInit {
        resp=>{
          console.log(resp);
          this.toastrService.success("Adresse ajouté","Succés");
+         this.addAdresse = 0;
+         this.newCheckoutService.getAdresseByClient(this.client.id).subscribe(
+          resp => {
+            this.listAdresses = resp;
+            //c'est pour afficher uniquement les adresses de livraison(pas de facturation)
+            for(let i=0;i<this.listAdresses.Length;i++){
+            if(this.listAdresses[i].codeTypeAdresse=='LIVRAISON'){
+              this.adresseLivraison=this.listAdresses[i];
+              console.log('les adresses de livraison',this.adresseLivraison)
+            }
+          }
+        });
+
        }
      );
      this.listAdressesLength = 1;
@@ -166,7 +185,7 @@ export class CheckoutComponent implements OnInit {
      
      //this.router.navigate(['/checkout', 'address']);
      //location.reload();
-   }*/
+   }
  
 
   // Paypal Payment Gateway

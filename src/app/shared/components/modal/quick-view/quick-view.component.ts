@@ -135,12 +135,13 @@ export class QuickViewComponent implements OnInit, OnDestroy  {
     if(this.user==null){
       Swal.fire({
         //title: 'Are you sure?',
-        text: "Vous devez vous connecter pour effectuer cet action",
+        text: "Vous devez vous connecter pour effectuer cette action",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#376809',
         cancelButtonColor: '#601A17',
-        confirmButtonText: 'Oui, se connecter!'
+        cancelButtonText: 'annuler',
+        confirmButtonText: 'Oui, se connecter'
       }).then((result) => {
         if (result.value) {
           console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)

@@ -33,6 +33,27 @@
                                     {{ oeuvre.nom | titlecase }}
                                 </h5>
                             </a>
+                            <div class="mobile-cart-content row">
+                                <div class="col-xs-3">
+                                    <div class="qty-box">
+                                        <div class="input-group">
+                                            <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="oeuvre.quantity">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <h2 class="td-color">
+                                        {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'  }} 
+                                    </h2>
+                                </div>
+                                <div class="col-xs-3">
+                                    <h2 class="td-color">
+                                        <a (click)="removeItem(oeuvre)" class="icon">
+                                            <i class="ti-close"></i>
+                                        </a>
+                                    </h2>
+                                </div>
+                            </div>
                         </td>
                         <td>
                             <h5>

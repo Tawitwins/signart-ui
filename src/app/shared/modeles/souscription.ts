@@ -8,7 +8,7 @@ export class Souscription {
   sexe:String;
   codePays:String;
   siteWeb:String;
-  specialite:String;
+  specialites:String;
   nomGalerie:String;
   adresseGalerie:String;
   ville:String;
