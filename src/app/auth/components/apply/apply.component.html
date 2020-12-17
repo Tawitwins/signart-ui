@@ -6,10 +6,10 @@
           <div class="card">
           <div class="card-header card-header-warning" style="background-color:#f07c10 ;color:azure">
             <div class="card-icon" >
-              <button *ngIf="etape==1" class="material-icons" mat-raised-button type="button"  (click)="onReturn();">
+              <button *ngIf="etape==1" title="Retour" class="material-icons" mat-raised-button type="button"  (click)="onReturn();">
                   RETOUR
               </button>
-              <button *ngIf="etape!=1" class="material-icons" mat-raised-button type="button"  (click)="onCancel();">
+              <button *ngIf="etape!=1" title="Annuler" class="material-icons" mat-raised-button type="button"  (click)="onCancel();">
                 ANNULER
             </button>
           </div>

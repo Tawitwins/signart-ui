@@ -1,7 +1,7 @@
 <div *ngIf="!loader">
   <div class="img-wrapper">
     <div class="front">
-      <a [routerLink]="['']" title="Quick View" (click)="QuickView.openModal()">
+      <a [routerLink]="['']" title="Voir plus" (click)="QuickView.openModal()">
         <img 
           [src]="domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+oeuvreNumerique.avatar?.value)" 
           [lazyLoad]="domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+oeuvreNumerique.avatar.value)" 
@@ -60,7 +60,7 @@
       </div>
       <div class="col-md-3">
         
-        <a href="javascript:void(0)" title="Add to cart" (click)="addToList(oeuvreNumerique)">
+        <a href="javascript:void(0)" title="Ajouter au panier" (click)="addToList(oeuvreNumerique)">
           <i title="Ajouter à la liste" class="fa fa-plus-square" style="font-size: 200%; color: #601A17;"></i>
         </a>
       </div>

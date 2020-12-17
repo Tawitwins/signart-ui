@@ -16,23 +16,23 @@
               <br>
               <div class="row">
                 <div class="col-md-6">
-                  <button [ngClass]="(section === 'general')?'btn abonnement': 'btn annonces'" (click)='ChangerSection("general")'> Généralités</button> 
+                  <button title="Information générales" [ngClass]="(section === 'general')?'btn abonnement': 'btn annonces'" (click)='ChangerSection("general")'> Généralités</button> 
                 </div>
                 <div class="col-md-6">
-                  <button [ngClass]="(section === 'listeOeuvres' || section === 'addOeuvre' )?'btn abonnement': 'btn annonces'" (click)='ChangerSection("listeOeuvres")'> <i class="ti-PLUS"></i> Mes oeuvres</button>
-                </div>
-              </div>
-              <div class="row" style="margin-top: 20px;">
-                <div class="col-md-6">
-                  <button [ngClass]="(section === 'listeAnnonces' || section === 'addAnnonce')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeAnnonces")'> Mes annonces</button> 
-                </div>
-                <div class="col-md-6">
-                  <button [ngClass]="(section === 'listeExpo' || section === 'addExpo')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeExpo")'> <i class="ti-PLUS"></i> Mes expositions</button>
+                  <button title="Mes oeuvres" [ngClass]="(section === 'listeOeuvres' || section === 'addOeuvre' )?'btn abonnement': 'btn annonces'" (click)='ChangerSection("listeOeuvres")'> <i class="ti-PLUS"></i> Mes oeuvres</button>
                 </div>
               </div>
               <div class="row" style="margin-top: 20px;">
                 <div class="col-md-6">
-                  <button [ngClass]="(section === 'parametres')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("parametres")'> Paramètres</button> 
+                  <button title="Mes annonces" [ngClass]="(section === 'listeAnnonces' || section === 'addAnnonce')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeAnnonces")'> Mes annonces</button> 
+                </div>
+                <div class="col-md-6">
+                  <button title="Mes expositions" [ngClass]="(section === 'listeExpo' || section === 'addExpo')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeExpo")'> <i class="ti-PLUS"></i> Mes expositions</button>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 20px;">
+                <div class="col-md-6">
+                  <button title="Options" [ngClass]="(section === 'parametres')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("parametres")'> Options</button> 
                 </div>
                <!--  <div class="col-md-6">
                   <button [ngClass]="(section === 'listeExpo' || section === 'addExpo')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeExpo")'> <i class="ti-PLUS"></i> Mes expositions</button>
@@ -49,7 +49,7 @@
               </div>
               <div class="col-xl-3 col-sm-6">
                <div class="bbleu">
-                  <div class="side-l"><a [routerLink]="['/pages/followers/',artiste.id]"><p class="big-l">{{artiste?.nbFans}}</p></a> <p class="col-p">Abonnés</p></div>
+                  <div class="side-l"><a [routerLink]="['/pages/followers/',artiste.id]" title="Nombre de followers"><p class="big-l">{{artiste?.nbFans}}</p></a> <p class="col-p">Followers</p></div>
               </div> 
                
               </div>
@@ -58,21 +58,21 @@
                   <div class="side-l"><p class="big-l">Art Plastique</p> <p class="col-p">{{artiste.profession}}</p></div>
               </div> 
                 </div>
-              <div *ngIf='section=="listeOeuvres"' class="col-xl-3 col-sm-6 col-md-2">	  
+             <!--  <div *ngIf='section=="listeOeuvres"' class="col-xl-3 col-sm-6 col-md-2">	  
                 <div class="blanc">
-                  <div class="side-l"><button class="btn annonce" (click)='ChangerSection("addOeuvre")'>Soumettre une Oeuvre</button></div>
+                  <div class="side-l"><button title="Soumettre une oeuvre" class="btn annonce" (click)='ChangerSection("addOeuvre")'>Soumettre une Oeuvre</button></div>
                 </div> 
               </div>
               <div *ngIf='section=="listeExpo"' class="col-xl-3 col-sm-6 col-md-2">	  
                 <div class="blanc">
-                  <div class="side-l"><button class="btn annonce" (click)='ChangerSection("addExpo")'>Soumettre une Exposition</button></div>
+                  <div class="side-l"><button title="Soumettre une exposition" class="btn annonce" (click)='ChangerSection("addExpo")'>Soumettre une Exposition</button></div>
                 </div> 
               </div>
               <div *ngIf='section=="listeAnnonces"' class="col-xl-3 col-sm-6 col-md-2">	  
                 <div class="blanc">
-                  <div class="side-l"><button class="btn annonce" (click)='ChangerSection("addAnnonce")'>Soumettre une Annonce</button></div>
+                  <div class="side-l"><button title="Soumettre une annonce" class="btn annonce" (click)='ChangerSection("addAnnonce")'>Soumettre une Annonce</button></div>
                 </div> 
-              </div>
+              </div> -->
             </div>      
               <!------------------------------------------------ Content --------------------------------------------- --> 
               <br>
@@ -98,6 +98,7 @@
                           </div>
                         </section>
                         <section *ngIf='section=="listeOeuvres"' class="tab-product m-0">
+                          <button style="float: right;margin-top:-4%; margin-bottom: 2px;" class="btn annonce col-md-2.5" title="Soumettre une oeuvre" (click)='ChangerSection("addOeuvre")'>Soumettre une oeuvre</button>
                           <div class="table-responsive card" style="padding: 20px;">
                             <h4><strong>  Liste des oveures publiées</strong></h4>
                             <div class="col-md-12">
@@ -115,7 +116,7 @@
                                               <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
                                               <h3>Désolé! Il n'ya pas d'oeuvre pour le moment!! </h3>
                                               <p>Veuilez vérifier votre clé de recherche ou actualiser la page.</p>
-                                              <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">Continue à explorer</a>
+                                              <a [routerLink]="['/shop/collection/left/sidebar']" title="Continuer l'exploration" class="btn btn-solid">Continue à explorer</a>
                                           </div>
                                       </div>
                                   </div>
@@ -125,7 +126,7 @@
                             <br>
                             <h4><strong> Liste des oveures en attente de publication</strong></h4>
                             <div class="table-responsive"> 
-                              <table class="table table-hover" style="text-align: center;">
+                              <table class="table table-hover"style="text-align: center;">
                                   <thead class="text-warning">
                                       <!--th>ID</th-->
                                       <th>Image</th>
@@ -138,6 +139,10 @@
                                     
                                   </thead>
                                   <tbody>
+                                      <p *ngIf="oeuvresEnAttenteValidation?.length == 0">
+                                        <br>
+                                        La liste est vide.
+                                      </p>
                                       <tr *ngFor="let oeuvre of oeuvresEnAttenteValidation | slice: (pagOAP-1) * pageSizeOAP : (pagOAP-1) * pageSizeOAP + pageSizeOAP;">
                                           <!--td>{{index + 1}}</td-->
                                           <td><img [src]="getImageSous(oeuvre.id)" style="width: 100px; height: 100px;" alt=""></td>
@@ -156,13 +161,14 @@
                                           </td>-->
                                   </tbody>
                               </table>
-                              <ngb-pagination [collectionSize]="oeuvresEnAttenteValidation.length" [(page)]="pagOAP" [pageSize]="pageSizeOAP" aria-label="Default pagination">
+                              <ngb-pagination style="float: right;" [collectionSize]="oeuvresEnAttenteValidation.length" [(page)]="pagOAP" [pageSize]="pageSizeOAP" aria-label="Default pagination">
                               </ngb-pagination>
                           </div>
                           </div>
                         </section>
                         <section *ngIf='section=="listeAnnonces"' class="tab-product m-0">
-                          <div class="table-responsive card" style="padding: 20px;">
+                            <button style="float: right;margin-top:-4%;font-size: large;" class="btn annonce col-md-2.5" title="Soumettre une annonce" (click)='ChangerSection("addAnnonce")'>Soumettre une annonce</button>
+                          <div class="table-responsive" style="padding: 20px;">
                             <h4><strong>  Liste des annonces publiées</strong></h4>
                             <table style="text-align: center;" class="table table-hover">
                                 <thead class=" text-dark">
@@ -189,6 +195,10 @@
                                     </th>-->
                                 </thead>
                                 <tbody>
+                                  <p *ngIf="listesAnnonce?.length == 0">
+                                    <br>
+                                    La liste est vide.
+                                  </p>
                                     <tr *ngFor="let annonce of listesAnnonce | slice: (pagAP-1) * pageSizeAP : (pagAP-1) * pageSizeAP + pageSizeAP">
                                         <td>
                                             {{annonce.titre}}
@@ -222,7 +232,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <ngb-pagination [collectionSize]="listesAnnonce.length" [(page)]="pagAP" [pageSize]="pageSizeAP" aria-label="Default pagination">
+                            <ngb-pagination style="float: right;"  [collectionSize]="listesAnnonce.length" [(page)]="pagAP" [pageSize]="pageSizeAP" aria-label="Default pagination">
                             </ngb-pagination>
                             <br>
                             <h4><strong>  Liste des annonces en attente de publication</strong></h4>
@@ -251,6 +261,10 @@
                                   </th>-->
                               </thead>
                               <tbody>
+                                <p *ngIf="listesAnnonceEnAttente?.length == 0">
+                                  <br>
+                                  La liste est vide.
+                                </p>
                                   <tr *ngFor="let annonce of listesAnnonceEnAttente | slice: (pagAAP-1) * pageSizeAAP : (pagAAP-1) * pageSizeAAP + pageSizeAAP">
                                       <td>
                                           {{annonce.titre}}
@@ -284,12 +298,13 @@
                                   </tr>
                               </tbody>
                           </table>
-                          <ngb-pagination [collectionSize]="listesAnnonceEnAttente.length" [(page)]="pagAAP" [pageSize]="pageSizeAAP" aria-label="Default pagination">
-                          </ngb-pagination>
+                            <ngb-pagination style="float: right;" [collectionSize]="listesAnnonceEnAttente.length" [(page)]="pagAAP" [pageSize]="pageSizeAAP" aria-label="Default pagination">
+                            </ngb-pagination>
                           </div>
                         </section>
                         <section *ngIf='section=="listeExpo"' class="tab-product m-0">
-                          <div class="table-responsive card" style="padding: 20px;">
+                          <button style="float: right;margin-top:-4%"  class="btn annonce col-md-2.5" title="Soumettre une exposition" (click)='ChangerSection("addExpo")'>Soumettre une exposition</button>
+                          <div class="table-responsive" style="padding: 20px;">
                             <h4><strong>   Liste des expositions publiées</strong></h4>
                             <table style="text-align: center;" class="table table-hover">
                               <thead class=" text-dark">
@@ -313,6 +328,10 @@
                                 </th-->
                               </thead>
                               <tbody>
+                                <p *ngIf="listesExp?.length == 0">
+                                  <br>
+                                  La liste est vide.
+                                </p>
                                   <tr *ngFor="let exposition of listesExp | slice: (pagEP-1) * pageSizeEP : (pagEP-1) * pageSizeEP + pageSizeEP">
                                       <td>
                                           {{exposition.titre}}
@@ -338,7 +357,7 @@
                                   </tr>
                               </tbody>
                             </table>
-                            <ngb-pagination [collectionSize]="listesExpEnAttente.length" [(page)]="pagEP" [pageSize]="pageSizeEP" aria-label="Default pagination">
+                            <ngb-pagination style="float: right;" [collectionSize]="listesExpEnAttente.length" [(page)]="pagEP" [pageSize]="pageSizeEP" aria-label="Default pagination">
                             </ngb-pagination>
                             <br>
                             <h4><strong>   Liste des expositions en attente de publication</strong></h4>
@@ -364,6 +383,10 @@
                                 </th-->
                               </thead>
                               <tbody>
+                                <p *ngIf="listesExpEnAttente?.length == 0">
+                                  <br>
+                                  La liste est vide.
+                                </p>
                                   <tr *ngFor="let exposition of listesExpEnAttente | slice: (pagEAP-1) * pageSizeEAP : (pagEAP-1) * pageSizeEAP + pageSizeEAP">
                                       <td>
                                           {{exposition.titre}}
@@ -389,7 +412,7 @@
                                   </tr>
                               </tbody>
                             </table>
-                            <ngb-pagination [collectionSize]="listesExpEnAttente.length" [(page)]="pagEAP" [pageSize]="pageSizeEAP" aria-label="Default pagination">
+                            <ngb-pagination style="float: right;" [collectionSize]="listesExpEnAttente.length" [(page)]="pagEAP" [pageSize]="pageSizeEAP" aria-label="Default pagination">
                             </ngb-pagination>
                           </div>
                         </section>

@@ -52,7 +52,7 @@
                                     <div class="box">
                                         <div class="box-title">
                                             <h3>Information de contact</h3>
-                                            <a href="javascript:void(0)" (click)="infopage = 1">Editer</a>
+                                            <a href="javascript:void(0)" title="Modifier"  (click)="infopage = 1">Modifier</a>
                                         </div>
                                         <div class="box-content">
                                             <h6>{{client.prenom}} {{client.nom}}</h6>
@@ -68,7 +68,7 @@
                                     <div class="box">
                                         <div class="box-title">
                                             <h3>Abonnement</h3>
-                                            <a [routerLink]="['/shop/collection/abonnement-catalogue']">Voir le catalogue</a>
+                                            <a [routerLink]="['/shop/collection/abonnement-catalogue']" title="Voir le catalogue" >Voir le catalogue</a>
                                         </div>                               
                                     </div>
                                 </div>
@@ -108,8 +108,8 @@
                                                     </div>
                                                     <div class="form-row">
                                                         
-                                                        <button class="btn btn-solid-Valider" type="submit">Valider</button>
-                                                        <button class="btn btn-solid-Annuler gplus"  type="ACTION" (click)="infopage = 0">Annuler</button>
+                                                        <button class="btn btn-solid-Valider" title="Valider" type="submit">Valider</button>
+                                                        <button class="btn btn-solid-Annuler gplus" title="Annuler" type="ACTION" (click)="infopage = 0">Annuler</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -120,8 +120,8 @@
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 2">
                             <div class="box-head">
-                                <a href="javascript:void(0)" style="float: right;" *ngIf="listAdress==true"  (click)="showHideListAdress(false)" >Ajouter une adresse</a>
-                                <a href="javascript:void(0)" style="float: right;" *ngIf="listAdress==false" (click)="showHideListAdress(true)" >Liste des adresses</a>
+                                <a href="javascript:void(0)" style="float: right;" *ngIf="listAdress==true" title="Ajouter une adresse"  (click)="showHideListAdress(false)" >Ajouter une adresse</a>
+                                <a href="javascript:void(0)" style="float: right;" *ngIf="listAdress==false" title="Liste des adresses enregistrées" (click)="showHideListAdress(true)" >Liste des adresses</a>
                                 <h2 *ngIf="listAdress==true" >Liste des adresses</h2>
                                 <h2 *ngIf="listAdress==false">Ajout d'une adresse</h2>
                             </div>
@@ -156,14 +156,14 @@
                                             </h4>                                         
                                         </td>
                                         <td>
-                                            <a href="javascript:void(0)" (click)="onDeleteAdresseOfUser(adr.id)" class="icon">
+                                            <a href="javascript:void(0)" title="Supprimer"  (click)="onDeleteAdresseOfUser(adr.id)" class="icon">
                                             Supprimer
                                         </a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <ngb-pagination [collectionSize]="adresses?.length" [(page)]="pagAdress" [pageSize]="pageSizeAdress" aria-label="Default pagination">
+                            <ngb-pagination style="float: right;"  [collectionSize]="adresses?.length" [(page)]="pagAdress" [pageSize]="pageSizeAdress" aria-label="Default pagination">
                             </ngb-pagination>
                             
                         </div>
@@ -201,14 +201,14 @@
                                                 </h4>                                         
                                             </td>
                                             <td>
-                                                <a href="javascript:void(0)" (click)="showDetailsCommande(commande.id)" class="icon">
+                                                <a href="javascript:void(0)" (click)="showDetailsCommande(commande.id)" title="Détails"  class="icon">
                                                 Details
                                             </a>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <ngb-pagination [collectionSize]="commandes.length" [(page)]="pagComand" [pageSize]="pageSizeComand" aria-label="Default pagination">
+                                <ngb-pagination style="float: right;"  [collectionSize]="commandes.length" [(page)]="pagComand" [pageSize]="pageSizeComand" aria-label="Default pagination">
                                 </ngb-pagination>
                             </div> 
                         </div>
@@ -259,17 +259,17 @@
                                                     <p>{{oeuvre.stock}}</p>
                                                 </td>
                                                 <td>
-                                                    <a (click)="removeOeuvre(oeuvre)" class="icon mr-3">
+                                                    <a (click)="removeOeuvre(oeuvre)" title="Supprimer l'oeuvre de la liste"  class="icon mr-3">
                                                         <i class="ti-close"></i>
                                                     </a>
-                                                    <a (click)="addOeuvreToCart(oeuvre)" class="cart">
+                                                    <a (click)="addOeuvreToCart(oeuvre)" title="Ajouter l'oeuvre au panier" class="cart">
                                                         <i class="ti-shopping-cart"></i>
                                                     </a>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <ngb-pagination [collectionSize]="oeuvresFav.length" [(page)]="pagOF" [pageSize]="pageSizeOF" aria-label="Default pagination">
+                                    <ngb-pagination style="float: right;" [collectionSize]="oeuvresFav.length" [(page)]="pagOF" [pageSize]="pageSizeOF" aria-label="Default pagination">
                                     </ngb-pagination>
                                 </div>
                             </div>
@@ -299,14 +299,14 @@
                                                 </td>
                                                 <td><h6>{{getLibelleEtatAbonnement(abonnement.etatAbonnement)}}</h6></td>
                                                 <td>
-                                                    <a (click)="showDetailsAbonnement(abonnement.id)"  [routerLink]=" " style="cursor: pointer;" class="icon mr-3">
+                                                    <a (click)="showDetailsAbonnement(abonnement.id)" title="Détails"  [routerLink]=" " style="cursor: pointer;" class="icon mr-3">
                                                         Details
                                                     </a>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <ngb-pagination [collectionSize]="abonnements.length" [(page)]="pagAbmt" [pageSize]="pageSizeAbmt" aria-label="Default pagination">
+                                    <ngb-pagination style="float: right;" [collectionSize]="abonnements.length" [(page)]="pagAbmt" [pageSize]="pageSizeAbmt" aria-label="Default pagination">
                                     </ngb-pagination>
                                 </div>
                             </div>
@@ -321,7 +321,7 @@
                                     <br><br>
                                     <div class="form-row">                                      
                                         <div class="col-md-12">
-                                            <label><strong>Mot de passe actuel</strong></label>
+                                            <label><strong>Mot de passe actuel<strong style="color: red;" >*</strong></strong></label>
                                             <input type="password" class="form-control" formControlName="mdpActu"  id="mdpActu" placeholder="Mot de passe actuel" required="" autocomplete="off">
                                             <div *ngIf="mdpForm.get('mdpActu').errors && mdpForm.get('mdpActu').touched">
                                                 <p class="register-error-message" style="color: red;">
@@ -344,7 +344,7 @@
                                     <br>
                                     <div class="form-row">
                                         <div class="col-md-8">
-                                            <label><strong>Nouveau mot de passe</strong></label>
+                                            <label><strong>Nouveau mot de passe<strong style="color: red;" >*</strong></strong></label>
                                             <input type="password" class="form-control" formControlName="mdpNouv" id="mdpNouv" placeholder="Nouveau mot de passe" required="" autocomplete="off">
                                             
                                                 <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpNouv').touched && this.mdpForm.get('mdpNouv').invalid">
@@ -357,7 +357,7 @@
                                         <br><br>
                                         <div class="col-md-8">
                                             <br><br>
-                                            <label><strong>Confirmer nouveau mot de passe</strong></label>
+                                            <label><strong>Confirmer nouveau mot de passe<strong style="color: red;" >*</strong></strong></label>
                                             <input type="password" class="form-control" placeholder="Confirmer nouveau mot de passe" required="" formControlName="mdpConf" autocomplete="off">
                                             <!--div *ngIf="(mdpForm.get('mdpNouv').errors || mdpForm.hasError('mismatchedPasswords')) && mdpForm.get('mdpConf').touched">
                                                 <p class="register-error-message" style="color: red;">{{ 'les mots de passe doivent etre identiques'}} !</p>
@@ -374,10 +374,10 @@
                                     <br><br><hr>
                                     <div class="form-row">
                                         <div class="col-md-6">
-                                            <button class="btn btn-solid-Valider" type="submit" [disabled]="!mdpForm?.valid">Valider</button>
+                                            <button class="btn btn-solid-Valider" title="Valider" type="submit" [disabled]="!mdpForm?.valid">Valider</button>
                                         </div> 
                                         <div class="col-md-6">
-                                            <button type="submit" class="btn btn-solid-Annuler" routerLink="/accueil" routerLinkActive="router-link-active" >Annuler</button>
+                                            <button type="submit" class="btn btn-solid-Annuler" title="Annuler" routerLink="/accueil" routerLinkActive="router-link-active" >Annuler</button>
                                         </div> 
                                     </div>
                                     
@@ -422,7 +422,7 @@
                                                                 </p>                                         
                                                             </td>
                                                             <td>
-                                                                <a [routerLink]="['/pages/artiste/',artiste.id]" href="javascript:void(0)" class="icon">
+                                                                <a [routerLink]="['/pages/artiste/',artiste.id]" href="javascript:void(0)" class="icon" title="Voir plus" >
                                                                 Voir
                                                                 </a>
                                                             </td>
@@ -540,7 +540,7 @@
                                                             <div class="delivery-sec">
                                                                 <h2>Paiement</h2>
                                                                 <div class="product-buttons">
-                                                                    <a href="javascript:void(0)" class="btn btn-solid-Valider">Clicker ici pour payer</a>
+                                                                    <a href="javascript:void(0)" title="Payer"  class="btn btn-solid-Valider">Clicker ici pour payer</a>
                                                                     
                                                                 </div>
                                                                 

@@ -1,7 +1,7 @@
 <ng-template class="theme-modal" #quickView let-modal>
     <div class="modal-content quick-view-modal">
         <div class="modal-body">
-            <button type="button" class="close" (click)="modal.dismiss('Cross click')">
+            <button type="button" title="Fermer" class="close" (click)="modal.dismiss('Cross click')">
                 <span aria-hidden="true">&times;</span>
             </button>
             <div class="row">
@@ -28,7 +28,7 @@
                             <h6 class="product-title">Dimension: {{oeuvreNumerique.longueur}} X {{oeuvreNumerique.longueur}}</h6>                          
                         </div>
                         <div class="product-buttons">
-                            <a href="javascript:void(0)" class="btn btn-solid">Ajouter</a>
+                            <a href="javascript:void(0)" title="Ajouter au panier" class="btn btn-solid">Ajouter</a>
                             
                         </div>
                     </div>

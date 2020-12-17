@@ -48,6 +48,9 @@ export class PanierEtMarquageService extends HttpService{
   postWishlistItem(WishItem){
     return this.post(environment.API_ENDPOINT+`marquageoeuvre/`, WishItem);
   }
+  deleteWishlistItem(idOeuvre,idClient,codeTypeMarquage){
+    return this.delete(environment.API_ENDPOINT+`marquageoeuvre?idClient=${idClient}&idOeuvre=${idOeuvre}&codeTypeMarquage=${codeTypeMarquage}` );
+  }
   getPanierByIdClient(idClient){
     return this.get(environment.API_ENDPOINT+`panier/client/${idClient}`);
   }

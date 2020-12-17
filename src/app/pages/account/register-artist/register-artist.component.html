@@ -23,14 +23,14 @@
                     <form [formGroup]="infoArtisteForm" class="theme-form">
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="email">Prénom</label>
+                                <label for="email">Prénom<strong style="color: red;" >*</strong></label>
                                 <input type="text" class="form-control" id="fname" placeholder="Prénom" formControlName="prenom" [value]="form1Value.prenom">
                                 <div *ngIf="infoArtisteForm.get('prenom').errors && infoArtisteForm.get('prenom').touched">
                                     <p class="register-error-message" style="color: red;">Veuillez saisir votre prénom !</p>
                                   </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="review">Nom</label>
+                                <label for="review">Nom<strong style="color: red;" >*</strong></label>
                                 <input type="text" class="form-control" id="lname" placeholder="Nom" formControlName="nom" [value]="form1Value.nom">
                                 <div *ngIf="infoArtisteForm.get('nom').errors && infoArtisteForm.get('nom').touched">
                                     <p class="register-error-message" style="color: red;">Veuillez saisir votre nom !</p>
@@ -39,14 +39,14 @@
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="email">email</label>
+                                <label for="email">Email<strong style="color: red;" >*</strong></label>
                                 <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email" [value]="form1Value.email">
                                 <div *ngIf="infoArtisteForm.get('email').errors && infoArtisteForm.get('email').touched">
                                     <p class="register-error-message" style="color: red;">Veuillez saisir un email valide !</p>
                                   </div>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                <label for="review">Genre</label>
+                                <label for="review">Genre<strong style="color: red;" >*</strong></label>
                                 <select name="genre" class="form-control" formControlName="genre" [value]="form1Value.genre">
                                     <option value="">-- Selectionner un genre --</option>
                                     <option value="H">Homme</option>
@@ -59,7 +59,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                <label for="review">Pays</label>
+                                <label for="review">Pays<strong style="color: red;" >*</strong></label>
                                 <select (change)="choisirPays($event)" class="form-control" formControlName="codePays" [value]="form1Value.codePays">
                                     <option value="">-- Selectionner un pays --</option>
                                     <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>
@@ -73,7 +73,7 @@
                                   </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="review">Téléphone</label>
+                                <label for="review">Téléphone<strong style="color: red;" >*</strong></label>
                                 <div class="row">
                                     <div  class="col-md-2">
                                         <input type="text" class="form-control" formControlName="indicatif" [(ngModel)]="indicatifpays" disabled="true">
@@ -123,7 +123,7 @@
                                 <input type="password" class="form-control" id="review" placeholder="Enter your password" required="">
                             </div> -->
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                <label for="review">Spécialités</label>
+                                <label for="review">Spécialités<strong style="color: red;" >*</strong></label>
                                 <select name="genre" class="form-control" formControlName="specialite" [value]="form1Value.specialite">
                                     <option value="">-- Selectionner une spécialités --</option>
                                     <option *ngFor="let technique of techniques" [value]="technique.libelle">{{technique.libelle}}</option>
@@ -147,21 +147,21 @@
                 <div class="theme-card">
                     <form [formGroup]="oeuvre1Form" class="theme-form">
                         <!-- <strong><p>Deuxième oeuvre à Uploader</p></strong> -->
-                        <label>Image : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <label>Image : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong style="color: red;" >*</strong></label>
                         <input type="file" (change)="onFileSelected($event,1)" formControlName="image">  
                         <div *ngIf="oeuvre1Form.get('image').errors && oeuvre1Form.get('image').touched">
                             <p class="register-error-message" style="color: red;">Veuillez choisir une image !</p>
                           </div>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="Titre">Titre</label>
+                                <label for="Titre">Titre<strong style="color: red;" >*</strong></label>
                                 <input type="text" class="form-control" id="fname" placeholder="Titre" formControlName="nom" [value]="form2Value.nom">
                                 <div *ngIf="oeuvre1Form.get('nom').errors && oeuvre1Form.get('nom').touched">
                                     <p class="register-error-message" style="color: red;">Veuillez saisir un titre !</p>
                                   </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="review">Auteur</label>
+                                <label for="review">Auteur<strong style="color: red;" >*</strong></label>
                                 <input type="text" class="form-control" id="lname" placeholder="Auteur" formControlName="auteur" [value]="form2Value.auteur" >
                                 <div *ngIf="oeuvre1Form.get('auteur').errors && oeuvre1Form.get('auteur').touched">
                                     <p class="register-error-message" style="color: red;">Veuillez donner un auteur !</p>
@@ -170,7 +170,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-10 col-sm-10 col-xs-12">
-                                <label for="review">Technique</label>
+                                <label for="review">Technique<strong style="color: red;" >*</strong></label>
                                 <select name="Technique" class="form-control" formControlName="idTechnique" [value]="form2Value.idTechnique">
                                     <option value="">-- Selectionner une technique --</option>
                                     <option *ngFor="let technique of techniques" [value]="technique.id">{{technique.libelle}}</option>
@@ -182,14 +182,14 @@
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="annee">Année</label>
+                                <label for="annee">Année<strong style="color: red;" >*</strong></label>
                                 <input type="number" class="form-control" id="email" placeholder="Annee" formControlName="annee" [value]="form2Value.annee">
                                 <div *ngIf="oeuvre1Form.get('annee').errors && oeuvre1Form.get('annee').touched">
                                     <p class="register-error-message" style="color: red;">Veuillez saisir l'année!</p>
                                   </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="review">Dimensions</label>
+                                <label for="review">Dimensions<strong style="color: red;" >*</strong></label>
                                 <input type="text" class="form-control" id="review" placeholder="50x60x1cm (Lxlxh)" formControlName="dimensions" [value]="form2Value.dimensions">
                                 <div *ngIf="oeuvre1Form.get('dimensions').errors && oeuvre1Form.get('dimensions').touched">
                                     <p class="register-error-message" style="color: red;">Veuillez donner l'annee !</p>
@@ -204,21 +204,21 @@
                 <div class="theme-card">
                     <form [formGroup]="oeuvre2Form" class="theme-form">
                         <!-- <strong><p>Deuxième oeuvre à Uploader</p></strong> -->
-                        <label>Image : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <label>Image : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color: red;" >*</strong></label>
                         <input type="file" (change)="onFileSelected($event,2)" formControlName="image">  
                         <div *ngIf="oeuvre2Form.get('image').errors && oeuvre2Form.get('image').touched">
                             <p class="register-error-message" style="color: red;">Veuillez choisir une image !</p>
                           </div>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="Titre">Titre</label>
+                                <label for="Titre">Titre<strong style="color: red;" >*</strong></label>
                                 <input type="text" class="form-control" id="fname" placeholder="Titre" formControlName="nom" [value]="form3Value.nom">
                                 <div *ngIf="oeuvre2Form.get('nom').errors && oeuvre2Form.get('nom').touched">
                                     <p class="register-error-message" style="color: red;">Veuillez saisir un titre !</p>
                                   </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="review">Auteur</label>
+                                <label for="review">Auteur<strong style="color: red;" >*</strong></label>
                                 <input type="text" class="form-control" id="lname" placeholder="Auteur" formControlName="auteur" [value]="form3Value.auteur" >
                                 <div *ngIf="oeuvre2Form.get('auteur').errors && oeuvre2Form.get('auteur').touched">
                                     <p class="register-error-message" style="color: red;">Veuillez donner un auteur !</p>
@@ -227,7 +227,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-10 col-sm-10 col-xs-12">
-                                <label for="review">Technique</label>
+                                <label for="review">Technique<strong style="color: red;" >*</strong></label>
                                 <select name="Technique" class="form-control" formControlName="idTechnique" [value]="form3Value.idTechnique">
                                     <option value="">-- Selectionner une technique --</option>
                                     <option *ngFor="let technique of techniques" [value]="technique.id">{{technique.libelle}}</option>
@@ -239,14 +239,14 @@
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="annee">Année</label>
+                                <label for="annee">Année<strong style="color: red;" >*</strong></label>
                                 <input type="number" class="form-control" id="email" placeholder="Annee" formControlName="annee" [value]="form3Value.annee">
                                 <div *ngIf="oeuvre2Form.get('annee').errors && oeuvre2Form.get('annee').touched">
                                     <p class="register-error-message" style="color: red;">Veuillez saisir l'année!</p>
                                   </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="review">Dimensions</label>
+                                <label for="review">Dimensions<strong style="color: red;" >*</strong></label>
                                 <input type="text" class="form-control" id="review" placeholder="50x60x1cm (Lxlxh)" formControlName="dimensions" [value]="form3Value.dimensions">
                                 <div *ngIf="oeuvre2Form.get('dimensions').errors && oeuvre2Form.get('dimensions').touched">
                                     <p class="register-error-message" style="color: red;">Veuillez donner l'annee !</p>
@@ -259,7 +259,7 @@
         </div>
         <br>
         <br>
-        <button class="btn btn-solid-Valider" [disabled]="!infoArtisteForm.valid || !oeuvre1Form.valid || !oeuvre2Form.valid"  (click)="onSubmit();" >Valider</button>
+        <button class="btn btn-solid-Valider" [disabled]="!infoArtisteForm.valid || !oeuvre1Form.valid || !oeuvre2Form.valid" title="Valider" (click)="onSubmit();" >Valider</button>
     </div>
 </div>
 </section>

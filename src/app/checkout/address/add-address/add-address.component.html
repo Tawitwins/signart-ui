@@ -124,14 +124,14 @@
             <form class="theme-form" [formGroup]="addressForm" (ngSubmit)="onSubmit()">
               <div class="row">
                 <div class="col-md-6">
-                  <label for="prenom">Prénom</label>
+                  <label for="prenom">Prénom<strong style="color: red;" >*</strong></label>
                     <input class="form-control" formControlName="prenom"  placeholder="Prénom" [(ngModel)]="client.prenom">
                   <div>
                     <span *ngIf="addressForm.get('prenom').errors && addressForm.get('prenom').touched" style="color: red;"> Veuillez saisir un prénom !</span>
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <label for="nom">Nom</label>
+                  <label for="nom">Nom<strong style="color: red;" >*</strong></label>
                     <input class="form-control" formControlName="nom"  placeholder="Nom" [(ngModel)]="client.nom">
                   <div>
                     <span *ngIf="addressForm.get('nom').errors && addressForm.get('nom').touched" style="color: red;" >Veuillez saisir un nom !</span>
@@ -142,14 +142,14 @@
               <br>
               <div class="row">
                 <div class="col-md-6">
-                  <label for="ville">Ville</label>
+                  <label for="ville">Ville<strong style="color: red;" >*</strong></label>
                     <input class="form-control" formControlName="ville"  placeholder="Ville">
                   <div>
                     <span *ngIf="addressForm.get('ville').errors && addressForm.get('ville').touched" style="color: red;"> Veuillez donner une ville !</span>
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <label for="region">Région</label>
+                  <label for="region">Région<strong style="color: red;" >*</strong></label>
                     <input class="form-control" formControlName="region"  placeholder="Région">
                   <div>
                     <span *ngIf="addressForm.get('region').errors && addressForm.get('region').touched" style="color: red;"> Veuillez donner une région
@@ -160,7 +160,7 @@
               <br>
               <div class="row">
                 <div class="col-md-12">
-                  <label for="adresse">Adresse</label>
+                  <label for="adresse">Adresse<strong style="color: red;" >*</strong></label>
                     <input class="form-control" formControlName="adresse"  placeholder="Adresse">
                   <div>
                     <span *ngIf="addressForm.get('adresse').errors && addressForm.get('adresse').touched" style="color: red;"> Veuillez donner une adresse</span>
@@ -180,7 +180,7 @@
                                                               </td>  
                                                           </tr>   --> 
               <br>
-              <div class="row">
+              <!-- <div class="row">
                 <div class="col-md-12">
                   <label for="telephone">Téléphone</label>
                     <input class="form-control" formControlName="telephone"  placeholder="Téléphone" [(ngModel)]="client.telephone">
@@ -188,12 +188,12 @@
                     <span *ngIf="addressForm.get('telephone').errors && addressForm.get('telephone').touched" style="color: red;"> Veuillez donner un numéro !</span>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <br>
               <div class="row">
                 <div class="col-md-12">
                   <div>
-                    <label for="pays">Pays</label>
+                    <label for="pays">Pays <strong style="color: red;" >*</strong></label>
                     <select  class="form-control"  (change)="choisirPays($event)" formControlName="idPays" placeholder="Pays" value="{{pays}}">
                       <option>-- Selectionner --</option>
                       <option *ngFor="let p of allPays" [value]="p.id">{{p.libelle}}</option>
@@ -208,7 +208,7 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <label for="telephone">Téléphone</label>
+                  <label for="telephone">Téléphone <strong style="color: red;" >*</strong></label>
                   <div class="row">
                     <div  class="col-md-2">
                       <input type="text" class="form-control" formControlName="indicatif" [(ngModel)]="indicatifpays" disabled="true">
@@ -258,10 +258,10 @@
                                                             </tr> -->
 
               <div *ngIf="isAuthenticated" colspan="2" class="content-center">
-                <button class="btn btn-solid-Valider" [disabled]="!addressForm.valid">Valider</button>
+                <button class="btn btn-solid-Valider" title="Valider" [disabled]="!addressForm.valid">Valider</button>
               </div>
               <div *ngIf="!isAuthenticated" colspan="2" class="content-center">
-                <button class="btn btn-solid-Valider"
+                <button class="btn btn-solid-Valider" title="Valider"
                   [disabled]="!addressForm.valid && !emailForm.valid">Valider</button>
               </div>
 

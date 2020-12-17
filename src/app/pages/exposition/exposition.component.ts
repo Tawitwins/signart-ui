@@ -133,7 +133,7 @@ export class ExpositionComponent implements OnInit {
     console.log(element);
     //console.log(lexposition);
     //console.log(lexposition.artiste);
-    let artiste = new Artiste('','','','','','','','','','');
+    let artiste = new Artiste('','','','','','','','','','',0);
     artiste=lexposition.artiste;
     var img=this.getProductImageUrl(artiste.id);
     geocoder.geocode({'address': address}, function(results, status) {

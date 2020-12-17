@@ -29,10 +29,10 @@
                                 <p>{{oeuvre.stock}}</p>
                             </td>
                             <td>
-                                <a (click)="removeOeuvre(oeuvre)" class="icon mr-3">
+                                <a (click)="removeOeuvre(oeuvre)" title="Supprimer l'oeuvre de la liste"  class="icon mr-3">
                                     <i class="ti-close"></i>
                                 </a>
-                                <a (click)="addOeuvreToCart(oeuvre)" class="cart">
+                                <a (click)="addOeuvreToCart(oeuvre)" title="Ajouter l'oeuvre au panier" class="cart">
                                     <i class="ti-shopping-cart"></i>
                                 </a>
                             </td>
@@ -43,7 +43,7 @@
         </div>
         <div class="row wishlist-buttons">
             <div class="col-12">
-                <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid-Valider">Continuer l'exploration</a>
+                <a [routerLink]="['/shop/collection/left/sidebar']" title="Continuer l'exploration"  class="btn btn-solid-Valider">Continuer l'exploration</a>
                 <!-- a [routerLink]="['/shop/checkout']" class="btn btn-solid">Payer maintenant</a> -->
             </div>
         </div>

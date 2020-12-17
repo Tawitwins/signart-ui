@@ -22,9 +22,9 @@
                                 <p class="login-error-message text-danger">Identifiant ou mot de passe non valide !</p>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-solid-Valider" [disabled]="!signInForm.valid">Se connecter</button>
-                        <button class="btn btn-solid facebook"> <i class="ti-facebook"></i> Facebook</button>
-                        <button class="btn btn-solid gplus"><i class="ti-google"></i> Google Plus</button>
+                        <button type="submit" title="Se connecter" class="btn btn-solid-Valider" [disabled]="!signInForm.valid">Se connecter</button>
+                        <button  title="Facebook" class="btn btn-solid facebook"> <i class="ti-facebook"></i> Facebook</button>
+                        <button class="btn btn-solid gplus" title="Google +" ><i class="ti-google"></i> Google Plus</button>
                     </form>
                 </div>
             </div>
@@ -33,8 +33,8 @@
                 <div class="theme-card authentication-right">
                     <h6 class="title-font">Créer un compte</h6>
                     <p>Rejoignez la plateforme SignArt et profitez des nombreuses offres proposées. L'inscription est rapide pour l'artiste comme pour le client. N'attendez plus :) .  </p>
-                    <button [routerLink]="['/pages/register']" class="btn btn-solid-Valider">Créer un compte Client</button>
-                    <button [routerLink]="['/pages/register-artist']" class="btn btn-solid-Valider lamarge">Devenir artiste SignArt</button>
+                    <button [routerLink]="['/pages/register']" title="Créer un compte client" class="btn btn-solid-Valider">Créer un compte Client</button>
+                    <button [routerLink]="['/pages/register-artist']" title="Créer un compte artiste" class="btn btn-solid-Valider lamarge">Devenir artiste SignArt</button>
                 </div>
             </div>
         </div>

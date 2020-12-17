@@ -43,13 +43,13 @@
                             <div class="qty-box">
                                 <div class="input-group">
                                     <span class="input-group-prepend">
-                                        <button type="button" class="btn quantity-left-minus" data-type="minus" (click)="decrement(oeuvre)">
+                                        <button type="button" class="btn quantity-left-minus" title="Diminuer la quantité" data-type="minus" (click)="decrement(oeuvre)">
                                             <i class="ti-angle-left"></i>
                                         </button>
                                     </span>
                                     <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="oeuvre.quantity">
                                     <span class="input-group-prepend">
-                                        <button type="button" class="btn quantity-right-plus"  data-type="plus" (click)="increment(oeuvre)">
+                                        <button type="button" class="btn quantity-right-plus" title="Augmenter la quantité" data-type="plus" (click)="increment(oeuvre)">
                                             <i class="ti-angle-right"></i>
                                         </button>
                                     </span>
@@ -86,10 +86,10 @@
         </div>
         <div class="row cart-buttons" *ngIf='oeuvres.length'>
             <div class="col-6">
-                <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">Continuer l'exploration</a>
+                <a [routerLink]="['/shop/collection/left/sidebar']" title="Continuer l'exploration" class="btn btn-solid">Continuer l'exploration</a>
             </div>
             <div class="col-6">
-                <div (click)="confirmer()" class="btn btn-solid-Valider">Commander</div>
+                <div (click)="confirmer()" title="Commander" class="btn btn-solid-Valider">Commander</div>
             </div>
         </div>
     </div>
