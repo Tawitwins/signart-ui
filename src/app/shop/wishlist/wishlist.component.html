@@ -39,10 +39,10 @@
                     </div>
                     <div class="col-xs-3">
                       <h2 class="td-color">
-                        <a href="javascript:void(0)" (click)="removeItem(product)" class="icon mr-1">
+                        <a href="javascript:void(0)" title="Supprimer de la liste" (click)="removeItem(product)" class="icon mr-1">
                           <i class="ti-close"></i>
                         </a>
-                        <a [routerLink]="['/shop/cart']" (click)="addToCart(product)" class="cart">
+                        <a [routerLink]="['/shop/cart']" title="Ajouter au panier" (click)="addToCart(product)" class="cart">
                           <i class="ti-shopping-cart"></i>
                         </a>
                       </h2>
@@ -58,10 +58,10 @@
                   <p>{{ product.stock > 0 ? 'in stock' : 'out of stock' }}</p>
               </td>
               <td>
-                  <a href="javascript:void(0)" (click)="removeItem(product)" class="icon mr-3">
+                  <a href="javascript:void(0)" title="Supprimer de la liste" (click)="removeItem(product)" class="icon mr-3">
                     <i class="ti-close"></i>
                   </a>
-                  <a href="javascript:void(0)" (click)="addToCart(product)" class="cart">
+                  <a href="javascript:void(0)" title="Ajouter au panier" (click)="addToCart(product)" class="cart">
                     <i class="ti-shopping-cart"></i>
                   </a>
               </td>
@@ -72,8 +72,8 @@
     </div>
     <div class="row wishlist-buttons" *ngIf='products.length'>
       <div class="col-12">
-        <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">Explorer</a>
-        <a [routerLink]="['/shop/checkout']" class="btn btn-solid-Valider">Payer maintenant</a>
+        <a [routerLink]="['/shop/collection/left/sidebar']" title="Voir les autres oeuvres" class="btn btn-solid">Explorer</a>
+        <a [routerLink]="['/shop/checkout']" title="Passer au paiement" class="btn btn-solid-Valider">Payer maintenant</a>
       </div>
     </div>
   </div>

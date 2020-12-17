@@ -375,7 +375,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-10">
-                            <label for="mdpActu">Mot de passe actuel</label>
+                            <label for="mdpActu">Mot de passe actuel <strong style="color: red;" >*</strong></label>
                             <input [type]="hide ? 'password' : 'text'" class="form-control" formControlName="mdpActu"  id="mdpActu" autocomplete="off"/>                                                                      
                         </div>
                         <div class="col-md-2">
@@ -383,7 +383,7 @@
                             <i [ngClass]="(hide === true)?'fa fa-eye': 'fa fa-eye-slash'"  (click)="hide = !hide"> </i> <!--  {{hide ? 'visibility' :'visibility_off'}} -->
                         </div>
                         <div class="col-md-10">
-                            <div *ngIf="this.mdpForm.get('mdpActu').pending" style="color: darkred;">Verrification...</div>
+                            <div *ngIf="this.mdpForm.get('mdpActu').pending" style="color: darkred;">Vérification...</div>
                             <div class="alert alert-danger" *ngIf="this.mdpForm.get('mdpActu').touched && this.mdpForm.get('mdpActu').invalid">
                                 <div *ngIf="this.mdpForm.get('mdpActu').errors.required">le mot de passe actuel est requis</div>
                                 <div *ngIf="this.mdpForm.get('mdpActu').errors.mustMatch">le mot de passe est incorrect</div> 
@@ -394,7 +394,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-10">
-                        <label>Nouveau Mot de passe</label>
+                        <label>Nouveau Mot de passe <strong style="color: red;" >*</strong></label>
                         <input [type]="hide2 ? 'password' : 'text'" class="form-control" formControlName="mdpNouv" id="mdpNouv" autocomplete="off"/>
                         </div>
                         <div class="col-md-2">
@@ -414,7 +414,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-10">
-                        <label>Confirmation</label>
+                        <label>Confirmation <strong style="color: red;" >*</strong></label>
                         <input type="password" class="form-control" formControlName="mdpConf" id="mdpConf" autocomplete="off"/>
                 
                         </div>
@@ -432,9 +432,9 @@
         
             <div class="form-group">
                 <br>
-                <button type="submit" class="btn btn-solid-Valider" [disabled]="!mdpForm.valid"><i class="material-icons">
+                <button type="submit" class="btn btn-solid-Valider" title="Modifier" [disabled]="!mdpForm.valid"><i class="material-icons">
                     
-                </i>modifier</button>    
+                </i>Modifier</button>    
             </div> 
             </form> 
 
@@ -459,9 +459,9 @@
                                     </div>                                                                                                            
                                     <div class="form-group">
                                         <br>
-                                    <button type="submit" class="btn btn-solid-Valider" [disabled]="!photoProfilForm.valid"><i class="material-icons">
+                                    <button type="submit" class="btn btn-solid-Valider" title="Modifier" [disabled]="!photoProfilForm.valid"><i class="material-icons">
                                         
-                                    </i>modifier</button>    
+                                    </i>Modifier</button>    
                                     </div> 
                                 </form> 
               </ng-template>

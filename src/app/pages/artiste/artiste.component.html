@@ -16,8 +16,8 @@
             <br>
             <div class="row">
             <div class="col-md-6">
-              <button class="btn abonnement" *ngIf="marq==false && client!=null" (click)="followArtiste()"> <i class="fa fa-plus"></i> Suivre</button> 
-              <button class="btn annonces" *ngIf="marq==true  && client!=null" (click)="followArtiste()"> <i class="fa fa-times"></i> Ne plus suivre</button> 
+              <button title="Suivre l'artiste" class="btn abonnement" *ngIf="marq==false && client!=null" (click)="followArtiste()"> <i class="fa fa-plus"></i> Suivre</button> 
+              <button title="Ne plus suivre l'artiste" class="btn annonces" *ngIf="marq==true  && client!=null" (click)="followArtiste()"> <i class="fa fa-times"></i> Ne plus suivre</button> 
             </div>
             <!-- <div class="col-md-6">
               <a [routerLink]="['/pages/add-expo']"><button class="btn annonces"> <i class="ti-PLUS"></i> Add annonce</button></a>
@@ -34,7 +34,7 @@
               </div>
               <div class="col-xl-3 col-sm-6">
                <div class="bbleu">
-                  <div class="side-l"><a [routerLink]="['/pages/followers/',artiste?.id]"><p class="big-l">{{artiste?.nbFans}}</p></a> <p class="col-p">Followers</p></div>
+                  <div class="side-l"><a title="Nombre de followers" [routerLink]="['/pages/followers/',artiste?.id]"><p class="big-l">{{artiste?.nbFans}}</p></a> <p class="col-p">Followers</p></div>
               </div> 
                
               </div>

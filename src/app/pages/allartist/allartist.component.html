@@ -75,7 +75,7 @@
                                 <img [src]="getProductImageUrl(artiste.id)" height="80px" width="200px" onError="this.src='assets/images/artists/profile.jpg'" alt="profile" class="profile">
                                 <a [routerLink]="['/pages/artiste/',artiste.id]"><h5 class="card-title"> {{artiste.prenom}} {{artiste.nom}}</h5></a>
                                 <p class="card-text">{{artiste.biographie |  slice:0:100}}... </p>
-                                <div class="icon-block"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"> <i class="fa fa-twitter"></i></a></div>
+                                <div class="icon-block" ><a title="page facebook de l'artiste"><i class="fa fa-facebook"></i></a><a title="Page twitter de l'artiste" > <i class="fa fa-twitter"></i></a></div>
                                 <div class="fans"> {{artiste.nbFans}} 
                                     <!-- style="background-color: #9b1104;color: #fff;" -->
                                     <i data-toggle="modal"  data-target="#Visiteur" id="PlusSuivre"  class="fa fa-plus" title="Ne plus suivre l'artiste" *ngIf="marq[i]==true" (click)="followArtiste(artiste,i)"></i>
@@ -86,7 +86,7 @@
                       </div>
                     </div>               
                       <div class="col-md-12">
-                        <ngb-pagination [collectionSize]="artistes.length" [(page)]="pag" [pageSize]="pageSize" aria-label="Default pagination">
+                        <ngb-pagination style="float: right;" [collectionSize]="artistes.length" [(page)]="pag" [pageSize]="pageSize" aria-label="Default pagination">
                         </ngb-pagination>
                       </div> 
                     </div>
@@ -100,7 +100,7 @@
  <div class="modal-content">
  <div class="modal-header back white-text">
    <h4 class="title" style="color:white">Identification</h4>
-   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+   <button type="button" class="close" title="Fermer" data-dismiss="modal" aria-label="Close"><span
        aria-hidden="true">&times;</span></button>
      </div>
        <div class="modal-body mb-0 text-center"> 
@@ -155,10 +155,10 @@
                     
                     </div>
                     <div class="form-group">
-                    <button style="float:right" type="submit" class="btn btn-default btn-round"><i class="material-icons">
+                    <button style="float:right" title="Valider" type="submit" class="btn btn-default btn-round"><i class="material-icons">
                         save
                         </i>Valider</button>
-                        <button style="float:right" type="ACTION" class="btn btn-danger btn-round" data-dismiss="modal">Annuler</button>
+                        <button style="float:right" title="Annuler" type="ACTION" class="btn btn-danger btn-round" data-dismiss="modal">Annuler</button>
                     </div>
                 </form>
             </div>

@@ -14,7 +14,7 @@
                     <img [src]="getOeuvreImageUrl(item.id)" class="img-fluid dim rounded" alt="">
                     <div style="background-color: rgba(0,0,0,0.5);" class="mask flex-center waves-effect waves-strong">
                       <p>
-                        <a (click)="removefromWishlist(item.id)" [ngClass]="maClass" mdbTooltip="{{wishlistLibelle}}" placement="top" mdbWavesEffect>
+                        <a (click)="removefromWishlist(item.id)" title="Supprimer l'oeuvre de la liste" [ngClass]="maClass" mdbTooltip="{{wishlistLibelle}}" placement="top" mdbWavesEffect>
                           <i class="fa fa-heart"></i>
                         </a>
                         <a [routerLink]="['/detail-article/', item.id]" class="btn btn-default waves-effect" mdbTooltip="visualiser" placement="top"

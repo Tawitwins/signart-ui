@@ -44,12 +44,12 @@
                     <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
                     <h3>Désolé! Il n'ya pas de client qui suit cette artiste !!!! </h3>
                     <p>La liste sera automatiquement mise à jour si  un client suit l'artiste.</p>
-                    <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">Continuer à explorer</a>
+                    <a [routerLink]="['/shop/collection/left/sidebar']" title="Continuer l'exploration" class="btn btn-solid">Continuer à explorer</a>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        <ngb-pagination [collectionSize]="clients.length" [(page)]="pag" [pageSize]="pageSize" aria-label="Default pagination">
+                        <ngb-pagination style="float: right;" [collectionSize]="clients.length" [(page)]="pag" [pageSize]="pageSize" aria-label="Default pagination">
                         </ngb-pagination>
                       </div> 
                      <br><br>

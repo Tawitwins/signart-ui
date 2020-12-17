@@ -103,7 +103,7 @@
                                                 <label for="local-pickup">A domicile</label>
                                             </div> -->
                                          </div>
-                                         <button *ngIf="livraisonStr!= '' && isLivraisonOk==false" type="button" class="btn-solid btn" (click)="CheckFormEtPayer()" >
+                                         <button *ngIf="livraisonStr!= '' && isLivraisonOk==false" title="Confirmer le mode de livraison" type="button" class="btn-solid btn" (click)="CheckFormEtPayer()" >
                                             Confirmer livraison
                                          </button>
 
@@ -123,7 +123,7 @@
                                 <div class="payment-box" *ngIf='products.length'>
                                     <div class="upper-box" *ngIf='isLivraisonOk==true'>
                                         <div class="payment-options">
-                                            <button type="button" class="btn-solid btn" (click)="resetPayment()"  *ngIf="payment != ''">
+                                            <button type="button" title="Retour" class="btn-solid btn" (click)="resetPayment()"  *ngIf="payment != ''">
                                                 Retour Au Choix
                                              </button>
                                             <ul>
@@ -162,7 +162,7 @@
                                     </div>
                                     <!-- [disabled]="!checkoutForm.valid" (click)="stripeCheckout()" (click)="showInf()" *ngIf="payment == 'PAYPAL'" -->
                                     <div class="text-right"  *ngIf="isLivraisonOk==false">
-                                        <button type="submit" class="btn-solid btn" (click)="CheckFormEtPayer()" >
+                                        <button title="Payer la commande" type="submit" class="btn-solid btn" (click)="CheckFormEtPayer()" >
                                            Payer
                                         </button>
                                         <ngx-paypal [config]="payPalConfig"  *ngIf="payment == 'PAYPAL'"></ngx-paypal>

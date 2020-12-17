@@ -159,13 +159,15 @@ export class ProductService {
       state.wishlist.push({
         ...product
       })
-      /* let wishedItem = new WishItem();
+      let wishedItem = new WishItem();
       wishedItem.idClient=JSON.parse(localStorage.getItem('client')).id;
       wishedItem.idOeuvre=product.id;
       wishedItem.codeTypeMarquage= environment.MarquageFavori;
       wishedItem.dateMarquage= new Date();
     
-      this.panierEtMarquateService.postWishlistItem(wishedItem); */
+      this.panierEtMarquateService.postWishlistItem(wishedItem).subscribe(resp=>{
+        console.log(resp);
+      });
     }
     else{
       return false;
@@ -179,6 +181,13 @@ export class ProductService {
   public removeWishlistItem(product: Product): any {
     const index = state.wishlist.indexOf(product);
     state.wishlist.splice(index, 1);
+    let client =  this.authService. getClientConnected();
+    if(client!=null)
+    {
+      this.panierEtMarquateService.deleteWishlistItem(product.id,client.id,environment.MarquageFavori).subscribe(resp=>{
+        console.log(resp);
+      });
+    }
     this.toastrService.success("L'oeuvre a été retirée de vos favoris.");
     localStorage.setItem("wishlistItems", JSON.stringify(state.wishlist));
     return true

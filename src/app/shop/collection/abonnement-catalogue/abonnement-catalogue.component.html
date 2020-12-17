@@ -143,7 +143,7 @@
                                                                     <div class="form-group">
                                                                       <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="Recherchez une oeuvre">
                                                                     </div>
-                                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                                                    <button title="Rechercher" type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                                                                 </div>
                                                                 </div>
                                                               </div>
@@ -196,7 +196,7 @@
                                                             </div>
                                                             
                                                         </div>
-                                                        <ngb-pagination [collectionSize]="imageFiltres.length" [(page)]="pag" [pageSize]="pageSize" aria-label="Default pagination">
+                                                        <ngb-pagination style="float: right;" [collectionSize]="imageFiltres.length" [(page)]="pag" [pageSize]="pageSize" aria-label="Default pagination">
                                                         </ngb-pagination>
                                                     </div>
                                                  </div>
@@ -346,10 +346,10 @@
                                                                     <br><br><hr>
                                                                     <div class="form-row">
                                                                         <div class="col-md-6">
-                                                                            <button type="submit" class="btn btn-solid" (click)="pageFormu = 0" style="background: red;" >Annuler</button>
+                                                                            <button title="Annuler" type="submit" class="btn btn-solid" (click)="pageFormu = 0" style="background: red;" >Annuler</button>
                                                                         </div> 
                                                                         <div class="col-md-6">
-                                                                            <button class="btn btn-solid-Valider" type="submit" (click)="onSubmitFormuAbonne()">Continuer</button>
+                                                                            <button title="Continuer" class="btn btn-solid-Valider" type="submit" (click)="onSubmitFormuAbonne()">Continuer</button>
                                                                         </div> 
                                                                        
                                                                     </div>
@@ -406,10 +406,10 @@
                                                         <hr>
                                                         <div class="form-row">
                                                             <div class="col-md-6">
-                                                                <button type="submit" class="btn btn-solid" (click)="pageFormu = 0" style="background: red;" >Annuler</button>
+                                                                <button type="submit" title="Annuler" class="btn btn-solid" (click)="pageFormu = 0" style="background: red;" >Annuler</button>
                                                             </div> 
                                                             <div class="col-md-6">
-                                                                <button class="btn btn-solid-Valider" type="submit" (click)="onSubmitFormuTermi()">Continuer</button>
+                                                                <button class="btn btn-solid-Valider" title="Continuer" type="submit" (click)="onSubmitFormuTermi()">Continuer</button>
                                                             </div> 
                                                            
                                                         </div>
@@ -463,10 +463,10 @@
                                                     <br><hr>
                                                     <div class="form-row">
                                                         <div class="col-md-6">
-                                                            <button type="submit" class="btn btn-solid-Annuler" (click)="pageFormu = 0" >Annuler</button>
+                                                            <button type="submit" title="Annuler" class="btn btn-solid-Annuler" (click)="pageFormu = 0" >Annuler</button>
                                                         </div> 
                                                         <div class="col-md-6">
-                                                            <button class="btn btn-solid-Valider" type="submit" (click)="onSubmitFinal();">Soumettre</button>
+                                                            <button class="btn btn-solid-Valider" title="Soumettre" type="submit" (click)="onSubmitFinal();">Soumettre</button>
                                                         </div> 
                                                        
                                                     </div>

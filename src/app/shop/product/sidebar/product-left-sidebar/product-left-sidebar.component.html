@@ -83,13 +83,13 @@
                     <div class="qty-box">
                       <div class="input-group">
                         <span class="input-group-prepend">
-                          <button type="button" class="btn quantity-left-minus" data-type="minus" (click)="decrement()">
+                          <button type="button" class="btn quantity-left-minus" title="Diminuer la quantité" data-type="minus" (click)="decrement()">
                             <i class="ti-angle-left"></i>
                           </button>
                         </span>
                         <input type="text" name="quantity" class="form-control input-number" [value]="counter" disabled/>
                         <span class="input-group-prepend">
-                          <button type="button" class="btn quantity-right-plus" [disabled]="counter == oeuvre?.stock" data-type="plus" (click)="increment()">
+                          <button type="button" class="btn quantity-right-plus" title="Augmenter la quantité" [disabled]="counter == oeuvre?.stock" data-type="plus" (click)="increment()">
                             <i class="ti-angle-right"></i>
                           </button>
                         </span>
@@ -100,7 +100,7 @@
                     <h5 class="avalibility" *ngIf="counter > oeuvre?.stock" style="color: darkred;"><span>Non disponible</span></h5>
                   </div>
                   <div class="product-buttons">
-                    <a href="javascrip:void(0)" class="btn btn-solid-Valider" [class.disabled]="counter > oeuvre?.stock" (click)="addToCart(oeuvre)">Ajouter au panier</a>
+                    <a href="javascrip:void(0)" class="btn btn-solid-Valider" title="Ajouter au panier" [class.disabled]="counter > oeuvre?.stock" (click)="addToCart(oeuvre)">Ajouter au panier</a>
                     <!--a [routerLink]="['/pages/wishlist']" class="btn btn-solid" [class.disabled]="counter > oeuvre?.stock">S'abonner</a-->
                   </div>
                   <div class="border-product">
@@ -112,7 +112,7 @@
                     <div class="product-icon">
                       <app-social></app-social>
                       <form class="d-inline-block">
-                        <button class="wishlist-btn"  (click)="addToWishlist(oeuvre)">
+                        <button class="wishlist-btn" title="Favoris" (click)="addToWishlist(oeuvre)">
                           <i class="fa fa-heart"></i>
                           <span class="title-font">Favoris</span>
                         </button>

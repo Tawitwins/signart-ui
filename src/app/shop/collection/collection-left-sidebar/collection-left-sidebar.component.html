@@ -133,7 +133,7 @@
                                                 <div class="form-group">
                                                   <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="Recherchez une oeuvre">
                                                 </div>
-                                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                                <button type="submit" title="Rechercher" class="btn btn-primary"><i class="fa fa-search"></i></button>
                                             </div>
                                             </div>
                                           </div>
@@ -165,11 +165,11 @@
                                                 <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
                                                 <h3>Désolé! Il n'y a pas d'oeuvres pour le moment !!! </h3>
                                                 <p>Veuillez actualiser la page ou essayer une recherche avec d'autres mots clés.</p>
-                                                <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continue shopping</a>
+                                                <a [routerLink]="['/shop/collection/left/sidebar']" title="Continuer l'exploration" class="btn btn-solid">Continuer l'exploration</a>
                                             </div>
                                         </div>
                                     </div>
-                                    <ngb-pagination [collectionSize]="oeuvres.length" [(page)]="pag" [pageSize]="pageSize" aria-label="Default pagination">
+                                    <ngb-pagination style="float: right;" [collectionSize]="oeuvres.length" [(page)]="pag" [pageSize]="pageSize" aria-label="Default pagination">
                                     </ngb-pagination>
                                     <!--app-pagination [oeuvres]="oeuvres" [paginate]="paginate" (setPage)="setPage($event)">
                                     </app-pagination-->
