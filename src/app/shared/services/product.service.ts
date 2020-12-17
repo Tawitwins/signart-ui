@@ -172,7 +172,7 @@ export class ProductService {
     else{
       return false;
     }
-    this.toastrService.success('Le produit a été ajouté dans vos favoris.');
+    this.toastrService.success("L'oeuvre a été ajoutée dans vos favoris.");
     localStorage.setItem("wishlistItems", JSON.stringify(state.wishlist));
     return true
   }
@@ -188,7 +188,7 @@ export class ProductService {
         console.log(resp);
       });
     }
-    this.toastrService.success('Le produit a été retiré de vos favoris.');
+    this.toastrService.success("L'oeuvre a été retirée de vos favoris.");
     localStorage.setItem("wishlistItems", JSON.stringify(state.wishlist));
     return true
   }
@@ -216,7 +216,7 @@ export class ProductService {
         ...product
       })
     }
-    this.toastrService.success('Le produit a été ajouté pour une comparaison.');
+    this.toastrService.success("L'oeuvre a été ajoutée pour une comparaison.");
     localStorage.setItem("compareItems", JSON.stringify(state.compare));
     return true
   }
@@ -343,7 +343,7 @@ export class ProductService {
     }
 
     //this.OpenCart = true; // If we use cart variation modal
-    this.toastrService.success('Oeuvre ajouté à la liste!');
+    this.toastrService.success('Oeuvre ajoutée à la liste!');
     localStorage.setItem("listItems", JSON.stringify(stateList.list));
     return true;
    
@@ -438,7 +438,7 @@ export class ProductService {
     const qty = oeuvre.quantity + quantity
     const stock = oeuvre.stock
     if (stock < qty || stock == 0) {
-      this.toastrService.error('Article déja dans le panier. '+ stock +' article(s) restant(s).');
+      this.toastrService.error('Oeuvre déja dans le panier. '+ stock +' article(s) restant(s).');
       return false
     }
     return true
@@ -468,10 +468,23 @@ export class ProductService {
    public removeListItem(oeuvreNumerique: OeuvreNumerique): any {
     const index = stateList.list.indexOf(oeuvreNumerique);
     stateList.list.splice(index, 1);
-    this.toastrService.warning('Oeuvre retiré de la liste!');
+    this.toastrService.warning('Oeuvre retirée de la liste!');
     localStorage.setItem("listItems", JSON.stringify(stateList.list));
     
     return true
+  }
+
+  public checkItemList(): any {
+    let index = 0;
+    //index = stateList.list.indexOf(oeuvreNumerique);
+    return stateList.list;
+    console.log("indexxxxxx checkkkkk", stateList.list)
+   /* if(index == -1){
+      return false;
+    }else{
+      return true;
+    }*/
+
   }
 
   public removeList(): any {

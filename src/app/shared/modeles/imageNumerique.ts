@@ -17,8 +17,8 @@ export class OeuvreNumerique {
     avatar: Image;
     nom: string;
     identiteAuteur: number;
-    isDisabledAdd: boolean;
-    isDisabledRemove: boolean;
+    isInList: boolean;
+    notInList: boolean;
 
 
     
@@ -36,8 +36,8 @@ export class OeuvreNumerique {
         avatar: Image,
         identiteAuteur: number,
         nom: string,
-        isDisabledAdd: boolean,
-        isDisabledRemove: boolean
+        isInList: boolean,
+        notInList: boolean
         ){}
 }
 

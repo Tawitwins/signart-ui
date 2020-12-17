@@ -712,7 +712,7 @@ this.hide2 =true;
   onEditArtiste(){
     const formInfo = this.myGroup.value;
     console.log('formInfo',formInfo)
-    const artistem = new Artiste('','','','','','','','','','');
+    const artistem = new Artiste('','','','','','','','','','',null);
     artistem.nom = formInfo.nom;
     artistem.prenom = formInfo.prenom;
     artistem.surnom = formInfo.surnom;

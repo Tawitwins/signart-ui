@@ -63,6 +63,7 @@ export class OeuvreNumeriqueBoxOneComponent implements OnInit {
   allYears: number[];
   artisteName: string;
   
+  
   listeItems:any[];
   present: boolean;
   user: any;
@@ -162,13 +163,14 @@ export class OeuvreNumeriqueBoxOneComponent implements OnInit {
   addToList(oeuvreNumerique: any) {
   
 
+    oeuvreNumerique.isInList = true;
     this.oeuvreNumeriqueSave.annee = oeuvreNumerique.annee;
     this.oeuvreNumeriqueSave.avatar = oeuvreNumerique.avatar;
     this.oeuvreNumeriqueSave.description = oeuvreNumerique.description;
     this.oeuvreNumeriqueSave.id = oeuvreNumerique.id;
     this.oeuvreNumeriqueSave.identiteAuteur = oeuvreNumerique.identiteAuteur;
-    this.oeuvreNumeriqueSave.isDisabledAdd = oeuvreNumerique.isDisabledAdd;
-    this.oeuvreNumeriqueSave.isDisabledRemove = oeuvreNumerique.isDisabledRemove;
+    //this.oeuvreNumeriqueSave.isInList = true;
+    //this.oeuvreNumeriqueSave.notInList = false;
     this.oeuvreNumeriqueSave.largeur = oeuvreNumerique.largeur;
     this.oeuvreNumeriqueSave.longueur = oeuvreNumerique.longueur;
     this.oeuvreNumeriqueSave.motscles = oeuvreNumerique.motscles;
@@ -203,6 +205,11 @@ export class OeuvreNumeriqueBoxOneComponent implements OnInit {
      }
   }
   
+
+  public removeListItem(oeuvreNumerique: any) {
+    oeuvreNumerique.isInList = false;
+    this.productService.removeListItem(oeuvreNumerique);
+  }
 
   addToWishlist(oeuvre: any) {
     this.productService.addToWishlist(oeuvre);

@@ -40,28 +40,7 @@
                                       Phone No is must be number.
                                     </div> -->
                                 </div>
-                               <!--  <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <div class="field-label">Email</div>
-                                    <input type="text" name="email" [formControl]="checkoutForm.controls['email']" value="" placeholder="" autocomplete="off">
-                                    <div *ngIf="checkoutForm.controls.email.touched && checkoutForm.controls.email.errors?.required" class="text text-danger">
-                                     Email is required
-                                    </div>
-                                    <div *ngIf="checkoutForm.controls.email.touched && checkoutForm.controls.email.errors?.email" class="text text-danger">
-                                     Invalid Email
-                                    </div>
-                                </div> -->
-                                <!-- <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <div class="field-label">Date de début</div>
-                                            <input type="date" class="form-control" id="email" placeholder="Date" required="">
-                                </div>
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <div class="field-label">Date de fin</div>
-                                            <input type="date" class="form-control" id="email" placeholder="Date" required="">
-                                    <div *ngIf="checkoutForm.controls.email.touched && checkoutForm.controls.email.errors?.email" class="text text-danger">
-                                        La date est requise.
-                                    </div>
-                                </div> -->
-                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                     <div class="field-label">Pays</div>
                                     <select name="country" [formControl]="checkoutForm.controls['country']">
                                         <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>
@@ -83,78 +62,128 @@
                                       Maximum 50 character
                                     </div> -->
                                 </div>
-                                <!-- <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                    <div class="field-label">Ville</div>
-                                    <input type="text" name="town" [formControl]="checkoutForm.controls['town']" value="" placeholder="" autocomplete="off">
-                                     <div *ngIf="checkoutForm.controls.town.touched && checkoutForm.controls.town.errors?.required" class="text text-danger">
-                                     City is required
-                                    </div>
+                                <!--div class="box-head">
+                                    <a href="javascript:void(0)" style="float: right;"><h5 style="color: #601A17;">Ajoutez une nouvelle adresse</h5></a>     
                                 </div>
-                                <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                                    <div class="field-label">Quartier</div>
-                                    <input type="text" name="state" [formControl]="checkoutForm.controls['state']" value="" placeholder="" autocomplete="off">
-                                     <div *ngIf="checkoutForm.controls.state.touched && checkoutForm.controls.state.errors?.required" class="text text-danger">
-                                     State is required
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                                    <div class="field-label">Postal Code</div>
-                                    <input type="text" name="postalcode" [formControl]="checkoutForm.controls['postalcode']" value="" placeholder="" autocomplete="off">
-                                    <div *ngIf="checkoutForm.controls.postalcode.touched && checkoutForm.controls.postalcode.errors?.required" class="text text-danger">
-                                     Postalcode is required
-                                    </div>
-                                </div> -->
+                                <div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                          <div>
+                                                <section class="register-page section-b-space">
+                                                  <form class="theme-form" [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+                                                    <div class="row">
+                                                      <div class="col-md-6">
+                                                        <label for="prenom">Prénom</label>
+                                                          <input class="form-control" formControlName="prenom"  placeholder="Prénom" [(ngModel)]="client.prenom">
+                                                        <div>
+                                                          <span *ngIf="addressForm.get('prenom').errors && addressForm.get('prenom').touched" style="color: red;"> Veuillez saisir un prénom !</span>
+                                                        </div>
+                                                      </div>
+                                                      <div class="col-md-6">
+                                                        <label for="nom">Nom</label>
+                                                          <input class="form-control" formControlName="nom"  placeholder="Nom" [(ngModel)]="client.nom">
+                                                        <div>
+                                                          <span *ngIf="addressForm.get('nom').errors && addressForm.get('nom').touched" style="color: red;" >Veuillez saisir un nom !</span>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="row">
+                                                      <div class="col-md-6">
+                                                        <label for="ville">Ville</label>
+                                                          <input class="form-control" formControlName="ville"  placeholder="Ville">
+                                                        <div>
+                                                          <span *ngIf="addressForm.get('ville').errors && addressForm.get('ville').touched" style="color: red;"> Veuillez donner une ville !</span>
+                                                        </div>
+                                                      </div>
+                                                      <div class="col-md-6">
+                                                        <label for="region">Région</label>
+                                                          <input class="form-control" formControlName="region"  placeholder="Région">
+                                                        <div>
+                                                          <span *ngIf="addressForm.get('region').errors && addressForm.get('region').touched" style="color: red;"> Veuillez donner une région
+                                                          </span>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="row">
+                                                      <div class="col-md-12">
+                                                        <label for="adresse">Adresse</label>
+                                                          <input class="form-control" formControlName="adresse"  placeholder="Adresse">
+                                                        <div>
+                                                          <span *ngIf="addressForm.get('adresse').errors && addressForm.get('adresse').touched" style="color: red;"> Veuillez donner une adresse</span>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                     <br>
+                                                    <div class="row">
+                                                      <div class="col-md-12">
+                                                        <label for="telephone">Téléphone</label>
+                                                          <input class="form-control" formControlName="telephone"  placeholder="Téléphone" [(ngModel)]="client.telephone">
+                                                        <div>
+                                                          <span *ngIf="addressForm.get('telephone').errors && addressForm.get('telephone').touched" style="color: red;"> Veuillez donner un numéro !</span>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="row">
+                                                      <div class="col-md-12">
+                                                        <div>
+                                                          <label for="pays">Pays</label>
+                                                          <select  class="form-control"  (change)="choisirPays($event)" formControlName="idPays" placeholder="Pays" value="{{pays}}">
+                                                            <option>-- Selectionner --</option>
+                                                            <option *ngFor="let p of allPays" [value]="p.id">{{p.libelle}}</option>
+                                                          </select>
+                                                          <br>
+                                                          <div>
+                                                            <span *ngIf="addressForm.get('idPays').errors && addressForm.get('idPays').touched" style="color: red;"> Veuillez choisir un pays !</span>
+                                                          </div>
+                                      
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                    <div class="row">
+                                                      <div class="col-md-12">
+                                                        <label for="telephone">Téléphone</label>
+                                                        <div class="row">
+                                                          <div  class="col-md-2">
+                                                            <input type="text" class="form-control" formControlName="indicatif" [(ngModel)]="indicatifpays" disabled="true">
+                                                          </div>
+                                                          <div  class="col-md-10">
+                                                            <input class="form-control" formControlName="telephone"  placeholder="Téléphone" [(ngModel)]="client.telephone">
+                                                          </div>
+                                                          <div>
+                                                            <span *ngIf="!addressForm.get('telephone').valid && addressForm.get('telephone').touched"></span>
+                                                          </div>
+                                                        </div>
+                                                       
+                                                      </div>
+                                                    </div>
+                                                    <br>
+                                                    <div *ngIf="isAuthenticated" colspan="2" class="content-center">
+                                                      <button class="btn btn-solid-Valider" [disabled]="!addressForm.valid">Valider</button>
+                                                    </div>
+                                                    <div *ngIf="!isAuthenticated" colspan="2" class="content-center">
+                                                      <button class="btn btn-solid-Valider"
+                                                        [disabled]="!addressForm.valid && !emailForm.valid">Valider</button>
+                                                    </div>
+                                                  </form>
+                                                </section>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <style>
+                                        .example-container {
+                                          display: flex;
+                                          flex-direction: column;
+                                        }
+                                        .example-container>* {
+                                          width: 100%;
+                                        }
+                                      </style>
+                                </div-->
                             </div>
-                          <!-- <div class="row ">
-                            <div class="col-12">
-                              <div class="stripe-section">
-                                <h5>stripe js</h5>
-                                <div class="content">
-                                  <h5>dummy test</h5>
-                                  <table>
-                                    <tr>
-                                      <td>cart number</td>
-                                      <td>4242424242424242</td>
-                                    </tr>
-                                    <tr>
-                                      <td>mm/yy</td>
-                                      <td>2/2020</td>
-                                    </tr>
-                                    <tr>
-                                      <td>cvc</td>
-                                      <td>2222</td>
-                                    </tr>
-                                  </table>
-                                </div>
-                              </div>
-                            </div>
-                          </div> -->
-                          <!-- <div class="row margin-cls">
-                            <div class="col-12">
-                              <div class="stripe-section">
-                                <h5>paypal</h5>
-                                <div class="content">
-                                  <h5>dummy test</h5>
-                                  <table>
-                                    <tr>
-                                      <td>cart number</td>
-                                      <td>4152521541244</td>
-                                    </tr>
-                                    <tr>
-                                      <td>mm/yy</td>
-                                      <td>11/18</td>
-                                    </tr>
-                                    <tr>
-                                      <td>cvc</td>
-                                      <td>521</td>
-                                    </tr>
-                                  </table>
-                                </div>
-                              </div>
-                            </div>
-                          </div> -->
                         </div> 
-
                         <div class="col-lg-6 col-sm-12 col-xs-12">
                             <div class="checkout-details">
                                 <div class="order-box">

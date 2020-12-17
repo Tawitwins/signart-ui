@@ -171,10 +171,11 @@
                             <div class="box-head">
                                 <h2>Mes commandes</h2>
                             </div>
+                            
+                                <p *ngIf="commandes.length == 0">Votre liste est vide!</p>
+                            
                             <hr>
-                            <p *ngIf="commandes.length == 0">Votre liste est vide!</p>
-                            <div *ngIf="commandes.length > 0">
-                                <table class="table cart-table table-responsive-xs" style="text-align: center;">
+                                <table class="table cart-table table-responsive-xs" style="text-align: center;" *ngIf="commandes.length > 0">
                                     <thead>
                                         <tr class="table-head">
                                             <th scope="col">Numéro de la commande</th>
@@ -210,7 +211,6 @@
                                 </table>
                                 <ngb-pagination style="float: right;"  [collectionSize]="commandes.length" [(page)]="pagComand" [pageSize]="pageSizeComand" aria-label="Default pagination">
                                 </ngb-pagination>
-                            </div> 
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 4">
                             <div class="row">

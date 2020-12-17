@@ -36,6 +36,7 @@ import { PaydunyaComponent } from '../checkout/payment/payment-modes-list/paydun
 import { PaypalComponent } from '../checkout/payment/payment-modes-list/paypal/paypal.component';
 import { CashOnDeliveryComponent } from '../checkout/payment/payment-modes-list/cash-on-delivery/cash-on-delivery.component';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
+import { AddAddressComponent } from '../checkout/address/add-address/add-address.component';
 /*const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'rgba(12,80,219,0.98)',
   bgsOpacity: 1,
