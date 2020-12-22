@@ -16,7 +16,7 @@
               <br>
               <div class="row">
                 <div class="col-md-6">
-                  <button title="Information générales" [ngClass]="(section === 'general')?'btn abonnement': 'btn annonces'" (click)='ChangerSection("general")'> Généralités</button> 
+                  <button title="Information générales" [ngClass]="(section === 'general')?'btn abonnement': 'btn annonces'" (click)='ChangerSection("general")'> Profil</button> 
                 </div>
                 <div class="col-md-6">
                   <button title="Mes oeuvres" [ngClass]="(section === 'listeOeuvres' || section === 'addOeuvre' )?'btn abonnement': 'btn annonces'" (click)='ChangerSection("listeOeuvres")'> <i class="ti-PLUS"></i> Mes oeuvres</button>
@@ -32,7 +32,7 @@
               </div>
               <div class="row" style="margin-top: 20px;">
                 <div class="col-md-6">
-                  <button title="Options" [ngClass]="(section === 'parametres')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("parametres")'> Options</button> 
+                  <button title="Changer votre mot de passe ou votre photo de profil" [ngClass]="(section === 'parametres')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("parametres")'> Paramètres</button> 
                 </div>
                <!--  <div class="col-md-6">
                   <button [ngClass]="(section === 'listeExpo' || section === 'addExpo')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeExpo")'> <i class="ti-PLUS"></i> Mes expositions</button>

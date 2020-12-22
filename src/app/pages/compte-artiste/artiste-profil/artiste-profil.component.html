@@ -368,7 +368,7 @@
     <div class="col-sm-12 col-lg-12">
       <ngb-tabset [type]="'tabs'" class="nav-material">
         <ngb-tab>
-          <ng-template ngbTabTitle>Profil</ng-template>
+          <ng-template ngbTabTitle>Informations personnelles</ng-template>
           <ng-template ngbTabContent>
             <div class="tab-pane active" id="profil">
                 <div class="container-fluid">
@@ -510,10 +510,18 @@
                                                     <input type="text" class="form-control" formControlName="surnom" [(ngModel)]="artiste.surnom" autocomplete="off"/>
                                                     </div>
                                             </div>
-                                            <div class="col-md-5">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Téléphone<strong style="color: red;" >*</strong></label>
-                                                    <input type="text" class="form-control" formControlName="telephone" [(ngModel)]="artiste.telephone" autocomplete="off"/>
+                                                    <!-- <input type="text" class="form-control" formControlName="telephone" [(ngModel)]="artiste.telephone" autocomplete="off"/> -->
+                                                    <div class="row">
+                                                        <div  class="col-md-4">
+                                                            <input type="text" class="form-control" [(value)]="indicatifpays" disabled="true">
+                                                          </div>
+                                                          <div  class="col-md-8">
+                                                            <input class="form-control" formControlName="telephone" [(ngModel)]="artiste.telephone" placeholder="Téléphone">
+                                                          </div>
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Email<strong style="color: red;" >*</strong></label>
@@ -531,12 +539,15 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Pays<strong style="color: red;" >*</strong></label>
-                                                    <input type="text" class="form-control" formControlName="pays"  [(ngModel)]="artiste.pays"  autocomplete="off"/>
+                                                    <!-- <input type="text" class="form-control" formControlName="pays"  [(ngModel)]="artiste.pays"  autocomplete="off"/> -->
+                                                    <select  class="form-control"  (change)="choisirPays($event)" [(ngModel)]="artiste.pays" [value]="artiste.pays" formControlName="pays" placeholder="Pays">
+                                                        <option>-- Selectionner --</option>
+                                                        <option *ngFor="let p of allPays" [value]="p.libelle">{{p.libelle}}</option>
+                                                      </select>
                                                 </div>
                                                 
                                             </div>
                                         
-                                            
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-solid-Valider" title="Modifier"><i class="material-icons">

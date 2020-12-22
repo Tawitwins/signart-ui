@@ -32,7 +32,7 @@ export class TchatService {
     this.connectedUser=receivedConnectedUser;
     //this.connectedUser.id= receivedConnectedUser.id;
     this.connectedUser=this.authServices.getUserConnected();
-    console.log(this.connectedUser.id);
+    //console.log(this.connectedUser.id);
     //console.log(receivedConnectedUser);
     
     if(this.connectedUser==null)

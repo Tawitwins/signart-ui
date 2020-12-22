@@ -194,8 +194,8 @@
                 <div class="col-md-12">
                   <div>
                     <label for="pays">Pays <strong style="color: red;" >*</strong></label>
-                    <select  class="form-control"  (change)="choisirPays($event)" formControlName="idPays" placeholder="Pays" value="{{pays}}">
-                      <option>-- Selectionner --</option>
+                    <select  class="form-control"  (change)="choisirPays($event)"  placeholder="Pays" [(value)]="client.pays">
+                      <!-- <option>-- Selectionner --</option> -->
                       <option *ngFor="let p of allPays" [value]="p.id">{{p.libelle}}</option>
                     </select>
                     <br>

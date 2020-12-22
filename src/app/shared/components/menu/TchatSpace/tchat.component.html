@@ -48,7 +48,7 @@
                 <span  style="color:skyblue;" > <b>&#9733; {{message?.dateEnvoi| date:'dd/MM/yyyy'}} &#9733;</b> </span>
               </div>
               <div class="chat-wrapper" style="background-color: rgb(255, 255, 255);">
-                <div  style="background-color:rgba(172, 94, 4, 0.61);margin-top: 7%;" *ngIf="connectedUser?.id==message?.idReceiver && message.msgStateSender=='VALIDE'" class="container ">
+                <div  style="background-color:gray;margin-top: 7%;" *ngIf="connectedUser?.id==message?.idReceiver && message.msgStateSender=='VALIDE'" class="container ">
                   <div class="chat-box-wrapper,row" (contextmenu)="rightClick($event,message)" *ngIf="message.msgStateReceiver=='VALIDE'">
                     <div>
                       <div class="avatar-icon-wrapper mr-1">
@@ -101,7 +101,7 @@
                     </div>
                   </div> -->
                 </div>
-                <div  style="background-color:rgba(99, 52, 13, 0.918);margin-top: 7%;" *ngIf="connectedUser?.id==message?.idSender && message.msgStateSender=='VALIDE'" class="container darker" >
+                <div  style="background-color:#601A17;margin-top: 7%;border-radius: 20px;" *ngIf="connectedUser?.id==message?.idSender && message.msgStateSender=='VALIDE'" class="container darker" >
                   <div class="float-right"(contextmenu)="rightClick($event,message)">
                     <div class="chat-box-wrapper chat-box-wrapper-right">
                       <div>

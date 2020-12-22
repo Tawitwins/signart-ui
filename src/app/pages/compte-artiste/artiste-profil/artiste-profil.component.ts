@@ -18,6 +18,7 @@ import { VisiteurService } from '../../../shared/services/visiteur.service';
 import { environment } from '../../../../environments/environment';
 import { AccountInfo, User } from '../../../shared/modeles/user';
 import { Formation, Presentation, ImageProfil, Artiste } from '../../../shared/modeles/artiste';
+import { PaysService } from '../../../shared/services/pays.service';
 
 
 declare interface MenuInfo { 
@@ -102,6 +103,8 @@ export class ArtisteProfilComponent implements OnInit {
  closeResult: string;
 
  presentationFalse: any[] = null;
+  indicatifpays: string;
+  allPays: any;
  
   constructor(
     private authS:AuthServiceS,
@@ -112,7 +115,8 @@ export class ArtisteProfilComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private visiteurService : VisiteurService,
     private expoService: OeuvreService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private paysService:PaysService,
     
   ){
     this.onStart();
@@ -126,13 +130,17 @@ export class ArtisteProfilComponent implements OnInit {
     this.user=this.authS.getUserConnected();
     this.youtubeUrlInsert="http://www.youtube.com/embed/"
     this.urlTest="http://www.youtube.com/embed/_zBElvF1VhY";
-   
+    //this.indicatifpays = "+221";
+    this.paysService.getAllPays().subscribe(pays => {
+      this.allPays = pays;
+    });
     console.log('utilisateur',this.user)
     
     if(this.user.userType == 'ARTISTE'){
     this.artisteService.getArtisteByUser(this.user.id).subscribe(
       res => {
-        this.artiste = res
+        this.artiste = res;
+        this.InitIndicatifPays(this.artiste.pays);
         console.log('Artiste connected ', res)
         this.expoService.getFormationByArtiste(this.artiste.id).subscribe(response => { this.listesFormation = response
           console.log('formation',this.listesFormation);
@@ -283,7 +291,28 @@ this.hide2 =true;
    // }  
 
   }
-
+  choisirPays(event) {
+    //console.log(this.myGroup.value);
+    // console.log('evennnnt valueeee',event.target.value)
+     for (let i = 0; i < this.allPays.length; i++) {
+        if(this.allPays[i].libelle == event.target.value){
+          //console.log('indicatiiiiiiiiiif valuuuuuuuue',this.allPays[i].indicatif)
+          this.indicatifpays = this.allPays[i].indicatif;
+        }
+       
+     }
+   }
+   InitIndicatifPays(paysLibelle) {
+    //console.log(this.myGroup.value);
+    // console.log('evennnnt valueeee',event.target.value)
+     for (let i = 0; i < this.allPays.length; i++) {
+        if(this.allPays[i].libelle == paysLibelle){
+          //console.log('indicatiiiiiiiiiif valuuuuuuuue',this.allPays[i].indicatif)
+          this.indicatifpays = this.allPays[i].indicatif;
+        }
+       
+     }
+   }
   open(content) {
     this.modalService.open(content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
