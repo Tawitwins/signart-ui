@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 import { OeuvreService } from '../../shared/services/oeuvre.service';
 import { tap } from 'rxjs/operators';
 import { Client } from '../../shared/modeles/client';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cart',
@@ -22,15 +23,24 @@ export class CartComponent implements OnInit {
 
   //public products: Product[] = [];
   public oeuvres: Oeuvre[] = [];
+  public newOeuvres: Oeuvre[] = [];
   user: User;
   client: Client |any;
   data: any;
+  public isConnected: boolean;
 
   constructor(public productService: ProductService,private toastrService:ToastrService,private oeuvreS: OeuvreService,private toastr:ToastrService,private authS:AuthServiceS,private newCheckoutService:CheckoutService,private router:Router) {
     //this.productService.cartItems.subscribe(response => this.products = response);
+    this.isConnected = false;
     this.productService.cartItems.subscribe(response => this.oeuvres = response);
+    this.productService.newCartItems.subscribe(response => this.newOeuvres = response);
     this.user = this.authS.getUserConnected();
-    console.log(this.oeuvres);
+    console.log("userrrrrrrrrr",this.user)
+    
+    if(this.user != null){
+      this.isConnected = true;
+    }
+    console.log("newwwwww oeuvressssssss",this.newOeuvres);
   }
 
   ngOnInit(): void {
@@ -40,9 +50,17 @@ export class CartComponent implements OnInit {
     return this.productService.cartTotalAmount();
   }
 
+  public get getNewTotal(): Observable<number> {
+    return this.productService.newCartTotalAmount();
+  }
+
   // Increament
   increment(oeuvre, qty = 1) {
     this.productService.updateCartQuantity(oeuvre, qty);
+  }
+
+  incrementNew(oeuvre, qty = 1) {
+    this.productService.updateNewCartQuantity(oeuvre, qty);
   }
 
   // Decrement
@@ -50,8 +68,16 @@ export class CartComponent implements OnInit {
     this.productService.updateCartQuantity(oeuvre, qty);
   }
 
+  decrementNew(oeuvre, qty = -1) {
+    this.productService.updateNewCartQuantity(oeuvre, qty);
+  }
+
   public removeItem(oeuvre: any) {
     this.productService.removeCartItem(oeuvre);
+  }
+
+  public removeNewItem(oeuvre: any) {
+    this.productService.removeNewCartItem(oeuvre);
   }
 
   getOeuvreImageUrl(id: number) {
@@ -60,8 +86,23 @@ export class CartComponent implements OnInit {
   confirmer()
   {
     if (this.user === null) {
-      this.router.navigate(['/auth', 'account']);
-      this.toastr.info("Vous devez vous authentifier avant la commande!","Redirection");
+     // this.router.navigate(['/auth', 'account']);
+        Swal.fire({
+        //title: 'Are you sure?',
+        text: "Vous devez vous connecter pour effectuer cette action",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#376809',
+        cancelButtonColor: '#601A17',
+        cancelButtonText: 'annuler',
+        confirmButtonText: 'Oui, se connecter'
+      }).then((result) => {
+        if (result.value) {
+          console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+          this.router.navigate(['/pages/login']);
+        }
+      })
+     // this.toastr.info("Vous devez vous authentifier avant la commande!","Redirection");
     }
      else {
       this.oeuvreS.getClientByUser(this.user.id)

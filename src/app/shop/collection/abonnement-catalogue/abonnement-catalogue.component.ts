@@ -693,77 +693,89 @@ export class AbonnementCatalogueComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'OUI!'
     }).then((result) => {
-      this.ngxService.startLoader("loader-01"); // start foreground spinner of the loader "loader-01" with 'default' taskId
-
-      this.imageService.addAbonne(this.abonne).subscribe(
-        respon =>{
-          ////console.log(respon)
-          if(respon != null){
-            let abonnee: Abonne = respon
-            console.log("abonneee creerr ", abonnee)
-            this.imageService.getAbonneByListe(this.abonne.idListeSelection).subscribe(
-              response => { 
-                this.abonneRes = response;
-               
-                ////console.log("abonneee creerr ", this.abonneRes)
-                ////console.log('abonneRes',this.abonneRes);
-                     // ////console.log("listId",this.listeSelection.id)
-                      ////console.log("abonneId",this.abonneRes.id)
-                      ////console.log("delaiId",this.delaiId)
-                      ////console.log("terminalId",this.terminalId)
-                      console.log("abonne ress",this.abonneRes)
-                      this.abonnement.idTerminal = this.terminalId;
-                      this.abonnement.idDelai = this.delaiId;
-                      this.abonnement.montantPaiement = this.montantTotal;
-                      this.abonnement.idListeSelection = this.abonneRes.idListeSelection;
-                      this.abonnement.idAbonne = this.abonneRes.id;
-                      if(this.terminalDelai.terminalLibelle === "Tv box"){
-                        this.abonnement.precisions = this.terminalDelai.precisions;
-                      }else{
-                        this.abonnement.precisions = "RAS";
-                      }
-                      
-                      for(var i=0; i<this.etats.length; i++){
-                        if(this.etats[i].code === "EN_COURS"){
-                          this.idEtatAbonnement = this.etats[i].id;
+      if(result){
+        this.ngxService.startLoader("loader-01"); // start foreground spinner of the loader "loader-01" with 'default' taskId
+        this.imageService.addAbonne(this.abonne).subscribe(
+          respon =>{
+            ////console.log(respon)
+            if(respon != null){
+              let abonnee: Abonne = respon
+              console.log("abonneee creerr ", abonnee)
+              this.imageService.getAbonneByListe(this.abonne.idListeSelection).subscribe(
+                response => { 
+                  this.abonneRes = response;
+                 
+                  ////console.log("abonneee creerr ", this.abonneRes)
+                  ////console.log('abonneRes',this.abonneRes);
+                       // ////console.log("listId",this.listeSelection.id)
+                        ////console.log("abonneId",this.abonneRes.id)
+                        ////console.log("delaiId",this.delaiId)
+                        ////console.log("terminalId",this.terminalId)
+                        console.log("abonne ress",this.abonneRes)
+                        this.abonnement.idTerminal = this.terminalId;
+                        this.abonnement.idDelai = this.delaiId;
+                        this.abonnement.montantPaiement = this.montantTotal;
+                        this.abonnement.idListeSelection = this.abonneRes.idListeSelection;
+                        this.abonnement.idAbonne = this.abonneRes.id;
+                        if(this.terminalDelai.terminalLibelle === "Tv box"){
+                          this.abonnement.precisions = this.terminalDelai.precisions;
+                        }else{
+                          this.abonnement.precisions = "RAS";
                         }
-                      }
-                      ////console.log("id etat",this.idEtatAbonnement)
-                      this.abonnement.etatAbonnement = this.idEtatAbonnement
-          
-                      
-                      
-                      this.listeOeuvre = this.oeuvresNumeriques;
-                      console.log("la liste des oeuvres",this.listeOeuvre)
-                      console.log("abonne rs",this.abonneRes)
-                      for (let i = 0; i < this.listeOeuvre.length; i++) {
-                        const listoeuvre = new ListeSelection_Oeuvres(null,null);
-                        listoeuvre.idListe = this.abonneRes.idListeSelection;
-                        listoeuvre.nomOeuvre = this.listeOeuvre[i].nom;
-                        console.log(listoeuvre)
-                        this.imageService.addListOeuvre(listoeuvre).subscribe(
-                          respon => { 
-                            console.log("add image"+listoeuvre)
+                        
+                        for(var i=0; i<this.etats.length; i++){
+                          if(this.etats[i].code === "EN_COURS"){
+                            this.idEtatAbonnement = this.etats[i].id;
+                          }
+                        }
+                        ////console.log("id etat",this.idEtatAbonnement)
+                        this.abonnement.etatAbonnement = this.idEtatAbonnement
+            
+                        
+                        
+                        this.listeOeuvre = this.oeuvresNumeriques;
+                        console.log("la liste des oeuvres",this.listeOeuvre)
+                        console.log("abonne rs",this.abonneRes)
+                        for (let i = 0; i < this.listeOeuvre.length; i++) {
+                          const listoeuvre = new ListeSelection_Oeuvres(null,null);
+                          listoeuvre.idListe = this.abonneRes.idListeSelection;
+                          listoeuvre.nomOeuvre = this.listeOeuvre[i].nom;
+                          console.log(listoeuvre)
+                          this.imageService.addListOeuvre(listoeuvre).subscribe(
+                            respon => { 
+                              console.log("add image"+listoeuvre)
+                              
+                            }); 
+                        }
+                        this.imageService.addAbonnement(this.abonnement).subscribe(
+                          resp =>{
+                            ////console.log(resp)
+                            console.log("abonnement",this.abonnement)
+                            this.oeuvresNumeriques = [];
+                            setTimeout(() => {
+                              this.ngxService.stopLoader("loader-01"); // stop foreground spinner of the loader "loader-01" with 'default' taskId
+                            }, 3000);
+                            this.toastrService.success('Abonnement soumis avec succés!');
+                            this.onReset(0);
                             
-                          }); 
-                      }
-                      this.imageService.addAbonnement(this.abonnement).subscribe(
-                        resp =>{
-                          ////console.log(resp)
-                          console.log("abonnement",this.abonnement)
-                          this.oeuvresNumeriques = [];
-                          setTimeout(() => {
-                            this.ngxService.stopLoader("loader-01"); // stop foreground spinner of the loader "loader-01" with 'default' taskId
-                          }, 3000);
-                          this.toastrService.success('Abonnement soumis avec succés!');
-                          this.onReset(0);
-                          
-                        }
-                      );         
+                          }
+                        );         
+              });
+    
+            }           
             });
-  
-          }           
-          });
+      }else{
+        this.pageFormu = 0;
+        this.terminalDelaiForm.reset();
+        this.abonneeForm.reset();
+        this.page = 0;
+        this.onglet = 1;
+        this.montantTotal = 0;
+        this.listeOeuvre = [];
+        this.onGetImage();
+
+      }
+
         });       
   }
 

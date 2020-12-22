@@ -162,7 +162,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   async addToCart(oeuvre: any) {
     this.user = this.authService.getUserConnected();
     if(this.user==null){
-      Swal.fire({
+     /* Swal.fire({
         //title: 'Are you sure?',
         text: "Vous devez vous connecter pour effectuer cette action",
         icon: 'warning',
@@ -176,7 +176,10 @@ export class ProductLeftSidebarComponent implements OnInit {
           console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
           this.router.navigate(['/pages/login']);
         }
-      })  
+      }) */ 
+      oeuvre.stock = this.counter || 1;
+      const status = await this.productService.addToCartNew(oeuvre);
+
      }else{
     oeuvre.stock = this.counter || 1;
     const status = await this.productService.addToCart(oeuvre);

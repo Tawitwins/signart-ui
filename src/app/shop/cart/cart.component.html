@@ -1,7 +1,7 @@
 <app-breadcrumb [title]="'Panier'" [breadcrumb]="'Panier'"></app-breadcrumb>
 <!-- section start -->
 <section class="cart-section section-b-space">
-    <div class="container">
+    <div class="container"  *ngIf="isConnected == true">
         <div class="col-sm-12 empty-cart-cls text-center" *ngIf="!oeuvres.length">
         <img src="assets/images/icon-empty-cart.png" class="img-fluid mb-4">
         <h3><strong>Votre panier est vide</strong></h3>
@@ -112,6 +112,120 @@
             <div class="col-6">
                 <div (click)="confirmer()" title="Commander" class="btn btn-solid-Valider">Commander</div>
             </div>
+        </div>
+    </div>
+
+    <div class="container" *ngIf="isConnected == false">
+        <div class="col-sm-12 empty-cart-cls text-center" *ngIf="!newOeuvres.length">
+            <img src="assets/images/icon-empty-cart.png" class="img-fluid mb-4">
+            <h3><strong>Votre panier est vide</strong></h3>
+            <h4>ajouter quelque chose :)</h4>
+            </div>
+        <div class="row" *ngIf="newOeuvres.length">
+            <div class="col-sm-12">
+                <table style="text-align: center;" class="table cart-table table-responsive-xs">
+                    <thead>
+                        <tr class="table-head">
+                            <th scope="col">Oeuvre</th>
+                            <th scope="col">Titre</th>
+                            <th scope="col">Prix</th>
+                            <th scope="col">Quantité</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let oeuvre of newOeuvres">
+                        <tr>
+                            <td>
+                                <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
+                                    <img [src]="getOeuvreImageUrl(oeuvre?.id)" [alt]="getOeuvreImageUrl(oeuvre?.id)">
+                                </a>
+                            </td>
+                            <td>
+                                <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
+                                    <h5>
+                                        {{ oeuvre.nom | titlecase }}
+                                    </h5>
+                                </a>
+                                <div class="mobile-cart-content row">
+                                    <div class="col-xs-3">
+                                        <div class="qty-box">
+                                            <div class="input-group">
+                                                <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="oeuvre.quantity">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <h2 class="td-color">
+                                            {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'  }} 
+                                        </h2>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <h2 class="td-color">
+                                            <a (click)="removeNewItem(oeuvre)" class="icon">
+                                                <i class="ti-close"></i>
+                                            </a>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <h5>
+                                    {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'  }} 
+                                </h5>
+                            </td>
+                            <td>
+                                <div class="qty-box">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <button type="button" class="btn quantity-left-minus" title="Diminuer la quantité" data-type="minus" (click)="decrementNew(oeuvre)">
+                                                <i class="ti-angle-left"></i>
+                                            </button>
+                                        </span>
+                                        <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="oeuvre.quantity">
+                                        <span class="input-group-prepend">
+                                            <button type="button" class="btn quantity-right-plus" title="Augmenter la quantité" data-type="plus" (click)="incrementNew(oeuvre)">
+                                                <i class="ti-angle-right"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <h4 class="td-color">
+                                    {{ (oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100) * oeuvre?.quantity | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}
+                                </h4>
+                            </td>
+                            <td>
+                                <a title="Supprimer du panier" href="javascript:void(0)" (click)="removeNewItem(oeuvre)" class="icon">
+                                <i class="ti-close"></i>
+                            </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table style="text-align: center;" class="table cart-table table-responsive-md">
+                    <tfoot>
+                        <tr>
+                            <td>Montant total :</td>
+                            <td >
+                                <h2 class="td-color"> {{ getNewTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h2>
+                            </td>
+                            <!--td>
+                                <h2> {{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</h2>
+                            </td-->
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div class="row cart-buttons" *ngIf='newOeuvres.length'>
+                <div class="col-6">
+                    <a [routerLink]="['/shop/collection/left/sidebar']" title="Continuer l'exploration" class="btn btn-solid">Continuer l'exploration</a>
+                </div>
+                <div class="col-6">
+                    <div (click)="confirmer()" title="Commander" class="btn btn-solid-Valider">Commander</div>
+                </div>
         </div>
     </div>
 </section>

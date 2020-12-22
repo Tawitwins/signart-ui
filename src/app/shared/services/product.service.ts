@@ -29,6 +29,12 @@ var state = {
   cart: JSON.parse(localStorage['cartItems'] || '[]')
 }
 
+var newState = {
+  products: JSON.parse(localStorage['newOeuvre'] || '[]'),
+  wishlist: JSON.parse(localStorage['newWishlistItems'] || '[]'),
+  cart: JSON.parse(localStorage['newCartItems'] || '[]')
+}
+
 const stateList = {
   oeuvresNumeriques: JSON.parse(localStorage['oeuvresNumeriques'] || '[]'),
  // wishlist: JSON.parse(localStorage['wishlistItems'] || '[]'),
@@ -244,6 +250,15 @@ export class ProductService {
     return <Observable<Product[]>>itemsStream;
   }
 
+
+  public get newCartItems(): Observable<Product[]> {
+    const itemsStream = new Observable(observer => {
+      observer.next(newState.cart);
+      observer.complete();
+    });
+    return <Observable<Oeuvre[]>>itemsStream;
+  }
+
   public get listItems(): Observable<OeuvreNumerique[]> {
     const itemsStream = new Observable(observer => {
       observer.next(stateList.list);
@@ -274,6 +289,29 @@ export class ProductService {
     localStorage.setItem("cartItems", JSON.stringify(state.cart));
     return true;
   }*/
+
+  public addToCartNew(oeuvre): any {
+    const cartItem = newState.cart.find(item => item.id === oeuvre.id);
+    const qty = 1; //product.quantity ? product.quantity : 1;
+    const items = cartItem ? cartItem : oeuvre;
+    const stock = this.calculateStockCounts(items, qty);
+    
+   if(!stock) return false
+
+    if (cartItem) {
+        cartItem.quantity += qty    
+    } else {
+      newState.cart.push({
+        ...oeuvre,
+        quantity: qty
+      })
+    }
+
+    //this.OpenCart = true; // If we use cart variation modal
+    localStorage.setItem("newCartItems", JSON.stringify(newState.cart));
+    this.toastrService.success('Oeuvre ajoutée à la liste!');
+    return true;
+  }
 
   public addToCart(oeuvre: Oeuvre): any {
     let User=this.authService.getUserConnected();
@@ -444,6 +482,36 @@ export class ProductService {
     return true
   }
 
+
+
+ // Update New Cart Quantity
+ public updateNewCartQuantity(oeuvre: Oeuvre, quantity: number): Oeuvre | boolean {
+  return newState.cart.find((items, index) => {
+    if (items.id === oeuvre.id) {
+      const qty = newState.cart[index].quantity + quantity;
+      const stock = this.calculateNewStockCounts(newState.cart[index], quantity)
+      if ((qty != 0) && stock) {
+        newState.cart[index].quantity = qty;
+      }
+      localStorage.setItem("newCartItems", JSON.stringify(newState.cart));
+      return true
+    }
+  })
+}
+
+  // Calculate New Stock Counts
+public calculateNewStockCounts(oeuvre, quantity) {
+  const qty = oeuvre.quantity + quantity;
+  const stock = oeuvre.stock;
+  if (stock < qty || stock == 0) {
+    this.toastrService.error('Oeuvre déja dans le panier. '+ stock +' article(s) restant(s).');
+    return false
+  }
+  return true
+}
+
+
+
   // Remove Cart items
   public removeCartItem(product: Product): any {
     const index = state.cart.indexOf(product);
@@ -474,6 +542,14 @@ export class ProductService {
     return true
   }
 
+  public removeNewCartItem(oeuvre: Oeuvre): any {
+    const index = newState.cart.indexOf(oeuvre);
+    newState.cart.splice(index, 1);
+    this.toastrService.warning('Oeuvre retirée de la liste!');
+    localStorage.setItem("newCartItems", JSON.stringify(newState.cart));
+    return true
+  }
+
   public checkItemList(): any {
     let index = 0;
     //index = stateList.list.indexOf(oeuvreNumerique);
@@ -485,6 +561,10 @@ export class ProductService {
       return true;
     }*/
 
+  }
+
+  getNewCartItem(): any {
+    return newState.cart;
   }
 
   public removeList(): any {
@@ -510,6 +590,18 @@ export class ProductService {
 
   public cartTotalAmount(): Observable<number> {
     return this.cartItems.pipe(map((oeuvre: Oeuvre[]) => {
+      return oeuvre.reduce((prev, curr: Oeuvre) => {
+        let price = curr.prix;
+        if(curr.tauxremise) {
+          price = curr.prix - (curr.prix * curr.tauxremise / 100)
+        }
+        return (prev + price * curr.quantity) * this.Currency.price;
+      }, 0);
+    }));
+  }
+
+  public newCartTotalAmount(): Observable<number> {
+    return this.newCartItems.pipe(map((oeuvre: Oeuvre[]) => {
       return oeuvre.reduce((prev, curr: Oeuvre) => {
         let price = curr.prix;
         if(curr.tauxremise) {

@@ -33,6 +33,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   //user: SocialUser;
   User:User;
   val: any;
+  newOeuvres: any[] = [];
+  oeuvresClient: any;
   public connexionStatut: boolean = true;
   
 
@@ -50,6 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private panierEtMarquageService:PanierEtMarquageService,
     private productService:ProductService,
   ) {
+    this.oeuvresClient = null;
     this.redirectIfUserLoggedIn();
     /*const config = {
       apiKey: 'AIzaSyDxt2TX8TznLurwotZypNMjOCvrYvWC2Ws',
@@ -148,6 +151,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   redirectIfUserLoggedIn() {
     console.log("redirect me");
+    this.newOeuvres = this.productService.getNewCartItem();
     this.store.select(getAuthStatus).subscribe(
       data => {
         if (data === true) {
@@ -158,34 +162,73 @@ export class LoginComponent implements OnInit, OnDestroy {
             response => { 
               let client= <Client> response;
               console.log("ici redi");
+             
+              
               this.panierEtMarquageService.getWishList(client.id).subscribe(resp=>{
                 localStorage.setItem('wishlistItems',JSON.stringify(resp));
                 this.productService.initState();
-              })
+              });
               this.panierEtMarquageService.getPanierByIdClient(client.id).subscribe(resp=>{
                 console.log(resp);
-                let panier= <Panier>resp;
-                let listProduct:Oeuvre[]=[];
-                panier.lignesPanier.forEach(ele=> {
-                  ele.oeuvre.image=null; 
-                  ele.oeuvre.quantity=ele.quantite;
-                  ele.idClient=client.id;
-                  let test=<Oeuvre>listProduct.find(o=>o.id === ele.oeuvre.id);
-                  if(test!=null || test!= undefined)
+                this.oeuvresClient = resp;
+                console.log("les oeuvreee du clientssss", this.oeuvresClient);
+                console.log("les oeuvreee du visiteurrrrrr", this.newOeuvres);
+                for (let j = 0; j < this.newOeuvres.length; j++) {
+                  console.log(this.oeuvresClient.lignesPanier.find(elp=>elp.oeuvre.id === this.newOeuvres[j].id));
+                  let nbr= this.oeuvresClient.lignesPanier.find(elp=>elp.oeuvre.id === this.newOeuvres[j].id);
+                  if(nbr != undefined)
                   {
-                    let index = listProduct.indexOf(test);
-                    listProduct[index].quantity+= ele.oeuvre.quantity;
-                    //ele.oeuvre.quantity=test.quantity;
+                    let quantity= this.newOeuvres[j].quantity;
+                    this.newOeuvres[j].quantity = 0;
+                    this.productService.updateCartQuantity(this.newOeuvres[j],quantity);
                   }
                   else
-                    listProduct.push(ele.oeuvre);
-                });
-                //localStorage.setItem('products',JSON.stringify(listProduct));
-                if( this.setToLocalStorage(resp,listProduct)==true)
-                {
-                  this.productService.initState();
-                  console.log("hello init here get local")
-                }
+                  {
+                    let quantity= this.newOeuvres[j].quantity;
+                    this.newOeuvres[j].quantity = 0;
+                    this.productService.addToCart(this.newOeuvres[j]);
+                    quantity--;
+                    if(quantity>=1)
+                      this.productService.updateCartQuantity(this.newOeuvres[j],quantity);
+                  }
+                    
+                 /* if(this.newOeuvres[j].id != this.oeuvresClient.lignesPanier[i].oeuvre.id){
+                    console.log("same id");
+                   
+                    console.log("new oeuvre matchesss",this.newOeuvres[j]);
+                    console.log("new oeuvre added",this.oeuvresClient.lignesPanier[i].oeuvre);
+                  } */                 
+                }   
+              /*for (let i = 0; i < this.oeuvresClient.lignesPanier.length; i++) {
+                               
+              }*/
+              setTimeout(() => {
+              this.panierEtMarquageService.getPanierByIdClient(client.id).subscribe(resp=>{
+                  let panier= <Panier>resp;
+                  let listProduct:Oeuvre[]=[];
+                  panier.lignesPanier.forEach(ele=> {
+                    ele.oeuvre.image=null; 
+                    ele.oeuvre.quantity=ele.quantite;
+                    ele.idClient=client.id;
+                    let test=<Oeuvre>listProduct.find(o=>o.id === ele.oeuvre.id);
+                    if(test!=null || test!= undefined)
+                    {
+                      let index = listProduct.indexOf(test);
+                      listProduct[index].quantity+= ele.oeuvre.quantity;
+                      //ele.oeuvre.quantity=test.quantity;
+                    }
+                    else
+                      listProduct.push(ele.oeuvre);
+                  });
+                  //localStorage.setItem('products',JSON.stringify(listProduct));
+                  if( this.setToLocalStorage(resp,listProduct)==true)
+                  {
+                    this.productService.initState();
+                    console.log("hello init here get local")
+                  }         
+              });
+                     
+            }, 1500);
               })
               localStorage.setItem('client',JSON.stringify(response))
               

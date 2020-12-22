@@ -65,7 +65,7 @@ export class CartModalComponent implements OnInit, AfterViewInit, OnDestroy {
   async openModal(oeuvre) {
     this.user = this.authService.getUserConnected();
     if(this.user==null){
-      Swal.fire({
+     /* Swal.fire({
         //title: 'Are you sure?',
         text: "Vous devez vous connecter pour effectuer cette action",
         icon: 'warning',
@@ -79,7 +79,10 @@ export class CartModalComponent implements OnInit, AfterViewInit, OnDestroy {
           console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
           this.router.navigate(['/pages/login']);
         }
-      })  
+      }) */ 
+      await this.productService.getOeuvres.subscribe(response => this.oeuvres = response);
+      this.oeuvres = await this.oeuvres.filter(items => items.id != oeuvre.id);
+      const status = await this.productService.addToCartNew(oeuvre);
      }else{
       await this.productService.getOeuvres.subscribe(response => this.oeuvres = response);
       this.oeuvres = await this.oeuvres.filter(items => items.id != oeuvre.id);
