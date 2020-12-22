@@ -44,7 +44,8 @@ export class SettingsComponent implements OnInit {
     isAdd: boolean;
 
   //public products: Product[] = [];
-  public oeuvres: Oeuvre[] = []
+  public oeuvres: Oeuvre[] = [];
+  public newOeuvres: Oeuvre[] = [];
   
   public languages = [{ 
     name: 'English',
@@ -84,7 +85,10 @@ export class SettingsComponent implements OnInit {
         private authActions: AuthActions,
         private oeuvreS:OeuvreService) {
           setTimeout(() => {this.productService.cartItems.subscribe(response =>{ this.oeuvres = response;
-            console.log("helloooooooo")});}, 2500); // Skeleton Loader
+            console.log("helloooooooo")});}, 1000); 
+            
+            setTimeout(() => {this.productService.newCartItems.subscribe(response =>{ this.newOeuvres = response;
+              console.log("helloooooooo")});}, 500); // Skeleton Loader
     
 
     this.isAdd = true;
@@ -123,6 +127,10 @@ export class SettingsComponent implements OnInit {
 
   get getTotal(): Observable<number> {
     return this.productService.cartTotalAmount();
+  }
+
+  get getNewTotal(): Observable<number> {
+    return this.productService.newCartTotalAmount();
   }
 
   removeItem(product: any) {

@@ -127,7 +127,7 @@ export class ProductBoxOneComponent implements OnInit {
     
     this.user = this.authService.getUserConnected();
     if(this.user==null){
-      Swal.fire({
+      /*Swal.fire({
         //title: 'Are you sure?',
         text: "Vous devez vous connecter pour effectuer cette action",
         icon: 'warning',
@@ -141,11 +141,10 @@ export class ProductBoxOneComponent implements OnInit {
           console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
           this.router.navigate(['/pages/login']);
         }
-      })  
+      })  */
+      this.productService.addToCartNew(oeuvre);
      }else{
-
       this.productService.addToCart(oeuvre);
-      
      }
   }
   
@@ -167,7 +166,8 @@ export class ProductBoxOneComponent implements OnInit {
           console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
           this.router.navigate(['/pages/login']);
         }
-      })  
+      }) 
+     // this.isFavorite=this.productService.addToWishlist(oeuvre);
      }else{
       this.isFavorite=this.productService.addToWishlist(oeuvre);
      }
