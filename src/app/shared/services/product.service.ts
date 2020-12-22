@@ -445,7 +445,7 @@ export class ProductService {
             console.log(lignePaniers); 
             let lp=lignePaniers.find(lp=>lp.oeuvre.id===product.id);
             console.log(lp);
-            if(lp!=null || lp != undefined)
+            if(lp!=null && lp != undefined)
             {
               console.log(lignePaniers);
               console.log(lp);

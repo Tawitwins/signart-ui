@@ -173,38 +173,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 this.oeuvresClient = resp;
                 console.log("les oeuvreee du clientssss", this.oeuvresClient);
                 console.log("les oeuvreee du visiteurrrrrr", this.newOeuvres);
-                for (let j = 0; j < this.newOeuvres.length; j++) {
-                  console.log(this.oeuvresClient.lignesPanier.find(elp=>elp.oeuvre.id === this.newOeuvres[j].id));
-                  let nbr= this.oeuvresClient.lignesPanier.find(elp=>elp.oeuvre.id === this.newOeuvres[j].id);
-                  if(nbr != undefined)
-                  {
-                    let quantity= this.newOeuvres[j].quantity;
-                    this.newOeuvres[j].quantity = 0;
-                    this.productService.updateCartQuantity(this.newOeuvres[j],quantity);
-                  }
-                  else
-                  {
-                    let quantity= this.newOeuvres[j].quantity;
-                    this.newOeuvres[j].quantity = 0;
-                    this.productService.addToCart(this.newOeuvres[j]);
-                    quantity--;
-                    if(quantity>=1)
-                      this.productService.updateCartQuantity(this.newOeuvres[j],quantity);
-                  }
-                    
-                 /* if(this.newOeuvres[j].id != this.oeuvresClient.lignesPanier[i].oeuvre.id){
-                    console.log("same id");
-                   
-                    console.log("new oeuvre matchesss",this.newOeuvres[j]);
-                    console.log("new oeuvre added",this.oeuvresClient.lignesPanier[i].oeuvre);
-                  } */                 
-                }   
-              /*for (let i = 0; i < this.oeuvresClient.lignesPanier.length; i++) {
-                               
-              }*/
-              setTimeout(() => {
-              this.panierEtMarquageService.getPanierByIdClient(client.id).subscribe(resp=>{
-                  let panier= <Panier>resp;
+                let panier= <Panier>resp;
                   let listProduct:Oeuvre[]=[];
                   panier.lignesPanier.forEach(ele=> {
                     ele.oeuvre.image=null; 
@@ -225,10 +194,51 @@ export class LoginComponent implements OnInit, OnDestroy {
                   {
                     this.productService.initState();
                     console.log("hello init here get local")
-                  }         
-              });
+                  }      
+                for (let j = 0; j < this.newOeuvres.length; j++) {
+                  console.log(this.oeuvresClient.lignesPanier.find(elp=>elp.oeuvre.id === this.newOeuvres[j].id));
+                  let nbr= this.oeuvresClient.lignesPanier.find(elp=>elp.oeuvre.id === this.newOeuvres[j].id);
+                  console.log(nbr);
+                  if(nbr != undefined)
+                  {
+                    let quantity= this.newOeuvres[j].quantity;
+                    //this.newOeuvres[j].quantity = 0;
+                    nbr.quantity=this.newOeuvres[j].quantity;
+                    this.productService.updateCartQuantity(this.newOeuvres[j],quantity);
+                    console.log("1- I added");
+                    console.log(this.newOeuvres[j]);
+                    console.log("with quantity"+ quantity);
+                  }
+                  else
+                  {
+                    let quantity= this.newOeuvres[j].quantity;
+                    this.newOeuvres[j].quantity = 0;
+                    this.productService.addToCart(this.newOeuvres[j]);
+                    quantity--;
+                    if(quantity>=1)
+                      this.productService.updateCartQuantity(this.newOeuvres[j],quantity);
+                    console.log("2- I added");
+                    console.log(this.newOeuvres[j]);
+                    console.log("with quantity"+ quantity);
+                  }
+                    
+                 /* if(this.newOeuvres[j].id != this.oeuvresClient.lignesPanier[i].oeuvre.id){
+                    console.log("same id");
+                   
+                    console.log("new oeuvre matchesss",this.newOeuvres[j]);
+                    console.log("new oeuvre added",this.oeuvresClient.lignesPanier[i].oeuvre);
+                  } */                 
+                }   
+              /*for (let i = 0; i < this.oeuvresClient.lignesPanier.length; i++) {
+                               
+              }*/
+
+              //setTimeout(() => {
+              //this.panierEtMarquageService.getPanierByIdClient(client.id).subscribe(resp=>{
                      
-            }, 1500);
+              //});
+                     
+            //}, 1500);
               })
               localStorage.setItem('client',JSON.stringify(response))
               
