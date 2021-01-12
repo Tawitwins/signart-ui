@@ -162,8 +162,8 @@ export class RegisterArtistComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: ' #f07c10',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Oui, je confirme!',
-      cancelButtonText: 'Anuler'
+      confirmButtonText: 'Confirmer',
+      cancelButtonText: 'Annuler'
     }).then((result) => {
       if (result.value) {
         this.artisteService.addSouscription(<Souscription>this.form1Value).subscribe(resp=>{
@@ -176,7 +176,7 @@ export class RegisterArtistComponent implements OnInit {
               let val = <Souscription>resp;
               if(val.id!=null)
               {
-                console.log("oeuvre une ajouté avec succés");
+                console.log("oeuvre une ajouté avec succès");
               }
             });
             let oeuvreDeux=<OeuvreSousc>this.form3Value;
@@ -185,7 +185,7 @@ export class RegisterArtistComponent implements OnInit {
               let val = <Souscription>resp;
               if(val.id!=null)
               {
-                console.log("oeuvre deux ajouté avec succés");
+                console.log("oeuvre deux ajouté avec succès");
               }
             });
           }
@@ -194,7 +194,7 @@ export class RegisterArtistComponent implements OnInit {
           res =>{
             console.log('la reponse est ', res)
             Swal.fire(
-              'Oeuvre souscrite avec succés!',
+              'Oeuvre souscrite avec succès!',
               'Votre oeuvre est en attente de publication!',
             ) 
           }
@@ -202,7 +202,7 @@ export class RegisterArtistComponent implements OnInit {
 
         );*/
         Swal.fire(
-          "Formulaire soumis avec succés!",
+          "Formulaire soumis avec succès!",
           "En attente de Validation par l'administration!",
         ).then((result)=> {if(result.value){
           location.replace("./accueil");
@@ -219,13 +219,13 @@ export class RegisterArtistComponent implements OnInit {
   onCancel() {
     
     Swal.fire({
-      title: 'Etes vous sure de vouloir annuler cette soumission?',
+      title: 'Êtes vous sure de vouloir annuler cette soumission?',
       //text: "Ceci sera irreversible!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: ' #f07c10',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Oui, je confirme!',
+      confirmButtonText: 'Oui',
       cancelButtonText: 'Non'
     }).then((result) => {
       if (result.value) {
@@ -233,7 +233,7 @@ export class RegisterArtistComponent implements OnInit {
           res =>{
             console.log('la reponse est ', res)
             Swal.fire(
-              'Oeuvre souscrite avec succés!',
+              'Oeuvre souscrite avec succès!',
               'Votre oeuvre est en attente de publication!',
             )
           }

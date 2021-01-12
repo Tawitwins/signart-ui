@@ -381,7 +381,7 @@ followArtiste(){
                              {
                                   this.suivreart = 'Suivre';
                                   this.couleur = '#f07c10';
-                                  console.log('Succés. Vous ne suivez plus cet artiste '+this.currentArtiste.id);
+                                  console.log('Succès. Vous ne suivez plus cet artiste '+this.currentArtiste.id);
                              }
                              else
                              {

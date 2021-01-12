@@ -389,7 +389,7 @@ export class CheckoutService extends HttpService {
       params
     ).pipe(map((res) => {
       const adresse = res;
-      this.toastrService.success("Succés","L'adresse a été ajouté à votre liste.")
+      this.toastrService.success("Succès","L'adresse a été ajouté à votre liste.")
       //this.store.dispatch(this.actions.updateOrderSuccess(adresse));
     }));
    

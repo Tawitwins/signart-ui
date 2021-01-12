@@ -324,7 +324,7 @@ export class DashboardComponent implements OnInit {
               resp =>{
                 console.log(resp)
                 Swal.fire({
-                  title: 'Votre mot de passe a été modifié avec avec succés!',
+                  title: 'Votre mot de passe a été modifié avec avec succès!',
                   icon: 'success',
                   cancelButtonColor: '#d33',
                 });
@@ -368,7 +368,7 @@ export class DashboardComponent implements OnInit {
  this.authS.editClient(this.client).subscribe(
  data => {
  this.client=data;
- this.toastrService.success("Modification terminée","Succés");
+ this.toastrService.success("Modification terminée","Succès");
  console.log('mise à jour',data);
  },
  error => {

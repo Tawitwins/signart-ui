@@ -116,7 +116,7 @@ export class CartComponent implements OnInit {
               this.data = JSON.parse(localStorage.getItem('panier'));
               this.newCheckoutService.createOrder(this.client.id, this.data).pipe(
                 tap(() => {
-                  this.toastrService.success("Commande bien pris en compte, veuillez compléter les étapes restantes!","Succès");
+                  this.toastrService.success("Commande bien prise en compte, veuillez compléter les étapes restantes!","Succès");
                   this.router.navigate(['/shop/checkout']);
                   //localStorage.removeItem('panier');
                 }))

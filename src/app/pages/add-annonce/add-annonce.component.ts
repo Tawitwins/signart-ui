@@ -71,8 +71,8 @@ export class AddAnnonceComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: ' #f07c10',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Oui, je confirme!',
-      cancelButtonText: 'Anuler'
+      confirmButtonText: 'Confirmer',
+      cancelButtonText: 'Annuler'
     }).then((result) => {
       if (result.value) {
         this.oeuvreService.addAnnonce(annonce).subscribe(
@@ -80,7 +80,7 @@ export class AddAnnonceComponent implements OnInit {
             console.log(resp)
             $.notify({
               icon: "notifications",
-              message: "Annonce souscrite avec succés!"
+              message: "Annonce souscrite avec succès!"
             }, {
                 type: 'success',
                 timer: 1000,

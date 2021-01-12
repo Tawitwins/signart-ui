@@ -19,10 +19,10 @@ import { Livraison } from '../../shared/modeles/livraison';
 import { LigneCommande } from '../../shared/modeles/ligneCommande';
 import { ModeLivraison } from '../../shared/modeles/mode_livraison';
 import { Address } from 'cluster';
-import { AddressService } from 'src/app/checkout/address/services/address.service';
-import { AppState } from 'src/app/interfaces';
 import { Store } from '@ngrx/store';
-import { getAuthStatus } from 'src/app/auth/reducers/selectors';
+import { AddressService } from '../../checkout/address/services/address.service';
+import { AppState } from '../../interfaces';
+import { getAuthStatus } from '../../auth/reducers/selectors';
 
 @Component({
   selector: 'app-checkout',
@@ -164,7 +164,7 @@ export class CheckoutComponent implements OnInit {
      this.checkoutService.addAdressesLivEtFact(addressAttributes).subscribe(
        resp=>{
          console.log(resp);
-         this.toastrService.success("Adresse ajouté","Succés");
+         this.toastrService.success("Adresse ajouté","Succès");
          this.addAdresse = 0;
          this.newCheckoutService.getAdresseByClient(this.client.id).subscribe(
           resp => {
@@ -288,7 +288,7 @@ export class CheckoutComponent implements OnInit {
     localStorage.setItem('livraison', JSON.stringify(this.livraison));
     this.newCheckoutService.postLivraisonCommande(this.livraison).subscribe(resp=> {
       this.isLivraisonOk=true;
-      this.toastService.success("Le mode de livraison a bien été prise en compte. Vous pouvez poursuivre.");
+      this.toastService.success("Le mode de livraison a bien été pris en compte. Vous pouvez poursuivre.");
     });
     /* console.log('la livraison :', this.livraison);
       localStorage['livraison'] = JSON.stringify(this.livraison); */

@@ -78,7 +78,7 @@ export class TchatComponent implements OnInit {
     this.username = /* (!this.connectedUser ?  */this.connectedUser.nom/* : "anonyme") */;
     this.selectedUsername = this.username;
     this.showEmojis = false ;
-    //this.connectedUser=this.tchat.connectedUser;
+    this.connectedUser=this.tchat.connectedUser;
     console.log(this);
     
   }

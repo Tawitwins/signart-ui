@@ -80,8 +80,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
       showCancelButton: true,
       confirmButtonColor: ' #f07c10',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Oui, je confirme!',
-      cancelButtonText: 'Anuler'
+      confirmButtonText: 'Confirmer',
+      cancelButtonText: 'Annuler'
     }).then((result) => {
       if (result.value) {
         console.log('im innnnnnnnnnnnnnnnnnnnnn')

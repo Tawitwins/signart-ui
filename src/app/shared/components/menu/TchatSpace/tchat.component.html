@@ -48,11 +48,29 @@
                 <span  style="color:skyblue;" > <b>&#9733; {{message?.dateEnvoi| date:'dd/MM/yyyy'}} &#9733;</b> </span>
               </div>
               <div class="chat-wrapper" style="background-color: rgb(255, 255, 255);">
-                <div  style="background-color:gray;margin-top: 7%;" *ngIf="connectedUser?.id==message?.idReceiver && message.msgStateSender=='VALIDE'" class="container ">
+                <div class="container" *ngIf="connectedUser?.id==message?.idReceiver && message.msgStateSender=='VALIDE' && message.msgStateReceiver=='VALIDE'">
+                  <div  style="margin-top: 7%;"  class="container " (contextmenu)="rightClick($event,message)">
+                    <p style="color: black;background-color:gray;float: left;border-radius: 20px;padding: 10px;"> 
+                      <a class="row" *ngIf="message.filename!=null && message.filename!=''" style="margin-left: 5px;" (click)="saveFile(message.msgFile,message.filename)" >
+                        <img width="40%" [src]="message.urlfile">
+                        <div style="width: 60%;margin-left: 2px;">  {{ message?.msgFile?.size/1000000 }} Mo  <br> {{ message.filename }} </div>
+                        <!-- <div class="row"> {{ message.filename }} </div> -->
+                      <br>
+                      </a> 
+                    {{ message?.contenu }}
+                    </p>
+                  </div>
+                  <img src="assets/images/tchat/tchater2.gif" alt="Avatar" style="width:10%">
+                  <span class="time-left"> Admin SignArt </span>
+                  <small class="opacity-6">
+                    <i name="calendar-alt mr-1" class="time-right"></i>
+                    {{ message?.dateEnvoi | date: "HH:mm:ss"}}
+                  </small>
+                </div>
+                <!-- <div  style="background-color:gray;margin-top: 7%;" *ngIf="connectedUser?.id==message?.idReceiver && message.msgStateSender=='VALIDE'" class="container ">
                   <div class="chat-box-wrapper,row" (contextmenu)="rightClick($event,message)" *ngIf="message.msgStateReceiver=='VALIDE'">
                     <div>
                       <div class="avatar-icon-wrapper mr-1">
-                        <!-- <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div> -->
                         <div class="avatar-icon avatar-icon-lg rounded">
                           <img src="assets/images/tchat/tchater2.gif" alt="Avatar">
                         </div>
@@ -75,38 +93,34 @@
                       </small>
                     </div>
                   </div>
-    <!--              <div class="chat-box-wrapper" (contextmenu)="rightClick($event,message)" *ngIf="selectedUsername!=message?.username && isAdmin==false">
-                    <div>
-                      <div class="avatar-icon-wrapper mr-1">
-                        <!-- <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div> 
-                        <div class="avatar-icon avatar-icon-lg rounded">
-                          <img src="assets/images/tchater2.gif" alt="Avatar">
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="chat-box">
-                        <p> 
-                          <a *ngIf="message.filename!=null" (click)="saveFile(message.msgFile,message.filename)" >
-                            <div class="row,right"> <img [src]="message.urlfile" /></div>
-                            <div class="row,right"> {{ message.filename }} </div>
-                          </a> {{ message?.contenu }}
-                        </p>
-                      <span class="time-left"> {{ message?.username }} </span>
-                      </div>
-                      <small class="opacity-6">
-                        <fa name="calendar-alt mr-1"></fa>
-                        {{ message?.dateEnvoi | date: "HH:mm:ss"}}
-                      </small>
-                    </div>
-                  </div> -->
+                </div> -->
+                <div  class="container darker" *ngIf="connectedUser?.id==message?.idSender && message.msgStateSender=='VALIDE'" >
+                  <div style="margin-top: 7%;" class="container darker" (contextmenu)="rightClick($event,message)">
+                   
+                    <ng-template #terminer>
+                      <img id="#terminer" [src]="message.urlfile" *ngIf="message.filename!=null " />
+                    </ng-template>
+                    <p style="color: white;float:right;background-color:#601A17;border-radius: 20px;padding: 10px;">
+                      <a class="row" *ngIf="message.filename!=null && message.filename!=''" style="margin-left: 5px;" (click)="saveFile(message.msgFile,message.filename)">
+                        <img width="40%" [src]="message.urlfile">
+                        <div style="width: 60%;margin-left: 2px;">  {{ message?.msgFile?.size/1000000 }} Mo <br> {{ message.filename }} </div>
+                        <!-- <div class="col-md-4" style="margin-left: 10px;"> {{ message.filename }} </div> -->
+                      <br>
+                      </a> 
+                    {{ message?.contenu }}
+                    </p>
+                  </div>
+                  <small class="opacity-6,time-right">
+                    <i name="calendar-alt mr-1"></i>
+                    <span class="time-right"> {{ message?.dateEnvoi | date: "HH:mm:ss"}} </span>
+                  </small>
+                  <!-- <img  src="assets/images/tchat/tchater1.ico" alt="Avatar" class="right" style="width:10%"> -->
                 </div>
-                <div  style="background-color:#601A17;margin-top: 7%;border-radius: 20px;" *ngIf="connectedUser?.id==message?.idSender && message.msgStateSender=='VALIDE'" class="container darker" >
+                <!-- <div  style="background-color:#601A17;margin-top: 7%;border-radius: 20px;" *ngIf="connectedUser?.id==message?.idSender && message.msgStateSender=='VALIDE'" class="container darker" >
                   <div class="float-right"(contextmenu)="rightClick($event,message)">
                     <div class="chat-box-wrapper chat-box-wrapper-right">
                       <div>
                         <div class="avatar-icon-wrapper ml-1">
-                          <!-- <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div> -->
                           <div class="avatar-icon avatar-icon-lg rounded">
                             <img  src="assets/images/tchat/tchater1.ico" alt="Avatar" class="right" style="border: black;">
                           </div>
@@ -132,7 +146,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!-- <div class="chat-box-wrapper">
                   <div>
                     <div class="avatar-icon-wrapper mr-1">
@@ -291,15 +305,15 @@
   border-radius: 5px;
   padding: 0%;
   margin: 0px 0px 0px 0px ;
-  max-width: 70%;
+  max-width: 85%;
 }
 
 /* Darker chat container */
 .darker {
   /* border-color: #ccc; */
   /* background-color: #ddd; */
-  max-width: 70%;
-  margin-left: 30%;
+  max-width: 85%;
+  margin-left: 15%;
 }
 
 /* Clear floats */
@@ -312,19 +326,19 @@
 /* Style images */
 .container img {
   float: left;
-  max-width: 60px;
-  width: 100%;
-  margin-right: 20px;
+  max-width: 50px;
+  /*width: 100%;*/
+  /*margin-right: 20px;*/
   border-radius: 50%;
 }
 
 /* Style the right image */
 .container img.right {
   float: right;
-  max-width: 60px;
-  width: 100%;
+  max-width: 50px;
+  /*width: 100%;*
   margin-left: 20px;
-  margin-right:0;
+  margin-right:0;*/
 }
 
 /* Style time text */

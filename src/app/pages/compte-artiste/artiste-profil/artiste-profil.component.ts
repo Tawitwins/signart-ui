@@ -346,8 +346,8 @@ this.hide2 =true;
       showCancelButton: true,
       confirmButtonColor: ' #f07c10',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Oui, je confirme!',
-      cancelButtonText: 'Anuler'
+      confirmButtonText: 'Confirmer',
+      cancelButtonText: 'Annuler'
     }).then((result) => {
       if (result.value) {
         this.artisteService.putPhotoArtiste(this.artiste.id,formModel).subscribe(
@@ -356,7 +356,7 @@ this.hide2 =true;
             this.message = 'Image upload succesfully';
             console.log(this.message)   
             Swal.fire({
-              title: 'Photo profil modifié avec succés! Veuillez actualiser la page SVP.'
+              title: 'Photo profil modifié avec succès! Veuillez actualiser la page SVP.'
             }).then((result) => {
               //location.reload();
               //this.initForm();
@@ -423,8 +423,8 @@ this.hide2 =true;
     showCancelButton: true,
     confirmButtonColor: ' #f07c10',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Oui, je confirme!',
-    cancelButtonText: 'Anuler'
+    confirmButtonText: 'Confirmer',
+    cancelButtonText: 'Annuler'
   }).then((result) => {
     if (result.value) {
       this.artisteService.getAllBiographie(this.artiste.id).subscribe(
@@ -451,7 +451,7 @@ this.hide2 =true;
                   resp =>{
                     console.log(resp)
                     Swal.fire(
-                      'Biohgraphie souscrite avec succés!',
+                      'Biohgraphie souscrite avec succès!',
                       'Votre biohgraphie est en attente de validation!',
                     )
                   }
@@ -548,7 +548,7 @@ this.hide2 =true;
                     resp =>{
                       console.log(resp)
                       Swal.fire({
-                       title: 'presentation soumis avec succés!'
+                       title: 'presentation soumis avec succès!'
                       }).then((result) => {
                         this.initForm();
                         this.isclicked=1;
@@ -571,7 +571,7 @@ this.hide2 =true;
             resp =>{
               console.log(resp)
               Swal.fire({
-               title: 'presentation soumis avec succés!'
+               title: 'presentation soumis avec succès!'
               }).then((result) => {
                 this.initForm();
                 this.isclicked=1;
@@ -629,7 +629,7 @@ this.hide2 =true;
                         console.log("Ma video a été mise youpi");
                         console.log(resp);
                         Swal.fire({
-                         title: 'presentation soumis avec succés!'
+                         title: 'presentation soumis avec succès!'
                         }).then((result) => {
                           this.initForm();
                           this.isclicked=1;
@@ -645,7 +645,7 @@ this.hide2 =true;
                     resp =>{
                       console.log(resp)
                       Swal.fire({
-                       title: 'presentation soumis avec succés!'
+                       title: 'presentation soumis avec succès!'
                       }).then((result) => {
                         this.initForm();
                         this.isclicked=1;
@@ -668,7 +668,7 @@ this.hide2 =true;
             resp =>{
               console.log(resp)
               Swal.fire({
-               title: 'presentation soumis avec succés!'
+               title: 'presentation soumis avec succès!'
               }).then((result) => {
                 this.initForm();
                 this.isclicked=1;
@@ -711,7 +711,7 @@ this.hide2 =true;
                   
                   $.notify({
                     icon: "notifications",
-                    message: "Votre mot de passe a été modifié avec avec succés!"
+                    message: "Votre mot de passe a été modifié avec avec succès!"
                   }, {
                       type: 'success',
                       timer: 1000,
@@ -766,7 +766,7 @@ this.hide2 =true;
           resp =>{
             console.log(resp)
             Swal.fire({
-             title: 'Information mofidiés avec succés!'
+             title: 'Information modifiée avec succès!'
             
               
             }).then((result) => {

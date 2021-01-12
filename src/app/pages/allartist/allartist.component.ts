@@ -207,7 +207,7 @@ export class AllartistComponent implements OnInit {
                                {
                                     this.suivreart = 'Suivre';
                                     this.couleur = '#f07c10';
-                                    console.log('Succés. Vous ne suivez plus cet artiste '+this.currentArtiste.id);
+                                    console.log('Succès. Vous ne suivez plus cet artiste '+this.currentArtiste.id);
                                }
                                else
                                {
@@ -237,7 +237,7 @@ export class AllartistComponent implements OnInit {
     this.visiteur.idPays= this.visiteur.pays.id;
     console.log(this.visiteur);
     if (this.FormVisiteur.valid) {
-        console.log("Visiteur a été enregistrer avec succés");
+        console.log("Visiteur a été enregistrer avec succès");
         console.log(this.visiteur);
         /*this.visiteur.prenom = values.prenom;
         this.visiteur.nom = values.nom;

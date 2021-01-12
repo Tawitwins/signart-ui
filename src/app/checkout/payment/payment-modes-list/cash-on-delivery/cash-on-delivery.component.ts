@@ -61,7 +61,7 @@ export class CashOnDeliveryComponent implements OnInit {
     console.log('paiement : ', this.paymentmode);
     Swal.fire({
       title: 'Êtes-vous sûr?',
-      text: "Vous avez choisie "+this.paymentmode.libelle,
+      text: "Vous avez choisi "+this.paymentmode.libelle,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: ' #f07c10',

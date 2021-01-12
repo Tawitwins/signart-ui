@@ -116,8 +116,8 @@ export class DeliveryOptionsComponent implements OnInit {
               showCancelButton: true,
               confirmButtonColor: '#f07c10',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'Oui, je confirme!',
-              cancelButtonText: 'Anuler'
+              confirmButtonText: 'Confirmer',
+              cancelButtonText: 'Annuler'
             }).then((result) => {
               if (result.value) {
                 if(optlivraison.code == 'DOM') {
@@ -133,7 +133,7 @@ export class DeliveryOptionsComponent implements OnInit {
                 }
                 this.checkoutService.addShippingMethode(optlivraison, montant);
                 Swal.fire(
-                  'Option de livraison pris en compte!',
+                  'Option de livraison prise en compte!',
                   'Frais de Livraison : '+ montant + ' FCFA',
                   'success'
                 )

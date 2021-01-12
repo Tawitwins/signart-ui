@@ -172,7 +172,7 @@
                     <form [formGroup]="oeuvre1Form" class="theme-form">
                         <!-- <strong><p>Deuxième oeuvre à Uploader</p></strong> -->
                         <label>Image : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong style="color: red;" >*</strong></label>
-                        <input type="file" (change)="onFileSelected($event,1)" formControlName="image">  
+                        <input type="file" (change)="onFileSelected($event,1)">  
                         <div *ngIf="oeuvre1Form.get('image').errors && oeuvre1Form.get('image').touched">
                             <p class="register-error-message" style="color: red;">Veuillez choisir une image !</p>
                           </div>
@@ -229,7 +229,7 @@
                     <form [formGroup]="oeuvre2Form" class="theme-form">
                         <!-- <strong><p>Deuxième oeuvre à Uploader</p></strong> -->
                         <label>Image : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color: red;" >*</strong></label>
-                        <input type="file" (change)="onFileSelected($event,2)" formControlName="image">  
+                        <input type="file" (change)="onFileSelected($event,2)">  
                         <div *ngIf="oeuvre2Form.get('image').errors && oeuvre2Form.get('image').touched">
                             <p class="register-error-message" style="color: red;">Veuillez choisir une image !</p>
                           </div>
@@ -283,7 +283,7 @@
         </div>
         <br>
         <br>
-        <button class="btn btn-solid-Valider" [disabled]="!infoArtisteForm.valid || !oeuvre1Form.valid || !oeuvre2Form.valid" title="Valider" (click)="onSubmit();" >Valider</button>
+        <button class="btn btn-solid-Valider" [disabled]="!infoArtisteForm.valid || !oeuvre1Form.valid || !oeuvre2Form.valid || oeuvre1Form.get('image').errors || oeuvre2Form.get('image').errors" title="Valider" (click)="onSubmit();" >Valider</button>
     </div>
 </div>
 </section>

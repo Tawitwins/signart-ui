@@ -6,7 +6,7 @@
             <div class="col-lg-3">
                 <div class="account-sidebar" (click)="ToggleDashboard()">
                     <a hre="javascript:void(0)" class="popup-btn">
-                        my account
+                        Menu  
                     </a>
                 </div>
                 <div class="dashboard-left" [class.open]="openDashboard">
@@ -130,7 +130,7 @@
                                 <app-add-address></app-add-address>
                             </div>
                             <div *ngIf="adresses.length == 0">
-                                <p>Votre est vide</p>
+                                <p>Votre liste est vide</p>
                             </div>
                             <table *ngIf="listAdress==true && adresses.length != 0" class="table cart-table table-responsive-md" style="text-align: center;">
                                 <thead>
@@ -532,7 +532,7 @@
                                                         </div>
                                                         <div class="col-md-12" *ngIf="activePaiement == false">
                                                             <div class="delivery-sec">
-                                                                <h2>Paiement invalide</h2>
+                                                                <h2>Paiement non effectif</h2>
                                                                 <h4>Abonnement en attente de validation</h4>
                                                             </div>
                                                         </div>

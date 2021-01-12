@@ -87,7 +87,7 @@ export class PanierEtMarquageService extends HttpService{
             align: 'center'
           }
         }); */
-        this.toastr.success("Oeuvre ajoutée au panier","Succés");
+        this.toastr.success("Oeuvre ajoutée au panier","Succès");
         // const panier: Panier = res.json();
         return <any>res;
       } else {

@@ -105,13 +105,13 @@ export class AddOeuvreComponent implements OnInit {
 
     console.log('To add', addeddArticle);
     Swal.fire({
-      title: 'Confirmez vous la souscription de cette oevre?',
+      title: 'Confirmez vous la souscription de cette oeuvre?',
       //text: "Ceci sera irreversible!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: ' #f07c10',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Oui, je confirme!',
+      confirmButtonText: 'Confirmer',
       cancelButtonText: 'Annuler'
     }).then((result) => {
       if (result.value) {
@@ -122,7 +122,7 @@ export class AddOeuvreComponent implements OnInit {
             setTimeout(() => {
               this.ngxService.stopLoader("loader-01"); // stop foreground spinner of the loader "loader-01" with 'default' taskId
             }, 3000);
-            this.toastrService.success('Oeuvre soumise avec succés!');
+            this.toastrService.success('Oeuvre soumise avec succès!');
             this.addArticleInd = 0;
             setTimeout(() => {
               location.reload();            
@@ -130,7 +130,7 @@ export class AddOeuvreComponent implements OnInit {
             
             /*$.notify({
               icon: "notifications",
-              message: "Oeuvre souscrite avec succés!"
+              message: "Oeuvre souscrite avec succès!"
             }, {
                 type: 'success',
                 timer: 1000,

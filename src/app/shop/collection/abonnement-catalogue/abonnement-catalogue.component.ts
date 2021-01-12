@@ -686,7 +686,7 @@ export class AbonnementCatalogueComponent implements OnInit {
   onSubmitFinal(){
     
     Swal.fire({
-      title: 'Etes vous sure de vouloir soumettre cet abonnement?',
+      title: 'Êtes vous sure de vouloir de vouloir souscrire à cet abonnement?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: 'btn btn-success',
@@ -755,7 +755,7 @@ export class AbonnementCatalogueComponent implements OnInit {
                             setTimeout(() => {
                               this.ngxService.stopLoader("loader-01"); // stop foreground spinner of the loader "loader-01" with 'default' taskId
                             }, 3000);
-                            this.toastrService.success('Abonnement soumis avec succés!');
+                            this.toastrService.success('Abonnement soumis avec succès!');
                             this.onReset(0);
                             
                           }

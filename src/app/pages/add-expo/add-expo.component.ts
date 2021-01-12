@@ -74,7 +74,7 @@ export class AddExpoComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: ' #f07c10',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Oui, je confirme!',
+      confirmButtonText: 'Confirmer',
       cancelButtonText: 'Annuler'
     }).then((result) => {
       if (result.value) {
@@ -83,7 +83,7 @@ export class AddExpoComponent implements OnInit {
             console.log(resp)
             $.notify({
               icon: "notifications",
-              message: "Expositon souscrite avec succés!"
+              message: "Expositon souscrite avec succès!"
             }, {
                 type: 'success',
                 timer: 1000,

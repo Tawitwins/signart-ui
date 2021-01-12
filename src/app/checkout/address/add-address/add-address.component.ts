@@ -117,7 +117,7 @@ export class AddAddressComponent implements OnInit, OnDestroy {
     this.checkoutService.addAdressesLivEtFact(addressAttributes).subscribe(
       resp=>{
         console.log(resp);
-        this.toastrService.success("Adresse ajouté","Succés");
+        this.toastrService.success("Adresse ajoutée","Succès");
       }
     );
     this.listAdressesLength = 1;
