@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-one',
@@ -15,11 +16,14 @@ export class HeaderOneComponent implements OnInit {
   
   public stick: boolean = false;
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
   }
 
+  redirect(url){
+    this.router.navigate([url]);
+  }
   // @HostListener Decorator
   @HostListener("window:scroll", [])
   onWindowScroll() {

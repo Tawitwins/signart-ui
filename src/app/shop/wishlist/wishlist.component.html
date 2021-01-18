@@ -4,8 +4,8 @@
   <div class="container">
     <div class="col-md-12 empty-cart-cls text-center" *ngIf='!products.length'>
       <img src="assets/images/empty-wishlist.png" alt="Empty cart" title="Emprt cart">
-      <h3 class="mt-4"><b>Vos favoris sont vide</b></h3>
-      <h4>Explorer la liste des oeuvres</h4>
+      <h3 class="mt-4"><b>Votre liste de Favoris est vide</b></h3>
+      <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">Visitez nos œuvres</a>
     </div>
     <div class="row" *ngIf='products.length'>
       <div class="col-sm-12">

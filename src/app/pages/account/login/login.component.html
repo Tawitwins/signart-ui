@@ -9,7 +9,7 @@
                     <form class="theme-form" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email">
+                            <input type="email" class="form-control" id="email" placeholder="Adresse mail " formControlName="email">
                             <div *ngIf="signInForm.get('email').errors && signInForm.get('email').touched">
                                 <!-- <p class="login-error-message text-danger">{{signInForm.get('email').errors.msg || 'Please enter a valid email id'}}</p>  -->
                                 <p class="login-error-message text-danger"> <span class="login-error-icon text-danger">!</span> Entrez une adresse email vadile</p>
@@ -17,7 +17,7 @@
                         </div>
                         <div class="form-group">
                             <label for="review">Mot de passe</label>
-                            <input type="password" class="form-control" id="review" placeholder="Entrer votre mot de passe"  formControlName="password" >
+                            <input type="password" class="form-control" id="review" placeholder="Mot de passe"  formControlName="password" >
                             <div *ngIf="connexionStatut == false">
                                 <p class="login-error-message text-danger">Identifiant ou mot de passe non valide !</p>
                             </div>

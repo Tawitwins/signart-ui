@@ -13,11 +13,11 @@
         </div>
         <div class="col-lg-6 text-right">
           <ul class="header-dropdown">
-            <li class="mobile-wishlist">
-              <a [routerLink]="['/shop/wishlist']"><i class="fa fa-heart" aria-hidden="true"></i>Favoris</a>
+            <li class="mobile-wishlist" (click)="redirect('/shop/wishlist')">
+              <a [routerLink]="['/shop/wishlist']"><i class="fa fa-heart" ></i>Favoris</a>
             </li>
-            <li class="mobile-account">
-              <a [routerLink]="['/pages/dashboard']"><i class="fa fa-user" aria-hidden="true"></i> Mon compte </a>
+            <li class="mobile-account" (click)="redirect('/pages/dashboard')">
+              <a [routerLink]="['/pages/dashboard']"><i class="fa fa-user"></i> Mon compte </a>
             </li>
           </ul>
         </div>
