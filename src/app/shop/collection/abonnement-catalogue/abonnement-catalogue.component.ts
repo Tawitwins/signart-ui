@@ -693,7 +693,7 @@ export class AbonnementCatalogueComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'OUI!'
     }).then((result) => {
-      if(result){
+      if(result == true){
         this.ngxService.startLoader("loader-01"); // start foreground spinner of the loader "loader-01" with 'default' taskId
         this.imageService.addAbonne(this.abonne).subscribe(
           respon =>{
@@ -773,7 +773,6 @@ export class AbonnementCatalogueComponent implements OnInit {
         this.montantTotal = 0;
         this.listeOeuvre = [];
         this.onGetImage();
-
       }
 
         });       
