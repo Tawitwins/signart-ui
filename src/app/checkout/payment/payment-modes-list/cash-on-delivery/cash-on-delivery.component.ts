@@ -10,6 +10,7 @@ import { CheckoutActions } from '../../../actions/checkout.actions';
 import { AuthActions } from '../../../../auth/actions/auth.actions';
 import { getTotalCartValue, getShippingOptionPrice, getOrderId } from '../../../reducers/selectors';
 import { Commande } from '../../../../shared/modeles/commande';
+import { PaiementEtLigneP } from 'src/app/shared/modeles/paiementEtLignesP';
 
 @Component({
   selector: 'app-cash-on-delivery',
@@ -28,7 +29,7 @@ export class CashOnDeliveryComponent implements OnInit {
   codePaiement: string;
   order: Commande = new Commande();
 
-  constructor(private store: Store<AppState>, private checkouS: CheckoutService, private router: Router, private checkoutActions: CheckoutActions, private auth: AuthActions) { 
+  constructor(private store: Store<AppState>,private checkoutService:CheckoutService, private router: Router, private checkoutActions: CheckoutActions, private auth: AuthActions) { 
   /*   this.store.select(getTotalCartValue).subscribe(
       resp => {
         this.totalCartValue = resp;
@@ -56,7 +57,7 @@ export class CashOnDeliveryComponent implements OnInit {
     this.paymentmode.id=2;
     this.paymentmode.code = 'ESPECE';
     this.paymentmode.libelle='Espèces a la livraison';
-    this.codePaiement = 'INITIE'
+    this.codePaiement = 'INITIE';
     //localStorage.setItem('mode_payment', JSON.stringify(this.paymentmode));
     console.log('paiement : ', this.paymentmode);
     Swal.fire({
@@ -75,8 +76,20 @@ export class CashOnDeliveryComponent implements OnInit {
           'Vous allez payer une fois livré!',
         ).then((reslt) => {
           if (reslt.value) {
+          this.order.modePaiement = this.paymentmode; 
           this.store.dispatch(this.checkoutActions.orderCompleteSuccess());
-          this.router.navigate(['/pages/order/success']);
+          localStorage.setItem('order', JSON.stringify(this.order));
+          let paiement = new PaiementEtLigneP();
+          paiement.lignePaiements = [];
+          paiement.codeEtatPaiement="INITIE";
+          paiement.codeModePaiement=this.order.modePaiement.code;
+          paiement.datePaiement=new Date();
+          paiement.idCommande=this.order.id;
+          paiement.id = this.order.id;
+          this.checkoutService.postPaiement(paiement).subscribe(resp => {
+            console.log(resp);
+            this.router.navigate(['/pages/order/success']);
+          });
         }
         })
         /* this.checkouS.createNewPayment(this.paymentmode.id, this.order, this.codePaiement).subscribe(

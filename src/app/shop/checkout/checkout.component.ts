@@ -249,6 +249,8 @@ export class CheckoutComponent implements OnInit {
 
   }
   CheckFormEtPayer(){
+    let livraison =JSON.parse(localStorage.getItem('livraison'));
+    console.log(livraison);
     if(this.livraisonStr=="")
     {
       this.toastService.info("Veuillez choisir un mode de livraison SVP.","Attention");
@@ -261,13 +263,17 @@ export class CheckoutComponent implements OnInit {
     {
       this.toastService.info("Veuillez choisir un mode de paiement SVP.","Attention");
     } */
+    else if(livraison!=null){
+      this.isLivraisonOk=true;
+      this.toastService.success("Le mode de livraison a bien été pris en compte. Vous pouvez poursuivre.");
+    }
     else
     {
       let modeLivraison= <ModeLivraison> this.setCODAsSelectedModeLivraison(this.allModeLivraison,this.livraisonStr)
       //this.commande.id = commande.id;
       let order =<Commande>JSON.parse(localStorage.getItem('order'));
       this.livraison.id=order.id;
-      this.livraison.codeEtatLivraison = 'INITIE';
+      this.livraison.codeEtatLivraison = 'TRAITEMENT';
       this.livraison.idModeLivraison = modeLivraison.id;
       this.livraison.idAdresseLivraison = this.listAdresses[this.checkoutForm.value['address']].id;
       this.livraison.lignesCommande = order.lignesCommande;
@@ -319,7 +325,7 @@ export class CheckoutComponent implements OnInit {
   makePayment() {
     this.selectedMode=this.setCODAsSelectedModePayment(this.allModePaiement,this.payment);
     const paymentModeId = this.selectedMode.id;
-    this.codePaiement = 'INITIE';
+    this.codePaiement = 'TRAITEMENT';
     console.log(this.getTotal);
     this.newCheckoutService.createNewPayment(paymentModeId, this.getTotal,this.codePaiement).pipe(
       tap(() => {

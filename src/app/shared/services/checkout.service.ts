@@ -1,3 +1,5 @@
+import { PaiementEtLigneP } from './../modeles/paiementEtLignesP';
+import { LigneCommande } from './../modeles/ligneCommande';
 
 import { map } from 'rxjs/operators';
 import { getOrderNumber, getOrderId } from '../../checkout/reducers/selectors';
@@ -26,7 +28,7 @@ declare var $: any;
 export class CheckoutService extends HttpService {
   private orderNumber: number;
   private orderId: number;
-  private livraison: Livraison = {id:null,dateLivraisonPrevue: null, dateLivraisonEffective: null, idAdresseLivraison:null,idModeLivraison: null,libelleModeLivraison:'', codeEtatLivraison:null, lignesCommande:[]};
+  private livraison: Livraison = {id:null,dateLivraisonPrevue: null, dateLivraisonEffective: null, dateLivraison: null,idAdresseLivraison:null,idModeLivraison: null,libelleModeLivraison:'', codeEtatLivraison:null, lignesCommande:[]};
   
   /**
    * Creates an instance of CheckoutService.
@@ -638,6 +640,25 @@ getAdresseByClient(idClient){
   getCommandeById(id:number): Observable<any> {
     return this.http.get(environment.API_ENDPOINT + `commande/${id}`);
   }
+
+  updateCommande(id:number,commande:Commande): Observable<any> {
+    return this.http.put(environment.API_ENDPOINT + `commande/${id}`,commande);
+  }
+  getLigneCommandeById(id:number): Observable<any>{
+    return this.http.get(environment.API_ENDPOINT + `lignecommande/${id}`);
+  }
+  updateLigneCommande(id:number,ligneCommande:LigneCommande):Observable<any>{
+    return this.http.put(environment.API_ENDPOINT + `lignecommande/${id}`,ligneCommande);
+  }
+  postPaiement(paiement:PaiementEtLigneP) :Observable<any>{
+    return this.http.post(environment.API_ENDPOINT + `paiement/`,paiement);
+  }
+  putPaiement(paiement:PaiementEtLigneP) :Observable<any>{
+    return this.http.put(environment.API_ENDPOINT + `paiement/${paiement.id}`,paiement);
+  }
+  getPaiementById(id:number) :Observable<any>{
+    return this.http.get(environment.API_ENDPOINT + `paiement/${id}`);
+  }
   /**
    * 
    * @param id 
@@ -665,7 +686,7 @@ getAdresseByClient(idClient){
 
     createLivraison(commande: Commande) {
     this.livraison.id = commande.id;
-    this.livraison.codeEtatLivraison = 'INITIE';
+    this.livraison.codeEtatLivraison = 'TRAITEMENT';
     this.livraison.idModeLivraison = commande.shippingOption.id;
     this.livraison.idAdresseLivraison = parseInt(commande.adresseLivraison.id);
     this.livraison.lignesCommande = commande.lignesCommande;

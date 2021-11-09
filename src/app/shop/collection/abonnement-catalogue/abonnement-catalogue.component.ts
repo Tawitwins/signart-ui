@@ -686,7 +686,7 @@ export class AbonnementCatalogueComponent implements OnInit {
   onSubmitFinal(){
     
     Swal.fire({
-      title: 'Êtes vous sure de vouloir de vouloir souscrire à cet abonnement?',
+      title: 'Êtes vous sûre de vouloir de vouloir souscrire à cet abonnement?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: 'btn btn-success',

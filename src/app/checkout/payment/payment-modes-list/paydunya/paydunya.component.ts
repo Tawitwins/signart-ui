@@ -1,3 +1,4 @@
+import { ItemPaydunya } from './../../../../shared/modeles/itemPaydunya';
 import { Component, OnInit, Output,EventEmitter, Input } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
@@ -11,6 +12,7 @@ import { LigneCommande } from '../../../../shared/modeles/ligneCommande';
 import { AppState } from '../../../../interfaces';
 import { CheckoutActions } from '../../../actions/checkout.actions';
 import { getTotalCartValue, getShippingOptionPrice, getOrderId } from '../../../reducers/selectors';
+import { Commande } from 'src/app/shared/modeles/commande';
 
 @Component({
   selector: 'app-paydunya',
@@ -36,14 +38,15 @@ export class PaydunyaComponent implements OnInit {
   Total: number;
   res:any;
   itemize:any[];
-  //@Input() public commandeLine:LigneCommande[]; 
+  order:Commande;
+  items:ItemPaydunya[]=[];
   constructor(private http: HttpClient,private router:Router, private store: Store<AppState>,private toastr: ToastrService, private checkoutActions: CheckoutActions,) {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'PAYDUNYA-MASTER-KEY':'MSPkQ7iw-e2oN-bOMl-uzS6-9aKAxF7yptPk',
-        'PAYDUNYA-PRIVATE-KEY':'test_private_ZybynlsnAK9Do8QTah4jkAsADpv',
-        'PAYDUNYA-TOKEN':'sRPvcOG1Z72e1UwEE4vN',
+        'PAYDUNYA-MASTER-KEY':'uAegjohM-djoH-sVyS-icoI-BxeBH4NYsbzX',
+        'PAYDUNYA-PRIVATE-KEY':'test_private_qwYm7y1sP2A1l4L2zZ7yhmbwQTr',
+        'PAYDUNYA-TOKEN':'U2r9MJIwslXnaff8ZpfH',
       })
     };
     /*
@@ -56,7 +59,16 @@ export class PaydunyaComponent implements OnInit {
         description: "C"
        }
     }*/
-    this.store.select(getTotalCartValue).subscribe(
+
+
+    this.order = <Commande>JSON.parse(localStorage.getItem('order'));
+    this.totalAmount = this.order.total;
+    this.shippingOptionPrice = this.order.totalLivraison;
+    this.orderId = this.order.id; 
+    this.Total = this.totalAmount + this.shippingOptionPrice;
+
+
+   /*  this.store.select(getTotalCartValue).subscribe(
       res => {
         this.totalAmount = res;
       }
@@ -74,7 +86,7 @@ export class PaydunyaComponent implements OnInit {
       }
     );
     this.store.select(getShippingOptionPrice).subscribe(resp => { this.shiptotal = resp});
-    this.Total = this.totalAmount + this.shiptotal;
+    this.Total = this.totalAmount + this.shiptotal; */
   
   }
 
@@ -90,32 +102,20 @@ export class PaydunyaComponent implements OnInit {
     return this.http.get(this.host+`/sandbox-api/v1/checkout-invoice/confirm/${token}`,this.httpOptions)
   }*/
   sendPayment(){ 
+
   let data={
     invoice: {
       items: {
-        item_0: {
-          name: "Chaussures Croco",
-          quantity: 3,
-          unit_price: "10000",
-          total_price: "30000",
-          description: "Chaussures faites en peau de crocrodile authentique qui chasse la pauvreté"
-        },
-        item_1: {
-          name: "Chemise Glacée",
-          quantity: 1,
-          unit_price: "5000",
-          total_price: "5000",
-          description: ""
-        }
+        
       },
       taxes: {
         tax_0: {
           name: "Livraison",
-          amount: 1000
+          amount: this.shippingOptionPrice$,
         }
       },
-      total_amount: this.Total,
-      description: ""
+      total_amount: this.Total ,
+      description: "Paiment d'oeuvre d'art"
     },
     store: {
       name: "SignArt",
@@ -129,11 +129,15 @@ export class PaydunyaComponent implements OnInit {
   
     },
     actions: {
-      cancel_url: "",
-      return_url:"http://localhost:4200/success",
+      cancel_url: "http://localhost:4200/pages/order/success",
+      return_url:"http://localhost:4200/pages/order/success",
       callback_url: ""
     }
   }
+  
+  console.log(this.items);
+  data.invoice.items=this.convertProductToItems();
+  console.log(data);
   this.onpay(data).subscribe(
     (response)=>{
      console.log('Ma réponse',response);
@@ -180,9 +184,27 @@ Pay() {
   }).then((result) => {
     if (result.value) {
       this.store.dispatch(this.checkoutActions.addPaymentModeSuccess(this.paymentmode));
-      
+      this.order.modePaiement=this.paymentmode;
+      localStorage.setItem('order', JSON.stringify(this.order));
       window.location.href=this.answer.response_text;
     }
   })
 }
+  convertProductToItems(){
+    this.order.lignesCommande.forEach(elet => {
+      console.log(elet);
+      console.log(new ItemPaydunya(elet.oeuvre.nom,elet.oeuvre.description,elet.prix,elet.prix*elet.quantite,elet.quantite));
+      this.items.push(new ItemPaydunya(elet.oeuvre.nom,elet.oeuvre.description,elet.prix,+elet.prix*elet.quantite,elet.quantite));
+    });
+    let jsonObject = {};  
+    let i=0
+    for(i=0;i<this.items.length;i++){
+      console.log(this.items[i]);
+      jsonObject["item_"+i] = this.items[i];
+    }
+    console.log(jsonObject);
+    /* let json = JSON.stringify(jsonObject);  
+    console.log(json); */
+    return jsonObject;
+  }
 }

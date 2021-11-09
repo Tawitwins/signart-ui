@@ -165,6 +165,10 @@ export class LoginComponent implements OnInit, OnDestroy {
              
               
               this.panierEtMarquageService.getWishList(client.id).subscribe(resp=>{
+                let list= <Oeuvre[]>resp;
+                list.forEach(element => {
+                  element.image=null;
+                });
                 localStorage.setItem('wishlistItems',JSON.stringify(resp));
                 this.productService.initState();
               });
@@ -174,23 +178,33 @@ export class LoginComponent implements OnInit, OnDestroy {
                 console.log("les oeuvreee du clientssss", this.oeuvresClient);
                 console.log("les oeuvreee du visiteurrrrrr", this.newOeuvres);
                 let panier= <Panier>resp;
-                  let listProduct:Oeuvre[]=[];
-                  panier.lignesPanier.forEach(ele=> {
-                    ele.oeuvre.image=null; 
-                    ele.oeuvre.quantity=ele.quantite;
-                    ele.idClient=client.id;
-                    let test=<Oeuvre>listProduct.find(o=>o.id === ele.oeuvre.id);
-                    if(test!=null || test!= undefined)
-                    {
-                      let index = listProduct.indexOf(test);
-                      listProduct[index].quantity+= ele.oeuvre.quantity;
-                      //ele.oeuvre.quantity=test.quantity;
-                    }
-                    else
-                      listProduct.push(ele.oeuvre);
-                  });
+                let listProduct:Oeuvre[]=[];
+                if(panier.lignesPanier!=null && panier.lignesPanier!=undefined)
+                {
+                  if(panier.lignesPanier.length>0)
+                  {
+                    panier.lignesPanier.forEach(ele=> {
+                      ele.oeuvre.image=null; 
+                      ele.oeuvre.quantity=ele.quantite;
+                      ele.idClient=client.id;
+                      let test=<Oeuvre>listProduct.find(o=>o.id === ele.oeuvre.id);
+                      if(test!=null || test!= undefined)
+                      {
+                        let index = listProduct.indexOf(test);
+                        listProduct[index].quantity+= ele.oeuvre.quantity;
+                        //ele.oeuvre.quantity=test.quantity;
+                      }
+                      else
+                        listProduct.push(ele.oeuvre);
+                    });
+                  }
+                }
+                else{
+                  panier.lignesPanier=[];
+                }
+                  
                   //localStorage.setItem('products',JSON.stringify(listProduct));
-                  if( this.setToLocalStorage(resp,listProduct)==true)
+                  if( this.setToLocalStorage(panier,listProduct)==true)
                   {
                     this.productService.initState();
                     console.log("hello init here get local")

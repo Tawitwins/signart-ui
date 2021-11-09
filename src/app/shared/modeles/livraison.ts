@@ -6,6 +6,7 @@ export class Livraison {
     id:number;
     dateLivraisonPrevue?: string;
     dateLivraisonEffective?:string;
+    dateLivraison:Date;
     idAdresseLivraison: number;
     adresseLivraison?:Address;
     idModeLivraison: number;

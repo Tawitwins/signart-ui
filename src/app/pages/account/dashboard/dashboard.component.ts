@@ -1,3 +1,4 @@
+import { PaiementEtLigneP } from './../../../shared/modeles/paiementEtLignesP';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -114,6 +115,7 @@ export class DashboardComponent implements OnInit {
 
   pageSizeAbmt = 4;
   pagAbmt=0;
+  paiement: PaiementEtLigneP;
   
 
 
@@ -144,6 +146,7 @@ export class DashboardComponent implements OnInit {
     this.commande=new Commande(); //pour éviter les erreurs undefined sur le HTML
   this.livraison=new Livraison();//pour éviter les erreurs undefined sur le HTML
   this.ligneCommande=[] //pour éviter les erreurs undefined sur le HTML
+  this.paiement= new PaiementEtLigneP(); //pour éviter les erreurs undefined sur le HTML
   this.adressLivraison=new Address('','','','','','','','','','');
     this.user=this.authS.getUserConnected();
     this.productService.wishlistItems.subscribe(resp=> this.oeuvresFav=resp);
@@ -632,6 +635,12 @@ showDetailsCommande(idCommande: number){
           this.livraison=response;
           this.adressLivraison=this.livraison.adresseLivraison;
           console.log('Les informations sur la livraison',this.livraison)
+      }
+    );
+    this.checkoutService.getPaiementById(idCommande).subscribe(
+      (response)=>{
+          this.paiement=response;
+          console.log('Les informations sur le paiement',this.paiement)
       }
     );
 

@@ -319,8 +319,10 @@ export class ProductService {
     {
       oeuvre.image=null;
       const cartItem = state.cart.find(item => item.id === oeuvre.id);
-      const qty = 1;// oeuvre.stock ? oeuvre.stock : 1;
+      const qty = oeuvre.quantity!=null && oeuvre.quantity!=undefined ? oeuvre.quantity : 1;
       const items = cartItem ? cartItem : oeuvre;
+      console.log("item", items);
+      console.log("qty", qty)
       const stock = this.calculateStockCounts(items, qty);
       this.client = this.authService.getClientConnected();
       console.log("client", this.client)
@@ -343,6 +345,7 @@ export class ProductService {
         {
           this.OpenCart = true; // If we use cart variation modal
           localStorage.setItem("cartItems", JSON.stringify(state.cart));
+          this.syncroniseLocalStorageAndCartItem();
           return true;
         }
         else{
@@ -414,6 +417,7 @@ export class ProductService {
         {
           this.OpenCart = true; // If we use cart variation modal
           localStorage.setItem("cartItems", JSON.stringify(state.cart));
+          this.syncroniseLocalStorageAndCartItem();
           return true;
         }
         else{
@@ -453,6 +457,7 @@ export class ProductService {
               lp.oeuvre.image=null;
               lp.idClient=this.client.id;
               this.panierEtMarquateService.updateLigneItems(lp).subscribe(resp=> console.log(resp));
+              this.syncroniseLocalStorageAndCartItem();
             }
           })
         }
@@ -522,12 +527,16 @@ public calculateNewStockCounts(oeuvre, quantity) {
         this.panierEtMarquateService.getLineItemsByClient(this.client.id).subscribe(resp=>{
           let lignePaniers = <LignePanier[]> resp;
           console.log(lignePaniers); 
-          let lp=lignePaniers.find(lp=>lp.oeuvre.id===product.id);
-          console.log(lp);
-          if(lp!=null || lp != undefined)
-          {
-            this.panierEtMarquateService.deleteLineItem(lp).subscribe(resp=> console.log(resp));
-          }
+          let lps=lignePaniers.filter(lp=>lp.oeuvre.id===product.id);
+          console.log(lps);
+          lps.forEach(lp => {
+            if(lp!=null || lp != undefined)
+            {
+              this.panierEtMarquateService.deleteLineItem(lp).subscribe(resp=> console.log(resp));
+            }
+          });
+         
+          this.syncroniseLocalStorageAndCartItem();
         })
     return true
   }
@@ -561,6 +570,37 @@ public calculateNewStockCounts(oeuvre, quantity) {
       return true;
     }*/
 
+  }
+
+  syncroniseLocalStorageAndCartItem(){
+    this.panier = <Panier>JSON.parse(localStorage.getItem('panier'));
+    let cartItems = <Oeuvre[]>JSON.parse(localStorage.getItem('cartItems'));
+    this.panier.lignesPanier=[];
+    var i=0;
+    var total = 0;
+    var totalLivraison = 0;
+    var totalTaxes = 0;
+    cartItems.forEach(elet => {
+      elet.image=null;
+      let lp = new LignePanier();
+      lp.id=elet.id;
+      lp.idClient = this.client.id;
+      lp.lithographie=elet.lithographie;
+      lp.oeuvre=elet;
+      lp.prix=elet.prix;
+      lp.quantite = elet.quantity;
+      lp.total=elet.prix*elet.quantity;
+      this.panier.lignesPanier.push(lp);
+      total+=lp.total;
+      totalLivraison+=elet.fraisLivraison;
+      totalTaxes+=elet.taxes;
+      i++;
+    });
+    this.panier.nbTotal=i;
+    this.panier.total=total;
+    this.panier.totalLivraison= totalLivraison;
+    this.panier.totalTaxes=totalTaxes;
+    localStorage.setItem("panier", JSON.stringify(this.panier));
   }
 
   getNewCartItem(): any {

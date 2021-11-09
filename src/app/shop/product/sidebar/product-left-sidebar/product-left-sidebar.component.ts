@@ -159,8 +159,9 @@ export class ProductLeftSidebarComponent implements OnInit {
       this.router.navigate(['/shop/cart']);
   }*/
 
-  async addToCart(oeuvre: any) {
+  async addToCart(oeuvre: Oeuvre) {
     this.user = this.authService.getUserConnected();
+    oeuvre.quantity = this.counter;
     if(this.user==null){
      /* Swal.fire({
         //title: 'Are you sure?',
@@ -177,11 +178,9 @@ export class ProductLeftSidebarComponent implements OnInit {
           this.router.navigate(['/pages/login']);
         }
       }) */ 
-      oeuvre.stock = this.counter || 1;
       const status = await this.productService.addToCartNew(oeuvre);
 
      }else{
-    oeuvre.stock = this.counter || 1;
     const status = await this.productService.addToCart(oeuvre);
     if(status)
       this.router.navigate(['/shop/cart']);}

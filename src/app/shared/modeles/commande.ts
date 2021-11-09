@@ -2,6 +2,7 @@ import { Oeuvre } from "./oeuvre";
 import { Address } from "./address";
 import { LigneCommande } from './ligneCommande';
 import { ModeLivraison } from './mode_livraison';
+import { PaymentMode } from "./payment_mode";
 
 export class Commande {
   [x: string]: any;
@@ -23,4 +24,5 @@ export class Commande {
    public adresseFacturation?:Address;
    public shippingOption?: ModeLivraison;
    public shippingOptionPrice?: number;
+   public modePaiement?:PaymentMode;
 }
