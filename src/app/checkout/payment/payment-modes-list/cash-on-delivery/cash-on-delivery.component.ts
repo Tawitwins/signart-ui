@@ -57,7 +57,7 @@ export class CashOnDeliveryComponent implements OnInit {
     this.paymentmode.id=2;
     this.paymentmode.code = 'ESPECE';
     this.paymentmode.libelle='Espèces a la livraison';
-    this.codePaiement = 'INITIE';
+    this.codePaiement = 'NOPAYE';
     //localStorage.setItem('mode_payment', JSON.stringify(this.paymentmode));
     console.log('paiement : ', this.paymentmode);
     Swal.fire({
@@ -81,7 +81,7 @@ export class CashOnDeliveryComponent implements OnInit {
           localStorage.setItem('order', JSON.stringify(this.order));
           let paiement = new PaiementEtLigneP();
           paiement.lignePaiements = [];
-          paiement.codeEtatPaiement="INITIE";
+          paiement.codeEtatPaiement="NOPAYE";
           paiement.codeModePaiement=this.order.modePaiement.code;
           paiement.datePaiement=new Date();
           paiement.idCommande=this.order.id;

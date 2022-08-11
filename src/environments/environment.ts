@@ -11,6 +11,9 @@ export const environment = {
   instagram_token: 'INSTAGRAM_TOKEN',
   stripe_token: 'STRIPE_PUBLISHABLE_KEY',
   paypal_token: 'PAYPAL_CLIENT_ID',
+  api_orange_url: '/api',
+  service_name_orange_money:'SignArt',
+  code_marchand_orange_money: '123456',
   firebase :{
     apiKey: "AIzaSyBA4qsr_6eRWblnoU1K-durRurfYrnYlYw",
     authDomain: "signart-f0f18.firebaseapp.com",

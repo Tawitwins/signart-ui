@@ -103,6 +103,38 @@
                                                 <label for="local-pickup">A domicile</label>
                                             </div> -->
                                          </div>
+                                         <div class="row" style="border:dashed 1px;" *ngIf="selectedModeLiv?.LCode == 'MAG'">
+                                          <div  class="form-group col-12">
+                                            <div class="field-label">Choisissez un magasin.</div>
+                                            <select name="magasin" [(ngModel)]="selectedMagasin">
+                                                <option *ngFor="let m of magasinList" [value]="m.id">{{m.nom}}</option>
+                                            </select>
+                                            <div *ngIf="checkoutForm.controls.country.touched && checkoutForm.controls.country.errors?.required" class="text text-danger">
+                                             Magasin obligatoire!
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row" style="border:dashed 1px;" *ngIf="selectedModeLiv?.LCode == 'DOM'">
+                                             <div  class="form-group col-6">
+                                              <div class="field-label">Service.</div>
+                                              <select name="serviceLivraison" [(ngModel)]="selectedServiceLivraison">
+                                                  <option *ngFor="let s of serviceLivraisonList" [value]="s.id">{{s.nom}}</option>
+                                              </select>
+                                              <div *ngIf="checkoutForm.controls.country.touched && checkoutForm.controls.country.errors?.required" class="text text-danger">
+                                               Magasin obligatoire!
+                                              </div>
+                                            </div>
+                                             <div  class="form-group col-6">
+                                              <div class="field-label">Tarification.</div>
+                                              <select name="tarification" [(ngModel)]="selectedTarification">
+                                                  <option *ngFor="let t of tarificationList" [value]="t.id">{{t.delaiLivraison}}/{{t.fraisLivraison}}/{{t.fraisAssurance}}/{{t.zone}}</option>
+                                              </select>
+                                              <div *ngIf="checkoutForm.controls.country.touched && checkoutForm.controls.country.errors?.required" class="text text-danger">
+                                               Magasin obligatoire!
+                                              </div>
+                                            </div>
+                                        </div>
+                                        <br>
                                          <button *ngIf="livraisonStr!= '' && isLivraisonOk==false" title="Confirmer le mode de livraison" type="button" class="btn-solid btn" (click)="CheckFormEtPayer()" >
                                             Confirmer livraison
                                          </button>
@@ -130,7 +162,7 @@
                                                 <li>
                                                     <div  *ngIf="payment == ''">
                                                         <div *ngFor="let modePaiement of allModePaiement" class="radio-option">
-                                                            <input type="radio" [(ngModel)]="payment" [value]="modePaiement.code" name="MP_{{modePaiement.libelle}}" id="MP_{{modePaiement.id}}">
+                                                            <input type="radio" (click)="apicall(modePaiement)" [(ngModel)]="payment" [value]="modePaiement.code" name="MP_{{modePaiement.libelle}}" id="MP_{{modePaiement.id}}">
                                                             <label for="MP_{{modePaiement.id}}">{{modePaiement.libelle}}</label>
                                                         </div>
                                                     </div>
@@ -149,6 +181,11 @@
                                                     <strong style="width: 100%;">Paiment avec Paydunya</strong>
                                                     <br>
                                                     <app-paydunya (payOnDunya)="makePayment()"></app-paydunya>
+                                                </li>
+                                                <li *ngIf="payment == 'OM'"> <!-- + (shippingOptionPrice$ | async) -->
+                                                  <strong style="width: 100%;">Paiment avec Orange Money</strong>
+                                                  <br>
+                                                  <img [src]="qrCodeUrlImg" [width]="80" (click)="orderConfirmed()">
                                                 </li>
                                                 <span *ngIf="payment == ''" class="image"><img src="assets/images/paypal.png" alt="" /></span>
                                                 <!-- <li>

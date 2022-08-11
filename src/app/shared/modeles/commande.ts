@@ -25,4 +25,7 @@ export class Commande {
    public shippingOption?: ModeLivraison;
    public shippingOptionPrice?: number;
    public modePaiement?:PaymentMode;
+   public idMagasin?:number;
+   public idServiceLivraison?:number;
+   public idTarification?:number;
 }

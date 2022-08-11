@@ -26,6 +26,9 @@ import { AddressService } from './checkout/address/services/address.service';
 import { SocialAthService } from './shared/services/social-ath.service';
 import { ImageService } from './shared/services/image.service';
 import { TchatService } from './shared/services/tchat.service';
+import { MagasinService } from './shared/services/magasin.service';
+import { TarificationService } from './shared/services/tarification.service';
+import { ServiceLivraisonService } from './shared/services/service-livraison.service';
 import { FileService } from './shared/services/file.service';
 import { MatButtonModule, MatMenuModule, MatToolbarModule, MatIconModule, MatCardModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, MatRadioModule, MatSelectModule, MatOptionModule, MatSlideToggleModule, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
 import { localStorageSync } from 'ngrx-store-localstorage';
@@ -183,7 +186,10 @@ export function tokenGetter() {
     AuthActions,
     CheckoutActions,
     PanierEtMarquageService,
-    MyformatcurrencyPipe
+    MyformatcurrencyPipe,
+    MagasinService,
+    TarificationService,
+    ServiceLivraisonService,
     
   ],
   schemas: [ NO_ERRORS_SCHEMA ],

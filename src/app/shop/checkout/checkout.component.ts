@@ -23,6 +23,11 @@ import { Store } from '@ngrx/store';
 import { AddressService } from '../../checkout/address/services/address.service';
 import { AppState } from '../../interfaces';
 import { getAuthStatus } from '../../auth/reducers/selectors';
+import { MagasinService } from 'src/app/shared/services/magasin.service';
+import { TarificationService } from 'src/app/shared/services/tarification.service';
+import { ServiceLivraisonService } from 'src/app/shared/services/service-livraison.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -58,12 +63,25 @@ export class CheckoutComponent implements OnInit {
   emailForm: FormGroup;
   isAuthenticated: boolean;
   user:any;
+  magasinList: any;
+  selectedMagasin: any;
+  selectedTarification: any;
+  tarificationList:any;
+  selectedServiceLivraison: any;
+  serviceLivraisonList:any;
+  base64Image:string
+  qrcodeOM:any=[]
+  pop_up_confirmation: boolean
+  qrCodeUrlImg: any;
+  totalAmount: number;
 
   constructor(private fb: FormBuilder,private toastService:ToastrService,private authService:AuthServiceS,
     public productService: ProductService,private newCheckoutService:CheckoutService,private paysService:PaysService,
     private orderService: OrderService, private checkoutService: CheckoutService,
     private addrService: AddressService, private toastrService:ToastrService, 
-    private store: Store<AppState>,private authS:AuthServiceS, 
+    private store: Store<AppState>,private authS:AuthServiceS, private magasinService:MagasinService, private tarificationService:TarificationService,
+    private serviceLivraisonService: ServiceLivraisonService, private sanitizer: DomSanitizer,
+    private router: Router
     ) { 
 
    this.indicatifpays = "+221";
@@ -96,6 +114,15 @@ export class CheckoutComponent implements OnInit {
           }
         }
       });
+    this.magasinService.getAllMagasins().subscribe(resp =>{
+        this.magasinList = resp;
+      })
+    this.tarificationService.getAllTarifications().subscribe(resp =>{
+        this.tarificationList = resp;
+      })
+    this.serviceLivraisonService.getAllServiceLivraisons().subscribe(resp =>{
+        this.serviceLivraisonList = resp;
+      })
     this.checkoutForm = this.fb.group({
       firstname: [this.client.prenom, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       lastname: [this.client.nom, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
@@ -245,10 +272,14 @@ export class CheckoutComponent implements OnInit {
   }
   livraisonCheck(selectedModeLiv){
     //this.isLivraisonOk=true;
-    this.selectedModeLiv=selectedModeLiv;
+    this.selectedModeLiv = selectedModeLiv;
+    this.selectedMagasin = null;
+    this.selectedServiceLivraison = null;
+    this.selectedTarification = null;
 
   }
   CheckFormEtPayer(){
+    this.getTotal.subscribe(resp=> this.totalAmount= resp);
     let livraison =JSON.parse(localStorage.getItem('livraison'));
     console.log(livraison);
     if(this.livraisonStr=="")
@@ -259,6 +290,12 @@ export class CheckoutComponent implements OnInit {
     {
       this.toastService.info("Veuillez choisir une adresse de livraison SVP.","Attention");
     }
+    else if(this.selectedModeLiv?.LCode=="MAG" && this.selectedMagasin == null){
+      this.toastService.warning("Le choix d'un magasin est necessaire pour le mode de livraison sélectionné.");
+    }
+    else if(this.selectedModeLiv?.LCode=="DOM" && (this.selectedTarification == null || this.selectedServiceLivraison == null)){
+      this.toastService.warning("Le choix du service de livraison et la tarification est nécessaire pour le mode de livraison sélectionné.");
+    }
     /* if(this.payment=="")
     {
       this.toastService.info("Veuillez choisir un mode de paiement SVP.","Attention");
@@ -266,6 +303,7 @@ export class CheckoutComponent implements OnInit {
     else if(livraison!=null){
       this.isLivraisonOk=true;
       this.toastService.success("Le mode de livraison a bien été pris en compte. Vous pouvez poursuivre.");
+      this.updateCommandePourLivraison();
     }
     else
     {
@@ -273,7 +311,7 @@ export class CheckoutComponent implements OnInit {
       //this.commande.id = commande.id;
       let order =<Commande>JSON.parse(localStorage.getItem('order'));
       this.livraison.id=order.id;
-      this.livraison.codeEtatLivraison = 'TRAITEMENT';
+      this.livraison.codeEtatLivraison = 'NOLIVREE';
       this.livraison.idModeLivraison = modeLivraison.id;
       this.livraison.idAdresseLivraison = this.listAdresses[this.checkoutForm.value['address']].id;
       this.livraison.lignesCommande = order.lignesCommande;
@@ -296,9 +334,19 @@ export class CheckoutComponent implements OnInit {
       this.isLivraisonOk=true;
       this.toastService.success("Le mode de livraison a bien été pris en compte. Vous pouvez poursuivre.");
     });
+    this.updateCommandePourLivraison();
     /* console.log('la livraison :', this.livraison);
       localStorage['livraison'] = JSON.stringify(this.livraison); */
     }
+  }
+  updateCommandePourLivraison() {
+    this.order = <Commande>JSON.parse(localStorage.getItem('order'));
+      this.order.idMagasin = this.selectedMagasin;
+      this.order.idTarification = this.selectedTarification;
+      this.order.idServiceLivraison = this.selectedServiceLivraison;
+      this.newCheckoutService.updateCommande(this.order.id,this.order).subscribe(resp=>{
+
+      })
   }
   resetPayment(){
     this.payment='';
@@ -325,7 +373,7 @@ export class CheckoutComponent implements OnInit {
   makePayment() {
     this.selectedMode=this.setCODAsSelectedModePayment(this.allModePaiement,this.payment);
     const paymentModeId = this.selectedMode.id;
-    this.codePaiement = 'TRAITEMENT';
+    this.codePaiement = 'NOPAYE';
     console.log(this.getTotal);
     this.newCheckoutService.createNewPayment(paymentModeId, this.getTotal,this.codePaiement).pipe(
       tap(() => {
@@ -335,5 +383,30 @@ export class CheckoutComponent implements OnInit {
           .subscribe();
       }))
       .subscribe();
+  }
+  apicall(modePaiement){
+    if(modePaiement.code == 'OM'){
+      this.getQrCodeWithAmount();
+    }
+  }
+  getQrCodeWithAmount(){
+    this.checkoutService.getQrCodeWithAmount(this.totalAmount)
+    .subscribe(res=>{
+      this.qrcodeOM = res;
+       this.qrCodeUrlImg = this.transform();
+    })
+  }
+  transform() {
+    console.log(this.qrcodeOM);
+    this.base64Image = `data:image/png;base64, ${this.qrcodeOM.qrCode}`
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.base64Image);
+  }
+  orderConfirmed(){
+    /* setTimeout(()=>{
+      console.log("la transaction a été complétée avec succès ")
+      this.pop_up_confirmation = true
+    }, 5000); */
+    //window.location.href=this.answer.response_text;
+    this.router.navigate(['/pages/order/success']);
   }
 }

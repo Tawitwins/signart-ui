@@ -13,6 +13,7 @@ import { AppState } from '../../../../interfaces';
 import { CheckoutActions } from '../../../actions/checkout.actions';
 import { getTotalCartValue, getShippingOptionPrice, getOrderId } from '../../../reducers/selectors';
 import { Commande } from 'src/app/shared/modeles/commande';
+import { CheckoutService } from 'src/app/shared/services/checkout.service';
 
 @Component({
   selector: 'app-paydunya',
@@ -30,7 +31,8 @@ export class PaydunyaComponent implements OnInit {
   shippingOptionPrice: number;
   //--------
   data: any;
-  private host : String='https://app.paydunya.com';
+  private hostpaydunya : String='https://app.paydunya.com';
+  private host : String=' http://localhost:8085/';
   httpOptions;
   answer:any;
   totalAmount: number;
@@ -40,7 +42,7 @@ export class PaydunyaComponent implements OnInit {
   itemize:any[];
   order:Commande;
   items:ItemPaydunya[]=[];
-  constructor(private http: HttpClient,private router:Router, private store: Store<AppState>,private toastr: ToastrService, private checkoutActions: CheckoutActions,) {
+  constructor(private http: HttpClient,private router:Router, private store: Store<AppState>,private checkoutService:CheckoutService, private checkoutActions: CheckoutActions,) {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -95,7 +97,7 @@ export class PaydunyaComponent implements OnInit {
 
   }
   onpay(objet){   
-    return this.http.post(this.host+`/sandbox-api/v1/checkout-invoice/create`,JSON.stringify(objet),this.httpOptions)
+    return this.http.post(`/api/paydunya/create-invoice`,objet)
   }
   /*
   onconfirm(token){
@@ -114,7 +116,7 @@ export class PaydunyaComponent implements OnInit {
           amount: this.shippingOptionPrice$,
         }
       },
-      total_amount: this.Total ,
+      total_amount: 200 ,
       description: "Paiment d'oeuvre d'art"
     },
     store: {
@@ -129,7 +131,7 @@ export class PaydunyaComponent implements OnInit {
   
     },
     actions: {
-      cancel_url: "http://localhost:4200/pages/order/success",
+      cancel_url: "http://localhost:4200/shop/checkout",
       return_url:"http://localhost:4200/pages/order/success",
       callback_url: ""
     }
@@ -141,7 +143,8 @@ export class PaydunyaComponent implements OnInit {
   this.onpay(data).subscribe(
     (response)=>{
      console.log('Ma réponse',response);
-     this.answer=response;
+     this.answer=response; 
+     this.updateCommandeToken(response);
      console.log('Answer',response)
     // window.location.href=this.answer.response_text;
     /*
@@ -206,5 +209,15 @@ Pay() {
     /* let json = JSON.stringify(jsonObject);  
     console.log(json); */
     return jsonObject;
+  }
+  updateCommandeToken(response){
+    this.checkoutService.getCommandeById(this.order.id).subscribe(resp => {
+      let splitted =  response.response_text.split("invoice/");
+      resp.token = splitted[1];
+      console.log(resp);
+      this.checkoutService.updateCommande(this.order.id,resp).subscribe(response => {
+        console.log(response);
+      });
+    });
   }
 }

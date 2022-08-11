@@ -55,7 +55,7 @@ export class PaymentModesListComponent implements OnInit {
 
   makePayment() {
     const paymentModeId = this.selectedMode.id;
-    this.codePaiement = 'INITIE';
+    this.codePaiement = 'NOPAYE';
     this.checkoutService.createNewPayment(paymentModeId, this.paymentAmount,this.codePaiement).pipe(
       tap(() => {
         this.store.dispatch(this.checkoutActions.orderCompleteSuccess());
