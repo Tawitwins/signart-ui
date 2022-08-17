@@ -55,8 +55,8 @@ export class CashOnDeliveryComponent implements OnInit {
 
   onPay() {
     this.paymentmode.id=2;
-    this.paymentmode.code = 'ESPECE';
-    this.paymentmode.libelle='Espèces a la livraison';
+    this.paymentmode.code = 'MAGASIN';
+    this.paymentmode.libelle='A la galerie';
     this.codePaiement = 'NOPAYE';
     //localStorage.setItem('mode_payment', JSON.stringify(this.paymentmode));
     console.log('paiement : ', this.paymentmode);
@@ -86,7 +86,7 @@ export class CashOnDeliveryComponent implements OnInit {
           paiement.datePaiement=new Date();
           paiement.idCommande=this.order.id;
           paiement.id = this.order.id;
-          this.checkoutService.postPaiement(paiement).subscribe(resp => {
+          this.checkoutService.putPaiement(paiement).subscribe(resp => {
             console.log(resp);
             this.router.navigate(['/pages/order/success']);
           });
