@@ -116,12 +116,17 @@ export class CheckoutComponent implements OnInit {
       });
     this.magasinService.getAllMagasins().subscribe(resp =>{
         this.magasinList = resp;
-      })
+      });
     this.tarificationService.getAllTarifications().subscribe(resp =>{
         this.tarificationList = resp;
       })
-    this.serviceLivraisonService.getAllServiceLivraisons().subscribe(resp =>{
+    this.serviceLivraisonService.getAllServiceLivraisons().subscribe(resp => {
         this.serviceLivraisonList = resp;
+        this.getTotal.subscribe( resp => this.totalAmount = resp);
+        if ( this.totalAmount >= environment.MONTANT_SEUIL ) {
+            this.serviceLivraisonList = this.serviceLivraisonList.filter(element => element.replace(/\s+/g, '') !== "SignArtexpress")
+        }
+
       })
     this.checkoutForm = this.fb.group({
       firstname: [this.client.prenom, [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],

@@ -117,8 +117,10 @@
                                         <div class="row" style="border:dashed 1px;" *ngIf="selectedModeLiv?.LCode == 'DOM'">
                                              <div  class="form-group col-6">
                                               <div class="field-label">Service.</div>
-                                              <select name="serviceLivraison" [(ngModel)]="selectedServiceLivraison">
-                                                  <option *ngFor="let s of serviceLivraisonList" [value]="s.id">{{s.nom}}</option>
+                                              <select name="serviceLivraison" [(ngModel)]="selectedServiceLivraison">   
+                                                    <option *ngFor="let s of serviceLivraisonList" [value]="s.id">
+                                                      {{s.nom}}
+                                                    </option>                     
                                               </select>
                                               <div *ngIf="checkoutForm.controls.country.touched && checkoutForm.controls.country.errors?.required" class="text text-danger">
                                                Magasin obligatoire!
@@ -168,7 +170,7 @@
                                                     </div>
                                                 </li>
                                                 <li *ngIf="payment == 'ESPECE'">
-                                                    <strong style="width: 100%;">Paiment en espèce</strong>
+                                                    <strong style="width: 100%;">Paiement à la galerie</strong>
                                                     <br>
                                                     <app-cash-on-delivery (payOnDelivery)="makePayment()"></app-cash-on-delivery>
                                                 </li>

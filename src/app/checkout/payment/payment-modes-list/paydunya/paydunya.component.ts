@@ -106,39 +106,41 @@ export class PaydunyaComponent implements OnInit {
   sendPayment(){ 
 
   let data={
-    invoice: {
-      items: {
-        
+    payDunyaInput: {
+      invoice: {
+        items: {
+          
+        },
+        taxes: {
+          tax_0: {
+            name: "Livraison",
+            amount: this.shippingOptionPrice$,
+          }
+        },
+        total_amount: 200 ,
+        description: "Paiment d'oeuvre d'art"
       },
-      taxes: {
-        tax_0: {
-          name: "Livraison",
-          amount: this.shippingOptionPrice$,
-        }
+      store: {
+        name: "SignArt",
+        tagline: "",
+        postal_address: "Dakar Plateau_Avenue Lamine Gueye",
+        phone: "774698944",
+        logo_url: "",
+        website_url: ""
       },
-      total_amount: 200 ,
-      description: "Paiment d'oeuvre d'art"
-    },
-    store: {
-      name: "SignArt",
-      tagline: "",
-      postal_address: "Dakar Plateau_Avenue Lamine Gueye",
-      phone: "774698944",
-      logo_url: "",
-      website_url: ""
-    },
-    custom_data: {
-  
-    },
-    actions: {
-      cancel_url: "http://localhost:4200/shop/checkout",
-      return_url:"http://localhost:4200/pages/order/success",
-      callback_url: ""
+      custom_data: {
+    
+      },
+      actions: {
+        cancel_url: "http://localhost:4200/shop/checkout",
+        return_url:"http://localhost:4200/pages/order/success",
+        callback_url: ""
+      }
     }
   }
   
   console.log(this.items);
-  data.invoice.items=this.convertProductToItems();
+  data.payDunyaInput.invoice.items=this.convertProductToItems();
   console.log(data);
   this.onpay(data).subscribe(
     (response)=>{
@@ -183,12 +185,13 @@ Pay() {
     confirmButtonColor: ' #f07c10',
     cancelButtonColor: '#d33',
     confirmButtonText: 'Continuer!',
-    cancelButtonText: 'Anuler'
+    cancelButtonText: 'Annuler'
   }).then((result) => {
     if (result.value) {
       this.store.dispatch(this.checkoutActions.addPaymentModeSuccess(this.paymentmode));
       this.order.modePaiement=this.paymentmode;
       localStorage.setItem('order', JSON.stringify(this.order));
+      console.log("PARFAIT: ",this.answer.response_text)
       window.location.href=this.answer.response_text;
     }
   })
