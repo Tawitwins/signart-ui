@@ -169,8 +169,8 @@
                                                         </div>
                                                     </div>
                                                 </li>
-                                                <li *ngIf="payment == 'ESPECE'">
-                                                    <strong style="width: 100%;">Paiement à la galerie</strong>
+                                                <li *ngIf="payment == 'MAGASIN'">
+                                                  <strong style="width: 100%;">Paiement à la galerie</strong>
                                                     <br>
                                                     <app-cash-on-delivery (payOnDelivery)="makePayment()"></app-cash-on-delivery>
                                                 </li>

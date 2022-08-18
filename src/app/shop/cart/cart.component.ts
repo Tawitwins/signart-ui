@@ -112,7 +112,7 @@ export class CartComponent implements OnInit {
             localStorage.setItem('client',JSON.stringify(response));
             let order =JSON.parse(localStorage.getItem('order'));
             console.log(order)
-            if (order === null) {
+            //if (order === null) {
               this.data = JSON.parse(localStorage.getItem('panier'));
               this.newCheckoutService.createOrder(this.client.id, this.data).pipe(
                 tap(() => {
@@ -121,9 +121,9 @@ export class CartComponent implements OnInit {
                   //localStorage.removeItem('panier');
                 }))
                 .subscribe();
-            } else {
-              this.router.navigate(['/shop/checkout']);
-            }
+            //} else {
+              //this.router.navigate(['/shop/checkout']);
+            //}
           });
     }
   }

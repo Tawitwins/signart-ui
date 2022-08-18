@@ -6,7 +6,7 @@ export class PaymentService {
   setCODAsSelectedMode(modes) {
     let selectedMode;
     modes.forEach((mode) => {
-      if (mode.code === 'ESPECE') {
+      if (mode.code === 'MAGASIN') {
         selectedMode = mode;
       }
     });
