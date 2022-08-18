@@ -737,4 +737,8 @@ getAdresseByClient(idClient){
       name:environment.service_name_orange_money,
     })
   }
+
+  getMontantSeuil(){
+    return this.get(environment.API_ENDPOINT +`parametrage/SeuilLivraison`)
+  }
 }

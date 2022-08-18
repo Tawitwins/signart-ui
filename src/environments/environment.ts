@@ -14,7 +14,6 @@ export const environment = {
   api_orange_url: '/api',
   service_name_orange_money:'SignArt',
   code_marchand_orange_money: '123456',
-  MONTANT_SEUIL: 1000000,
   firebase :{
     apiKey: "AIzaSyBA4qsr_6eRWblnoU1K-durRurfYrnYlYw",
     authDomain: "signart-f0f18.firebaseapp.com",

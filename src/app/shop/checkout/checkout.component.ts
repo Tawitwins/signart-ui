@@ -74,7 +74,8 @@ export class CheckoutComponent implements OnInit {
   pop_up_confirmation: boolean
   qrCodeUrlImg: any;
   totalAmount: number;
-
+  MONTANT_SEUIL: number;
+  SeuilLivraison: any;
   constructor(private fb: FormBuilder,private toastService:ToastrService,private authService:AuthServiceS,
     public productService: ProductService,private newCheckoutService:CheckoutService,private paysService:PaysService,
     private orderService: OrderService, private checkoutService: CheckoutService,
@@ -123,7 +124,12 @@ export class CheckoutComponent implements OnInit {
     this.serviceLivraisonService.getAllServiceLivraisons().subscribe(resp => {
         this.serviceLivraisonList = resp;
         this.getTotal.subscribe( resp => this.totalAmount = resp);
-        if ( this.totalAmount >= environment.MONTANT_SEUIL ) {
+        
+        this.checkoutService.getMontantSeuil().subscribe(resp => {
+          this.SeuilLivraison = resp;
+          this.MONTANT_SEUIL = this.SeuilLivraison.value;
+        })
+        if ( this.totalAmount >= this.MONTANT_SEUIL) {
             this.serviceLivraisonList = this.serviceLivraisonList.filter(element => element.replace(/\s+/g, '') !== "SignArtexpress")
         }
 
