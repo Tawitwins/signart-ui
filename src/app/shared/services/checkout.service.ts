@@ -726,7 +726,8 @@ getAdresseByClient(idClient){
       code:environment.code_marchand_orange_money,
       name:environment.service_name_orange_money,
       amount:{
-        value: total
+        value: total,
+        unit: "XOF"
       }
     }})
   }

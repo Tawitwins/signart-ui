@@ -127,13 +127,16 @@
                                               </div>
                                             </div>
                                              <div  class="form-group col-6">
-                                              <div class="field-label">Tarification.</div>
+                                              <div class="field-label">Tarification/Zone</div>
                                               <select name="tarification" [(ngModel)]="selectedTarification">
-                                                  <option *ngFor="let t of tarificationList" [value]="t.id">{{t.delaiLivraison}}/{{t.fraisLivraison}}/{{t.fraisAssurance}}/{{t.zone}}</option>
+                                                  <option *ngFor="let t of tarificationList" [value]="t.id">{{t.zone}} - Tarif: {{t.fraisLivraison + t.fraisAssurance}}</option>
                                               </select>
                                               <div *ngIf="checkoutForm.controls.country.touched && checkoutForm.controls.country.errors?.required" class="text text-danger">
                                                Magasin obligatoire!
                                               </div>
+                                            </div>
+                                            <div *ngIf="selectedTarification">
+                                               Le delai de livraison est de {{selectedTarification.delaiLivraison}} 4 jours en moyenne.
                                             </div>
                                         </div>
                                         <br>

@@ -578,7 +578,7 @@
                                 <li>{{adressLivraison.prenom}} {{adressLivraison.nom}}</li>
                                 <li>Adresse: {{adressLivraison.adresse}}</li>
                                 <li>Mode de livraison: {{livraison.libelleModeLivraison}} </li>
-                                <li>Etat de livraison: {{commande.codeEtatLivraison}} </li>
+                                <li>Etat de livraison: {{livraison.codeEtatLivraison}} </li>
                             </ul>
                         </div><br>
                         
@@ -617,17 +617,17 @@
                                 <h5>{{p.prix| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </h5>
                             </div>
                         </div>
-                        <div class="col-2 order_detail">
+                        <!-- <div class="col-2 order_detail">
                             <div style="text-align: center;">
                                 <h4>prix livraison</h4>
                                 <h5>{{p.oeuvre.fraisLivraison | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </h5>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="total-sec">
                         <ul>
                             <li>Sous-Total <span> {{commande.total| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
-                            <li>Livraison <span>{{commande.totalLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
+                            <li>Livraison <span> 1100 CFA<!-- {{commande.totalLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} --> </span></li>
                         </ul>
                     </div>
                     <div class="final-total">

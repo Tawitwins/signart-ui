@@ -622,11 +622,11 @@ showDetailsCommande(idCommande: number){
          (response) => {
           this.commande = response;
 
-          this.commande.lignesCommande.forEach(element => {
+         /*  this.commande.lignesCommande.forEach(element => {
             this.commande.total += element.prix * element.quantite;
           });
-
-          this.Sum = (this.commande.total + this.commande.totalLivraison);
+ */
+          this.Sum = (this.commande.total + 1100/* this.commande.totalLivraison */);
           this.ligneCommande = this.commande.lignesCommande;
           this.idLigneCMD = this.ligneCommande[0].id;
           for (let i = 0; i < this.ligneCommande.length; i++){

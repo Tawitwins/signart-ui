@@ -354,8 +354,9 @@ export class CheckoutComponent implements OnInit {
   updateCommandePourLivraison() {
     this.order = <Commande>JSON.parse(localStorage.getItem('order'));
       this.order.idMagasin = this.selectedMagasin;
-      this.order.idTarification = this.selectedTarification;
+      this.order.idTarification = this.selectedTarification.id;
       this.order.idServiceLivraison = this.selectedServiceLivraison;
+      this.order.totalLivraison = 1100;
       this.newCheckoutService.updateCommande(this.order.id,this.order).subscribe(resp=>{
 
       })
