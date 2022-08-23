@@ -44,7 +44,7 @@ export class NavService {
 			title: 'Artistes', type: 'link', active: false, path: '/pages/allartist',
 		},
 		{
-			title: 'Artiste du mois', type: 'link', badge: true, path:'/pages/exposition', badgeText: 'Top', active: false,
+			title: 'Il nous parle', type: 'link', badge: true, path:'/pages/exposition', badgeText: 'Top', active: false,
 		},
 		{
 			title: 'Evénements', type: 'link', active: false, path: '/pages/blog/left/sidebar',
