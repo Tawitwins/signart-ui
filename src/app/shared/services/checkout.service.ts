@@ -22,13 +22,14 @@ import { ModeLivraison } from '../modeles/mode_livraison';
 import { Address } from '../modeles/address';
 import { Livraison } from '../modeles/livraison';
 import { ToastrService } from 'ngx-toastr';
+import { NullTemplateVisitor } from '@angular/compiler';
 declare var $: any;
 
 @Injectable()
 export class CheckoutService extends HttpService {
   private orderNumber: number;
   private orderId: number;
-  private livraison: Livraison = {id:null,dateLivraisonPrevue: null, dateLivraisonEffective: null, dateLivraison: null,idAdresseLivraison:null,idModeLivraison: null,libelleModeLivraison:'', codeEtatLivraison:null, lignesCommande:[],libelleEtatLivraison:''};
+  private livraison: Livraison = {id:null,dateLivraisonPrevue: null, dateLivraisonEffective: null, dateLivraison: null,idAdresseLivraison:null,idModeLivraison: null,libelleModeLivraison:'', codeEtatLivraison:null, lignesCommande:[], libelleEtatLivraison: null};
   
   /**
    * Creates an instance of CheckoutService.
