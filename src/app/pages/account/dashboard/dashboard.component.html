@@ -586,8 +586,10 @@
                     <div class="row order-success-sec">
                         <div class="col-sm-12">
                             <h4  style="text-decoration: underline;">Méthode de paiement</h4>
-                            <p *ngIf="paiement?.libelleModePaiement!=null">{{paiement?.libelleModePaiement}} ({{paiement?.libelleEtatPaiement}}).</p>
-                            <p *ngIf="paiement?.libelleModePaiement==null">Mode de paiement indisponible (Commande annulée).</p>
+                            <ul class="order-detail">
+                                <li *ngIf="paiement?.libelleModePaiement!=null">{{paiement?.libelleModePaiement}} ({{paiement?.libelleEtatPaiement}}).</li>
+                                <li *ngIf="paiement?.libelleModePaiement==null">Mode de paiement indisponible (Commande annulée).</li>
+                            </ul>
                         </div>
                     </div><hr>
                 
@@ -627,7 +629,7 @@
                     <div class="total-sec">
                         <ul>
                             <li>Sous-Total <span> {{commande.total| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
-                            <li>Livraison <span> 1100 CFA<!-- {{commande.totalLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} --> </span></li>
+                            <li>Livraison et assurance <span> 1100 CFA<!-- {{commande.totalLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} --> </span></li>
                         </ul>
                     </div>
                     <div class="final-total">

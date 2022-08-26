@@ -28,7 +28,7 @@ declare var $: any;
 export class CheckoutService extends HttpService {
   private orderNumber: number;
   private orderId: number;
-  private livraison: Livraison = {id:null,dateLivraisonPrevue: null, dateLivraisonEffective: null, dateLivraison: null,idAdresseLivraison:null,idModeLivraison: null,libelleModeLivraison:'', codeEtatLivraison:null, lignesCommande:[]};
+  private livraison: Livraison = {id:null,dateLivraisonPrevue: null, dateLivraisonEffective: null, dateLivraison: null,idAdresseLivraison:null,idModeLivraison: null,libelleModeLivraison:'', codeEtatLivraison:null, lignesCommande:[],libelleEtatLivraison:''};
   
   /**
    * Creates an instance of CheckoutService.
