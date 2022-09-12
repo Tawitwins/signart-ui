@@ -73,7 +73,7 @@
                       <span *ngIf="oeuvre?.tauxremise">{{ oeuvre?.tauxremise }}% Offre Promotionnelle</span>
                   </h4>
                   <h3>
-                    {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100  }} FCFA
+                    {{ (oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100) || 0 }} FCFA
                   </h3>
                   <div class="product-description border-product">
                     <h6 class="product-title size-text">

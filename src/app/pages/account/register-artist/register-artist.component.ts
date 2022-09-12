@@ -21,6 +21,7 @@ export class RegisterArtistComponent implements OnInit {
   form1Value: any=[];
   form2Value: any=[];
   form3Value: any=[];
+  form4Value: any=[];
   etape:number;
   titreInfoArtistes: any[];
   titreInfoOeuvre1: any[];
@@ -30,6 +31,7 @@ export class RegisterArtistComponent implements OnInit {
   libellePays: string;
   autreSpecialite: boolean;
   autreSpecialiteValue: string;
+  galeries : any = [];
 
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   infoArtisteForm = this.formbuilder.group({
@@ -44,6 +46,7 @@ export class RegisterArtistComponent implements OnInit {
     'adresseGalerie': ['',],
     'ville': ['',],
     'specialites': ['',Validators.required],
+    'idMagasin': ['',Validators.required],
     'autreSepecialite': [''],
     'formation': ['',],
     'exposition': ['',],
@@ -86,7 +89,16 @@ export class RegisterArtistComponent implements OnInit {
         }
       );
       this.paysService.getAllPays().subscribe(pays => this.allPays = pays);
+
+      this.oeuvreService.getGalerie().subscribe(
+        resp => {
+          this.galeries = resp;
+          console.log('Les galeries ', this.galeries)
+        }
+      )
     }
+
+    
 
   ngOnInit(): void {
   }
@@ -150,6 +162,16 @@ export class RegisterArtistComponent implements OnInit {
     }
   }
 
+  galerieSelected(event){
+
+    if(event.target.value == "autres"){
+      this.autreSpecialite = true;
+    }
+  }
+
+  tester(){
+    console.log(this.infoArtisteForm.value)
+  }
   onSubmit() {
     console.log("Soumission en cours");
     this.onSubmitForm1();
