@@ -300,9 +300,13 @@
                                                 </td>
                                                 <td><h6>{{getLibelleEtatAbonnement(abonnement.etatAbonnement)}}</h6></td>
                                                 <td>
-                                                    <a (click)="showDetailsAbonnement(abonnement.id)" title="Détails"  [routerLink]=" " style="cursor: pointer;" class="icon mr-3">
-                                                        Details
-                                                    </a>
+                                                    <div class="row">
+                                                        <a class="col-6"(click)="showDetailsAbonnement(abonnement.id)" title="Détails"  [routerLink]=" " style="cursor: pointer;" class="icon mr-3">
+                                                            Details
+                                                        </a>
+                                                        <app-paydunya  class="col-6" *ngIf="getCodeEtatAbonnement(abonnement.etatAbonnement)=='NON_PAYE'" [isAbonnement]="true" [abonnementId]="abonnement?.id" [abonnement]="abonnement"></app-paydunya>
+                                                    </div>
+                                                   
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -532,16 +536,16 @@
                                                         </div>
                                                         <div class="col-md-12" *ngIf="activePaiement == false">
                                                             <div class="delivery-sec">
-                                                                <h2>Paiement non effectif</h2>
-                                                                <h4>Abonnement en attente de validation</h4>
+                                                                <h2>Paiement effectif</h2>
+                                                                <h4>Abonnement {{getLibelleEtatAbonnement(abonnementAffiche.etatAbonnement)}}</h4>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12" *ngIf="activePaiement == true">
                                                             <div class="delivery-sec">
                                                                 <h2>Paiement</h2>
                                                                 <div class="product-buttons">
-                                                                    <a href="javascript:void(0)" title="Payer"  class="btn btn-solid-Valider">Clicker ici pour payer</a>
-                                                                    
+<!--                                                                     <a href="javascript:void(0)" title="Payer"  class="btn btn-solid-Valider">Clicker ici pour payer</a>
+ -->                                                                    <app-paydunya [isAbonnement]="true" [abonnementId]="abonnementAffiche?.id" [abonnement]="abonnementAffiche"></app-paydunya>
                                                                 </div>
                                                                 
                                                             </div>

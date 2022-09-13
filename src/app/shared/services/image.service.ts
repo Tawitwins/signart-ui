@@ -131,6 +131,9 @@ getAbonnement(idAbonne : number): Observable<any> {
 getAbonnementById(idAbonnement : number): Observable<any> {
   return this.http.get(environment.API_ENDPOINT + `abonnement/${idAbonnement}`);
 }
+updateAbonnement(abonnement: Abonnement): Observable<any>{
+  return this.http.put(environment.API_ENDPOINT+`abonnement`,abonnement)
+}
 
 addListe(liste: ListSelection): Observable<any>{
   return this.http.post(environment.API_ENDPOINT+`listeSelection`,liste)

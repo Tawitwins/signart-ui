@@ -548,6 +548,14 @@ getLibelleEtatAbonnement(idEtat: number){
 
   }
 }
+getCodeEtatAbonnement(idEtat: number){
+  for (let i = 0; i < this.etats.length; i++) {
+    if (this.etats[i].id == idEtat){
+      return this.etats[i].code;
+    }
+
+  }
+}
 
 showDetailsAbonnement(id: number){
   this.activePaiement = false;

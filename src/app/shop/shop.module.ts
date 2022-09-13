@@ -83,6 +83,9 @@ import { AddAddressComponent } from '../checkout/address/add-address/add-address
     ShopRoutingModule,
     NgxUiLoaderModule,
     NgxImageZoomModule,
+  ],
+  exports:[
+    PaydunyaComponent
   ]
 })
 export class ShopModule { }

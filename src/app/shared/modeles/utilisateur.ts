@@ -129,6 +129,7 @@ export class Abonnement{
     montantPaiement: number;
     precisions: string;
     etatAbonnement: number;
+    token:string;
     constructor(
         idAbonne: number,
         idTerminal: number,
