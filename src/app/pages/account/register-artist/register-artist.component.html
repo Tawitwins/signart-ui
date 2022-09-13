@@ -159,6 +159,16 @@
                                   </div-->
                             </div>
                            
+                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <label for="review">Galerie</label>
+                                <select  name="genre" class="form-control" formControlName="idMagasin" [value]="form1Value.idMagasin">
+                                    <option value="">-- Selectionner une galerie --</option>
+                                    <option *ngFor="let galerie of galeries" [value]="galerie.id">{{galerie.nom}}, {{galerie.adresse}}</option>
+                                </select>
+                                <div *ngIf="infoArtisteForm.get('idMagasin').errors && infoArtisteForm.get('idMagasin').touched">
+                                    <p class="register-error-message" style="color: red;">Veuillez choisir une galerie !</p>
+                                  </div>
+                            </div>
                         </div>
                     </form>
                 </div>

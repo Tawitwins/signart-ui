@@ -183,12 +183,12 @@
                                                     <app-paypal [finalAmount]="getTotal | async"></app-paypal>
                                                 </li>
                                                 <li *ngIf="payment == 'PAYDUNYA'"> <!-- + (shippingOptionPrice$ | async) -->
-                                                    <strong style="width: 100%;">Paiment avec Paydunya</strong>
+                                                    <strong style="width: 100%;">Paiment avec Orange Money ou Wave</strong>
                                                     <br>
                                                     <app-paydunya (payOnDunya)="makePayment()"></app-paydunya>
                                                 </li>
                                                 <li *ngIf="payment == 'OM'"> <!-- + (shippingOptionPrice$ | async) -->
-                                                  <strong style="width: 100%;">Paiment avec Orange Money</strong>
+                                                  <!-- <strong style="width: 100%;">Paiment avec Orange Money</strong> -->
                                                   <br>
                                                   <img [src]="qrCodeUrlImg" [width]="80" (click)="orderConfirmed()">
                                                 </li>
