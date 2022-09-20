@@ -1,22 +1,22 @@
-<app-breadcrumb [title]="'Wishlist'" [breadcrumb]="'Wishlist'"></app-breadcrumb>
+<app-breadcrumb [title]="'Wishlist'" [breadcrumb]="'Favoris'"></app-breadcrumb>
 <!--section start-->
 <section class="wishlist-section section-b-space">
   <div class="container">
     <div class="col-md-12 empty-cart-cls text-center" *ngIf='!products.length'>
       <img src="assets/images/empty-wishlist.png" alt="Empty cart" title="Emprt cart">
-      <h3 class="mt-4"><b>Vos favoris sont vide</b></h3>
-      <h4>Explorer la liste des oeuvres</h4>
+      <h3 class="mt-4"><b>Votre liste de Favoris est vide</b></h3>
+      <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">Visitez nos œuvres</a>
     </div>
     <div class="row" *ngIf='products.length'>
       <div class="col-sm-12">
-        <table class="table cart-table table-responsive-xs">
+        <table style="text-align: center;" class="table cart-table table-responsive-xs">
           <thead>
             <tr class="table-head">
-              <th scope="col">image</th>
+              <th scope="col">Image</th>
               <th scope="col">Aticle</th>
               <th scope="col">Prix</th>
-              <th scope="col">disponibilité</th>
-              <th scope="col">action</th>
+              <th scope="col">Disponibilité</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody *ngFor="let product of products">
@@ -34,15 +34,15 @@
                     </div>
                     <div class="col-xs-3">
                       <h2 class="td-color">
-                          {{ (product.price | discount:product) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol' }}
+                          {{ (product.price | discount:product) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}
                       </h2>
                     </div>
                     <div class="col-xs-3">
                       <h2 class="td-color">
-                        <a href="javascript:void(0)" (click)="removeItem(product)" class="icon mr-1">
+                        <a href="javascript:void(0)" title="Supprimer de la liste" (click)="removeItem(product)" class="icon mr-1">
                           <i class="ti-close"></i>
                         </a>
-                        <a [routerLink]="['/shop/cart']" (click)="addToCart(product)" class="cart">
+                        <a [routerLink]="['/shop/cart']" title="Ajouter au panier" (click)="addToCart(product)" class="cart">
                           <i class="ti-shopping-cart"></i>
                         </a>
                       </h2>
@@ -51,17 +51,17 @@
               </td>
               <td>
                   <h2>
-                    {{ (product.price | discount:product) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol' }}
+                    {{ (product.price | discount:product) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}
                   </h2>
               </td>
               <td>
                   <p>{{ product.stock > 0 ? 'in stock' : 'out of stock' }}</p>
               </td>
               <td>
-                  <a href="javascript:void(0)" (click)="removeItem(product)" class="icon mr-3">
+                  <a href="javascript:void(0)" title="Supprimer de la liste" (click)="removeItem(product)" class="icon mr-3">
                     <i class="ti-close"></i>
                   </a>
-                  <a href="javascript:void(0)" (click)="addToCart(product)" class="cart">
+                  <a href="javascript:void(0)" title="Ajouter au panier" (click)="addToCart(product)" class="cart">
                     <i class="ti-shopping-cart"></i>
                   </a>
               </td>
@@ -72,8 +72,8 @@
     </div>
     <div class="row wishlist-buttons" *ngIf='products.length'>
       <div class="col-12">
-        <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">Explorer</a>
-        <a [routerLink]="['/shop/checkout']" class="btn btn-solid">Payer maintenant</a>
+        <a [routerLink]="['/shop/collection/left/sidebar']" title="Voir les autres oeuvres" class="btn btn-solid">Explorer</a>
+        <a [routerLink]="['/shop/checkout']" title="Passer au paiement" class="btn btn-solid-Valider">Payer maintenant</a>
       </div>
     </div>
   </div>

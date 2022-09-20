@@ -1,0 +1,73 @@
+
+<div class="row">
+    <!-- <div class="pay-modes" >
+        <div class="mode" [ngClass]="{'selected': mode.id == selectedMode.id, 'coming-soon': mode.id != selectedMode.id}" *ngFor="let mode of paymentModes">
+          <div class="col s8">
+            <div class="card horizontal hoverable" style="width: 255px; height: auto">
+              <div class="row">
+                <div class="col-sm-5">
+                  <div class="card-image">
+                    <a>
+                      <img src="assets/img/paiement-electronique.jpg" style="width: 250px; height: 100px" class="img-fluid avatar " />
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card-stacked">
+                    <div class="card-content">
+                      <p>{{mode.libelle}}</p>
+                    </div>
+                    <div class="card-action">
+                      <button #bouton style="float:right;" type="button" data-toggle="modal" data-target=".bd-example-modal-sm" [ngClass]="maClass"><i
+                          class="material-icons">check_circle_outline</i></button>
+                    </div>
+                    <div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                          <form>
+                            <p style="margin:10px; font-size: 14px">Vous avez choisi le mode de paiement : <strong>{{mode.libelle}}"</strong></p>
+                            <button class="btn btn-danger btn-round" (click)="close('#modal')">OK</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      
+ <!--div class="selected-mode" [ngSwitch]="selectedMode.code"-->
+        <!--ng-template [ngSwitchCase]="'TIGOCASH'">
+          <a>
+            <img src="assets/img/tigo_cash.jpg" style="width: 250px; height: 100px" class="img-fluid avatar " />
+          </a>
+        </ng-template>
+        <ng-template [ngSwitchCase]="'WARI'">
+          <a>
+            <img src="assets/img/wari.jpg" style="width: 250px; height: 100px" class="img-fluid avatar " />
+          </a>
+        </ng-template>
+        <ng-template [ngSwitchCase]="'JONIJONI'">
+          <a>
+            <img src="assets/img/joni_joni.jpg" style="width: 250px; height: 100px" class="img-fluid avatar " />
+          </a>
+        </ng-template>
+        <ng-template [ngSwitchCase]="'PAYPAL'">
+          <a>
+            <img src="assets/img/paypal.jpg" style="width: 250px; height: 100px" class="img-fluid avatar " />
+          </a>
+        </ng-template>
+        <ng-template [ngSwitchCase]="'OM'">
+          <a>
+            <img src="assets/img/orange_money.jpg" style="width: 250px; height: 100px" class="img-fluid avatar " />
+          </a>
+        </ng-template-->
+        <div>
+          <app-cash-on-delivery (payOnDelivery)="makePayment()"></app-cash-on-delivery>
+        </div>
+        
+      <!--/div-->
+</div>

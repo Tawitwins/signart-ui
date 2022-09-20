@@ -1,0 +1,36 @@
+<div class="main-content marge">
+  <div class="container-fluid">
+            <!--Total articles Panier-->
+            <div *ngIf="(totalCartItems$ | async) > 0 else emptyCart">
+              <div class="card">
+              <div class="cart-section mr-1 ml-1">
+              <div class="row">
+                <div class="col-md-8">
+                    <div class="checkout-header-container">
+                            <div class="card-header text-center" style="background-color: #f07c10">
+                                  <span class="text"><h4 class="card-category" style="color: azure"> Mon panier ({{totalCartItems$ | async}})</h4></span>
+                            
+                                  <div class="total-price"> <h6 class="card-title  text-white">Total: {{totalCartValue$}} FCFA</h6></div>
+                                  <!--div class="total-price"> <h6 class="card-title  text-white">Total: {{totalCartValue$ | async | currency:'XOF':'symbol':'4.0-2':'fr'}} FCFA</h6></div-->
+
+                            </div>
+                      </div>
+                      <div class="prod-set">
+                        <div class="card-body"><app-line-item-list></app-line-item-list></div>
+                        
+                      </div>
+                </div>
+                <div class="col-sm 4">
+                    <app-order-total-summary  [totalCartValue]="totalCartValue$ | async"></app-order-total-summary>
+                </div>
+              </div>
+            </div>
+          </div>
+            </div>
+            <ng-template #emptyCart>
+              <app-empty-cart></app-empty-cart>
+            </ng-template>
+          
+    
+  </div>
+</div>

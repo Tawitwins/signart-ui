@@ -21,23 +21,21 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4">
-        <img src="assets/images/banner/banner_d.png" class="img-fluid radius-img" alt="iamge à la une signart">
+        <img src="assets/images/banner/banner_d.png" class="img-fluid radius-img" alt="image à la une SignArt">
       </div>
           <div class="col-md-6">
                   <h3 class="ttle">
                     L'histoire de l'art africain
                   </h3>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-                    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
-                    non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    L'histoire de l'art est la discipline qui a pour objet l'étude des œuvres dans l'histoire, et du sens qu'elles peuvent prendre. 
+                    Elle étudie également les conditions de création des artistes, la reconnaissance du fait artistique par un public, ainsi que le contexte spirituel, 
+                    culturel, anthropologique, idéologique et théorique, économique et social de l'art.
                   </p>
                   <div class="row">
-                    <div class="col-md-2"><h5><span class="badge badge-secondary">Dan Enriqué</span></h5></div>
-                    <div class="col-md-2 offset-r-8"><h5><span class="badge badge-secondary">signart</span></h5></div>
-                    <div class="col-md-8"><a [routerLink]="'/pages/histoire'" class="floart-l"> En savoir plus <img src="assets/images/icon/arrow.svg" class="img-fluid"></a></div>
+                    <!-- <div class="col-md-2"><h5><span class="badge badge-secondary">Dan Enriqué</span></h5></div> -->
+                    <div class="col-md-2 offset-r-8"><h5><span class="badge badge-secondary">SignArt</span></h5></div>
+                    <div class="col-md-8"><a [routerLink]="'/pages/histoire'" title="En savoir plus"  class="floart-l"> En savoir plus <img src="assets/images/icon/arrow.svg" class="img-fluid"></a></div>
                   </div>
                 </div>
             </div>
@@ -52,7 +50,7 @@
       <div class="col-md-6" *ngFor="let collection of collections">
         <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion'}">
           <div class="collection-banner p-right text-center">
-            <img [src]="collection.image" class="img-fluid" alt="collection-banner">
+            <img [src]="collection.image" alt="collection-banner">
             <div class="contain-banner">
               <div>
                 <h4>{{collection.save}}</h4>
@@ -72,7 +70,7 @@
       <div class="col-md-4" *ngFor="let maodo of eric">
         <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion'}">
           <div class="collection-banner p-right text-center">
-            <img [src]="maodo.image" class="img-fluid" alt="collection-banner">
+            <img [src]="maodo.image" alt="collection-banner">
             <div class="contain-banner"> 
               <div>
                 <h4>{{maodo.save}}</h4>
@@ -89,15 +87,15 @@
 
 <!-- Product slider start-->
 <div class="title1 section-t-space">
-  <h2 class="title-inner1">Notre Collection de tableau</h2>
+  <h2 class="title-inner1">Collection de tableau</h2>
 </div>
 <div class="container">
   <div class="row">
     <div class="col-lg-6 offset-lg-3">
       <div class="product-para">
         <p class="text-center">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry, 
-          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+          Retrouvez les toutes nouvelles colletions d'oeuvres réalisées par de grands artistes. <br>
+          <a [routerLink]="['/shop/collection/left/sidebar']" title="En savoir plus" > Commander des oeuvres <img src="assets/images/icon/arrow.svg" class="img-fluid"></a>
         </p>
       </div>
     </div>
@@ -108,11 +106,11 @@
     <div class="row">
       <div class="col">
         <owl-carousel-o class="product-m no-arrow" [options]="ProductSliderConfig">
-          <ng-container *ngFor="let product of products | slice:0:16">
+          <ng-container *ngFor="let oeuvre of oeuvres | slice:0:16">
             <ng-template carouselSlide>
               <div class="product-box">
                 <app-product-box-one 
-                  [product]="product" 
+                  [oeuvre]="oeuvre" 
                   [currency]="productService?.Currency"
                   [thumbnail]="true"
                   [cartModal]="false">
@@ -150,14 +148,14 @@
 <!-- collection banner start-->
 <section class="pb-0 marow">
   <div class="title1 section-t-space">  
-    <h2 class="title-inner1">Nos Techniques d'art</h2>
+    <h2 class="title-inner1">Les Techniques d'art</h2>
   </div>
   <div class="container">
     <div class="row partition2">
       <div class="col-md-6" *ngFor="let collection of dan2">
         <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion'}">
           <div class="collection-banner p-right text-center">
-            <img [src]="collection.image" class="img-fluid" alt="collection-banner">
+            <img [src]="collection.image" alt="collection-banner">
             <div class="contain-banner">
               <div>
                 <h4>{{collection.save}}</h4>
@@ -177,7 +175,7 @@
       <div class="col-md-4" *ngFor="let maodo of dan">
         <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion'}">
           <div class="collection-banner p-right text-center">
-            <img [src]="maodo.image" class="img-fluid" alt="collection-banner">
+            <img [src]="maodo.image" alt="collection-banner">
             <div class="contain-banner">
               <div>
                 <h4>{{maodo.save}}</h4>
@@ -204,23 +202,23 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4">
-        <img src="assets/images/banner/banner_d.png" class="img-fluid radius-img" alt="iamge à la une signart">
+        <img src="assets/images/expoHomeImg.JPG" class="img-fluid radius-img" alt="image à la une SignArt">
       </div>
           <div class="col-md-6">
                   <h3 class="ttle">
                     Exposition de l'art africain
                   </h3>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-                    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
-                    non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    Une exposition d'art est traditionnellement l'espace dans lequel les objets d'art (au sens le plus général) 
+                    rencontrent un public . L'exposition est universellement comprise comme étant pour une période temporaire à 
+                    moins que, comme c'est rarement le cas, elle soit déclarée être une «exposition permanente». 
+                    Découvrez avec signart les différentes expostions prévues. "Lieu", "artiste", "description", "période", "position" 
+                    et beaucoup d'autres informations à recueillir vous attendent. 
                   </p>
                   <div class="row">
-                    <div class="col-md-2"><h5><span class="badge badge-secondary">Dan Enriqué</span></h5></div>
-                    <div class="col-md-2 offset-r-8"><h5><span class="badge badge-secondary">signart</span></h5></div>
-                    <div class="col-md-8"><a [routerLink]="'/pages/histoire'" class="floart-l"> En savoir plus <img src="assets/images/icon/arrow.svg" class="img-fluid"></a></div>
+                    <!-- <div class="col-md-2"><h5><span class="badge badge-secondary">Dan Enriqué</span></h5></div> -->
+                    <div class="col-md-2 offset-r-8"><h5><span class="badge badge-secondary">SignArt</span></h5></div>
+                    <div class="col-md-8"><a [routerLink]="'/pages/histoire'" title="En savoir plus"  class="floart-l"> En savoir plus <img src="assets/images/icon/arrow.svg" class="img-fluid"></a></div>
                   </div>
                 </div>
             </div>
@@ -236,7 +234,7 @@
       <div class="col">
         <div class="title1 section-t-space">
           <h4>Actualité</h4>
-          <h2 class="title-inner1">Signart</h2>
+          <h2 class="title-inner1">SignArt</h2>
         </div>
       </div>
     </div>

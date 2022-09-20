@@ -5,19 +5,23 @@
           <div class="col-xl-3">
             <div class="card col-md-12 text-center pink">
               <div class="card-body">
-                <h5 class="card-title"><img src="assets/images/profile/artist.jpg" alt="Placeholder image" width="90" class="rounded-circle img-fluid"></h5>
-                <h6 class="card-subtitle mb-2 text-muted">Dan Enriqué</h6>
-                <p class="card-text">UX - UI Manager</p>
-                <a href="#" class="card-link">Détails</a></div>
+                <h5 class="card-title">
+                  <!--img src="assets/images/profile/artist.jpg" alt="Placeholder image" width="90" class="rounded-circle img-fluid"-->
+                  <img [src]="getArtisteImageUrl(artiste?.id)" onError="this.src='assets/images/artists/profile.jpg'" alt="Placeholder image" width="300" height="500" class=" img-fluid">
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{artiste?.prenom}} {{artiste?.nom}}</h6>
+                <p class="card-text">{{artiste?.profession}}</p>
+                <!--a href="#" class="card-link">Détails</a--></div>
             </div>
             <br>
             <div class="row">
             <div class="col-md-6">
-              <button class="btn abonnement"> <i class="ti-heart"></i> S'abonner</button> 
+              <button title="Suivre l'artiste" class="btn abonnement" *ngIf="marq==false && client!=null" (click)="followArtiste()"> <i class="fa fa-plus"></i> Suivre</button> 
+              <button title="Ne plus suivre l'artiste" class="btn annonces" *ngIf="marq==true  && client!=null" (click)="followArtiste()"> <i class="fa fa-times"></i> Ne plus suivre</button> 
             </div>
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
               <a [routerLink]="['/pages/add-expo']"><button class="btn annonces"> <i class="ti-PLUS"></i> Add annonce</button></a>
-            </div>
+            </div> -->
           </div>
           </div>
             <!-- ------------------------------------------Contenu tableau de bord------------------------------------------------ -->
@@ -25,51 +29,88 @@
             <div class="row">
               <div class="col-xl-3 col-sm-6">
                 <div class=" bjrouge">
-                  <div class="side-l"><p class="big-l">14</p> <p class="col-p">Oeuvres d'art</p></div>
+                  <div class="side-l"><p class="big-l">{{artiste?.nbOeuvres}}</p> <p class="col-p">Oeuvres d'art</p></div>
               </div>
               </div>
               <div class="col-xl-3 col-sm-6">
                <div class="bbleu">
-                  <div class="side-l"><a [routerLink]="['/pages/followers']"><p class="big-l">108</p></a> <p class="col-p">Abonnés</p></div>
+                  <div class="side-l"><a title="Nombre de followers" [routerLink]="['/pages/followers/',artiste?.id]"><p class="big-l">{{artiste?.nbFans}}</p></a> <p class="col-p">Followers</p></div>
               </div> 
                
               </div>
               <div class="col-xl-3 col-sm-6">
                 <div class="marrons">
-                  <div class="side-l"><p class="big-l">Art Plastique</p> <p class="col-p">Spécialité</p></div>
+                  <div class="side-l"><p class="big-l">Art Plastique</p> <p class="col-p">{{artiste?.profession}}</p></div>
               </div> 
                 </div>
               <div class="col-xl-3 col-sm-6">	  
-                <div class="blanc">
+               <!--  <div class="blanc">
                   <div class="side-l"><a [routerLink]="['/pages/add-annonce']"><button class="btn annonce">Publier une Oeuvre</button></a></div>
-              </div> 
+              </div>  -->
                 </div>
-            </div>
-              
-              <!--		---------------------------------------------- Content --------------------------------------------- --> 
+            </div>      
+              <!------------------------------------------------ Content --------------------------------------------- --> 
               <br>
             <div class="row">
                 <div class="col-xl-12">
                   <nav aria-label="breadcrumb">
                       <ol class="breadcrumb">
-                        <li class="breadcrumb-item">A Propos de l'artist</li>
+                        <li class="breadcrumb-item">A propos de l'artiste</li>
                     </ol>
                   </nav>
                   <div class="top-banner-wrapper">
-                    <section class="secbor">
+                    <!--section class="secbor">
                       <video width="100%" height="300px" preload="auto" autoplay="autoplay" loop >
                         <source src="assets/images/banner/animation.mp4" type="video/mp4">
                         </video>
+                      </section-->
+                      <section class="tab-product m-0">
+                        <div class="row">
+                          <div class="col-sm-12 col-lg-12">
+                            <ngb-tabset [type]="'tabs'" class="nav-material">
+                                <ngb-tab>
+                                    <ng-template ngbTabTitle>Biographie</ng-template>
+                                    <ng-template ngbTabContent>
+                                      <p> {{artiste?.biographie}} </p>
+                                    </ng-template>
+                                </ngb-tab>
+                                <ngb-tab>
+                                    <ng-template ngbTabTitle>Formations</ng-template>
+                                    <ng-template ngbTabContent>
+                                      <div class="col s12 card horizontal hoverable" style="width: auto; height: auto">
+                                        <div *ngFor="let formation of listesFormation">
+                                            <p class="card-description" style="text-align: justify; margin: 15px" *ngIf="formation.etatPublication" >
+
+                                                <span style="color: black">
+                                                    {{formation.anneeDebut}} -
+                                                    {{formation.anneeFin}} :
+                                                    {{formation.libelle}} ({{formation.sigle}}),
+                                                    {{formation.specialisation}}, {{formation.lieu}}
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    </ng-template>
+                                </ngb-tab>
+                                <ngb-tab>
+                                    <ng-template ngbTabTitle>Présentation</ng-template>
+                                    <ng-template ngbTabContent>
+                                      <div class="mt-3 text-center">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/BUWzX78Ye_8" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                      </div>
+                                    </ng-template>
+                                </ngb-tab>
+                            </ngb-tabset>
+                          </div>
+                        </div>
                       </section>
                     <div class="top-banner-content small-section">
-                        <h4>Les oeuvres d'art</h4>
-                        <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        <h4>Oeuvre d'art </h4>
+                        <h5>Voici des oeuvres de {{artiste?.prenom}} {{artiste?.nom}} que vous pourriez apprécier:
                         </h5>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-                            survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                            and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        </p>
+                       <!--  <p>
+                           Ces oeuvres 
+                        </p> -->
                     </div>
                 </div>
                 </div>
@@ -78,17 +119,17 @@
                         
                         <div class="product-wrapper-grid" [ngClass]="layoutView">
                             <div class="row">
-                                <div class="col-grid-box" [ngClass]="grid" *ngFor="let product of products">
+                                <div class="col-grid-box" [ngClass]="grid" *ngFor="let oeuvre of oeuvres">
                                     <div class="product-box">
-                                        <app-product-box-one [product]="product" [currency]="productService?.Currency" [thumbnail]="false" [cartModal]="true" [loader]="true">
+                                        <app-product-box-one [oeuvre]="oeuvre" [currency]="productService?.Currency" [thumbnail]="false" [cartModal]="true" [loader]="true">
                                         </app-product-box-one>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="!products.length">
+                                <div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="!oeuvres.length">
                                     <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
-                                    <h3>Sorry! Couldn't find the product you were looking For!!! </h3>
-                                    <p>Please check if you have misspelt something or try searching with other words.</p>
-                                    <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continue shopping</a>
+                                    <h3>Désolé! Il n'ya pas de produit pour le moment!!! </h3>
+                                    <p>Veuillez vérifier l'orthographe de votre mot clé ou actualiser la page.</p>
+                                    <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">Continuer à explorer</a>
                                 </div>
                             </div>
                         </div>

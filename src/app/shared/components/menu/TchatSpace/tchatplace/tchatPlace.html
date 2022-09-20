@@ -1,0 +1,22 @@
+<div >
+     <button type="button" placement="left" ngbTooltip="Open Layout Configurator"
+     class="float" (click)="toggleOptionsDrawer()">
+             <i size="3x" name="cog" animation="spin"></i>
+   </button>
+     <div >
+          <div >
+                    <div >
+                         <tchat-component></tchat-component>
+                    </div>
+          </div>
+     </div>
+</div>
+<style>
+       .float {
+           position: fixed;
+           bottom: 2rem;
+           right: 2rem;
+           width: 2.5em;
+           height: 2.5em;
+         }
+</style>

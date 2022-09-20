@@ -147,3 +147,55 @@
     </ul>
   </div>
 </div>
+<button class="open-button" (click)="openForm()">Chat</button>
+<div class="chat-popup" id="myForm">
+    <tchat-component *ngIf="openTchat==true" id="tchatComp"></tchat-component>
+    <button class="open-button2" (click)="closeForm()">Chat</button>
+</div>
+<style>
+  .float {
+   position: fixed;
+   bottom: 2rem;
+   right: 2rem;
+   width: 2.5em;
+   height: 2.5em;
+   background-image: element(signartGif);
+ }
+ .open-button {
+ background-color: #601A17;
+ color: white;
+ padding: 16px 20px;
+ border: none;
+ border-radius: 30px;
+ cursor: pointer;
+ opacity: 0.8;
+ position: fixed;
+ bottom: 23px;
+ right: 28px;
+ width: 100px;
+ }
+ .open-button2 {
+ background-color: #601A17;
+ color: white;
+ padding: 16px 20px;
+ border: none;
+ cursor: pointer;
+ position: fixed;
+ width: 300px;
+ bottom: 23px;
+ right: 28px;
+ }
+
+ /* The popup chat - hidden by default */
+ .chat-popup {
+ display: none;
+ border-radius: 8px;
+ position: fixed;
+ border: 3px solid #601A17;
+ height: 450px;
+ width: 300px;
+ bottom: 23px;
+ right: 28px;
+ z-index: 9;
+ }
+</style>

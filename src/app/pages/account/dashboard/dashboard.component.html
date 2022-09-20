@@ -1,12 +1,12 @@
-<app-breadcrumb [title]="'Dashboard'" [breadcrumb]="'Dashboard'"></app-breadcrumb>
+<app-breadcrumb [title]="'Espace personnel'" [breadcrumb]="'Espace personnel'"></app-breadcrumb>
 <!-- section start -->
 <section class="section-b-space">
-    <div class="container">
+    <div *ngIf="user.userType=='CLIENT'" class="container">
         <div class="row">
             <div class="col-lg-3">
                 <div class="account-sidebar" (click)="ToggleDashboard()">
                     <a hre="javascript:void(0)" class="popup-btn">
-                        my account
+                        Menu  
                     </a>
                 </div>
                 <div class="dashboard-left" [class.open]="openDashboard">
@@ -17,15 +17,17 @@
                     </div>
                     <div class="block-content">
                         <ul>
-                            <li class="active"><a href="javascript:void(0)">Info Compte</a></li>
-                            <li><a href="javascript:void(0)">Adresse</a></li>
-                            <li><a href="javascript:void(0)">Mes commandes</a></li>
-                            <li><a href="javascript:void(0)">Mes favoris</a></li>
-                            <li><a [routerLink]="['/pages/abonnement']">Mes abonnements</a></li>
-                            <li><a href="javascript:void(0)">Newsletter</a></li>
-                            <li><a href="javascript:void(0)">Mon compte</a></li>
-                            <li><a href="javascript:void(0)">Changer le mot de passe</a></li>
-                            <li class="last"><a href="javascript:void(0)">Déconnexion</a></li>
+                            <li class="active"><a href="javascript:void(0)" (click)="infopage = 0">Info Compte</a></li>
+                            <li><a href="javascript:void(0)" (click)="getAdresse()">Adresse</a></li>
+                            <li><a href="javascript:void(0)" (click)="commandesClient()">Mes commandes</a></li>
+                            <li><a href="javascript:void(0)" (click)="favorisClient()">Mes favoris</a></li>
+                            <li><a href="javascript:void(0)" (click)="infopage = 5" style="cursor: pointer;">Mes abonnements</a></li>
+                            <li><a href="javascript:void(0)" (click)="infopage = 7">Mes artistes suivis</a></li>
+                            <!--li><a href="javascript:void(0)">Newsletter</a></li-->
+                            <!--li><a href="javascript:void(0)">Mon compte</a></li-->
+                            <li><a href="javascript:void(0)" (click)="infopage = 6">Changer le mot de passe</a></li>
+                            
+                            <li class="last"><a href="javascript:void(0)" (click)="logout()">Déconnexion</a></li>
                         </ul>
                     </div>
                 </div>
@@ -34,13 +36,14 @@
                 <div class="dashboard-right">
                     <div class="dashboard">
                         <div class="page-title">
-                            <h2>Mon Tableau de bord</h2>
+                            <h2>Espace personnel</h2>
                         </div>
                         <div class="welcome-msg">
-                            <p>Hi, Dan Enriqué !</p>
-                            <p>À partir de votre tableau de bord Mon compte, vous avez la possibilité d'afficher l'activité récente de votre compte et de mettre à jour les informations de votre compte.</p>
+                            <p>Bonjour, {{client.prenom}} {{client.nom}} !</p>
+                            <p>À partir de votre espace personnel, vous avez la possibilité d'afficher l'activité récente de votre compte et de mettre à jour les informations de votre compte.</p>
                         </div>
-                        <div class="box-account box-info">
+                        <hr>
+                        <div class="box-account box-info" *ngIf="infopage == 0">
                             <div class="box-head">
                                 <h2>Informations du compte</h2>
                             </div>
@@ -49,57 +52,612 @@
                                     <div class="box">
                                         <div class="box-title">
                                             <h3>Information de contact</h3>
-                                            <a href="javascript:void(0)">Editer</a>
+                                            <a href="javascript:void(0)" title="Modifier"  (click)="infopage = 1">Modifier</a>
                                         </div>
                                         <div class="box-content">
-                                            <h6>Dan Enriqué</h6>
-                                            <h6>gilles@maestrodan.art</h6>
-                                            <h6><a href="javascript:void(0)">Modifier le mot de passe</a></h6>
+                                            <h6>{{client.prenom}} {{client.nom}}</h6>
+                                            <h6>{{user.email}}</h6>
+                                            <h6>{{client.telephone}}</h6>
+                                            <h6>{{client.ville}} / {{client.pays}}</h6>
+                                            <h5>{{user.userType}}</h5>
+                                            <!--h6><a href="javascript:void(0)">Modifier le mot de passe</a></h6-->
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="box">
                                         <div class="box-title">
-                                            <h3>Newsletters</h3>
-                                            <a href="javascript:void(0)">Editer</a>
-                                        </div>
-                                        <div class="box-content">
-                                            <p>
-                                                Vous n'êtes enregistés à aucune newsletter
-                                            </p>
+                                            <h3>Abonnement</h3>
+                                            <a [routerLink]="['/shop/collection/abonnement-catalogue']" title="Voir le catalogue" >Voir le catalogue</a>
+                                        </div>                               
+                                    </div>
+                                </div>
+                                
+                            </div>
+                          
+                        </div>
+                        <div class="box-account box-info" *ngIf="infopage == 1">
+                            <div class="box-head">
+                                <h2>Modifier votre profil</h2>
+                            </div>
+                            <section class="register-page section-b-space">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="theme-card">
+                                                <form class="theme-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+                                                    <div class="form-row">
+                                                        <div class="col-md-6">
+                                                            <label for="email">Prénom</label>
+                                                            <input type="text" class="form-control" formControlName="prenom" [(ngModel)]="client.prenom" autocomplete="off"required="">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="email">Nom</label>
+                                                            <input type="text" class="form-control" formControlName="nom" [(ngModel)]="client.nom" autocomplete="off" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                            <label for="email">Téléphone</label>
+                                                            <input type="text" class="form-control" formControlName="mobile" [(ngModel)]="client.telephone" autocomplete="off" required="">
+                                                        </div>
+                                                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                            <label for="email">E-mail</label>
+                                                            <input type="email" class="form-control" formControlName="dateNaissance" [(ngModel)]="user.email" readonly  autocomplete="off" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        
+                                                        <button class="btn btn-solid-Valider" title="Valider" type="submit">Valider</button>
+                                                        <button class="btn btn-solid-Annuler gplus" title="Annuler" type="ACTION" (click)="infopage = 0">Annuler</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="box-account box-info" *ngIf="infopage == 2">
+                            <div class="box-head">
+                                <a href="javascript:void(0)" style="float: right;" *ngIf="listAdress==true" title="Ajouter une adresse"  (click)="showHideListAdress(false)" >Ajouter une adresse</a>
+                                <a href="javascript:void(0)" style="float: right;" *ngIf="listAdress==false" title="Liste des adresses enregistrées" (click)="showHideListAdress(true)" >Liste des adresses</a>
+                                <h2 *ngIf="listAdress==true" >Liste des adresses</h2>
+                                <h2 *ngIf="listAdress==false">Ajout d'une adresse</h2>
+                            </div>
+                            <hr>
+                            <div class="container" *ngIf="listAdress==false">
+                                <app-add-address></app-add-address>
+                            </div>
+                            <div *ngIf="adresses.length == 0">
+                                <p>Votre liste est vide</p>
+                            </div>
+                            <table *ngIf="listAdress==true && adresses.length != 0" class="table cart-table table-responsive-md" style="text-align: center;">
+                                <thead>
+                                    <tr class="table-head">
+                                        <!--th scope="col">Numéro</th-->
+                                        <th scope="col">Adresse</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let adr of adresses | slice: (pagAdress-1) * pageSizeAdress : (pagAdress-1) * pageSizeAdress + pageSizeAdress">
+                                    <tr>
+                                        <!--td>
+                                            <h4>
+                                                {{i+1}}
+                                            </h4>
+                                        </td-->
+                                        <td>
+                                            <h4>
+                                                {{adr.adresse}}, {{adr.ville}} - {{adr.region}} / {{adr.libellePays}}
+                                            </h4>                                         
+                                        </td>
+                                        <td>
+                                            <h4>
+                                                {{adr.libelleTypeAdresse}}
+                                            </h4>                                         
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0)" title="Supprimer"  (click)="onDeleteAdresseOfUser(adr.id)" class="icon">
+                                            Supprimer
+                                        </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <ngb-pagination style="float: right;"  [collectionSize]="adresses?.length" [(page)]="pagAdress" [pageSize]="pageSizeAdress" aria-label="Default pagination">
+                            </ngb-pagination>
+                            
+                        </div>
+                        <div class="box-account box-info" *ngIf="infopage == 3">
+                            <div class="box-head">
+                                <h2>Mes commandes</h2>
+                            </div>
+                                <p *ngIf="commandes.length == 0">Votre liste est vide!</p>
+                            <hr>
+                                <table class="table cart-table table-responsive-md" style="text-align: center;" *ngIf="commandes.length > 0">
+                                    <thead>
+                                        <tr class="table-head">
+                                            <th scope="col">Numéro de la commande</th>
+                                            <th scope="col">Date de la commande</th>
+                                            <th scope="col">Etat de la commande</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngFor="let commande of commandes | slice: (pagComand-1) * pageSizeComand : (pagComand-1) * pageSizeComand + pageSizeComand">
+                                        <tr>
+                                            <td>
+                                                <h4>
+                                                    {{commande.numero}}
+                                                </h4>
+                                            </td>
+                                            <td>
+                                                <h4>
+                                                    {{commande.dateCreation}}
+                                                </h4>                                         
+                                            </td>
+                                            <td>
+                                                <h4>
+                                                    {{commande.libelleEtatCommande}}
+                                                </h4>                                         
+                                            </td>
+                                            <td>
+                                                <a href="javascript:void(0)" (click)="showDetailsCommande(commande.id)" title="Détails"  class="icon">
+                                                Details
+                                            </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <ngb-pagination style="float: right;"  [collectionSize]="commandes.length" [(page)]="pagComand" [pageSize]="pageSizeComand" aria-label="Default pagination">
+                                </ngb-pagination>
+                        </div>
+                        <div class="box-account box-info" *ngIf="infopage == 4">
+                            <div class="row">
+                                <p *ngIf="oeuvresFav.length == 0">Votre liste est vide!</p>
+                                <div class="col-sm-12" *ngIf="oeuvresFav.length != 0">
+                                    <table class="table cart-table table-responsive-md" style="text-align: center;">
+                                        <thead>
+                                        <tr class="table-head">
+                                            <th scope="col">Image</th>
+                                            <th scope="col">Article</th>
+                                            <th scope="col">Prix</th>
+                                            <th scope="col">Disponibilité</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                        </thead>
+                                        
+                                        <tbody  *ngFor="let oeuvre of oeuvresFav | slice: (pagOF-1) * pageSizeOF : (pagOF-1) * pageSizeOF + pageSizeOF">
+                                            <tr>
+                                                <td >
+                                                    <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
+                                                        <img [src]="getOeuvreImageUrl(oeuvre?.id)" alt="fashion" width="50px" height="50px">
+                                                    </a>
+                                                </td>
+                                                <td><a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">{{oeuvre.nom}}</a>
+                                                    <!-- <div class="mobile-cart-content row">
+                                                        <div class="col-xs-3">
+                                                            <p>En stock: {{oeuvre.stock}}</p>
+                                                        </div>
+                                                        <div class="col-xs-3">
+                                                            <h2 class="td-color">{{oeuvre.prix}} FCFA</h2>
+                                                        </div>
+                                                        <div class="col-xs-3">
+                                                            <h2 class="td-color">
+                                                                <a (click)="removeOeuvre(oeuvre)" class="icon mr-1">
+                                                                    <i class="ti-close"></i>
+                                                                </a>
+                                                                <a (click)="addOeuvreToCart(oeuvre)" class="cart">
+                                                                    <i class="ti-shopping-cart"></i>
+                                                                </a>
+                                                            </h2>
+                                                        </div>
+                                                    </div> -->
+                                                </td>
+                                                <td>{{oeuvre.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </td>
+                                                <td >
+                                                    <p>{{oeuvre.stock}}</p>
+                                                </td>
+                                                <td>
+                                                    <a (click)="removeOeuvre(oeuvre)" title="Supprimer l'oeuvre de la liste"  class="icon mr-3">
+                                                        <i class="ti-close"></i>
+                                                    </a>
+                                                    <a (click)="addOeuvreToCart(oeuvre)" title="Ajouter l'oeuvre au panier" class="cart">
+                                                        <i class="ti-shopping-cart"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <ngb-pagination style="float: right;" [collectionSize]="oeuvresFav.length" [(page)]="pagOF" [pageSize]="pageSizeOF" aria-label="Default pagination">
+                                    </ngb-pagination>
                                 </div>
                             </div>
-                            <div>
-                                <div class="box">
-                                    <div class="box-title">
-                                        <h3>Abonnements</h3>
-                                        <a href="javascript:void(0)">Adress</a>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <h6>Liste des abonnements</h6>
-                                            <address>
-                                                Vous n'avez aucun abonnement sur signart<br>
-                                                <a [routerLink]="['/shop/collection/left/sidebar']">S'abonner à une oeuvre</a>
-                                            </address>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <h6>Artistes Favoris</h6>
-                                            <address>
-                                                Vous n'avez pas encore d'artiste favoris.<br>
-                                                <a [routerLink]="['/pages/artiste']">Ajouter un artiste</a>
-                                            </address>
-                                        </div>
-                                    </div>
+                        </div>
+                        <div class="box-account box-info" *ngIf="infopage == 5">
+                            <div class="box-head">
+                                <h2>Mes abonnements</h2>
+                            </div> <br><hr>
+                            <div class="row">
+                                <p *ngIf="abonnements?.length == 0">
+                                    liste vide
+                                </p>
+                                <div class="col-sm-12" *ngIf="abonnements?.length != 0"> 
+                                    <table class="table cart-table table-responsive-md" style="text-align: center;">
+                                        <thead>
+                                        <tr class="table-head">
+                                            <th scope="col">Numéro</th>
+                                            <th scope="col">Montant</th>
+                                            <th scope="col">Etat</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let abonnement of abonnements | slice: (pagAbmt-1) * pageSizeAbmt : (pagAbmt-1) * pageSizeAbmt + pageSizeAbmt">
+                                                <td><h4>000{{abonnement.id}}</h4></td>
+                                                <td><h4>{{abonnement.montantPaiement | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h4>
+                                                </td>
+                                                <td><h6>{{getLibelleEtatAbonnement(abonnement.etatAbonnement)}}</h6></td>
+                                                <td>
+                                                    <a (click)="showDetailsAbonnement(abonnement.id)" title="Détails"  [routerLink]=" " style="cursor: pointer;" class="icon mr-3">
+                                                        Details
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <ngb-pagination style="float: right;" [collectionSize]="abonnements.length" [(page)]="pagAbmt" [pageSize]="pageSizeAbmt" aria-label="Default pagination">
+                                    </ngb-pagination>
                                 </div>
+                            </div>
+
+                        </div>
+                        <div class="box-account box-info" *ngIf="infopage == 6">
+                            <div class="box-head">
+                                <h2>Modifier le mot de passe</h2>
+                            </div>
+                            <div class="row">
+                                <form class="theme-form" novalidate="" [formGroup]="mdpForm" (ngSubmit)="onChangePwd();" > 
+                                    <br><br>
+                                    <div class="form-row">                                      
+                                        <div class="col-md-12">
+                                            <label><strong>Mot de passe actuel<strong style="color: red;" >*</strong></strong></label>
+                                            <input type="password" class="form-control" formControlName="mdpActu"  id="mdpActu" placeholder="Mot de passe actuel" required="" autocomplete="off">
+                                            <div *ngIf="mdpForm.get('mdpActu').errors && mdpForm.get('mdpActu').touched">
+                                                <p class="register-error-message" style="color: red;">
+                                                  Le mot de passe doit être composé au moins 6 caractères !</p>
+                                            </div>
+                                            
+                                                <div *ngIf="this.mdpForm.get('mdpActu').pending" style="color: darkred;">Verrification...</div>
+                                                <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpActu').touched && this.mdpForm.get('mdpActu').invalid">
+                                                    <div *ngIf="this.mdpForm.get('mdpActu').errors.required">le mot de passe actuel est requis</div>
+                                                    <div *ngIf="this.mdpForm.get('mdpActu').errors.mustMatch">le mot de passe est incorrect</div> 
+                                                </div>
+                                                                                       
+                                        </div>  
+                                        
+                                        <br><br>
+                                        
+                                    </div>  
+                                    <br>
+  
+                                    <br>
+                                    <div class="form-row">
+                                        <div class="col-md-8">
+                                            <label><strong>Nouveau mot de passe<strong style="color: red;" >*</strong></strong></label>
+                                            <input type="password" class="form-control" formControlName="mdpNouv" id="mdpNouv" placeholder="Nouveau mot de passe" required="" autocomplete="off">
+                                            
+                                                <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpNouv').touched && this.mdpForm.get('mdpNouv').invalid">
+                                                    <div *ngIf="this.mdpForm.get('mdpNouv').errors.required" >le nouveau mot de passe est requis</div>
+                                                    <div *ngIf="this.mdpForm.get('mdpNouv').errors.pattern" >le nouveau doit contenir des miniscules et des majuscules</div>
+                                                    <div *ngIf="this.mdpForm.get('mdpNouv').errors.minlength" >le nouveau mot de passe devrait contenir 8 caractéres ou plus </div>                                         
+                                                </div>
+                                            
+                                        </div>
+                                        <br><br>
+                                        <div class="col-md-8">
+                                            <br><br>
+                                            <label><strong>Confirmer nouveau mot de passe<strong style="color: red;" >*</strong></strong></label>
+                                            <input type="password" class="form-control" placeholder="Confirmer nouveau mot de passe" required="" formControlName="mdpConf" autocomplete="off">
+                                            <!--div *ngIf="(mdpForm.get('mdpNouv').errors || mdpForm.hasError('mismatchedPasswords')) && mdpForm.get('mdpConf').touched">
+                                                <p class="register-error-message" style="color: red;">{{ 'les mots de passe doivent etre identiques'}} !</p>
+                                            </div-->
+
+                                            <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpConf').touched && this.mdpForm.get('mdpConf').invalid">
+                                                <div *ngIf="this.mdpForm.get('mdpConf').errors.required" >Veuillez confirmer votre nouveau mot de passe</div>                                                 
+                                            </div>
+                                            <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpConf').touched && (this.mdpForm.value.mdpNouv !== this.mdpForm.value.mdpConf)">les mots de passe doivent etre identiques </div>
+                                        </div>
+                                    </div>
+                                        
+                                    
+                                    <br><br><hr>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <button class="btn btn-solid-Valider" title="Valider" type="submit" [disabled]="!mdpForm?.valid">Valider</button>
+                                        </div> 
+                                        <div class="col-md-6">
+                                            <button type="submit" class="btn btn-solid-Annuler" title="Annuler" routerLink="/accueil" routerLinkActive="router-link-active" >Annuler</button>
+                                        </div> 
+                                    </div>
+                                    
+                                </form>
+                            </div>
+                        </div>
+                        <div class="box-account box-info" *ngIf="infopage == 7">
+                            <div class="box-head">
+                                <h2>Liste des artistes suivis</h2>
+                            </div> <br><br>
+                            <div class="row">
+                                
+                                    
+                                            <p *ngIf="artistes?.length == 0">
+                                                Liste vide
+                                            </p>
+                                            <div class="col-md-12" *ngIf="artistes?.length != 0">
+                                                <table class="table cart-table table-responsive-md" style="text-align: center;">
+                                                    <thead>
+                                                        <tr class="table-head">
+                                                            <th scope="col">Prénom</th>
+                                                            <th scope="col">Nom</th>
+                                                            <th scope="col">Profession</th>
+                                                            <th scope="col">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngFor="let artiste of artistes;let i=index">
+                                                        <tr>
+                                                            <td>
+                                                                <p>
+                                                                    {{artiste?.prenom}}
+                                                                </p>
+                                                            </td>
+                                                            <td>
+                                                                <p>
+                                                                    {{artiste?.nom}}
+                                                                </p>                                         
+                                                            </td>
+                                                            <td>
+                                                                <p>
+                                                                    {{artiste?.profession}}
+                                                                </p>                                         
+                                                            </td>
+                                                            <td>
+                                                                <a [routerLink]="['/pages/artiste/',artiste.id]" href="javascript:void(0)" class="icon" title="Voir plus" >
+                                                                Voir
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                    
+                               
+                            </div>
+                        </div>
+                        <div class="box-account box-info" *ngIf="infopage == 10">
+                            <div class="box-head">
+                                <h2>Details de l'abonnement 000{{abonnementAffiche.id}}</h2>
+                            </div> <br><br>
+                            <div class="row">
+                                <section class="section-b-space">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="product-order">
+                                                   
+                                                    <div class="row product-order-detail" *ngFor="let oeuvre of oeuvresAffiche">
+                                                        <div class="col-3">
+                                                            <img class="e2e-trusted-url" [src]="domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+oeuvre.avatar.value)" alt="quixote" class="img-fluid">
+                                                        </div>
+                                                        <div class="col-3 order_detail">
+                                                            <div>
+                                                                <h4>Article</h4>
+                                                                <h5>{{oeuvre.titre}}</h5>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-3 order_detail">
+                                                            <div>
+                                                                <h4>quantité</h4>
+                                                                <h5>1</h5>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-3 order_detail">
+                                                            <div>
+                                                                <h4>prix</h4>
+                                                                <h5>{{oeuvre.tarif| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="total-sec">
+                                                        <ul>
+                                                            <li>Total <span>{{montantOeuvres | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
+                                                            <li>Delai <span>{{delaiAffiche.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
+                                                            <li>Terminal <span>{{terminalAffiche.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="final-total">
+                                                        <h3>total <span>{{abonnementAffiche.montantPaiement}} FCFA</span></h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                       <!--                      <div class="order-detail">
+                                                <h5><strong>Information de l'abonné</strong></h5>
+                                                <ul class="order-detail"> 
+                                                    <li>Nom: {{abonneAffiche.nom}}</li>
+                                                    <li>Prenom: {{abonneAffiche.prenom}}</li>
+                                                    <li>Telephone: {{abonneAffiche.telephone}}</li>
+                                                    <li>Email: {{abonneAffiche.email}}</li>
+                                                    <li>Pays: {{abonneAffiche.pays}}</li>
+                                                    <li>Region: {{abonneAffiche.region}}</li>
+                                                    <li>Ville: {{abonneAffiche.ville}}</li>
+                                                    <li>Adresse: {{abonneAffiche.adresse}}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <h5><strong>Terminal et delai</strong></h5>
+                                                <ul class="order-detail">
+                                                    <li>Terminal: {{terminalAffiche.libelle}}</li>
+                                                    <li>Delai: {{delaiAffiche.libelle}}</li>                                                           
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-12" *ngIf="activePaiement == false">
+                                                <div class="delivery-sec">
+                                                    <h2>Paiement Invalide</h2>
+                                                    <h4>Abonnement en attente de validation</h4>
+======= -->
+                                            <div class="col-lg-6">
+                                                <div class="row order-success-sec">
+                                                        <div class="col-sm-7">
+                                                            <div class="order-detail">
+                                                                <h4>Information de l'abonné</h4>
+                                                                <ul class="order-detail"> 
+                                                                    <li>Nom: {{abonneAffiche.nom}}</li>
+                                                                    <li>Prenom: {{abonneAffiche.prenom}}</li>
+                                                                    <li>Telephone: {{abonneAffiche.telephone}}</li>
+                                                                    <li>Email: {{abonneAffiche.email}}</li>
+                                                                    <li>Pays: {{abonneAffiche.pays}}</li>
+                                                                    <li>Region: {{abonneAffiche.region}}</li>
+                                                                    <li>Ville: {{abonneAffiche.ville}}</li>
+                                                                    <li>Adresse: {{abonneAffiche.adresse}}</li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-5">
+                                                            <h4>Terminal et delai</h4>
+                                                            <ul class="order-detail">
+                                                                <li>Terminal: {{terminalAffiche.libelle}}</li>
+                                                                <li>Delai: {{delaiAffiche.libelle}}</li>                                                           
+                                                            </ul>
+                                                        </div>
+                                                        <div class="col-md-12" *ngIf="activePaiement == false">
+                                                            <div class="delivery-sec">
+                                                                <h2>Paiement non effectif</h2>
+                                                                <h4>Abonnement en attente de validation</h4>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12" *ngIf="activePaiement == true">
+                                                            <div class="delivery-sec">
+                                                                <h2>Paiement</h2>
+                                                                <div class="product-buttons">
+                                                                    <a href="javascript:void(0)" title="Payer"  class="btn btn-solid-Valider">Clicker ici pour payer</a>
+                                                                    
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>   
+                                                </div>            
+                                            </div>                                 
+                                        </div>
+                                    </div>
+                                  </section>   
+                            </div>
+                        </div>
+                        <div class="box-account box-info" *ngIf="infopage == 11">
+                            <div class="box-head">
+                                <h2>Details de la commande 000{{commande?.id}}</h2>
+                            </div> <br><br>
+                            <div class="row">
+                                <section class="section-b-space">
+        <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                    <div class="row order-success-sec">
+                        <div class="col-sm-6">
+                            <h4  style="text-decoration: underline;">Sommaire</h4>
+                            <ul class="order-detail">
+                                <li>ID commande: 000{{commande?.id}}</li>
+                                <li>Date de commande: {{commande.dateCreation}}</li>
+                                <li>Commande totale: {{Sum}} FCFA</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4 style="text-decoration: underline;;">Adresse de livraison</h4>
+                            <ul class="order-detail">
+                                
+                                <li>{{adressLivraison.prenom}} {{adressLivraison.nom}}</li>
+                                <li>Adresse: {{adressLivraison.adresse}}</li>
+                                <li>Mode de livraison: {{livraison.libelleModeLivraison}} </li>
+                            </ul>
+                        </div><br>
+                        
+                    </div><hr>
+                    <div class="row order-success-sec">
+                        <div class="col-sm-12">
+                            <h4  style="text-decoration: underline;">Méthode de paiement</h4>
+                            <p *ngIf="paiement?.libelleModePaiement!=null">{{paiement?.libelleModePaiement}} ({{paiement?.libelleEtatPaiement}}).</p>
+                            <p *ngIf="paiement?.libelleModePaiement==null">Mode de paiement indisponible (Commande annulée).</p>
+                        </div>
+                    </div><hr>
+                
+            </div>
+            <div class="col-lg-12">
+                <div class="product-order">
+                    <h3>Détails de votre commande</h3>
+                    <div class="row product-order-detail" *ngFor="let p of commande.lignesCommande;let i=index">
+                        <div class="col-2">
+                            <img [src]="get(i)" class="img-fluid" alt="quixote">                        
+                        </div>
+                        <div class="col-2 order_detail">
+                            <div style="text-align: center;">
+                                <h4>Article</h4>
+                                <h5>{{p.oeuvre.nom}}</h5>
+                            </div>
+                        </div>
+                        <div class="col-2 order_detail">
+                            <div style="text-align: center;">
+                                <h4>quantité</h4>
+                                <h5>{{p.quantite}}</h5>
+                            </div>
+                        </div>
+                        <div class="col-2 order_detail">
+                            <div style="text-align: center;">
+                                <h4>prix</h4>
+                                <h5>{{p.prix| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </h5>
+                            </div>
+                        </div>
+                        <div class="col-2 order_detail">
+                            <div style="text-align: center;">
+                                <h4>prix livraison</h4>
+                                <h5>{{p.oeuvre.fraisLivraison | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="total-sec">
+                        <ul>
+                            <li>Sous-Total <span> {{commande.total| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
+                            <li>Livraison <span>{{commande.totalLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
+                        </ul>
+                    </div>
+                    <div class="final-total">
+                        <h3>Total : <span> {{Sum | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></h3>
+                    </div>
+                </div><br><br>
+                <div class="col-md-12">
+                    <div class="delivery-sec">
+                        <h3>Date prévue de livraison</h3>
+                        <h2>{{livraison?.dateLivraison | date: 'dd/MM/yyyy'}} </h2>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+                                   
+                               
                             </div>
                         </div>
                     </div>
                 </div>
+                <ngx-ui-loader [loaderId]="'loader-01'" logoUrl="assets/images/icon/LogoGif.gif" logoSize="300" fgsType="rectangle-bounce" fgsColor="rgba(255,255,255,0.8)" [hasProgressBar]="false" logoPosition="center-center" overlayColor="rgba(255,255,255,0.8)"  blur="1"></ngx-ui-loader>
             </div>
+        </div>
+    </div>
+    <div *ngIf="user.userType=='ARTISTE' && artiste?.id!=null" >
+        <div class="table-responsive-md card">
+            <app-compte-artiste></app-compte-artiste>
         </div>
     </div>
 </section>

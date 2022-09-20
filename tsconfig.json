@@ -6,6 +6,9 @@
 */
 {
   "files": [],
+  "typeRoots": [
+    "node_modules"
+  ],
   "references": [
     {
       "path": "./tsconfig.app.json"

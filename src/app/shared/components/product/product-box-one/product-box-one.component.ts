@@ -4,6 +4,19 @@ import { CartModalComponent } from "../../modal/cart-modal/cart-modal.component"
 import { Product } from "../../../classes/product";
 import { ProductService } from "../../../services/product.service";
 
+//import { AppState } from 'src/app/interfaces';
+import { Store } from '@ngrx/store';
+
+import { Router } from '@angular/router';
+//import { Panier } from 'src/app/shared/modeles/panier';
+import { Subscription } from 'rxjs';
+import { Oeuvre } from '../../../modeles/oeuvre';
+import { environment } from '../../../../../environments/environment';
+import { ImageDto } from '../../../modeles/image';
+import { Client } from '../../../modeles/client';
+import { AuthServiceS } from '../../../services/auth.service';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-product-box-one',
   templateUrl: './product-box-one.component.html',
@@ -12,22 +25,71 @@ import { ProductService } from "../../../services/product.service";
 export class ProductBoxOneComponent implements OnInit {
 
   @Input() product: Product;
+  @Input() oeuvre: Oeuvre;
   @Input() currency: any = this.productService.Currency; // Default Currency 
   @Input() thumbnail: boolean = false; // Default False 
   @Input() onHowerChangeImage: boolean = false; // Default False
   @Input() cartModal: boolean = false; // Default False
   @Input() loader: boolean = false;
-  
+
+
+  actionsSubscription: Subscription;
+  article$: Oeuvre = null;
+  routeSubs: Subscription;
+  articleId: number;
+  oeuvreId: any;
+  tab: Oeuvre[];
+  url: any;
+  private button: any;
+  elmt: HTMLElement;
+  listarticle: any = null;
+ 
+  listeItems:any[];
+  present: boolean;
+  user: any;
+  imageRes: ImageDto;
+  isAdd: boolean;
+  client: Client;
   @ViewChild("quickView") QuickView: QuickViewComponent;
   @ViewChild("cartModal") CartModal: CartModalComponent;
 
   public ImageSrc : string
+  public isFavorite:boolean;
 
-  constructor(private productService: ProductService) { }
+  constructor(public productService: ProductService,
+    private authService: AuthServiceS,
+    private router:Router) { 
+      //const wishlistItem=JSON.parse(localStorage['wishlistItems'] || '[]');
+      console.log(this.oeuvre);
+      //const result= wishlistItem.find(item => item.id === this.oeuvre.id)
+      this.isAdd = true;
+      this.user = this.authService.getUserConnected();
+     
+      //if(!result)
+      //  this.isFavorite = false;
+      //else
+     //  this.isFavorite = true;
+      
+      if( this.user != null){
+        if( this.user.userType === "ARTISTE"){
+            this.isAdd = false;
+          } else{
+            this.client = this.authService.getClientConnected();
+            //console.log("client connect", this.client)
+          }
+      }
+    }
 
   ngOnInit(): void {
     if(this.loader) {
-      setTimeout(() => { this.loader = false; }, 2000); // Skeleton Loader
+      setTimeout(() => { this.loader = false; 
+        const wishlistItem=JSON.parse(localStorage['wishlistItems'] || '[]');
+        const result= wishlistItem.find(item => item.id === this.oeuvre.id)
+        if(!result)
+          this.isFavorite = false;
+        else
+          this.isFavorite = true;
+      }, 1000); // Skeleton Loader
     }
   }
 
@@ -60,16 +122,67 @@ export class ProductBoxOneComponent implements OnInit {
     this.ImageSrc = src;
   }
 
-  addToCart(product: any) {
-    this.productService.addToCart(product);
+
+  addToCart(oeuvre: any) {
+    
+    this.user = this.authService.getUserConnected();
+    if(this.user==null){
+      /*Swal.fire({
+        //title: 'Are you sure?',
+        text: "Vous devez vous connecter pour effectuer cette action",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#376809',
+        cancelButtonText: 'annuler',
+        cancelButtonColor: '#601A17',
+        confirmButtonText: 'Oui, se connecter'
+      }).then((result) => {
+        if (result.value) {
+          console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+          this.router.navigate(['/pages/login']);
+        }
+      })  */
+      this.productService.addToCartNew(oeuvre);
+     }else{
+      this.productService.addToCart(oeuvre);
+     }
+  }
+  
+
+  addToWishlist(oeuvre: any) {
+    this.user = this.authService.getUserConnected();
+    if(this.user==null){
+      Swal.fire({
+        //title: 'Are you sure?',
+        text: "Vous devez vous connecter pour effectuer cette action",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#376809',
+        cancelButtonColor: '#601A17',
+        cancelButtonText: 'annuler',
+        confirmButtonText: 'Oui, se connecter'
+      }).then((result) => {
+        if (result.value) {
+          console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+          this.router.navigate(['/pages/login']);
+        }
+      }) 
+     // this.isFavorite=this.productService.addToWishlist(oeuvre);
+     }else{
+      this.isFavorite=this.productService.addToWishlist(oeuvre);
+     }
+    
+  }
+  removeFromWishlist(oeuvre: any) {
+    if(this.productService.removeWishlistItem(oeuvre))
+      this.isFavorite=false;
   }
 
-  addToWishlist(product: any) {
-    this.productService.addToWishlist(product);
+  addToCompare(oeuvre: any) {
+    this.productService.addToCompare(oeuvre);
   }
 
-  addToCompare(product: any) {
-    this.productService.addToCompare(product);
+  getOeuvreImageUrl(id: number) {
+    return environment.API_ENDPOINT + 'image/oeuvre/' + id;
   }
-
 }

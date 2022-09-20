@@ -1,0 +1,100 @@
+<div class="card-header">
+    <h4 class="card-title text-center">CHOIX DE LA LIVRAISON</h4>
+</div>
+<div class="card-body">
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+          <!--form #f="ngForm"-->
+          <div class="card horizontal hoverable" style="width: auto; height: auto"  *ngFor="let modeLivraison of shippingMethods; let index = index">
+              <div class="row">
+                <div class="col-xs-3 col-md-4">
+                      <i *ngIf="index === 0" class="fa fa-truck " style="font-size:48px;color: #f07c10"></i>
+                      <i *ngIf="index === 1" class="fa fa-home" style="font-size:48px;color: #f07c10"></i>
+                      <i *ngIf="index === 2" class="fa fa-caret-square-o-right" style="font-size:48px;color: #f07c10"></i>
+                      <!--<img *ngIf="index === 0" src="assets/img/outline_local_shipping_black_48dp.png" class="img-fluid avatar " style>
+                      <img *ngIf="index === 1" src="assets/img/outline_store_black_48dp.png"  class="img-fluid avatar ">
+                      <img *ngIf="index === 2" src="assets/img/outline_slideshow_black_48dp.png"  class="img-fluid avatar ">-->
+                      <!--<img src="assets/img/outline_store_black_48dp.png" style="width: 250px; height: 100px" class="img-fluid avatar " />-->
+                </div>
+                <div class="col-xs-9 col-md-7">
+                    <div class="card-content">
+                      <strong>{{modeLivraison.libelle}}</strong>
+                    </div>
+                    <div class="card-action" style="float: right">
+                      <!--<button  #bouton style="float:right;" type="button" data-toggle="modal" data-target=".bd-example-modal-sm" [ngClass]="maClass"><i
+                          class="material-icons">check_circle_outline</i></button>-->
+                          <div class="form-check form-check-radio">
+                             
+                              <label class="form-check-label mb-2">
+                                  <input class="form-check-input" 
+                                  type="radio" 
+                                  name="Livraison"
+                                  id="{{index}}"
+                                  value="{{modeLivraison.id}}"
+                                  (change)="onCheck($event, index)">
+                                  <span class="square">
+                                      <span *ngIf="!(ShippingOpt === null)" class="check"></span>
+                                      
+                                  </span>
+                              </label>
+                            
+
+                          </div>
+                    </div>
+                    <!--div class="modal fade bd-example-modal-sm" id="modal" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <h4 mat-dialog-title>Vous avez choisi : <b>{{modeLivraison.libelle}}</b></h4>
+                            <div mat-dialog-content>
+                              <p>Etes vous sur de vouloire valider ?</p>
+                            </div>
+                            <div mat-dialog-actions>
+                                 <button mat-button class="btn  btn-sm" data-dismiss="modal"  style="background-color: #f07c10;color: white" (click)="close('#modal');">Non Merci</button>
+                            
+                                <button mat-button class="btn  btn-sm" data-dismiss="modal"  style="background-color: #f07c10;color: white" (click)="onCheck(f); close('#modal');" cdkFocusInitial>Ok</button>
+                            </div>
+                            
+                          <div>
+                            <span >Vous avez choisi le mode de livraison : <strong>{{modeLivraison.libelle}}"</strong></span>
+                            <span></span>
+                            <div class="btn btn-danger btn-round btn-sm" (click)="setAmontShipping(); close('#modal')">Confirmer</div>
+                            <div class="btn btn-danger btn-round btn-sm" (click)="close('#modal')">Quitter</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div-->
+                </div>
+              </div>
+          
+          </div>
+          <!--div class="text-danger" *ngIf="f.invalid">Selectioner une option de livraison !</div-->
+          
+        <!--/form-->
+        </div>
+        </div>
+        
+</div>
+<!--        <div class="row">
+            <div class="col-xs-12 col-md-12">
+              <div class="mini-bag-summary">
+                <div class="items">{{totalCartItems$ | async}} oeuvre(s)</div>
+                <div class="order-total">
+                  <span>Sous Total Commande</span>
+                  <span class="value">{{totalCartValue$ | async | number}} FCFA</span>
+                </div>
+                <div *ngIf="(amontShipping$ | async)!== null" class="shipping">
+                  <span>Frais livraison</span>
+                  <span class="shipping-fee c-green">{{amontShipping$ | async | number}} FCFA</span>
+                </div>
+                </div>
+                <div class="pay-lbl-total">
+                <span class="pay-lbl">Total à payer</span>
+                <span *ngIf="(amontShipping$ | async) !== null" class="pay-total">{{(totalCartValue$ | async) + (amontShipping$ | async) | number}}
+                  FCFA
+                </span>
+                <span *ngIf="(amontShipping$ | async) == null" class="pay-total">{{(totalCartValue$ | async | number) }} FCFA</span>
+                </div>
+                
+            </div>
+          </div>
+</div>-->

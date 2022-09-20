@@ -1,0 +1,286 @@
+<!-- <form *ngIf="!isAuthenticated" class="form" [formGroup]="emailForm">
+  <div class="email">
+    <label>
+      Email
+      <span class="required">*</span>
+    </label>
+    <input type="email" class="full-width" formControlName="email">
+    <p *ngIf="emailForm.get('email').hasError('required') && emailForm.get('email').touched" class="value-err show">Champ
+      obligatoire</p>
+  </div>
+</form> -->
+
+<!-- <form class="form" [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+
+  <div>
+    <div class="state">
+      <label>
+        Pays
+        <span class="required">*</span>
+      </label>
+      <select class="half-width readonly" name="pays" formControlName="idPays" >
+          <option value="">Choisir votre pays</option>
+          <option *ngFor="let p of allPays" [value]="p.id">{{p.libelle}}</option>
+        </select>
+    </div>
+    <div class="city">
+      <label>
+        Région
+        <span class="required">*</span>
+      </label>
+      <input type="text" class="half-width" formControlName="region">
+      <p *ngIf="addressForm.get('region').hasError('required') &&  addressForm.get('region').touched" class="value-err show">Champ obligatoire</p>
+    </div>
+
+  </div>
+  <div class="locality">
+    <label>
+      Localité / Ville
+      <span class="required">*</span>
+    </label>
+    <input type="text" class="full-width" formControlName="ville">
+    <p *ngIf="addressForm.get('ville').hasError('required') && addressForm.get('ville').touched" class="value-err show">Champ obligatoire</p>
+  </div>
+  <div>
+    <div class="first-name">
+      <label>
+        Prénom
+        <span class="required">*</span>
+      </label>
+      <input type="text" class="half-width" formControlName="prenom">
+      <p *ngIf="addressForm.get('prenom').hasError('required') &&  addressForm.get('prenom').touched" class="value-err show">Champ obligatoire</p>
+    </div>
+    <div class="last-name">
+      <label>
+        Nom
+        <span class="required">*</span>
+      </label>
+      <input type="text" class="half-width" formControlName="nom">
+      <p *ngIf="addressForm.get('nom').hasError('required') &&  addressForm.get('nom').touched" class="value-err show">Champ obligatoire</p>
+    </div>
+  </div>
+  <div class="address">
+    <label>
+      Adresse
+      <span class="required">*</span>
+    </label>
+    <textarea type="text" class="full-width" formControlName="adresse"></textarea>
+    <p *ngIf="addressForm.get('adresse').hasError('required') &&  addressForm.get('adresse').touched" class="value-err show">Champ obligatoire</p>
+  </div>
+  <div>
+    <div class="pincode">
+      <label>
+        Indicatif
+        <span class="required">*</span>
+      </label>
+      <input type="text" class="half-width readonly" readonly formControlName="indicatif">
+    </div>
+    <div class="mobile">
+      <label>
+        Téléphone
+        <span class="required">*</span>
+      </label>
+      <input type="tel" class="half-width" formControlName="telephone">
+      <p *ngIf="addressForm.get('telephone').hasError('required') &&  addressForm.get('telephone').touched" class="value-err show">Champ obligatoire</p>
+    </div>
+  </div>
+
+  <div *ngIf="isAuthenticated" class="save-button">
+    <button [disabled]="!addressForm.valid">VALIDER</button>
+  </div>
+  <div *ngIf="!isAuthenticated" class="save-button">
+    <button [disabled]="!addressForm.valid && !emailForm.valid">VALIDER</button>
+  </div>
+</form> -->
+<div class="row">
+  <div class="col-md-12">
+    <!-- Card container that binds all togather -->
+    <div>
+      <!-- <div class="box-head">
+        <a href="javascript:void(0)" style="float: right;" (click)="infopage = 7">Ajouter une adresse</a>
+        <h2> Ajout adresse livraison</h2>
+      </div>
+      <hr> -->
+      <section class="register-page section-b-space">
+        <!-- Actual content starts from here -->
+          <!----------
+                                        <form *ngIf="!isAuthenticated" [formGroup]="emailForm">
+                                            <table>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <div class="demo-full-width">
+                                                            <input formControlName="email" matInput placeholder="Email">
+                                                            <mat-hint>exemple : demo@demo.com</mat-hint>
+                                                            <div>
+                                                                <span *ngIf="!addressForm.get('email').valid && addressForm.get('email').touched">Mettez
+                                                                    votre mail !!!</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </form>--->
+
+            <form class="theme-form" [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="prenom">Prénom<strong style="color: red;" >*</strong></label>
+                    <input class="form-control" formControlName="prenom"  placeholder="Prénom" [(ngModel)]="client.prenom">
+                  <div>
+                    <span *ngIf="addressForm.get('prenom').errors && addressForm.get('prenom').touched" style="color: red;"> Veuillez saisir un prénom !</span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="nom">Nom<strong style="color: red;" >*</strong></label>
+                    <input class="form-control" formControlName="nom"  placeholder="Nom" [(ngModel)]="client.nom">
+                  <div>
+                    <span *ngIf="addressForm.get('nom').errors && addressForm.get('nom').touched" style="color: red;" >Veuillez saisir un nom !</span>
+                  </div>
+                </div>
+
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="ville">Ville<strong style="color: red;" >*</strong></label>
+                    <input class="form-control" formControlName="ville"  placeholder="Ville">
+                  <div>
+                    <span *ngIf="addressForm.get('ville').errors && addressForm.get('ville').touched" style="color: red;"> Veuillez donner une ville !</span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="region">Région<strong style="color: red;" >*</strong></label>
+                    <input class="form-control" formControlName="region"  placeholder="Région">
+                  <div>
+                    <span *ngIf="addressForm.get('region').errors && addressForm.get('region').touched" style="color: red;"> Veuillez donner une région
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="adresse">Adresse<strong style="color: red;" >*</strong></label>
+                    <input class="form-control" formControlName="adresse"  placeholder="Adresse">
+                  <div>
+                    <span *ngIf="addressForm.get('adresse').errors && addressForm.get('adresse').touched" style="color: red;"> Veuillez donner une adresse</span>
+                  </div>
+                </div>
+              </div>
+              <!-- <tr>  
+                                                              <td colspan="2">  
+                                                                  <div class="demo-full-width">  
+                                                                      <input formControlName="DOB" matInput [matDatepicker]="picker" placeholder="Date of birth">  
+                                                                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>  
+                                                                      <mat-datepicker touchUi="true" #picker></mat-datepicker>  
+                                                                  </div>  
+                                                                  <div>  
+                                                                      <span *ngIf="!addressForm.get('DOB').valid && addressForm.get('DOB').touched">Please select any Date !!!</span>  
+                                                                  </div>  
+                                                              </td>  
+                                                          </tr>   --> 
+              <br>
+              <!-- <div class="row">
+                <div class="col-md-12">
+                  <label for="telephone">Téléphone</label>
+                    <input class="form-control" formControlName="telephone"  placeholder="Téléphone" [(ngModel)]="client.telephone">
+                  <div>
+                    <span *ngIf="addressForm.get('telephone').errors && addressForm.get('telephone').touched" style="color: red;"> Veuillez donner un numéro !</span>
+                  </div>
+                </div>
+              </div> -->
+              <br>
+              <div class="row">
+                <div class="col-md-12">
+                  <div>
+                    <label for="pays">Pays <strong style="color: red;" >*</strong></label>
+                    <select  class="form-control"  (change)="choisirPays($event)"  placeholder="Pays" [(value)]="client.pays">
+                      <!-- <option>-- Selectionner --</option> -->
+                      <option *ngFor="let p of allPays" [value]="p.id">{{p.libelle}}</option>
+                    </select>
+                    <br>
+                    <div>
+                      <span *ngIf="addressForm.get('idPays').errors && addressForm.get('idPays').touched" style="color: red;"> Veuillez choisir un pays !</span>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="telephone">Téléphone <strong style="color: red;" >*</strong></label>
+                  <div class="row">
+                    <div  class="col-md-2">
+                      <input type="text" class="form-control" formControlName="indicatif" [(ngModel)]="indicatifpays" disabled="true">
+                    </div>
+                    <div  class="col-md-10">
+                      <input class="form-control" formControlName="telephone"  placeholder="Téléphone" [(ngModel)]="client.telephone">
+                    </div>
+                    <div>
+                      <span *ngIf="!addressForm.get('telephone').valid && addressForm.get('telephone').touched"></span>
+                    </div>
+                  </div>
+                 
+                </div>
+              </div>
+              <br>
+             
+              <!-- <tr>  
+                                                              <td>  
+                                                                  <span>Gender</span><br><br>  
+                                                                  <mat-radio-group formControlName="Gender">  
+                                                                      <mat-radio-button value="Male">Male</mat-radio-button>  
+                                                                      <mat-radio-button value="Female">Female</mat-radio-button>  
+                                                                  </mat-radio-group>  
+                                                                  <div>  
+                                                                      <span *ngIf="!addressForm.get('Gender').valid && addressForm.get('Gender').touched">Please select any gender !!!</span>  
+                                                                  </div>  
+                                                              </td>  
+                                                              <td><br>  
+                                                                  <div>  
+                                                                      <select formControlName="Blog" placeholder="Select Blog">  
+                                                                          <option>-- Select Any --</option>  
+                                                                          <option value="C#Corner">C#Corner</option>  
+                                                                          <option value="C#Corner">C#Corner</option>  
+                                                                          <option value="C#Corner">C#Corner</option>  
+                                                                      </select>  
+                                                                      <div>  
+                                                                          <span *ngIf="!addressForm.get('Blog').valid && addressForm.get('Blog').touched">Please select any item !!!</span>  
+                                                                      </div>  
+                                                                  </div>  
+                                                              </td>  
+                                                          </tr>   -->
+
+              <!-- <tr>
+                                                                <td colspan="2">
+                                                                    <mat-slide-toggle  (change)="onChange($event)">Est aussi l'adresse de facturation?</mat-slide-toggle>
+                                                                </td>
+                                                            </tr> -->
+
+              <div *ngIf="isAuthenticated" colspan="2" class="content-center">
+                <button class="btn btn-solid-Valider" title="Valider" [disabled]="!addressForm.valid">Valider</button>
+              </div>
+              <div *ngIf="!isAuthenticated" colspan="2" class="content-center">
+                <button class="btn btn-solid-Valider" title="Valider"
+                  [disabled]="!addressForm.valid && !emailForm.valid">Valider</button>
+              </div>
+
+
+            </form>
+      </section> <!-- Title of an Card -->
+
+
+
+    </div>
+  </div>
+</div>
+<style>
+  .example-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .example-container>* {
+    width: 100%;
+  }
+</style>

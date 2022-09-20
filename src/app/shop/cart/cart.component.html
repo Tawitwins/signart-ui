@@ -1,50 +1,54 @@
-<app-breadcrumb [title]="'Cart'" [breadcrumb]="'Cart'"></app-breadcrumb>
+<app-breadcrumb [title]="'Panier'" [breadcrumb]="'Panier'"></app-breadcrumb>
 <!-- section start -->
 <section class="cart-section section-b-space">
-    <div class="container">
-        <div class="col-sm-12 empty-cart-cls text-center" *ngIf="!products.length">
+    <div class="container"  *ngIf="isConnected == true">
+        <div class="col-sm-12 empty-cart-cls text-center" *ngIf="!oeuvres.length">
         <img src="assets/images/icon-empty-cart.png" class="img-fluid mb-4">
         <h3><strong>Votre panier est vide</strong></h3>
-        <h4>ajouter quelque chose :)</h4>
+        <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">Visitez nos œuvres</a>
         </div>
-        <div class="row" *ngIf="products.length">
+        <div class="row" *ngIf="oeuvres.length">
         <div class="col-sm-12">
-            <table class="table cart-table table-responsive-xs">
+            <table style="text-align: center;" class="table cart-table table-responsive-xs">
                 <thead>
                     <tr class="table-head">
-                        <th scope="col">image</th>
                         <th scope="col">Oeuvre</th>
+                        <th scope="col">Titre</th>
                         <th scope="col">Prix</th>
-                        <th scope="col">quantité</th>
-                        <th scope="col">action</th>
-                        <th scope="col">total</th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let product of products">
+                <tbody *ngFor="let oeuvre of oeuvres">
                     <tr>
                         <td>
-                            <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
-                                <img [src]="product.images[0].src" [alt]="product.images[0].alt">
+                            <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
+                                <img [src]="getOeuvreImageUrl(oeuvre?.id)" [alt]="getOeuvreImageUrl(oeuvre?.id)">
                             </a>
                         </td>
                         <td>
-                            <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">{{ product.title | titlecase }}</a>
+                            <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
+                                <h5>
+                                    {{ oeuvre.nom | titlecase }}
+                                </h5>
+                            </a>
                             <div class="mobile-cart-content row">
                                 <div class="col-xs-3">
                                     <div class="qty-box">
                                         <div class="input-group">
-                                            <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="product.quantity">
+                                            <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="oeuvre.quantity">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xs-3">
                                     <h2 class="td-color">
-                                        {{ (product.price | discount:product) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol' }}
+                                        {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'  }} 
                                     </h2>
                                 </div>
                                 <div class="col-xs-3">
                                     <h2 class="td-color">
-                                        <a (click)="removeItem(product)" class="icon">
+                                        <a (click)="removeItem(oeuvre)" class="icon">
                                             <i class="ti-close"></i>
                                         </a>
                                     </h2>
@@ -52,21 +56,21 @@
                             </div>
                         </td>
                         <td>
-                            <h2>
-                                {{ (product.price | discount:product) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol' }}
-                            </h2>
+                            <h5>
+                                {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'  }} 
+                            </h5>
                         </td>
                         <td>
                             <div class="qty-box">
                                 <div class="input-group">
                                     <span class="input-group-prepend">
-                                        <button type="button" class="btn quantity-left-minus" data-type="minus" (click)="decrement(product)">
+                                        <button type="button" class="btn quantity-left-minus" title="Diminuer la quantité" data-type="minus" (click)="decrement(oeuvre)">
                                             <i class="ti-angle-left"></i>
                                         </button>
                                     </span>
-                                    <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="product.quantity">
+                                    <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="oeuvre.quantity">
                                     <span class="input-group-prepend">
-                                        <button type="button" class="btn quantity-right-plus"  data-type="plus" (click)="increment(product)">
+                                        <button type="button" class="btn quantity-right-plus" title="Augmenter la quantité" data-type="plus" (click)="increment(oeuvre)">
                                             <i class="ti-angle-right"></i>
                                         </button>
                                     </span>
@@ -74,37 +78,157 @@
                             </div>
                         </td>
                         <td>
-                            <a href="javascript:void(0)" (click)="removeItem(product)" class="icon">
-                            <i class="ti-close"></i>
-                        </a>
+                            <h4 class="td-color">
+                                {{ (oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100) * oeuvre?.quantity | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}
+                            </h4>
                         </td>
                         <td>
-                            <h2 class="td-color">
-                                {{ ((product.price | discount:product) * product.quantity) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol' }}
-                            </h2>
+                            <a title="Supprimer du panier" href="javascript:void(0)" (click)="removeItem(oeuvre)" class="icon">
+                            <i class="ti-close"></i>
+                        </a>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <table class="table cart-table table-responsive-md">
+            <table style="text-align: center;" class="table cart-table table-responsive-md">
                 <tfoot>
                     <tr>
-                        <td>total price :</td>
-                        <td>
-                            <h2> {{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</h2>
+                        <td>Montant total :</td>
+                        <td >
+                            <h2 class="td-color"> {{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h2>
                         </td>
+                        <!--td>
+                            <h2> {{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</h2>
+                        </td-->
                     </tr>
                 </tfoot>
             </table>
         </div>
         </div>
-        <div class="row cart-buttons" *ngIf='products.length'>
+        <div class="row cart-buttons" *ngIf='oeuvres.length'>
             <div class="col-6">
-                <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continuer</a>
+                <a [routerLink]="['/shop/collection/left/sidebar']" title="Continuer l'exploration" class="btn btn-solid">Continuer l'exploration</a>
             </div>
             <div class="col-6">
-                <a [routerLink]="['/shop/checkout']" class="btn btn-solid">Payer</a>
+                <div (click)="confirmer()" title="Commander" class="btn btn-solid-Valider">Commander</div>
             </div>
+        </div>
+    </div>
+
+    <div class="container" *ngIf="isConnected == false">
+        <div class="col-sm-12 empty-cart-cls text-center" *ngIf="!newOeuvres.length">
+            <img src="assets/images/icon-empty-cart.png" class="img-fluid mb-4">
+            <h3><strong>Votre panier est vide</strong></h3>
+            <h4> En vous connectant à votre compte SignArt, vous pourrez mémoriser directement les articles qui vous auront plu.
+                Vous retrouverez facilement vos articles choisis lors d’une prochaine connexion, où que vous soyez.</h4>
+                <a [routerLink]="['/pages/login']" class="btn btn-solid">Se connecter</a>
+            </div>
+           
+        <div class="row" *ngIf="newOeuvres.length">
+            <div class="col-sm-12">
+                <table style="position: center;" class="table cart-table table-responsive-xs">
+                    <thead>
+                        <tr class="table-head">
+                            <th scope="col">Oeuvre</th>
+                            <th scope="col">Titre</th>
+                            <th scope="col">Prix</th>
+                            <th scope="col">Quantité</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let oeuvre of newOeuvres">
+                        <tr>
+                            <td>
+                                <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
+                                    <img [src]="getOeuvreImageUrl(oeuvre?.id)" [alt]="getOeuvreImageUrl(oeuvre?.id)">
+                                </a>
+                            </td>
+                            <td>
+                                <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
+                                    <h5>
+                                        {{ oeuvre.nom | titlecase }}
+                                    </h5>
+                                </a>
+                                <div class="mobile-cart-content row">
+                                    <div class="col-xs-3">
+                                        <div class="qty-box">
+                                            <div class="input-group">
+                                                <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="oeuvre.quantity">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <h2 class="td-color">
+                                            {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'  }} 
+                                        </h2>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <h2 class="td-color">
+                                            <a (click)="removeNewItem(oeuvre)" class="icon">
+                                                <i class="ti-close"></i>
+                                            </a>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <h5>
+                                    {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'  }} 
+                                </h5>
+                            </td>
+                            <td>
+                                <div class="qty-box">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <button type="button" class="btn quantity-left-minus" title="Diminuer la quantité" data-type="minus" (click)="decrementNew(oeuvre)">
+                                                <i class="ti-angle-left"></i>
+                                            </button>
+                                        </span>
+                                        <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="oeuvre.quantity">
+                                        <span class="input-group-prepend">
+                                            <button type="button" class="btn quantity-right-plus" title="Augmenter la quantité" data-type="plus" (click)="incrementNew(oeuvre)">
+                                                <i class="ti-angle-right"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <h4 class="td-color">
+                                    {{ (oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100) * oeuvre?.quantity | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}
+                                </h4>
+                            </td>
+                            <td>
+                                <a title="Supprimer du panier" href="javascript:void(0)" (click)="removeNewItem(oeuvre)" class="icon">
+                                <i class="ti-close"></i>
+                            </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table style="text-align: center;" class="table cart-table table-responsive-md">
+                    <tfoot>
+                        <tr>
+                            <td>Montant total :</td>
+                            <td >
+                                <h2 class="td-color"> {{ getNewTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h2>
+                            </td>
+                            <!--td>
+                                <h2> {{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</h2>
+                            </td-->
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div class="row cart-buttons" *ngIf='newOeuvres.length'>
+                <div class="col-6">
+                    <a [routerLink]="['/shop/collection/left/sidebar']" title="Continuer l'exploration" class="btn btn-solid">Continuer l'exploration</a>
+                </div>
+                <div class="col-6">
+                    <div (click)="confirmer()" title="Commander" class="btn btn-solid-Valider">Commander</div>
+                </div>
         </div>
     </div>
 </section>

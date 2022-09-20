@@ -1,0 +1,107 @@
+<div *ngIf="!isMobileMenu()">
+    <div class="prod-item">
+        <div class="col1">
+          <img [src]="image" alt="">
+        </div>
+        <div class="col2">
+          <div class="prod-name">
+            <a class="c-gray">
+              {{name}}
+            </a>
+          </div>
+          <div class="prod-amount">
+            {{amount}} FCFA
+          </div>
+          <!--div class="prod-amount">
+            {{amount | currency:'XOF':'symbol':'4.0-2':'fr'}}
+          </div-->
+          <div class="size-qty-wrap">
+            <div class="size-qty">
+              <span class="size"> 
+                <span class="gray">Dimensions:</span>
+                <span class="value">{{dimensions}}</span>
+                <!--<span class="icon"></span>-->
+              </span>
+              <span class="qty">
+                <span class="gray"[hidden]="exemplaireBool" >Quantité:</span>
+                <span class="gray" [hidden]="!exemplaireBool" >Exemplaire:</span>
+                <span class="quantite">
+                    <span class="valeur">{{quantity}}</span>
+                    <span class="icone">
+                      <span style="color: rgb(239, 83, 80);" (click)="setQuantite('plus', lignePanier)" title="augmenter"> <i class="fa fa-plus-square"></i> </span>
+                      <span *ngIf="quantity > 1" style="color: rgb(239, 83, 80);" (click)="setQuantite('moins', lignePanier)" title="diminuer"> <i class="fa fa-minus-square"></i> </span>
+                    </span>
+                </span>
+                </span>
+            </div>
+            <div class="seller">Vendu par: {{artiste}}</div>
+          </div>
+          <div class="edit-move-delete">
+            <div class="actions">
+              <span (click)="removeLineItem()" class="delete-item"><i class="fa fa-trash"></i> Supprimer</span>
+              <span (click)="addToWishlist(id)" [ngClass]="maClass" ><i class="fa fa-plus-circle"></i> {{wishlistLibelle}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+<div *ngIf="isMobileMenu()">
+    <div class="prod-item">
+        <div class="col1">
+          <img [src]="image" alt="">
+        </div>
+        <div class="col3">
+          <div class="prod-name">
+            <a class="c-gray">
+              {{name}}
+            </a>
+          </div>
+          <div class="prod-amount">
+            {{amount}}FCFA
+          </div>
+          <!--div class="prod-amount">
+            {{amount | currency:'XOF':'symbol':'4.0-2':'fr'}}
+          </div-->
+          <div class="size-qty-wrap">
+            <div class="size-qty">
+              <span class="size"> 
+                <span class="gray">Dimensions:</span>
+                <span class="value">{{dimensions}}</span>
+                <!--<span class="icon"></span>-->
+              </span>
+              <span class="qty">
+                <span class="gray">Quantité:</span>
+                <span class="quantite">
+                    <span class="valeur">{{quantity}}</span>
+                    <span class="icone">
+                      <span style="color: rgb(239, 83, 80);" (click)="setQuantite('plus', lignePanier)" title="augmenter"> <i class="fa fa-plus-square"></i> </span>
+                      <span *ngIf="quantity > 1" style="color: rgb(239, 83, 80);" (click)="setQuantite('moins', lignePanier)" title="diminuer"> <i class="fa fa-minus-square"></i> </span>
+                    </span>
+                </span>
+                </span>
+            </div>
+            <div class="seller">Vendu par: {{artiste}}</div>
+          </div>
+          <div class="edit-move-delete">
+            <div class="actions">
+              <span (click)="removeLineItem()" class="delete-item"><i class="fa fa-trash"></i> Supprimer</span>
+              <span (click)="addToWishlist(id)" [ngClass]="maClass" ><i class="fa fa-plus-circle"></i> {{wishlistLibelle}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<style>
+  .quantite {
+    border: 1px grey solid;
+    display: inline;
+    padding: 5px;
+  }
+  .valeur {
+    border-right: 1px grey solid;
+  }
+  .icone {
+    display: inline-block;
+  }
+</style>

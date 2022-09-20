@@ -1,9 +1,21 @@
-import { Component, OnInit, Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, OnInit, Injectable, PLATFORM_ID, Inject, Input, ElementRef } from '@angular/core';
+import { isPlatformBrowser, Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { ProductService } from "../../services/product.service";
 import { Product } from "../../classes/product";
+import { Router, ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AuthServiceS } from '../../services/auth.service';
+import { OeuvreService } from '../../services/oeuvre.service';
+import { Oeuvre } from '../../modeles/oeuvre';
+import { AppState } from '../../../interfaces';
+import { AuthActions } from '../../../auth/actions/auth.actions';
+import { getAuthStatus } from '../../../auth/reducers/selectors';
+import { getTotalCartItems } from '../../../checkout/reducers/selectors';
+import { environment } from '../../../../environments/environment';
+import { getTotalWishlistItems } from '../../../wishlist/reducers/selectors';
+
 
 @Component({
   selector: 'app-settings',
@@ -12,7 +24,28 @@ import { Product } from "../../classes/product";
 })
 export class SettingsComponent implements OnInit {
 
-  public products: Product[] = []
+  technique:any;
+    @Input() allmenus: any[];
+    @Input() child:number[];
+    //menus:any[];
+    returnUrl:string;
+    isAuthenticated: Observable<boolean>;
+    totalCartItems: Observable<number>;
+    totalWishlistItems:Observable<number>;
+    favoris:any[];
+    private listTitles: any[];
+    location: Location;
+    mobile_menu_visible: any = 0;
+    private toggleButton: any;
+    private sidebarVisible: boolean;
+    openTchat:boolean=false;
+
+    user: any;
+    isAdd: boolean;
+
+  //public products: Product[] = [];
+  public oeuvres: Oeuvre[] = [];
+  public newOeuvres: Oeuvre[] = [];
   
   public languages = [{ 
     name: 'English',
@@ -42,11 +75,48 @@ export class SettingsComponent implements OnInit {
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object,
     private translate: TranslateService,
-    public productService: ProductService) {
-    this.productService.cartItems.subscribe(response => this.products = response);
+    public productService: ProductService,
+    location: Location, 
+        private element: ElementRef, 
+        private router: Router,
+        private route:ActivatedRoute,
+         private authService: AuthServiceS,
+        private store: Store<AppState>,
+        private authActions: AuthActions,
+        private oeuvreS:OeuvreService) {
+          setTimeout(() => {this.productService.cartItems.subscribe(response =>{ this.oeuvres = response;
+            console.log("helloooooooo")});}, 1000); 
+            
+            setTimeout(() => {this.productService.newCartItems.subscribe(response =>{ this.newOeuvres = response;
+              console.log("helloooooooo")});}, 500); // Skeleton Loader
+    
+
+    this.isAdd = true;
+        this.user = this.authService.getUserConnected();
+        if( this.user != null){
+            if( this.user.userType === "ARTISTE"){
+                this.isAdd = false;
+                 }
+        }else{
+            this.isAdd = false;
+        }
+           
+
+        this.location = location;
+        this.sidebarVisible = false;
   }
 
   ngOnInit(): void {
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+   // this.redirectIfUserLoggedOut();
+    this.store.dispatch(this.authActions.authorize());
+    this.isAuthenticated = this.store.select(getAuthStatus);
+    this.totalCartItems = this.store.select(getTotalCartItems);
+    this.totalWishlistItems = this.store.select(getTotalWishlistItems);
+    //this.listTitles = this.menus.filter(listTitle => listTitle);
+
+    const navbar: HTMLElement = this.element.nativeElement;
+
   }
 
   changeLanguage(code){
@@ -59,6 +129,10 @@ export class SettingsComponent implements OnInit {
     return this.productService.cartTotalAmount();
   }
 
+  get getNewTotal(): Observable<number> {
+    return this.productService.newCartTotalAmount();
+  }
+
   removeItem(product: any) {
     this.productService.removeCartItem(product);
   }
@@ -66,5 +140,45 @@ export class SettingsComponent implements OnInit {
   changeCurrency(currency: any) {
     this.productService.Currency = currency
   }
+
+  logout() {
+    
+    this.authService.signOut();
+    this.removeList();
+    location.replace('home/signart');
+    //this.redirectIfUserLoggedOut();
+    //location.reload();
+ }
+
+ public removeList() {
+  this.productService.removeList();
+}
+ redirectIfUserLoggedOut(){
+     this.store.select(getAuthStatus).subscribe(
+       data => {
+         if (data === false) {
+         this.router.navigate(['home/signart']);
+        }
+       }
+     );
+   }
+   openForm(){
+     this.openTchat=true;
+     document.getElementById("myForm").style.display = "block";
+   }
+   closeForm(){
+     //this.openTchat=false;
+     document.getElementById("myForm").style.display = "none";
+   }
+   reloadTchatComp(){
+     console.log("Changement sur le tchat");
+     document.getElementById("tchatComp").focus();
+   }
+
+   getOeuvreImageUrl(id: number) {
+    return environment.API_ENDPOINT + 'image/oeuvre/' + id;
+  }
+
+
 
 }

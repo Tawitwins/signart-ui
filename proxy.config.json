@@ -1,0 +1,17 @@
+{
+
+        "/SignArt/*": {
+            "target": "http://localhost:8080",
+            "secure": false,
+            "logLevel": "debug"
+        },
+        "/stream/*":{
+            "target": "ws://localhost:8080",
+            "secure": false,
+            "ws": true,
+            "changeOrigin": true,
+            "pathRewrite": {
+            "/stream/*": ""
+            }
+        }
+}

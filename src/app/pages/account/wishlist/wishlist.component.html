@@ -1,55 +1,38 @@
-<app-breadcrumb [title]="'Page'" [breadcrumb]="'Page'"></app-breadcrumb>
+<app-breadcrumb [title]="'Favoris'" [breadcrumb]="'Favoris'"></app-breadcrumb>
 <!-- section start -->
 <section class="wishlist-section section-b-space">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <table class="table cart-table table-responsive-xs">
+                <table class="table cart-table table-responsive-xs" style="text-align: center;">
                     <thead>
                     <tr class="table-head">
-                        <th scope="col">image</th>
+                        <th scope="col">Image</th>
                         <th scope="col">Article</th>
                         <th scope="col">Prix</th>
                         <th scope="col">Disponibilité</th>
-                        <th scope="col">action</th>
+                        <th scope="col">Action</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody  *ngFor="let oeuvre of oeuvres">
                         <tr>
-                            <td>
-                                <a [routerLink]="['/shop/product/left/sidebar/trim-dress']">
-                                    <img src="assets/images/product/fashion/1.jpg" alt="fashion">
+                            <td >
+                                <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
+                                    <img [src]="getOeuvreImageUrl(oeuvre?.id)" alt="fashion">
                                 </a>
                             </td>
-                            <td><a [routerLink]="['/shop/product/left/sidebar/trim-dress']">La jaconde Leonardo de Vinci</a>
-                                <div class="mobile-cart-content row">
-                                    <div class="col-xs-3">
-                                        <p>En stock</p>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <h2 class="td-color">100000 FCFA</h2>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <h2 class="td-color">
-                                            <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="icon mr-1">
-                                                <i class="ti-close"></i>
-                                            </a>
-                                            <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="cart">
-                                                <i class="ti-shopping-cart"></i>
-                                            </a>
-                                        </h2>
-                                    </div>
-                                </div>
+                            <td><a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">{{oeuvre.nom}}</a>
+                                
                             </td>
-                            <td><h2>100000 FCFA</h2></td>
+                            <td>{{oeuvre.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </td>
                             <td >
-                                <p>EN stock</p>
+                                <p>{{oeuvre.stock}}</p>
                             </td>
                             <td>
-                                <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="icon mr-3">
+                                <a (click)="removeOeuvre(oeuvre)" title="Supprimer l'oeuvre de la liste"  class="icon mr-3">
                                     <i class="ti-close"></i>
                                 </a>
-                                <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="cart">
+                                <a (click)="addOeuvreToCart(oeuvre)" title="Ajouter l'oeuvre au panier" class="cart">
                                     <i class="ti-shopping-cart"></i>
                                 </a>
                             </td>
@@ -60,8 +43,8 @@
         </div>
         <div class="row wishlist-buttons">
             <div class="col-12">
-                <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continuer l'exploration</a>
-                <a [routerLink]="['/shop/checkout']" class="btn btn-solid">Payer maintenant</a>
+                <a [routerLink]="['/shop/collection/left/sidebar']" title="Continuer l'exploration"  class="btn btn-solid-Valider">Continuer l'exploration</a>
+                <!-- a [routerLink]="['/shop/checkout']" class="btn btn-solid">Payer maintenant</a> -->
             </div>
         </div>
     </div>

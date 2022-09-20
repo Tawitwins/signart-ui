@@ -1,0 +1,42 @@
+<div class="main-content marge">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card" *ngIf="totalWishlistItems > 0 else emptyWishlist">
+          <div class="card-header-warning" style="background-color: #f07c10">
+            <h4 class="card-title text-white"><strong>Ma liste favorite ({{totalWishlistItems}})</strong></h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-3" *ngFor="let item of wishItems$;">
+                <div class="carousel-inner">
+                  <div class="view overlay zoom">
+                    <img [src]="getOeuvreImageUrl(item.id)" class="img-fluid dim rounded" alt="">
+                    <div style="background-color: rgba(0,0,0,0.5);" class="mask flex-center waves-effect waves-strong">
+                      <p>
+                        <a (click)="removefromWishlist(item.id)" title="Supprimer l'oeuvre de la liste" [ngClass]="maClass" mdbTooltip="{{wishlistLibelle}}" placement="top" mdbWavesEffect>
+                          <i class="fa fa-heart"></i>
+                        </a>
+                        <a [routerLink]="['/detail-article/', item.id]" class="btn btn-default waves-effect" mdbTooltip="visualiser" placement="top"
+                          mdbWavesEffect>
+                          <i class="material-icons">visibility</i>
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-template #emptyWishlist>
+          <div class="wishlist-empty">
+            <div class="empty-wishlist-icon"></div>
+            <div class="empty-wishlist-message">Il n'y a aucune oeuvre dans votre liste de favoris</div>
+            <a class="empty-wishlist-link"></a>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

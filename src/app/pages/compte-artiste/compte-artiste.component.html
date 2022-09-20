@@ -1,0 +1,466 @@
+<!-- <app-breadcrumb [title]="'Artiste'" [breadcrumb]="'Compte Artiste'"></app-breadcrumb> -->
+<section class="contains">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3">
+              <div class="card col-md-12 text-center pink">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <!--img src="assets/images/profile/artist.jpg" alt="Placeholder image" width="90" class="rounded-circle img-fluid"-->
+                    <img [src]="getArtisteImageUrl(artiste.id)" onError="this.src='assets/images/artists/profile.jpg'" alt="Placeholder image" width="300" height="500" class=" img-fluid">
+                  </h5>
+                  <h6 class="card-subtitle mb-2 text-muted">{{artiste.prenom}} {{artiste.nom}}</h6>
+                  <p class="card-text">{{artiste.profession}}</p>
+                  <!--a href="#" class="card-link">Détails</a--></div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-6">
+                  <button title="Information générales" [ngClass]="(section === 'general')?'btn abonnement': 'btn annonces'" (click)='ChangerSection("general")'> Profil</button> 
+                </div>
+                <div class="col-md-6">
+                  <button title="Mes oeuvres" [ngClass]="(section === 'listeOeuvres' || section === 'addOeuvre' )?'btn abonnement': 'btn annonces'" (click)='ChangerSection("listeOeuvres")'> <i class="ti-PLUS"></i> Mes oeuvres</button>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 20px;">
+                <div class="col-md-6">
+                  <button title="Mes annonces" [ngClass]="(section === 'listeAnnonces' || section === 'addAnnonce')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeAnnonces")'> Mes annonces</button> 
+                </div>
+                <div class="col-md-6">
+                  <button title="Mes expositions" [ngClass]="(section === 'listeExpo' || section === 'addExpo')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeExpo")'> <i class="ti-PLUS"></i> Mes expositions</button>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 20px;">
+                <div class="col-md-6">
+                  <button title="Changer votre mot de passe ou votre photo de profil" [ngClass]="(section === 'parametres')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("parametres")'> Paramètres</button> 
+                </div>
+               <!--  <div class="col-md-6">
+                  <button [ngClass]="(section === 'listeExpo' || section === 'addExpo')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeExpo")'> <i class="ti-PLUS"></i> Mes expositions</button>
+                </div> -->
+              </div>
+            </div>
+            <!-- ------------------------------------------Contenu tableau de bord------------------------------------------------ -->
+          <div class="col-xl-9">
+            <div class="row">
+              <div class="col-xl-3 col-sm-6">
+                <div class=" bjrouge">
+                  <div class="side-l"><p class="big-l">{{artiste?.nbOeuvres}}</p> <p class="col-p">Oeuvres d'art</p></div>
+              </div>
+              </div>
+              <div class="col-xl-3 col-sm-6">
+               <div class="bbleu">
+                  <div class="side-l"><a [routerLink]="['/pages/followers/',artiste.id]" title="Nombre de followers"><p class="big-l">{{artiste?.nbFans}}</p></a> <p class="col-p">Followers</p></div>
+              </div> 
+               
+              </div>
+              <div class="col-xl-3 col-sm-6">
+                <div class="marrons">
+                  <div class="side-l"><p class="big-l">Art Plastique</p> <p class="col-p">{{artiste.profession}}</p></div>
+              </div> 
+                </div>
+             <!--  <div *ngIf='section=="listeOeuvres"' class="col-xl-3 col-sm-6 col-md-2">	  
+                <div class="blanc">
+                  <div class="side-l"><button title="Soumettre une oeuvre" class="btn annonce" (click)='ChangerSection("addOeuvre")'>Soumettre une Oeuvre</button></div>
+                </div> 
+              </div>
+              <div *ngIf='section=="listeExpo"' class="col-xl-3 col-sm-6 col-md-2">	  
+                <div class="blanc">
+                  <div class="side-l"><button title="Soumettre une exposition" class="btn annonce" (click)='ChangerSection("addExpo")'>Soumettre une Exposition</button></div>
+                </div> 
+              </div>
+              <div *ngIf='section=="listeAnnonces"' class="col-xl-3 col-sm-6 col-md-2">	  
+                <div class="blanc">
+                  <div class="side-l"><button title="Soumettre une annonce" class="btn annonce" (click)='ChangerSection("addAnnonce")'>Soumettre une Annonce</button></div>
+                </div> 
+              </div> -->
+            </div>      
+              <!------------------------------------------------ Content --------------------------------------------- --> 
+              <br>
+            <div class="row">
+                <div class="col-xl-12">
+                  <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                        <li class="breadcrumb-item">A propos de l'artiste</li>
+                    </ol>
+                  </nav>
+                  <div class="top-banner-wrapper">
+                    <!--section class="secbor">
+                      <video width="100%" height="300px" preload="auto" autoplay="autoplay" loop >
+                        <source src="assets/images/banner/animation.mp4" type="video/mp4">
+                        </video>
+                      </section-->
+                      <div class="table-responsive card" style="padding: 20px;">
+                        <section *ngIf='section=="general"' class="tab-product m-0">
+                          <div class="row">
+                            <div class="col-sm-12 col-lg-12">
+                              <app-artiste-profil></app-artiste-profil>
+                            </div>
+                          </div>
+                        </section>
+                        <section *ngIf='section=="listeOeuvres"' class="tab-product m-0">
+                          <button style="float: right;margin-top:-4%; margin-bottom: 2px;" class="btn annonce col-md-2.5" title="Soumettre une oeuvre" (click)='ChangerSection("addOeuvre")'>Soumettre une oeuvre</button>
+                          <div class="table-responsive card" style="padding: 20px;">
+                            <h4><strong>  Liste des oeuvres publiées</strong></h4>
+                            <div class="col-md-12">
+                              <div class="collection-product-wrapper" id="products">
+                                  
+                                  <div class="product-wrapper-grid" [ngClass]="layoutView">
+                                      <div class="row">
+                                          <div class="col-grid-box" [ngClass]="grid" *ngFor="let oeuvre of oeuvres">
+                                              <div class="product-box">
+                                                  <app-product-box-one [oeuvre]="oeuvre" [currency]="productService?.Currency" [thumbnail]="false" [cartModal]="true" [loader]="true">
+                                                  </app-product-box-one>
+                                              </div>
+                                          </div>
+                                          <div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="!oeuvres.length">
+                                              <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
+                                              <h3>Désolé! Il n'ya pas d'oeuvre pour le moment!! </h3>
+                                              <p>Veuilez vérifier votre clé de recherche ou actualiser la page.</p>
+                                              <a [routerLink]="['/shop/collection/left/sidebar']" title="Continuer l'exploration" class="btn btn-solid">Continue à explorer</a>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                            </div>
+                            <br>
+                            <br>
+                            <h4><strong> Liste des oeuvres en attente de publication</strong></h4>
+                            <div class="table-responsive"> 
+                              <table class="table table-hover"style="text-align: center;">
+                                  <thead class="text-warning">
+                                      <!--th>ID</th-->
+                                      <th>Image</th>
+                                      <th>Nom</th>
+                                      <th>Auteur</th>
+                                      <th>Annee</th>
+                                    <!-- <th>Sous technique</th>-->
+                                      <th>Prix</th>
+                                      
+                                    
+                                  </thead>
+                                  <tbody>
+                                      <p *ngIf="oeuvresEnAttenteValidation?.length == 0">
+                                        <br>
+                                        La liste est vide.
+                                      </p>
+                                      <tr *ngFor="let oeuvre of oeuvresEnAttenteValidation | slice: (pagOAP-1) * pageSizeOAP : (pagOAP-1) * pageSizeOAP + pageSizeOAP;">
+                                          <!--td>{{index + 1}}</td-->
+                                          <td><img [src]="getImageSous(oeuvre.id)" style="width: 100px; height: 100px;" alt=""></td>
+                                          <td>{{oeuvre.nom}}</td>
+                                          <td>{{oeuvre.auteur}}</td>
+                                          <td>{{oeuvre.annee}}</td>
+                                        <!-- <td>{{oeuvre.sousTechnique}}</td> -->
+                                          <td >{{oeuvre.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</td>
+                                          <!--<td class="td-actions text-right">
+                                              <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="getArticleById(oeuvre.id)">
+                                                  <i class="material-icons" style="color:white;">edit</i>
+                                              </button>
+                                              <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)=" onDeleteArticle(oeuvre.id)">
+                                                  <i class="material-icons" style="color:white;">cancel</i>
+                                              </button>
+                                          </td>-->
+                                  </tbody>
+                              </table>
+                              <ngb-pagination style="float: right;" [collectionSize]="oeuvresEnAttenteValidation.length" [(page)]="pagOAP" [pageSize]="pageSizeOAP" aria-label="Default pagination">
+                              </ngb-pagination>
+                          </div>
+                          </div>
+                        </section>
+                        <section *ngIf='section=="listeAnnonces"' class="tab-product m-0">
+                            <button style="float: right;margin-top:-4%;font-size: large;" class="btn annonce col-md-2.5" title="Soumettre une annonce" (click)='ChangerSection("addAnnonce")'>Soumettre une annonce</button>
+                          <div class="table-responsive" style="padding: 20px;">
+                            <h4><strong>  Liste des annonces publiées</strong></h4>
+                            <table style="text-align: center;" class="table table-hover">
+                                <thead class=" text-dark">
+                                    <th>
+                                    Titre
+                                    </th>
+                                    <th>
+                                        Lieu
+                                    </th>
+                                    <th>
+                                    Début
+                                    </th>
+                                    <th>
+                                    Fin
+                                    </th>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <!--th>
+                                        Etat Publication
+                                    </th-->
+                                    <!--<th>
+                                    Actions
+                                    </th>-->
+                                </thead>
+                                <tbody>
+                                  <p *ngIf="listesAnnonce?.length == 0">
+                                    <br>
+                                    La liste est vide.
+                                  </p>
+                                    <tr *ngFor="let annonce of listesAnnonce | slice: (pagAP-1) * pageSizeAP : (pagAP-1) * pageSizeAP + pageSizeAP">
+                                        <td>
+                                            {{annonce.titre}}
+                                        </td>
+                                        <td>
+                                            {{annonce.lieu}}
+                                        </td>
+                                        <td>
+                                            {{annonce.dateDebut | date: "dd/MM/yyyy"}}
+                                        </td>                                                     
+                                        <td>
+                                            {{annonce.dateFin | date: "dd/MM/yyyy"}}
+                                        </td>
+                                        <td>
+                                            {{annonce.description}}
+                                        </td>
+                                        <!--td *ngIf="annonce.etatPublication" style="background-color: seagreen;">
+                                            Publiée
+                                        </td>
+                                        <td *ngIf="!annonce.etatPublication" style="background-color:darkred;">
+                                            En Attente
+                                        </td-->
+                                        <!-- <td class="td-actions">
+                                                <button  type="button"  class="btn btn-white text-info  btn-sm btn-just-icon" data-toggle="modal"  data-target="">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button  type="button"  class="btn  btn-white text-danger  btn-sm btn-just-icon" data-toggle="modal"  data-target="">
+                                                    <i class="material-icons">delete</i>
+                                                </button>
+                                        </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <ngb-pagination style="float: right;"  [collectionSize]="listesAnnonce.length" [(page)]="pagAP" [pageSize]="pageSizeAP" aria-label="Default pagination">
+                            </ngb-pagination>
+                            <br>
+                            <h4><strong>  Liste des annonces en attente de publication</strong></h4>
+                            <table style="text-align: center;" class="table table-hover">
+                              <thead class=" text-dark">
+                                  <th>
+                                  Titre
+                                  </th>
+                                  <th>
+                                      Lieu
+                                  </th>
+                                  <th>
+                                  Début
+                                  </th>
+                                  <th>
+                                  Fin
+                                  </th>
+                                  <th>
+                                      Description
+                                  </th>
+                                  <!--th>
+                                      Etat Publication
+                                  </th-->
+                                  <!--<th>
+                                  Actions
+                                  </th>-->
+                              </thead>
+                              <tbody>
+                                <p *ngIf="listesAnnonceEnAttente?.length == 0">
+                                  <br>
+                                  La liste est vide.
+                                </p>
+                                  <tr *ngFor="let annonce of listesAnnonceEnAttente | slice: (pagAAP-1) * pageSizeAAP : (pagAAP-1) * pageSizeAAP + pageSizeAAP">
+                                      <td>
+                                          {{annonce.titre}}
+                                      </td>
+                                      <td>
+                                          {{annonce.lieu}}
+                                      </td>
+                                      <td>
+                                          {{annonce.dateDebut | date: "dd/MM/yyyy"}}
+                                      </td>                                                     
+                                      <td>
+                                          {{annonce.dateFin | date: "dd/MM/yyyy"}}
+                                      </td>
+                                      <td>
+                                          {{annonce.description}}
+                                      </td>
+                                      <!--td *ngIf="annonce.etatPublication" style="background-color: seagreen;">
+                                          Publiée
+                                      </td>
+                                      <td *ngIf="!annonce.etatPublication" style="background-color:darkred;">
+                                          En Attente
+                                      </td-->
+                                      <!-- <td class="td-actions">
+                                              <button  type="button"  class="btn btn-white text-info  btn-sm btn-just-icon" data-toggle="modal"  data-target="">
+                                                  <i class="material-icons">edit</i>
+                                              </button>
+                                              <button  type="button"  class="btn  btn-white text-danger  btn-sm btn-just-icon" data-toggle="modal"  data-target="">
+                                                  <i class="material-icons">delete</i>
+                                              </button>
+                                      </td> -->
+                                  </tr>
+                              </tbody>
+                          </table>
+                            <ngb-pagination style="float: right;" [collectionSize]="listesAnnonceEnAttente.length" [(page)]="pagAAP" [pageSize]="pageSizeAAP" aria-label="Default pagination">
+                            </ngb-pagination>
+                          </div>
+                        </section>
+                        <section *ngIf='section=="listeExpo"' class="tab-product m-0">
+                          <button style="float: right;margin-top:-4%"  class="btn annonce col-md-2.5" title="Soumettre une exposition" (click)='ChangerSection("addExpo")'>Soumettre une exposition</button>
+                          <div class="table-responsive" style="padding: 20px;">
+                            <h4><strong>   Liste des expositions publiées</strong></h4>
+                            <table style="text-align: center;" class="table table-hover">
+                              <thead class=" text-dark">
+                                  <th>
+                                  Titre
+                                  </th>
+                                  <th>
+                                  Type
+                                  </th>
+                                  <th>
+                                  Lieu
+                                  </th>
+                                  <th>
+                                  Date Debut
+                                  </th>
+                                  <th>
+                                    Date Fin
+                                  </th>
+                                  <!--th>
+                                    Etat Publication
+                                </th-->
+                              </thead>
+                              <tbody>
+                                <p *ngIf="listesExp?.length == 0">
+                                  <br>
+                                  La liste est vide.
+                                </p>
+                                  <tr *ngFor="let exposition of listesExp | slice: (pagEP-1) * pageSizeEP : (pagEP-1) * pageSizeEP + pageSizeEP">
+                                      <td>
+                                          {{exposition.titre}}
+                                      </td>
+                                      <td>
+                                        {{exposition.type}}
+                                      </td>
+                                      <td>
+                                        {{exposition.adresse}}
+                                      </td>
+                                      <td>
+                                        {{exposition.dateDebut | date: "dd/MM/yyyy"}}
+                                      </td>
+                                      <td>
+                                        {{exposition.dateFin | date: "dd/MM/yyyy"}}
+                                      </td>
+                                      <!--td *ngIf="exposition.etatExposition" style="background-color: seagreen;">
+                                        Publiée
+                                    </td>
+                                    <td *ngIf="!exposition.etatExposition" style="background-color:darkred;">
+                                        En Attente
+                                    </td-->
+                                  </tr>
+                              </tbody>
+                            </table>
+                            <ngb-pagination style="float: right;" [collectionSize]="listesExpEnAttente.length" [(page)]="pagEP" [pageSize]="pageSizeEP" aria-label="Default pagination">
+                            </ngb-pagination>
+                            <br>
+                            <h4><strong>   Liste des expositions en attente de publication</strong></h4>
+                            <table style="text-align: center;" class="table table-hover">
+                              <thead class=" text-dark">
+                                  <th>
+                                  Titre
+                                  </th>
+                                  <th>
+                                  Type
+                                  </th>
+                                  <th>
+                                  Lieu
+                                  </th>
+                                  <th>
+                                  Date Debut
+                                  </th>
+                                  <th>
+                                    Date Fin
+                                  </th>
+                                  <!--th>
+                                    Etat Publication
+                                </th-->
+                              </thead>
+                              <tbody>
+                                <p *ngIf="listesExpEnAttente?.length == 0">
+                                  <br>
+                                  La liste est vide.
+                                </p>
+                                  <tr *ngFor="let exposition of listesExpEnAttente | slice: (pagEAP-1) * pageSizeEAP : (pagEAP-1) * pageSizeEAP + pageSizeEAP">
+                                      <td>
+                                          {{exposition.titre}}
+                                      </td>
+                                      <td>
+                                        {{exposition.type}}
+                                      </td>
+                                      <td>
+                                        {{exposition.adresse}}
+                                      </td>
+                                      <td>
+                                        {{exposition.dateDebut | date: "dd/MM/yyyy"}}
+                                      </td>
+                                      <td>
+                                        {{exposition.dateFin | date: "dd/MM/yyyy"}}
+                                      </td>
+                                      <!--td *ngIf="exposition.etatExposition" style="background-color: seagreen;">
+                                        Publiée
+                                    </td>
+                                    <td *ngIf="!exposition.etatExposition" style="background-color:darkred;">
+                                        En Attente
+                                    </td-->
+                                  </tr>
+                              </tbody>
+                            </table>
+                            <ngb-pagination style="float: right;" [collectionSize]="listesExpEnAttente.length" [(page)]="pagEAP" [pageSize]="pageSizeEAP" aria-label="Default pagination">
+                            </ngb-pagination>
+                          </div>
+                        </section>
+                        <section *ngIf='section=="addOeuvre"' class="tab-product m-0">
+                          <div class="container, table-responsive card" style="padding: 20px;">
+                          <app-add-oeuvre></app-add-oeuvre>
+                          </div>
+                        </section>
+                        <section *ngIf='section=="addAnnonce"' class="tab-product m-0">
+                          <div class="container, table-responsive card" style="padding: 20px;">
+                            <app-add-annonce></app-add-annonce>
+                        </div>
+                        </section>
+                        <section *ngIf='section=="addExpo"' class="tab-product m-0">
+                          <div class="container, table-responsive card" style="padding: 20px;">
+                            <app-add-expo></app-add-expo>
+                        </div>
+                        </section>
+                        <section *ngIf='section=="parametres"' class="tab-product m-0">
+                          <div class="row">
+                            <div class="col-sm-12 col-lg-12">
+                              <app-artiste-param></app-artiste-param>
+                            </div>
+                          </div>
+                        </section>
+                    </div>
+                      <!-- <div class="top-banner-content small-section">
+                        <h4>Les oeuvres d'art</h4>
+                        <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        </h5>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+                            survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+                            and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        </p>
+                    </div> 
+                  <tbody *ngFor="let commande of commandes | slice: (pag1-1) * pageSize1 : (pag1-1) * pageSize1 + pageSize1">
+                  
+                  <ngb-pagination [collectionSize]="adresses.length" [(page)]="pag1" [pageSize]="pageSize1" aria-label="Default pagination">
+                            </ngb-pagination>
+                  
+                  -->
+                </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+</section>
+<br>

@@ -1,0 +1,106 @@
+<!--<div class="login-form" *ngIf="actionCodeChecked" [ngSwitch]="mode"> 
+    !-- Reset Password -- 
+    <div class="form-group input-group" *ngSwitchCase="'resetPassword'"> 
+      <input [(ngModel)]="oldPassword" type="text" id="oldPassword"
+      name="oldPassword" placeholder="Old Password"> <br> 
+      <input [(ngModel)]="newPassword" type="text" id="newPassword"
+      name="newPassword" placeholder="New Password"> <br> 
+      <input [(ngModel)]="confirmPassword" type="text"
+      id="confirmPassword" name="confirmPassword" placeholder="Confirm
+      Password"> 
+      <button (click)="handleResetPassword()">Confirm</button> 
+    <div>   !-- Recover Email -- 
+    <div *ngSwitchCase="'recoverEmail'">
+        fhgdjhgdsjhgdsjfgsdjfsdf recover
+    </div> 
+    
+    !-- Verify Email --
+    <div *ngSwitchCase="'verifyEmail'"> 
+        ffefffjhgvdjhfgdfjggjdfh verify
+    </div> 
+</div>-->
+&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;
+<div class="main-content">
+    <div class="login-container">
+              <div class="row">
+                  <div class="col-sm-5 mr-auto ml-auto">
+                    <div *ngIf="actionCodeChecked" [ngSwitch]="mode">
+                    <div *ngSwitchCase="'resetPassword'"> 
+                      <div class="card">
+                        <div class="card-header" style="background-color:#f07c10">
+                            <h4 class="card-title text-white">
+                                <p><strong>Réinitialiser votre mot de passe</strong></p>
+                            </h4>
+                        </div>
+                        <!--<div class="bg-danger">
+                            <h4 class="card-title text-white"><strong>Authentification à SignArt</strong></h4>
+                            <p class="card-category text-secondary">Merci de vous authentifier</p>
+                        </div>-->
+                        <!---
+                        <div class="panel-heading" style="background-color:;">
+                          <h3 class="panel-title" style="color: whitesmoke">Authentification à {{title}}</h3>
+                        </div>-->
+                        <div class="card-body">
+                            <p>Réinitialiser votre mot de passe pour cette adresse e-mail &nbsp;&nbsp;<strong>&nbsp;{{mail}}</strong> .</p>
+                            <div id="existing-customer" class="panel-body" data-hook="login">
+                                <!-- <div *ngIf="!user" class="login-third-party-login">
+                                  <app-social-auth></app-social-auth>
+                                </div>
+                                <div *ngIf="user" class="login-third-party-login">
+                                  <div class="login-button-container">
+                                    <div class="card-block">
+                                      <img style="width: 20%; height: 20%" class="card-img-top img-responsive photo" src="{{ user.photoUrl }}">
+                                    </div>
+                                    <div class="card-block">
+                                      <h4 class="card-title">{{ user.name }}</h4>
+                                      <p class="card-text">{{ user.email }}</p>
+                                    </div>
+                                  </div> 
+                                </div>-->
+                                <form class="example-container" [formGroup]="newPasswordForm" >
+                                    <mat-form-field class="example-full-width">
+                                      <input matInput placeholder="Entrer votre mot de passe" formControlName="newpassword" [type]="hide ? 'password' : 'text'">
+                                      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                      </button>
+                                      <mat-error *ngIf="newPasswordForm.get('newpassword').errors && newPasswordForm.get('newpassword').touched">
+                                        <p class="register-error-message">
+                                          Le mot de passe doit être composé au moins 6 caractères</p>
+                                      </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Confirmer votre mot de passe" formControlName="confirmation" [type]="hide ? 'password' : 'text'">
+                                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        </button>
+                                      </mat-form-field>
+                                      <mat-error *ngIf="(newPasswordForm.get('confirmation').errors || newPasswordForm.hasError('mismatchedPasswords')) && newPasswordForm.get('confirmation').touched">
+                                        <p class="register-error-message">{{ 'les mots de passe doivent correspondre'}}</p>
+                                      </mat-error>
+                                      <button mat-raised-button (click)="handleResetPassword()" type="submit" class="btn " style="background-color:#f07c10 ;color:azure">Enregistrer</button>                               
+                                </form>
+                              </div>
+                        </div>
+
+                      </div>
+                      </div>
+                      <!-- Recover Email --> 
+                     <div *ngSwitchCase="'recoverEmail'">
+                         <div class="card">
+                            fhgdjhgdsjhgdsjfgsdjfsdf recover
+                         </div>
+                      </div> 
+                      <!-- Verify Email --> 
+                      <div *ngSwitchCase="'verifyEmail'">
+                          <div class="card">
+                            fhgdjhgdsjhgdsjfgsdjfsdf Verify
+                          </div>
+                      </div> 
+                  </div>
+                    </div>
+  
+              </div>
+
+        
+      </div>
+</div>

@@ -1,21 +1,52 @@
 <!-- thank-you section start -->
-<section class="section-b-space light-layout">
+<ngx-ui-loader [loaderId]="'loader-01'" logoUrl="assets/images/icon/LogoGif.gif" logoSize="400" fgsType="rectangle-bounce" fgsPosition="top-left" fgsColor="green" [hasProgressBar]="true" logoPosition="top-center" overlayColor="rgba(255,255,255,0.8)"  blur="1"></ngx-ui-loader>
+<section class="section-b-space">
     <div class="container">
-        <div class="row">
+        <div class="row" *ngIf="StatusResponse == 'completed'">
             <div class="col-md-12">
                 <div class="success-text">
                     <i class="fa fa-check-circle" aria-hidden="true"></i>
                     <h2>Merci</h2>
-                    <p>Le paiement sur Signart a été effectué avec succès </p>
-                    <p>N°  de Transaction: 267676GHERT105467</p>
+                    <p style=" text-transform: none">La transaction a été effectuée avec succès </p>
+                    <p style=" text-transform: none">N°  de commande: {{order?.numero}}</p>
                 </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="StatusResponse == 'cancelled'">
+            <div class="col-md-12">
+                <div class="success-text">
+                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                    <h2>Merci</h2>
+                    <p style=" text-transform: none">La transaction a été annulée </p>
+                    <p style=" text-transform: none">N°  de commande: {{order?.numero}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="StatusResponse == 'pending'">
+            <div class="col-md-12">
+                <div class="success-text">
+                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                    <h2>Merci</h2>
+                    <p style=" text-transform: none">La commande est toujours en cours de traitement </p>
+                    <p style=" text-transform: none">N°  de commande: {{order?.numero}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="StatusResponse != 'completed' && StatusResponse != 'cancelled' && StatusResponse != 'pending'">
+        <div class="col-md-12">
+            <div class="success-text">
+                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                <h2>Merci</h2>
+                <p style=" text-transform: none">La transaction a été effectuée avec succès </p>
+                <p style=" text-transform: none">N°  de commande: {{order?.numero}}</p>
             </div>
         </div>
     </div>
 </section>
 <!-- Section ends -->
 <!-- order-detail section start -->
-<section class="section-b-space">
+<!-- <section class="section-b-space">
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
@@ -86,9 +117,11 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
 
         </div>
     </div>
-</section>
+</section> -->
+
 <!-- Section ends -->

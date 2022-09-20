@@ -11,21 +11,21 @@
         <a href="javascript:void(0)" (click)="addToWishlist(product)" title="Add to Wishlist">
         	<i class="fa fa-heart" aria-hidden="true"></i>
         </a>
-        <button title="Add to cart" (click)="CartModal.openModal(product)" *ngIf="cartModal">
-        	<i class="ti-shopping-cart"></i> Add to cart
+        <button title="Ajouter au panier" (click)="CartModal.openModal(product)" *ngIf="cartModal">
+        	<i class="ti-shopping-cart"></i> Ajouter au panier
         </button>
-        <button title="Add to cart" (click)="addToCart(product)" *ngIf="!cartModal">
-        	<i class="ti-shopping-cart"></i> Add to cart
+        <button title="Ajouter au panier" (click)="addToCart(product)" *ngIf="!cartModal">
+        	<i class="ti-shopping-cart"></i> Ajouter au panier
         </button>
         <a href="javascript:void(0)" (click)="addToCompare(product)" title="Compare">
         	<i class="fa fa-refresh" aria-hidden="true"></i>
         </a>
-        <a href="javascript:void(0)" class="mobile-quick-view" (click)="QuickView.openModal()" title="Quick View">
+        <a href="javascript:void(0)" class="mobile-quick-view" (click)="QuickView.openModal()" title="Voir plus">
         	<i class="ti-search" aria-hidden="true"></i>
         </a>
     </div>
     <div class="quick-view-part">
-        <a href="javascript:void(0)" (click)="QuickView.openModal()" title="Quick View">
+        <a href="javascript:void(0)" (click)="QuickView.openModal()" title="Voir plus">
         	<i class="ti-search" aria-hidden="true"></i>
         </a>
     </div>
@@ -35,7 +35,7 @@
     <a [routerLink]="['/shop/product/left/sidebar/', product?.title.replace(' ', '-')]">
     	<h6>{{ product?.title | titlecase }}</h6>
     </a>
-    <h4>{{ product?.price * currency?.price | discount:product | currency:currency?.currency:'symbol' }}</h4>
+    <h4>{{ product?.price * currency?.price | discount:product | currency:currency?.currency:'symbol':'4.0-0':'fr' }}</h4>
 </div>
 
 <app-quick-view #quickView [product]="product" [currency]="currency"></app-quick-view>

@@ -1,7 +1,7 @@
-<app-breadcrumb [title]="product?.title" [breadcrumb]="'Product'"></app-breadcrumb>
+<app-breadcrumb [title]="oeuvre?.nom" [breadcrumb]="'Oeuvre'"></app-breadcrumb>
 <!-- section start -->
 <section class="section-b-space">
-  <div class="collection-wrapper">
+  <div class="collection-wrapper" >
     <div class="container">
       <div class="row">
         <div class="col-sm-3">
@@ -23,39 +23,40 @@
                 </app-product-box-vertical-slider> -->
           </div>
         </div>
-        <div class="col-lg-9 col-sm-12 col-xs-12">
+        <div class="col-lg-9 col-sm-12 col-xs-12" *ngIf="!loader">
           <div class="container-fluid">
             <div class="row">
               <div class="col-xl-12">
                 <div class="filter-main-btn mb-2">
                   <span class="filter-btn" (click)="toggleMobileSidebar()">
-                    <i class="fa fa-bars" aria-hidden="true"></i> sidebar
+                    <i class="fa fa-bars" aria-hidden="true"></i>
                   </span>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar  class="product-slick">
-                    <ng-container *ngFor="let image of product?.images; index as i">
+                <owl-carousel-o [options]="ProductDetailsMainSliderConfig"  class="tile" #owlCar  class="product-slick">
+                    <ng-container *ngFor="let nb of nbimages; index as i">
                         <ng-template carouselSlide [id]="i">
-                            <div>
-                              <img [defaultImage]="'assets/images/product/placeholder.jpg'" 
-                                   [lazyLoad]="image.src" 
-                                   [alt]="image.alt" class="img-fluid">
+                            <div id="imgOeuvr" class="tile" aria-expanded="true" data-scale="2.4" style="cursor: pointer; width: 450; height: 400px;">
+                              <lib-ngx-image-zoom (mouseenter) ="setMagnification(1)"  (mouseleave) ="setMagnification(2)" [thumbImage]=getOeuvreImageUrl(oeuvre?.id) [magnification]="magnificationInt" minZoomRatio="0.1" enableScrollZoom="true" (contextmenu)="cancelContextMenu()" ></lib-ngx-image-zoom>
+                              <!-- <img [defaultImage]="getOeuvreImageUrl(oeuvre?.id)" (contextmenu)="cancelContextMenu()" class="photo"
+                                   [lazyLoad]="getOeuvreImageUrl(oeuvre?.id)" 
+                                   [alt]="getOeuvreImageUrl(oeuvre?.id)" > -->
                             </div>
                         </ng-template>
                     </ng-container>
                 </owl-carousel-o>
-                <div class="col-12 p-0" *ngIf="product?.images.length > 1">
+                <div class="col-12 p-0">
                     <div class="slider-nav">
                         <owl-carousel-o [options]="ProductDetailsThumbConfig" class="product-slick">
-                            <ng-container *ngFor="let image of product?.images; index as i">
+                            <ng-container *ngFor="let nb of nbimages; index as i">
                                 <ng-template carouselSlide [id]="i">
                                     <div class="owl-thumb" [class.active]="i == activeSlide">
-                                      <img [defaultImage]="'assets/images/product/placeholder.jpg'" 
-                                           [lazyLoad]="image.src" 
-                                           [alt]="image.alt" class="img-fluid" 
+                                      <img [defaultImage]="getOeuvreImageUrl(oeuvre?.id)" (contextmenu)="cancelContextMenu()"
+                                           [lazyLoad]="getOeuvreImageUrl(oeuvre?.id)" 
+                                           [alt]="getOeuvreImageUrl(oeuvre?.id)" class="img-fluid" 
                                            (click)="owlCar.to(activeSlide = i.toString())">
                                     </div>
                                 </ng-template>
@@ -66,51 +67,52 @@
               </div>
               <div class="col-lg-6 rtl-text">
                 <div class="product-right">
-                  <h2>{{ product?.title }}</h2>
+                  <h2>{{ oeuvre?.nom }}</h2>
                   <h4>
-                      <del *ngIf="product?.discount">{{ product?.price * productService.Currency?.price | currency: productService.Currency?.currency:'symbol' }}</del>
-                      <span>{{ product?.discount }}% Offre Promotionnelle</span>
+                      <del *ngIf="oeuvre?.tauxremise">{{ oeuvre?.prix }} FCFA</del>
+                      <span *ngIf="oeuvre?.tauxremise">{{ oeuvre?.tauxremise }}% Offre Promotionnelle</span>
                   </h4>
                   <h3>
-                      {{ (product?.price | discount:product) * productService.Currency?.price | currency: productService.Currency?.currency:'symbol' }}
+                    {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100  }} FCFA
                   </h3>
                   <div class="product-description border-product">
-                    <h6 class="product-title size-text" *ngIf="Size(product.variants).length">
-                        Artiste: Dan Enriqué
+                    <h6 class="product-title size-text">
+                        Artiste: {{name}}
                     </h6>
-                    <h5 class="avalibility" *ngIf="counter <= product.stock"><span>En Stock</span></h5>
-                    <h5 class="avalibility" *ngIf="counter > product.stock"><span>Rupture</span></h5>
-                    <h6 class="product-title">quantité</h6>
+                    <h6 class="product-title">Quantité</h6>
                     <div class="qty-box">
                       <div class="input-group">
                         <span class="input-group-prepend">
-                          <button type="button" class="btn quantity-left-minus" data-type="minus" (click)="decrement()">
+                          <button type="button" class="btn quantity-left-minus" title="Diminuer la quantité" data-type="minus" (click)="decrement()">
                             <i class="ti-angle-left"></i>
                           </button>
                         </span>
                         <input type="text" name="quantity" class="form-control input-number" [value]="counter" disabled/>
                         <span class="input-group-prepend">
-                          <button type="button" class="btn quantity-right-plus" data-type="plus" (click)="increment()">
+                          <button type="button" class="btn quantity-right-plus" title="Augmenter la quantité" [disabled]="counter == oeuvre?.stock" data-type="plus" (click)="increment()">
                             <i class="ti-angle-right"></i>
                           </button>
                         </span>
                       </div>
                     </div>
+                    <h5 class="avalibility" *ngIf="counter <= oeuvre?.stock && oeuvre?.stock > 1" style="color: green;"><span>Disponible</span></h5>
+                    <h5 class="avalibility" *ngIf="oeuvre?.stock == 1" style="color: green;"><span>1 seul élément disponible</span></h5>
+                    <h5 class="avalibility" *ngIf="counter > oeuvre?.stock" style="color: darkred;"><span>Non disponible</span></h5>
                   </div>
                   <div class="product-buttons">
-                    <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="addToCart(product)">Au Panier</a>
-                    <a [routerLink]="['/pages/wishlist']" class="btn btn-solid" [class.disabled]="counter > product.stock">S'abonner</a>
+                    <a href="javascrip:void(0)" class="btn btn-solid-Valider" title="Ajouter au panier" [class.disabled]="counter > oeuvre?.stock" (click)="addToCart(oeuvre)">Ajouter au panier</a>
+                    <!--a [routerLink]="['/pages/wishlist']" class="btn btn-solid" [class.disabled]="counter > oeuvre?.stock">S'abonner</a-->
                   </div>
                   <div class="border-product">
                     <h6 class="product-title">Détails Article</h6>
-                    <p>{{ product.description.substring(0, 200)+'...' }}</p>
+                    <p>{{ oeuvre?.description?.substring(0, 200)+'...' }}</p>
                   </div>
                   <div class="border-product">
                     <h6 class="product-title">Partager</h6>
                     <div class="product-icon">
                       <app-social></app-social>
                       <form class="d-inline-block">
-                        <button class="wishlist-btn" (click)="addToWishlist(product)">
+                        <button class="wishlist-btn" title="Favoris" (click)="addToWishlist(oeuvre)">
                           <i class="fa fa-heart"></i>
                           <span class="title-font">Favoris</span>
                         </button>
@@ -131,7 +133,7 @@
                     <ngb-tab>
                         <ng-template ngbTabTitle>Description</ng-template>
                         <ng-template ngbTabContent>
-                          <p>{{ product.description }}</p>
+                          <p>{{ oeuvre?.description }}</p>
                         </ng-template>
                     </ngb-tab>
                     <ngb-tab>
@@ -162,23 +164,23 @@
                                 </div>
                               </div>
                               <div class="col-md-6">
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="Enter Your name" required>
+                                <label for="name">Nom</label>
+                                <input type="text" class="form-control" id="name" placeholder="Saisissez un nom" required>
                               </div>
                               <div class="col-md-6">
                                 <label for="email">Email</label>
                                 <input type="text" class="form-control" id="email" placeholder="Email" required>
                               </div>
                               <div class="col-md-12">
-                                <label for="review">Review Title</label>
-                                <input type="text" class="form-control" id="review" placeholder="Enter your Review Subjects" required>
+                                <label for="review">Objet</label>
+                                <input type="text" class="form-control" id="review" placeholder="Objet" required>
                               </div>
                               <div class="col-md-12">
-                                <label for="review">Review Title</label>
-                                <textarea class="form-control" placeholder="Wrire Your Testimonial Here" id="exampleFormControlTextarea1" rows="6"></textarea>
+                                <label for="review">Message</label>
+                                <textarea class="form-control" placeholder="Commentaire" id="exampleFormControlTextarea1" rows="6"></textarea>
                               </div>
                               <div class="col-md-12">
-                                <button class="btn btn-solid" type="submit">Submit YOur Review</button>
+                                <button class="btn btn-solid" type="submit">Envoyer</button>
                               </div>
                             </div>
                           </form>
@@ -194,5 +196,5 @@
   </div>
   <!-- <app-related-product [type]="product?.type"></app-related-product> -->
 </section>
-<app-size-modal #sizeChart [product]="product"></app-size-modal>
+<!--app-size-modal #sizeChart [product]="product"></app-size-modal-->
 <!-- Section ends -->

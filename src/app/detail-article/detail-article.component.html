@@ -1,0 +1,177 @@
+<div class="main-content marge">
+  <div class="container-fluid">
+    <div class="row clearfix">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-5">
+                    <div class="tab-pane active tile" aria-expanded="true" data-scale="2.4" style="cursor: pointer; width: 450; height: 400px;">
+                      <img [src]="url"  class="photo" (contextmenu)="cancelContextMenu()"> 
+                    </div>
+                <!--<div class="col-md-2">&nbsp;</div>
+                <div class="col-md-10 tiles" >
+
+                  </div>-->
+                   
+                  <!--<div class="tab-pane" id="product_2" aria-expanded="false">
+                    <img src="assets/img/home/H-D1.png" class="img-fluid">
+                  </div>
+                  <div class="tab-pane" id="product_3" aria-expanded="false">
+                    <img src="assets/img/home/H-D2.png" class="img-fluid">
+                  </div>
+                  <div class="tab-pane" id="product_4" aria-expanded="false">
+                    <img src="assets/img/home/H-D3.png" class="img-fluid">
+                  </div>
+                  <div class="tab-pane" id="product_5" aria-expanded="false">
+                    <img src="assets/img/home/H-D4.png" class="img-fluid">
+                  </div> -->
+                
+                <!-- <ul class="preview-thumbnail nav nav-tabs" style="margin-bottom: 10px"> -->
+                  <!-- <li class="nav-item" style="width: 70px; height: 70px;">
+                    <a class="nav-link active" data-toggle="tab" href="#product_1" aria-expanded="true">
+                    <img [src]="url"> 
+                    </a>
+                  </li>
+                  <li class="nav-item" style="width: 70px; height: 70px;">
+                    <a class="nav-link" data-toggle="tab" href="#product_2" aria-expanded="false">
+                      <img src="assets/img/home/H-D1.png">
+                    </a>
+                  </li>
+                  <li class="nav-item" style="width: 70px; height: 70px;">
+                    <a class="nav-link" data-toggle="tab" href="#product_3" aria-expanded="false">
+                      <img src="assets/img/home/H-D2.png">
+                    </a>
+                  </li>
+                  <li class="nav-item" style="width: 70px; height: 70px;">
+                    <a class="nav-link" data-toggle="tab" href="#product_4" aria-expanded="false">
+                      <img src="assets/img/home/H-D3.png">
+                    </a>
+                  </li>
+                  <li class="nav-item" style="width: 70px; height: 70px;">
+                    <a class="nav-link" data-toggle="tab" href="#product_5" aria-expanded="false">
+                      <img src="assets/img/home/H-D4.png">
+                    </a>
+                  </li> -->
+                <!-- </ul> -->
+              </div>
+              <div class="col-7">
+                <h3 class="product-title m-b-0">{{article$?.nom}}</h3>
+                <h4 class="price m-t-0">Prix:
+                  <span class="col-amber">{{article$?.prix | currency:'XOF':'symbol':'4.0-2':'fr'}}</span>
+                </h4>
+                <h4 class="price m-t-0">Couleur:
+                  <span class="col-amber">{{article$?.couleur}}</span>
+                </h4>
+                <!-- <div class="rating">
+                  <div class="stars">
+                    <span style="color: orange" class="fa fa-star"></span>
+                    <span style="color: orange" class="fa fa-star"></span>
+                    <span style="color: orange" class="fa fa-star"></span>
+                    <span style="color: orange" class="fa fa-star"></span>
+                    <span style="color: orange" class="fa fa-star"></span>
+                  </div>
+                  <span class="m-l-10">41 reviews</span>
+                </div> -->
+                <hr>
+                <p class="product-description">{{article$?.description}}</p>
+                <!-- <p class="vote">
+                  <strong>78%</strong> of buyers enjoyed this product!
+                  <strong>(23 votes)</strong>
+                </p> -->
+                <!-- <h5 class="sizes">sizes:
+                  <span class="size" title="small">s</span>
+                  <span class="size" title="medium">m</span>
+                  <span class="size" title="large">l</span>
+                  <span class="size" title="xtra large">xl</span>
+                </h5> -->
+                <!-- <h5 class="colors">colors:
+                  <span class="color bg-amber not-available" title="Not In store"></span>
+                  <span class="color bg-green"></span>
+                  <span class="color bg-blue"></span>
+                </h5> -->
+                <hr>
+                <div class="action" *ngIf="isAdd == true">
+                  <button class="btn  btn-round" style="background-color:rgb(216, 206, 206);color: #f07c10" type="button" (click)="addToCart();" mdbTooltip="Ajouter au panier" placement="top" mdbWavesEffect>Ajouter au panier</button>
+                  <!-- <button class="btn btn-danger btn-icon btn-icon-mini btn-round waves-effect" type="button">
+                      <i class="material-icons">ti-heart</i>
+                  </button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-tabs" style="background-color: #f07c10;color:azure">
+            <div class="nav-tabs-navigation">
+              <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                  <li routerLinkActive="active" class="nav-item" *ngFor="let navigation of navigations">
+                    <a mat-button class="nav-link" href="{{navigation.path}}" data-toggle="tab">
+                      {{navigation.title}}
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+                <div class="tab-pane active" id="description">
+                  <p>{{article$?.description}}</p>
+                </div>
+                <div class="tab-pane" id="livraison">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <img src="assets/img/livraison.png">
+                        </div>
+                        <div class="col-sm-8">
+                          <p style="font-family: times new roman, times, serif; font-size: 17px;">
+                            <span style="color: tomato;">SignArt</span> livre les oeuvres partout au Sénégal.<br/>
+
+                            Chaque oeuvre est emballée par l’artiste lui-même selon un cahier des charges très précis afin de garantir une protection optimale pendant le transport.<br/> <span style="color: tomato;">SignArt</span> sélectionne le transporteur le plus adapté à la typologie d'oeuvre, chaque transport étant suivi et assuré.<br/>Vous serez notifié par <span style="color: tomato;">SignArt</span> dès que l'oeuvre vous sera expédiée.<br/>Si celle-ci arrivait endommagée à votre domicile, <span style="color: tomato;">SignArt</span> prend en charge les frais de retour et s'occupe des démarches de dédommagement de l'artiste et du client.<br/>Si l'oeuvre ne peut être réparée ou restaurée, le client est immédiatement remboursé.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="retour">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <img src="assets/img/retour.png">
+                      </div>
+                      <div class="col-sm-8">
+                        <p style="font-family: times new roman, times, serif; font-size: 17px;">
+                          Retour gratuit : vous disposez d'un délai de 30 jours à compter de la réception de l'oeuvre pour exercer votre droit de rétractation.
+
+                          Profitez de 30 jours d’essai pour trouver la place idéale de votre œuvre d’art. Et si vous changez d’avis, il vous suffit de nous retourner l'oeuvre et nous vous remboursons intégralement votre commande dans les plus brefs délais.
+                        </p>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="garantie">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <img style="width: 250px" src="assets/img/garanti.png">
+                    </div>
+                    <div class="col-sm-8">
+                      <p style="font-family: times new roman, times, serif; font-size: 17px;">
+                        <span style="color: tomato;">SignArt</span> vous garantit l'authenticité de l'oeuvre, qu'il vous livre accompagnée d'un certificat officiel.
+                        <span style="color: tomato;">SignArt</span> apporte le plus grand soin à la sélection de ses artistes, qui sont tous des professionnels dont nous garantissons l'originalité et l'authenticité des oeuvres.<br/>Ainsi, chaque oeuvre commandée sur <span style="color: tomato;">SignArt</span> vous est livrée accompagnée d'une facture et d'un certificat d'authenticité, attestant de son originalité.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

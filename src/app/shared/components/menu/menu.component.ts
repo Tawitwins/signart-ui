@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class MenuComponent implements OnInit {
 
   public menuItems: Menu[];
+  openTchat:boolean=false;
 
   constructor(private router: Router, public navServices: NavService) {
     this.navServices.items.subscribe(menuItems => this.menuItems = menuItems );
@@ -28,6 +29,19 @@ export class MenuComponent implements OnInit {
   // Click Toggle menu (Mobile)
   toggletNavActive(item) {
     item.active = !item.active;
+  }
+
+  openForm(){
+    this.openTchat=true;
+    document.getElementById("myForm").style.display = "block";
+  }
+  closeForm(){
+    //this.openTchat=false;
+    document.getElementById("myForm").style.display = "none";
+  }
+  reloadTchatComp(){
+    console.log("Changement sur le tchat");
+    document.getElementById("tchatComp").focus(); 
   }
 
 }

@@ -5,6 +5,10 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { Product } from "../../../classes/product";
 import { ProductService } from '../../../../shared/services/product.service';
+import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
+import { environment } from 'src/environments/environment';
+import { AuthServiceS } from 'src/app/shared/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-quick-view',
@@ -14,6 +18,7 @@ import { ProductService } from '../../../../shared/services/product.service';
 export class QuickViewComponent implements OnInit, OnDestroy  {
 
   @Input() product: Product;
+  @Input() oeuvre: Oeuvre;
   @Input() currency: any;  
   @ViewChild("quickView", { static: false }) QuickView: TemplateRef<any>;
 
@@ -21,10 +26,11 @@ export class QuickViewComponent implements OnInit, OnDestroy  {
   public ImageSrc: string;
   public counter: number = 1;
   public modalOpen: boolean = false;
+  user: any;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object,
     private router: Router, private modalService: NgbModal,
-    public productService: ProductService) { }
+    public productService: ProductService, private authService: AuthServiceS) { }
 
   ngOnInit(): void {
   }
@@ -44,6 +50,22 @@ export class QuickViewComponent implements OnInit, OnDestroy  {
       });
     }
   }
+
+  /*openModal() {
+    this.modalOpen = true;
+    if (isPlatformBrowser(this.platformId)) { // For SSR 
+      this.modalService.open(this.QuickView, { 
+        size: 'lg',
+        ariaLabelledBy: 'modal-basic-title',
+        centered: true,
+        windowClass: 'Quickview' 
+      }).result.then((result) => {
+        `Result ${result}`
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+    }
+  }*/
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -101,11 +123,40 @@ export class QuickViewComponent implements OnInit, OnDestroy  {
   }
 
   // Add to cart
-  async addToCart(product: any) {
+  /*async addToCart(product: any) {
     product.quantity = this.counter || 1;
     const status = await this.productService.addToCart(product);
     if(status)
       this.router.navigate(['/shop/cart']);
+  }*/
+
+  async addToCart(oeuvre: any) {
+    this.user = this.authService.getUserConnected();
+    if(this.user==null){
+     /* Swal.fire({
+        //title: 'Are you sure?',
+        text: "Vous devez vous connecter pour effectuer cette action",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#376809',
+        cancelButtonColor: '#601A17',
+        cancelButtonText: 'annuler',
+        confirmButtonText: 'Oui, se connecter'
+      }).then((result) => {
+        if (result.value) {
+          console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+          this.router.navigate(['/pages/login']);
+        }
+      })**/  
+      oeuvre.stock = this.counter || 1;
+      const status = await this.productService.addToCartNew(oeuvre);
+     }else{
+      oeuvre.stock = this.counter || 1;
+      const status = await this.productService.addToCart(oeuvre);
+      //if(status)
+       // this.router.navigate(['/shop/cart']);
+     }
+    
   }
 
   ngOnDestroy() {
@@ -113,5 +164,9 @@ export class QuickViewComponent implements OnInit, OnDestroy  {
       this.modalService.dismissAll();
     }
   }
+  getOeuvreImageUrl(id: number) {
+    return environment.API_ENDPOINT + 'image/oeuvre/' + id;
+  }
+
 
 }

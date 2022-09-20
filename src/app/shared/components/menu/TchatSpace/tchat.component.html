@@ -1,0 +1,367 @@
+
+<div (click)="closeRightClickMenu()" style="background-color: white;height: 445px;">
+  <div class="app-inner-layout chat-layout" style="height: 445px;">
+    <div class="app-inner-layout__wrapper" style="height: 445px;" [ngClass]="{'open-mobile-menu' : toggleMobileSidebar}">
+     
+      <div class="app-inner-layout__content card" style="height: 445px;margin-top: 0px;">
+        <div style="height: 210px;">
+         
+          <div class="app-inner-layout__top-pane" style="border-bottom: 3px;" >
+            <div class="pane-left">
+              <div class="mobile-app-menu-btn">
+                <button type="button" class="hamburger hamburger--elastic" [ngClass]="{'is-active' : toggleMobileSidebar}"
+                  (click)="toggleMobileSidebar = !toggleMobileSidebar">
+                  <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+                </button>
+              </div>
+              <div class="avatar-icon-wrapper mr-2">
+                <!-- <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div> -->
+                <div class="avatar-icon avatar-icon-xl rounded">
+                  <img width="82" src="assets/images/tchat/tchater2.gif" alt="Avatar">
+                </div>
+              </div>
+              <h4 class="mb-0 text-nowrap">{{connectedUser?.prenom}} {{connectedUser?.nom}}
+                <div class="opacity-7">Profil: <span class="opacity-8">{{connectedUser?.userType}}</span></div>
+              </h4>
+            </div>
+            <div class="pane-right">
+             <!--  <div class="mobile-app-menu-btn">
+                <button type="button" class="hamburger hamburger--elastic" [ngClass]="{'is-active' : toggleMobileSidebar}"
+                  (click)="toggleMobileSidebar = !toggleMobileSidebar">
+                  <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+                </button>
+              </div> -->
+              <!-- <div class="avatar-icon-wrapper mr-2">
+                <!-- <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div>
+                <div class="avatar-icon avatar-icon-xl rounded">
+                  <img width="82" src="assets/img/tchat/tchater1.ico" alt="Avatar">
+                </div>
+              </div> -->
+             <!--  <h4 class="mb-0 text-nowrap">{{connectedUser?.prenom}} {{connectedUser?.nom}}
+                <div class="opacity-7">Profil: <span class="opacity-8">{{connectedUser?.userType}}</span></div>
+              </h4> -->
+            </div>
+          </div>
+          <div id="scrollContainer" style="height:210px;overflow-y: auto ;"  #scrollMe [scrollTop]="scrollMe.scrollHeight">
+            <div *ngFor="let message of messages">
+              <div  class="card-header--title" *ngIf="message?.showDate==true" >
+                <span  style="color:skyblue;" > <b>&#9733; {{message?.dateEnvoi| date:'dd/MM/yyyy'}} &#9733;</b> </span>
+              </div>
+              <div class="chat-wrapper" style="background-color: rgb(255, 255, 255);">
+                <div class="container" *ngIf="connectedUser?.id==message?.idReceiver && message.msgStateSender=='VALIDE' && message.msgStateReceiver=='VALIDE'">
+                  <div  style="margin-top: 7%;"  class="container " (contextmenu)="rightClick($event,message)">
+                    <p style="color: black;background-color:gray;float: left;border-radius: 20px;padding: 10px;"> 
+                      <a class="row" *ngIf="message.filename!=null && message.filename!=''" style="margin-left: 5px;" (click)="saveFile(message.msgFile,message.filename)" >
+                        <img width="40%" [src]="message.urlfile">
+                        <div style="width: 60%;margin-left: 2px;">  {{ message?.msgFile?.size/1000000 }} Mo  <br> {{ message.filename }} </div>
+                        <!-- <div class="row"> {{ message.filename }} </div> -->
+                      <br>
+                      </a> 
+                    {{ message?.contenu }}
+                    </p>
+                  </div>
+                  <img src="assets/images/tchat/tchater2.gif" alt="Avatar" style="width:10%">
+                  <span class="time-left"> Admin SignArt </span>
+                  <small class="opacity-6">
+                    <i name="calendar-alt mr-1" class="time-right"></i>
+                    {{ message?.dateEnvoi | date: "HH:mm:ss"}}
+                  </small>
+                </div>
+                <!-- <div  style="background-color:gray;margin-top: 7%;" *ngIf="connectedUser?.id==message?.idReceiver && message.msgStateSender=='VALIDE'" class="container ">
+                  <div class="chat-box-wrapper,row" (contextmenu)="rightClick($event,message)" *ngIf="message.msgStateReceiver=='VALIDE'">
+                    <div>
+                      <div class="avatar-icon-wrapper mr-1">
+                        <div class="avatar-icon avatar-icon-lg rounded">
+                          <img src="assets/images/tchat/tchater2.gif" alt="Avatar">
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="chat-box"> 
+                        <p style="color: black;"> 
+                          <a *ngIf="message.filename!=null && message.filename!='' " (click)="saveFile(message.msgFile,message.filename)" >
+                            <div class="row,right"> <img [src]="message.urlfile" height="100%" width="100%"> {{ message?.msgFile?.size/1000000 }} Mo</div>
+                            <div class="row,right"> {{ message.filename }} </div>
+                          </a> 
+                          {{ message?.contenu }}
+                        </p>
+                      <span class="time-left"> Admin SignArt </span>
+                      </div>
+                      <small class="opacity-6">
+                        <i name="calendar-alt mr-1" class="time-right"></i>
+                        {{ message?.dateEnvoi | date: "HH:mm:ss"}}
+                      </small>
+                    </div>
+                  </div>
+                </div> -->
+                <div  class="container darker" *ngIf="connectedUser?.id==message?.idSender && message.msgStateSender=='VALIDE'" >
+                  <div style="margin-top: 7%;" class="container darker" (contextmenu)="rightClick($event,message)">
+                   
+                    <ng-template #terminer>
+                      <img id="#terminer" [src]="message.urlfile" *ngIf="message.filename!=null " />
+                    </ng-template>
+                    <p style="color: white;float:right;background-color:#601A17;border-radius: 20px;padding: 10px;">
+                      <a class="row" *ngIf="message.filename!=null && message.filename!=''" style="margin-left: 5px;" (click)="saveFile(message.msgFile,message.filename)">
+                        <img width="40%" [src]="message.urlfile">
+                        <div style="width: 60%;margin-left: 2px;">  {{ message?.msgFile?.size/1000000 }} Mo <br> {{ message.filename }} </div>
+                        <!-- <div class="col-md-4" style="margin-left: 10px;"> {{ message.filename }} </div> -->
+                      <br>
+                      </a> 
+                    {{ message?.contenu }}
+                    </p>
+                  </div>
+                  <small class="opacity-6,time-right">
+                    <i name="calendar-alt mr-1"></i>
+                    <span class="time-right"> {{ message?.dateEnvoi | date: "HH:mm:ss"}} </span>
+                  </small>
+                  <!-- <img  src="assets/images/tchat/tchater1.ico" alt="Avatar" class="right" style="width:10%"> -->
+                </div>
+                <!-- <div  style="background-color:#601A17;margin-top: 7%;border-radius: 20px;" *ngIf="connectedUser?.id==message?.idSender && message.msgStateSender=='VALIDE'" class="container darker" >
+                  <div class="float-right"(contextmenu)="rightClick($event,message)">
+                    <div class="chat-box-wrapper chat-box-wrapper-right">
+                      <div>
+                        <div class="avatar-icon-wrapper ml-1">
+                          <div class="avatar-icon avatar-icon-lg rounded">
+                            <img  src="assets/images/tchat/tchater1.ico" alt="Avatar" class="right" style="border: black;">
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="chat-box"> 
+                          <ng-template #terminer>
+                          <img id="#terminer" [src]="message.urlfile" *ngIf="message.filename!=null " />
+                          </ng-template>
+                          <p style="color: white;">
+                            <a *ngIf="message.filename!=null && message.filename!='' " (click)="saveFile(message.msgFile,message.filename)">
+                              <div class="row,right"> <img [src]="message.urlfile" height="100%" width="100%"> {{ message?.msgFile?.size/1000000 }} Mo</div>
+                              <div class="row,right"> {{ message.filename }} </div>
+                            </a> 
+                          {{ message?.contenu }}
+                          </p>
+                        </div>
+                        <small class="opacity-6,time-right">
+                          <i name="calendar-alt mr-1"></i>
+                          <span class="time-left"> {{ message?.dateEnvoi | date: "HH:mm:ss"}} </span>
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+                <!-- <div class="chat-box-wrapper">
+                  <div>
+                    <div class="avatar-icon-wrapper mr-1">
+                      <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div>
+                      <div class="avatar-icon avatar-icon-lg rounded">
+                        <img src="data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMfaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjYtYzEzOCA3OS4xNTk4MjQsIDIwMTYvMDkvMTQtMDE6MDk6MDEgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkQ3MDQwMTE2RUNGMDExRThBNjRDQzQyMTE5Mjk5QTQ0IiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkQ3MDQwMTE1RUNGMDExRThBNjRDQzQyMTE5Mjk5QTQ0IiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE3IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJENDFFMzk5RUI1NDJFOUFCNzIzNzUzMDQ3QkJEMkQ3OSIgc3RSZWY6ZG9jdW1lbnRJRD0iRDQxRTM5OUVCNTQyRTlBQjcyMzc1MzA0N0JCRDJENzkiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7/7gAOQWRvYmUAZMAAAAAB/9sAhAAGBAQEBQQGBQUGCQYFBgkLCAYGCAsMCgoLCgoMEAwM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" alt="">
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="chat-box">But I must explain to you how all this mistaken idea of denouncing pleasure and
+                      praising pain was born and I will give you a complete account of the system.
+                    </div>
+                    <small class="opacity-6">
+                      <fa name="calendar-alt mr-1"></fa>
+                      11:01 AM | Yesterday
+                    </small>
+                  </div>
+                </div>
+                <div class="float-right">
+                  <div class="chat-box-wrapper chat-box-wrapper-right">
+                    <div>
+                      <div class="chat-box">Expound the actual teachings of the great explorer of the truth, the
+                        master-builder of human happiness.
+                      </div>
+                      <small class="opacity-6">
+                        <fa name="calendar-alt mr-1"></fa>
+                        11:01 AM | Yesterday
+                      </small>
+                    </div>
+                    <div>
+                      <div class="avatar-icon-wrapper ml-1">
+                        <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div>
+                        <div class="avatar-icon avatar-icon-lg rounded">
+                          <img src="data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMfaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjYtYzEzOCA3OS4xNTk4MjQsIDIwMTYvMDkvMTQtMDE6MDk6MDEgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkQ3MDQwMTE2RUNGMDExRThBNjRDQzQyMTE5Mjk5QTQ0IiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkQ3MDQwMTE1RUNGMDExRThBNjRDQzQyMTE5Mjk5QTQ0IiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE3IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJENDFFMzk5RUI1NDJFOUFCNzIzNzUzMDQ3QkJEMkQ3OSIgc3RSZWY6ZG9jdW1lbnRJRD0iRDQxRTM5OUVCNTQyRTlBQjcyMzc1MzA0N0JCRDJENzkiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7/7gAOQWRvYmUAZMAAAAAB/9sAhAAGBAQEBQQGBQUGCQYFBgkLCAYGCAsMCgoLCgoMEAwM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" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+           
+          </div>
+         
+          <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" 
+          (onFileOver)="fileOver($event)"  (onFileLeave)="fileLeave($event)" > 
+            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+              <form [formGroup] = "formGroup" (submit)="sendMessage()" style="width: 100%;">
+                <div class="app-inner-layout__bottom-pane d-block text-center" style="padding: 1%;">
+                  <div class="mb-0 position-relative row form-group">
+                    <div class="col-sm-12">
+                      <input placeholder="Message à envoyer" type="text" formControlName="message" name="message" class="form-control-lg form-control" style="width: 100%;"/>
+                    </div>
+                    <div class="col-sm-12">
+                      <button type="submit" class="fa fa-paper-plane" style="width: 30px; height: 30px;"></button>
+                      <input type="file" id="file-input"(change)="onFileChange($event)" name="file-input" style="display: none;" >
+                      <label for="file-input" style="cursor:pointer;">
+                        <img style="float: right;" height="30" width="30" src="assets/images/tchat/pj.jpg" alt="PJ" style="cursor:pointer;" />
+                      </label>
+                      <img style="float: right;" height="30" width="30" src="assets/images/tchat/emojShowPopup.png" (click)="EmojVisibleFunction(2)" alt="Émojis" style="cursor:pointer;" />
+                      
+                      </div>
+                      <div class="mb-0 position-relative row form-group">
+                        <div style="max-width: 250px;margin-left: 30px;" title="{{fileName}}" (click)="removeSelectedFile()">{{fileName}}</div>
+                            <!-- <button type="button" (click)="openFileSelector()">Browse Files</button> -->
+                        <img src="assets/images/tchat/8Etj.gif" *ngIf="displayLoader | async;" height="30" width="30" /> 
+                      </div>
+                    </div>
+                </div>
+              </form>
+            </ng-template>
+          </ngx-file-drop>
+        </div>
+      </div>
+      <emoji-mart title="Pick your emoji…" (click)="EmojVisibleFunction(1)" *ngIf="showEmojis==true" (emojiSelect)="selectedEmoji($event)"  emoji="point_up"></emoji-mart>
+         <!--  <div class="app-inner-layout__sidebar card">
+            <div class="app-inner-layout__sidebar-header">
+              <ul class="nav flex-column">
+                <li class="pt-4 pl-3 pr-3 pb-3 nav-item">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i name="search"></i>
+                      </div>
+                    </div>
+                    <input placeholder="Search..." type="text" class="form-control">
+                  </div>
+                </li>
+                <li class="nav-item-header nav-item">Mes Discussions</li>
+              </ul>
+            </div>
+            <ul class="nav flex-column" *ngFor="let message of messagesAdmin , let index = index" >
+              <li class="nav-item">
+                <button type="button" tabindex="0" class="dropdown-item" (click)="RowSelected(message,index)" [class.active]="index == SelectedRow">
+                  <div class="widget-content p-0">
+                    <div class="widget-content-wrapper">
+                      <div class="widget-content-left mr-3">
+                        <div class="avatar-icon-wrapper">
+                          <!-- <div class="badge badge-bottom badge-success badge-dot badge-dot-lg"></div> 
+                          <div class="avatar-icon">
+                            <img src="assets/images/tchater2.gif" alt="Avatar">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="widget-content-left">
+                        <div class="widget-heading">{{message.username}}</div>
+                        <div class="widget-subheading">Profil: {{message.profilSender}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              </li>
+            </ul>
+          </div>
+    </div> -->
+  </div>
+</div>
+<!-- <div [contextMenuTrigger]="menu" (menuAction)="handleMenuAction($event)">Right Click</div> -->
+<!-- <div (contextmenu)="rightClick($event)"> right click meee kxkx</div> -->
+<style>
+  .table tr.active td {
+  background-color:#aaaaaa !important;
+  color: black;
+}
+.ngx-file-drop.active {
+  background-color:#aaaaaa !important;
+  color: black;
+  border-radius: 0px; 
+}
+</style>
+<rightClicMenuTchat-component *ngIf="!isHidden" [x]="xPosTabMenu" [y]="yPosTabMenu" [message]="selectedMsg" (ishiddenchild)="closeRightClickMenu()"></rightClicMenuTchat-component>
+
+
+<!-- <div class="form-group row">
+  <label class="col-md-3 col-form-label" for="file-input">File input</label>
+  <div class="col-md-9">
+    <input type="file" id="file-input" name="file-input">
+  </div>
+</div>
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="file-multiple-input">Multiple File input</label>
+  <div class="col-md-9">
+    <input type="file" id="file-multiple-input" name="file-multiple-input" multiple>
+  </div>
+</div> -->
+
+<style>
+.myMsg{
+  background-color: rgb(99, 52, 13); ;
+}
+  /* Chat containers */
+.container {
+  /* border: 2px solid #dedede;
+  background-color: #f1f1f1; */
+  border-radius: 5px;
+  padding: 0%;
+  margin: 0px 0px 0px 0px ;
+  max-width: 85%;
+}
+
+/* Darker chat container */
+.darker {
+  /* border-color: #ccc; */
+  /* background-color: #ddd; */
+  max-width: 85%;
+  margin-left: 15%;
+}
+
+/* Clear floats */
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Style images */
+.container img {
+  float: left;
+  max-width: 50px;
+  /*width: 100%;*/
+  /*margin-right: 20px;*/
+  border-radius: 50%;
+}
+
+/* Style the right image */
+.container img.right {
+  float: right;
+  max-width: 50px;
+  /*width: 100%;*
+  margin-left: 20px;
+  margin-right:0;*/
+}
+
+/* Style time text */
+.time-right {
+  margin-left: 20px;
+  float: right;
+  color: #aaa;
+}
+
+/* Style time text */
+.time-left {
+  margin-left: 20px;
+  margin-right: 20px;
+  float: left;
+  color: #999;
+}
+</style>
+
+
+<!-- <ul>
+  <li *ngFor="let message of messages">{{ message.username }} : {{ message.content }}</li>
+</ul>
+<form (submit)="sendMessage()">
+  <input type="text" [(ngModel)]="message" name="message" />
+  <button type="submit">Envoyer</button>
+</form> -->

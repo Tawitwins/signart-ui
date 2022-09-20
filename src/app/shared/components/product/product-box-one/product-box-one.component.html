@@ -1,64 +1,69 @@
 <div *ngIf="!loader">
   <div class="img-wrapper">
     <div class="lable-block">
-      <span class="lable3" *ngIf="product.new">new</span>
-      <span class="lable4" *ngIf="product.sale">on sale</span>
+      <!--span class="lable3" *ngIf="oeuvre.stock != 0">new</span-->
+      <span class="lable4" *ngIf="oeuvre?.stock == 0">on sale</span>
     </div>
     <div class="front">
-      <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
+      <a [routerLink]="['/shop/product/left/sidebar/', oeuvre?.id]">
         <img 
-          [defaultImage]="ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'" 
-          [lazyLoad]="ImageSrc ? ImageSrc : product.images[0].src" 
+          [defaultImage]="'getOeuvreImageUrl(oeuvre?.id)'" 
+          [lazyLoad]="getOeuvreImageUrl(oeuvre?.id)" 
           class="img-fluid lazy-loading" 
-          alt="{{ product.images[0].alt }}" />
+          alt="{{ oeuvre?.nom }}" />
       </a>
     </div>
     <div class="back" *ngIf="onHowerChangeImage">
-      <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
-        <img [src]="ImageSrc ? ImageSrc : product.images[1].src" class="img-fluid lazy-loading" alt="{{ product.images[1].alt }}">
+      <a [routerLink]="['/shop/product/left/sidebar/', oeuvre?.id]">
+        <img [src]="getOeuvreImageUrl(oeuvre?.id)" class="img-fluid lazy-loading" alt="{{ oeuvre?.nom }}">
       </a>
     </div>
-    <ul class="product-thumb-list" *ngIf="thumbnail">
+    <!--ul class="product-thumb-list" *ngIf="thumbnail">
       <li class="grid_thumb_img" [class.active]="ImageSrc == image.src" *ngFor="let image of product.images">
         <a href="javascript:void(0)" (mouseover)="ChangeVariantsImage(image.src)">
           <img [lazyLoad]="image.src">
         </a>
       </li>
-    </ul>
-    <div class="cart-info cart-wrap">
-      <a href="javascript:void(0)" title="Add to cart" (click)="CartModal.openModal(product)"
+    </ul-->
+    <div class="cart-info cart-wrap" style="background-color: white;">
+      <a href="javascript:void(0)" title="Ajouter au panier" (click)="CartModal.openModal(oeuvre)"
         *ngIf="cartModal">
         <i class="ti-shopping-cart"></i>
       </a>
-      <a href="javascript:void(0)" title="Add to cart" (click)="addToCart(product)"
+      <a href="javascript:void(0)" title="Ajouter au panier" (click)="addToCart(oeuvre)"
         *ngIf="!cartModal">
         <i class="ti-shopping-cart"></i>
       </a>
-      <a href="javascript:void(0)" title="Add to Wishlist" (click)="addToWishlist(product)">
+      <a href="javascript:void(0)" *ngIf="isFavorite==false" title="Ajouter au favoris" (click)="addToWishlist(oeuvre)">
         <i class="ti-heart" aria-hidden="true"></i>
       </a>
-      <a href="javascript:void(0)" title="Quick View" (click)="QuickView.openModal()">
+      <a href="javascript:void(0)" *ngIf="isFavorite==true" title="Supprimer des favoris" (click)="removeFromWishlist(oeuvre)">
+        <i class="fa fa-heart" aria-hidden="true"></i>
+      </a>
+      <a href="javascript:void(0)" title="Voir plus" (click)="QuickView.openModal()">
         <i class="ti-search" aria-hidden="true"></i>
       </a>
       <!-- <a href="javascript:void(0)" title="Compare" (click)="addToCompare(product)">
         <i class="ti-reload" aria-hidden="true"></i>
       </a> -->
     </div>
+
+    
   </div>
   <div class="product-detail">
     <div>
       <bar-rating [rate]="5" [readOnly]="true"></bar-rating>
-      <a [routerLink]="['/shop/product/left/sidebar/', product?.title.replace(' ', '-')]">
-        <h6>{{ product?.title | titlecase }}</h6>
+      <a [routerLink]="['/shop/product/left/sidebar/', oeuvre?.id]">
+        <h6>{{ oeuvre?.nom | titlecase }}</h6>
       </a>
-      <p>{{ product?.description }}</p>
+      <p>{{ oeuvre?.description }}</p>
       <!-- <h4>
         {{ product?.price * currency?.price | discount:product | currency:currency?.currency:'symbol' }} 
         <del *ngIf="product?.discount"><span class="money"> {{ product?.price * currency?.price | currency:currency?.currency:'symbol' }}</span></del>
       </h4> -->
       <h4>
-        {{ product?.price * currency?.price | discount:product  }} FCFA
-        <del *ngIf="product?.discount"><span class="money"> {{ product?.price * currency?.price  }} FCFA</span></del>
+        {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} 
+        <del *ngIf="oeuvre?.tauxremise"><span class="money"> {{ oeuvre?.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }} </span></del>
       </h4>
      <!-- <ul class="color-variant" *ngIf="Color(product?.variants).length">
         <li [class]="color" *ngFor="let color of Color(product?.variants)" [ngStyle]="{'background-color': color}"
@@ -69,6 +74,6 @@
   </div>
 </div>
 <app-skeleton-product-box *ngIf="loader"></app-skeleton-product-box>
-<app-quick-view #quickView [product]="product" [currency]="currency"></app-quick-view>
-<app-cart-modal #cartModal [product]="product" [currency]="currency" *ngIf="cartModal"></app-cart-modal>
+<app-quick-view #quickView [oeuvre]="oeuvre" [currency]="currency"></app-quick-view>
+<app-cart-modal #cartModal [oeuvre]="oeuvre" [currency]="currency" *ngIf="cartModal"></app-cart-modal>
 

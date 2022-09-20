@@ -58,7 +58,15 @@
     float: right;
     font-weight: 700;
 }
-
+#PlusSuivre{
+    background-color:#9b1104;
+  color:#fff;
+  border: 1px solid #9b1104;
+}
+#PlusSuivre:hover{
+    background-color: #fff;
+  color:#9b1104;
+}
 .mar{
     margin-top: 30px;
 }

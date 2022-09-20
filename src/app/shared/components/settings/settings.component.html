@@ -10,70 +10,125 @@
       <div><img src="assets/images/icon/user.svg" class="img-fluid" alt="settong">
         <i class="ti-palette"></i></div>
       <div class="show-div setting">
-        <ul>
-          <li>
-            <a [routerLink]="['/pages/dashboard']">Tableau de bord</a>
-          </li>
+        <ul *ngIf="! (isAuthenticated | async)">
           <li>
             <a [routerLink]="['/pages/login']">Se connecter</a>
           </li>
           <li>
-            <a [routerLink]="['/pages/register']">S'enregistrer</a>
+            <a [routerLink]="['/pages/register']">S'inscrire</a>
+          </li>
+
+          <li>
+            <a [routerLink]="['/pages/register-artist']">Créer un compte artiste</a>
+          </li>
+        </ul>
+        <ul *ngIf="isAuthenticated | async">
+          <li>
+            <a [routerLink]="['/pages/dashboard']">Espace personnel</a>
           </li>
           <li>
             <a [routerLink]="['/pages/wishlist']">Favoris</a>
           </li>
           <li>
-            <a [routerLink]="['/pages/register-artist']">Créer un compte artiste</a>
-          </li>
-          <li>
-            <a [routerLink]="['/pages/order/success']">Détails commande</a>
+            <a (click)="logout()" style="cursor: pointer;">Déconnexion</a>
           </li>
         </ul>
       </div>
     </li> 
-    <li class="onhover-div mobile-cart">
+    <li class="onhover-div mobile-cart" *ngIf="user == null">
       <div>
         <a [routerLink]="['/shop/cart']">
           <img src="assets/images/icon/cart.svg" class="img-fluid" alt="">
           <i class="ti-shopping-cart"></i>
         </a>
       </div>
-      <span class="cart_qty_cls">{{ products.length }}</span>
-      <ul class="show-div shopping-cart" *ngIf='!products.length'>
+      <span class="cart_qty_cls">{{ newOeuvres.length }}</span>
+      <ul class="show-div shopping-cart" *ngIf='!newOeuvres.length'>
         <h5>Votre Panier est vide.</h5>
       </ul>
-      <ul class="show-div shopping-cart" *ngIf='products.length'>
-        <li *ngFor="let product of products">
+      <ul class="show-div shopping-cart" *ngIf='newOeuvres.length'>
+        <li *ngFor="let oeuvre of newOeuvres">
           <div class="media">
-            <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
-              <img class="mr-3" [src]="product?.images[0].src" [alt]="product?.images[0].alt">
+            <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
+              <img class="mr-3" [src]="getOeuvreImageUrl(oeuvre?.id)" [alt]="oeuvre.nom">
             </a>
             <div class="media-body">
-              <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
-                <h4>{{ product?.title }}</h4>
+              <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
+                <h4>{{ oeuvre?.nom }}</h4>
               </a>
               <h4>
+                <!--span>
+                  {{ oeuvre?.quantity }} x 
+                  {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol' }}                
+                </span-->
                 <span>
-                  {{ product?.quantity }} x 
-                  {{ product?.price * productService?.Currency.price | discount:product | currency:productService?.Currency.currency:'symbol' }}
-                </span>
+                  {{ oeuvre?.quantity }} x 
+                  {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}                </span>
               </h4>
             </div>
           </div>
-          <div class="close-circle" (click)="removeItem(product)">
+          <div class="close-circle" (click)="removeItem(oeuvre)">
             <a href="javascript:void(0)"><i class="fa fa-times" aria-hidden="true"></i></a>
           </div>
         </li>
         <li>
           <div class="total">
-            <h5>subtotal : <span>{{ getTotal | async | currency:productService?.Currency.currency:'symbol' }}</span></h5>
+            <h5>Total : <span>{{ getNewTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}</span></h5>
           </div>
         </li>
         <li>
           <div class="buttons">
             <a [routerLink]="['/shop/cart']" class="view-cart">Voir Panier</a>
-            <a [routerLink]="['/shop/checkout']" class="checkout">Paiement</a>
+           <!--  <a [routerLink]="['/shop/checkout']" class="checkout">Paiement</a> -->
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="onhover-div mobile-cart" *ngIf="isAuthenticated | async">
+      <div>
+        <a [routerLink]="['/shop/cart']">
+          <img src="assets/images/icon/cart.svg" class="img-fluid" alt="">
+          <i class="ti-shopping-cart"></i>
+        </a>
+      </div>
+      <span class="cart_qty_cls">{{ oeuvres.length }}</span>
+      <ul class="show-div shopping-cart" *ngIf='!oeuvres.length'>
+        <h5>Votre Panier est vide.</h5>
+      </ul>
+      <ul class="show-div shopping-cart" *ngIf='oeuvres.length'>
+        <li *ngFor="let oeuvre of oeuvres">
+          <div class="media">
+            <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
+              <img class="mr-3" [src]="getOeuvreImageUrl(oeuvre?.id)" [alt]="oeuvre.nom">
+            </a>
+            <div class="media-body">
+              <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
+                <h4>{{ oeuvre?.nom }}</h4>
+              </a>
+              <h4>
+                <!--span>
+                  {{ oeuvre?.quantity }} x 
+                  {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol' }}                
+                </span-->
+                <span>
+                  {{ oeuvre?.quantity }} x 
+                  {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100 | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}                </span>
+              </h4>
+            </div>
+          </div>
+          <div class="close-circle" (click)="removeItem(oeuvre)">
+            <a href="javascript:void(0)"><i class="fa fa-times" aria-hidden="true"></i></a>
+          </div>
+        </li>
+        <li>
+          <div class="total">
+            <h5>Total : <span>{{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}</span></h5>
+          </div>
+        </li>
+        <li>
+          <div class="buttons">
+            <a [routerLink]="['/shop/cart']" class="view-cart">Voir Panier</a>
+           <!--  <a [routerLink]="['/shop/checkout']" class="checkout">Paiement</a> -->
           </div>
         </li>
       </ul>

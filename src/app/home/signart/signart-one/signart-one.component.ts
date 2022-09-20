@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ProductSlider } from '../../../shared/data/slider';
 import { Product } from '../../../shared/classes/product';
 import { ProductService } from '../../../shared/services/product.service';
+import { Oeuvre } from '../../../shared/modeles/oeuvre';
+import { ArticleService } from '../../../shared/services/article.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-signart-one',
@@ -12,8 +15,9 @@ export class SignartOneComponent implements OnInit {
 
   public products: Product[] = [];
   public productCollections: any[] = [];
+  public oeuvres: Oeuvre[] = [];
   
-  constructor(public productService: ProductService) {
+  constructor(public productService: ProductService, private articleService: ArticleService) {
     this.productService.getProducts.subscribe(response => {
       this.products = response.filter(item => item.type === 'art','sculpture');
       // console.log(this.products)
@@ -25,6 +29,10 @@ export class SignartOneComponent implements OnInit {
         })
       })
     });
+
+    this.articleService.getAllArticles().subscribe(response => { 
+      this.oeuvres = response;
+            });
   }
 
   public ProductSliderConfig: any = ProductSlider;
@@ -44,7 +52,7 @@ export class SignartOneComponent implements OnInit {
     image: 'assets/images/slider/slider_2.jpg'
   }]
 
-  // Collection banner
+  /* // Collection banner
   public collections = [{
     image: 'assets/images/collection/fashion/1 2.jpg',
     save: 'Catégorie',
@@ -53,71 +61,84 @@ export class SignartOneComponent implements OnInit {
     image: 'assets/images/collection/fashion/tableau_2.jpg',
     save: 'Catégorie',
     title: 'La peinture'
+  }]; */
+  // Collection banner
+  public collections = [{
+    image: 'assets/images/collection/fashion/encreChine.png',
+    save: 'Catégorie',
+    title: "L'architecture"
+  }, {
+    image: 'assets/images/collection/fashion/peinture.png',
+    save: 'Catégorie',
+    title: 'La peinture'
   }];
 
     // Collection banner
     public eric = [{
-      image: 'assets/images/collection/fashion/crane.jpg',
+      image: 'assets/images/collection/fashion/dessin.png',
       save: 'Catégorie',
       title: 'Le dessin'
     }, {
-      image: 'assets/images/collection/fashion/tableau_2.jpg',
+      image: 'assets/images/collection/fashion/gravure.png',
       save: 'Catégorie',
       title: 'La gravure'
     }, {
-      image: 'assets/images/collection/fashion/crayon.jpg',
+      image: 'assets/images/collection/fashion/sculpture.png',
       save: 'Catégorie',
       title: 'La sculpture'
     }];
 
     // Collection Technique
     public dan = [{
-      image: 'assets/images/collection/fashion/crane.jpg',
+      image: 'assets/images/collection/fashion/acrilic.png',
       save: 'Technique',
       title: 'Acrylique sur toile'
     }, {
-      image: 'assets/images/collection/fashion/tableau_2.jpg',
+      image: 'assets/images/collection/fashion/huile.png',
       save: 'Technique',
       title: 'Huile sur toile'
     }, {
-      image: 'assets/images/collection/fashion/crayon.jpg',
+      image: 'assets/images/collection/fashion/installation.png',
       save: 'Technique',
       title: 'installation'
     }];
 
       // Collection Technique 2
       public dan2 = [{
-        image: 'assets/images/collection/fashion/crane.jpg',
+        image: 'assets/images/collection/fashion/encreChine.png',
         save: 'Technique',
         title: 'Encre de chine'
       }, {
-        image: 'assets/images/collection/fashion/crayon.jpg',
+        image: 'assets/images/collection/fashion/gouach.png',
         save: 'Technique',
         title: 'Gouache'
       }];
   
   // Blog
   public blog = [{
-    image: 'assets/images/blog/blog_signart.jpg',
-    date: '25 Juillet 2020',
-    title: 'Lorem ipsum dolor sit consectetur adipiscing elit,',
-    by: 'Dan Enriqué'
+    image:  this.getProductImageUrl(7),
+    date: '30 Novembre 2020',
+    title: 'L\'inédit',
+    by: 'El Hadj Sy'
+  }, {
+    image: this.getProductImageUrl(4),
+    date: '27 Novembre 2020',
+    title: 'Anniversaire: 40 ans de carrière',
+    by: 'Kalidou kassé'
+  }, {
+    image:  this.getProductImageUrl(6),
+    date: '25 Décembre 2020',
+    title: 'Fin d\'année artistique',
+    by: 'Omar BA'
   }, {
     image: 'assets/images/blog/blog_signart.jpg',
-    date: '25 Juillet 2020',
-    title: 'Lorem ipsum dolor sit consectetur adipiscing elit,',
-    by: 'Dan Enriqué'
-  }, {
-    image: 'assets/images/blog/blog_signart.jpg',
-    date: '25 Juillet 2020',
-    title: 'Lorem ipsum dolor sit consectetur adipiscing elit,',
-    by: 'Dan Enriqué'
-  }, {
-    image: 'assets/images/blog/blog_signart.jpg',
-    date: '25 Juillet 2020',
-    title: 'Lorem ipsum dolor sit consectetur adipiscing elit,',
-    by: 'Dan Enriqué'
+    date: '01 Janvier 2021',
+    title: 'La nouvelle collection',
+    by: 'Le pinceau'
   }];
+  getProductImageUrl(id: number) {
+    return environment.API_ENDPOINT + 'image/artiste/' + id;
+  }
 
   // Logo
   public logo = [{

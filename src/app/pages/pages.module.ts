@@ -38,7 +38,17 @@ import { MesOeuvresComponent } from './mes-oeuvres/mes-oeuvres.component';
 import { MesAnnoncesComponent } from './mes-annonces/mes-annonces.component';
 import { FollowersComponent } from './followers/followers.component';
 import { AbonnementComponent } from './abonnement/abonnement.component';
-
+import { MyformatcurrencyPipe } from '../shared/pipes/myformatcurrency.pipe';
+import { CompteArtisteComponent } from './compte-artiste/compte-artiste.component';
+import { ArtisteProfilComponent } from './compte-artiste/artiste-profil/artiste-profil.component';
+import { AddOeuvreComponent } from './add-oeuvre/add-oeuvre.component';
+import { TchatComponent } from '../shared/components/menu/TchatSpace/tchat.component';
+import { RightClicMenuTchatComponent } from '../shared/components/menu/TchatSpace/rightClicMenuTchat.component';
+import { AddAddressComponent } from '../checkout/address/add-address/add-address.component';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ArtisteParamComponent } from './compte-artiste/artiste-profil-param/artiste-param.component';
 
 
 @NgModule({
@@ -69,17 +79,23 @@ import { AbonnementComponent } from './abonnement/abonnement.component';
     ExpositionComponent,
     AddAnnonceComponent,
     AddExpoComponent,
+    AddOeuvreComponent,
     HistoireComponent,
     MesOeuvresComponent,
     MesAnnoncesComponent,
     FollowersComponent,
-    AbonnementComponent
+    AbonnementComponent,
+    CompteArtisteComponent,
+    ArtisteProfilComponent,
+    AddAddressComponent,
+    ArtisteParamComponent,
   ],
   imports: [
     CommonModule,
     GalleryModule.forRoot(),
     SharedModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    NgxUiLoaderModule 
   ]
 })
 export class PagesModule { }
