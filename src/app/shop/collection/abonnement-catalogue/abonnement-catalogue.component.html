@@ -462,11 +462,15 @@
                                                     </div>
                                                     <br><hr>
                                                     <div class="form-row">
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
                                                             <button type="button" title="Annuler" class="btn btn-solid-Annuler" (click)="pageFormu = 0" >Annuler</button>
                                                         </div> 
-                                                        <div class="col-md-6">
-                                                            <button class="btn btn-solid-Valider" title="Soumettre" type="button" (click)="onSubmitFinal();">Soumettre</button>
+                                                        <div class="col-md-4">
+                                                            <button class="btn btn-solid-Valider" title="Soumettre" type="button" (click)="onSubmitFinal();">Soumettre sans payer</button>
+                                                        </div> 
+                                                        <div class="col-md-4">
+                                                            <!-- <button class="btn btn-solid-Valider" title="Soumettre" type="button" (click)="onSubmitFinal();">Soumettre et payer</button> -->
+                                                            <app-paydunya (click)="onSubmitFinal()" (setTokenEvent)="setAbonnementToken($event)" [isAbonnement]="true" [abonnementId]="abonnement?.id" [abonnement]="abonnement"></app-paydunya>
                                                         </div> 
                                                        
                                                     </div>

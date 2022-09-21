@@ -14,6 +14,9 @@ import { CheckoutActions } from '../../../actions/checkout.actions';
 import { getTotalCartValue, getShippingOptionPrice, getOrderId } from '../../../reducers/selectors';
 import { Commande } from 'src/app/shared/modeles/commande';
 import { CheckoutService } from 'src/app/shared/services/checkout.service';
+import { ImageService } from 'src/app/shared/services/image.service';
+import { Abonnement } from 'src/app/shared/modeles/utilisateur';
+import { storage } from 'firebase';
 
 @Component({
   selector: 'app-paydunya',
@@ -23,6 +26,10 @@ import { CheckoutService } from 'src/app/shared/services/checkout.service';
 export class PaydunyaComponent implements OnInit {
 
   @Output() payOnDunya: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() setTokenEvent: EventEmitter<string> = new EventEmitter<string>();
+  @Input() isAbonnement:boolean;
+  @Input() abonnement:Abonnement;
+  @Input() abonnementId:number;
   paymentmode: PaymentMode ={id:null, code:'', libelle:''};
   orderId: number;
   totalCartValue$: Observable<number>;
@@ -42,7 +49,7 @@ export class PaydunyaComponent implements OnInit {
   itemize:any[];
   order:Commande;
   items:ItemPaydunya[]=[];
-  constructor(private http: HttpClient,private router:Router, private store: Store<AppState>,private checkoutService:CheckoutService, private checkoutActions: CheckoutActions,) {
+  constructor(private http: HttpClient,private imageService:ImageService, private store: Store<AppState>,private checkoutService:CheckoutService, private checkoutActions: CheckoutActions,) {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -169,6 +176,65 @@ export class PaydunyaComponent implements OnInit {
     }
   );
   }
+  sendAbonnementPayment(){ 
+
+    let data={
+      payDunyaInput: {
+        invoice: {
+          items: {
+            
+          },
+          taxes: {
+          },
+          total_amount: 201 ,
+          description: "Paiment d'oeuvre d'art"
+        },
+        store: {
+          name: "SignArt",
+          tagline: "",
+          postal_address: "Dakar Plateau_Avenue Lamine Gueye",
+          phone: "774698944",
+          logo_url: "",
+          website_url: ""
+        },
+        custom_data: {
+      
+        },
+        actions: {
+          cancel_url: "http://localhost:4200/shop/collection/abonnement-catalogue",
+          return_url:"http://localhost:4200/pages/dashboard",
+          callback_url: ""
+        }
+      }
+    }
+    
+    //data.payDunyaInput.invoice.items=this.convertProductToItems();
+    console.log(data);
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: 'Vous avez choisi ' +this.paymentmode.libelle +'. Vous allez être redirigé(e) sur la plateforme paydunya ...',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: ' #f07c10',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Continuer!',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.value) {
+        this.onpay(data).subscribe(
+          (response)=>{
+           console.log('Ma réponse',response);
+           this.answer=response; 
+           this.updateAbonnementToken(response);
+           console.log('Answer',response)
+          },
+          (error)=>{
+            console.log('Réponse avec erreur',error)
+          }
+        );
+      }
+    })
+    }
 
 //----------------------------------
 Pay() {
@@ -222,5 +288,21 @@ Pay() {
         console.log(response);
       });
     });
+  }
+  updateAbonnementToken(response){
+    if(this.abonnement.id){
+      this.imageService.getAbonnementById(this.abonnement.id).subscribe(resp => {
+        let splitted =  response.response_text.split("invoice/");
+        resp.token = splitted[1];
+        console.log(resp);
+        this.imageService.updateAbonnement(resp).subscribe(response => {
+          console.log(response);
+           window.location.href=this.answer.response_text;
+        });
+      });
+    }
+    else{
+      this.setTokenEvent.emit(response.response_text.split("invoice/")[1]);
+    }
   }
 }

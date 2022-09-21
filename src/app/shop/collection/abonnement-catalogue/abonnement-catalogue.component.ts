@@ -711,6 +711,9 @@ export class AbonnementCatalogueComponent implements OnInit {
                         ////console.log("abonneId",this.abonneRes.id)
                         ////console.log("delaiId",this.delaiId)
                         ////console.log("terminalId",this.terminalId)
+
+
+                        
                         console.log("abonne ress",this.abonneRes)
                         this.abonnement.idTerminal = this.terminalId;
                         this.abonnement.idDelai = this.delaiId;
@@ -724,7 +727,7 @@ export class AbonnementCatalogueComponent implements OnInit {
                         }
                         
                         for(var i=0; i<this.etats.length; i++){
-                          if(this.etats[i].code === "EN_COURS"){
+                          if(this.etats[i].code === "NON_PAYE"){
                             this.idEtatAbonnement = this.etats[i].id;
                           }
                         }
@@ -746,20 +749,33 @@ export class AbonnementCatalogueComponent implements OnInit {
                               console.log("add image"+listoeuvre)
                               
                             }); 
-                        }
-                        this.imageService.addAbonnement(this.abonnement).subscribe(
-                          resp =>{
-                            ////console.log(resp)
-                            console.log("abonnement",this.abonnement)
-                            this.oeuvresNumeriques = [];
-                            setTimeout(() => {
-                              this.ngxService.stopLoader("loader-01"); // stop foreground spinner of the loader "loader-01" with 'default' taskId
-                            }, 3000);
-                            this.toastrService.success('Abonnement soumis avec succès!');
-                            this.onReset(0);
-                            
+                        } 
+                        for(var i=0; i<this.etats.length; i++){
+                          if(this.etats[i].code === "NON_PAYE"){
+                            this.idEtatAbonnement = this.etats[i].id;
                           }
-                        );         
+                        }
+                        ////console.log("id etat",this.idEtatAbonnement)
+                        this.abonnement.etatAbonnement = this.idEtatAbonnement
+                        this.saveAbonnementToDB();
+                        /* Swal.fire({
+                          title: 'Voulez vous payer maintenant?',
+                          icon: 'warning',
+                          showCancelButton: true,
+                          confirmButtonColor: 'btn btn-success',
+                          cancelButtonColor: '#d33',
+                          confirmButtonText: 'OUI!',
+                          cancelButtonText:'NON',
+                        }).then((result) => {
+                          if(result.value == true){
+                            this.saveAbonnementToDB();
+                            
+                           }
+                           else{
+                            this.saveAbonnementToDB();
+                           }
+                        });  */ 
+                       
               });
     
             }           
@@ -777,7 +793,28 @@ export class AbonnementCatalogueComponent implements OnInit {
 
         });       
   }
-
+  setAbonnementToken(theToken){
+    this.abonnement.token = theToken;
+  }
+  saveAbonnementToDB(){
+    this.imageService.addAbonnement(this.abonnement).subscribe(
+      resp =>{
+        ////console.log(resp)
+        console.log("abonnement",this.abonnement)
+        if(resp.id)
+        {
+          this.abonnement = resp;
+        }
+        this.oeuvresNumeriques = [];
+        setTimeout(() => {
+          this.ngxService.stopLoader("loader-01"); // stop foreground spinner of the loader "loader-01" with 'default' taskId
+        }, 3000);
+        this.toastrService.success('Abonnement soumis avec succès!');
+        this.onReset(0);
+        
+      }
+    );   
+  }
   onReset(valeur: number){
     this.pageFormu = 0;
     this.terminalDelaiForm.reset();
