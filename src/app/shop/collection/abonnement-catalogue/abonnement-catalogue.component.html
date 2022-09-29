@@ -370,7 +370,8 @@
                                                                     <div class="card-body pt-5">
                                                                         <a><h5 class="card-title">{{terminal.libelle}}</h5></a>
                                                                         <p class="card-text">{{terminal.description}}</p>
-                                                                        <a><h5 class="card-title">Prix : {{terminal.prix}} FCFA</h5></a>
+                                                                        <a><h5 class="card-title" *ngIf="terminal.prix == 0">Gratuit</h5></a>
+                                                                        <a><h5 class="card-title" *ngIf="terminal.prix != 0">Prix : {{terminal.prix}} FCFA</h5></a>
                                                                         <input type="radio" class="register-gender-radio" value={{terminal.id}} formControlName="terminalId">
                                                                     </div>
                                                                 </div>

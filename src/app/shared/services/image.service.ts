@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 //import { environment } from 'environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { OeuvreNumerique } from '../modeles/imageNumerique';
-import { Abonne, ListSelection, ListeSelection_Oeuvres, Abonnement, Email } from '../modeles/utilisateur';
+import { Abonne, ListSelection, ListeSelection_Oeuvres, Abonnement, Email, Terminal } from '../modeles/utilisateur';
 import { environment } from '../../../environments/environment';
 //import { environment } from 'src/environments/environment';
 
@@ -193,7 +193,9 @@ addFormation(formation: Formation): Observable<any>{
   return this.post(environment.API_ENDPOINT+`formation`,formation)
 }*/
 
-  
+reabonnement(abonnement: Abonnement, terminalResponse: boolean, terminal: Terminal): Observable<any>{
+  return this.http.post(environment.API_ENDPOINT + `reabonnement`, {abonnement,terminal, terminalResponse});
+}
   
 
 

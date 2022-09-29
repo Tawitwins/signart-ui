@@ -67,6 +67,7 @@ export class Terminal{
     libelle: string;
     description: string;
     prix: number;
+    code: string;
     constructor(
         libelle: string,
         description: string,
@@ -130,6 +131,7 @@ export class Abonnement{
     precisions: string;
     etatAbonnement: number;
     token:string;
+    dateCreation:Date;
     constructor(
         idAbonne: number,
         idTerminal: number,
@@ -137,7 +139,7 @@ export class Abonnement{
         idListeSelection: number,
         MontantPaiement: number,
         precisionss: string,
-        etatAbonnement: number
+        etatAbonnement: number,
         ){}
 
 }
