@@ -760,6 +760,7 @@ showDetailsCommande(idCommande: number){
         confirmButtonText: 'Oui',
         cancelButtonText: 'Non'
       }).then((result)=> {
+        console.log(result);
         if(result.value){
           this.terminalResponse = true;
           console.log(this.terminalResponse)
@@ -833,6 +834,8 @@ showDetailsCommande(idCommande: number){
 
       this.imageService.reabonnement(this.reabonnement, this.terminalResponse, this.chooseTerminal).subscribe(res=>{
         console.log(res);
+        this.toastrService.success("Réabonnement initié avec succés","Succés");
+        this.shownTerminal = false;
       })
     }
 }

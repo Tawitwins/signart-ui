@@ -1,6 +1,7 @@
 <!---Ibrahima--
 <button style="background-color: transparent;" (click)="sendPayment();"><img src="./assets/img/logo_pay_with_paydunya4.png" alt=""></button>-->
-<button *ngIf="!isAbonnement"style="background-color: transparent;" (click)="sendPayment();Pay()"><img src="./assets/images/payment/wave-orange.png" alt=""></button>
-<button *ngIf="isAbonnement" class="btn abonnement" (click)="sendAbonnementPayment()">Payer</button>
+<button *ngIf="!isAbonnement" style="background-color: transparent;" (click)="sendPayment();Pay()"><img src="./assets/images/payment/wave-orange.png" alt=""></button>
+<button *ngIf="isAbonnement && !listing" class="btn abonnement" (click)="sendAbonnementPayment()">Payer</button>
+<button *ngIf="isAbonnement && listing" class="btn ptiAbonnement" (click)="sendAbonnementPayment()">Payer</button>
 <!-- <button *ngIf="isAbonnement" style="background-color: transparent;" (click)="sendAbonnementPayment()"><img src="./assets/images/payment/logo_pay_with_paydunya4.png" alt=""></button>
  -->

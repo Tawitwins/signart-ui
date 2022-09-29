@@ -301,16 +301,14 @@
                                                 </td>
                                                 <td><h6>{{getLibelleEtatAbonnement(abonnement.etatAbonnement)}}</h6></td>
                                                 <td>
-                                                    <div class="row">
-                                                        <a class="col-6"(click)="showDetailsAbonnement(abonnement.id)" title="Détails"  [routerLink]=" " style="cursor: pointer;" class="icon mr-3">
+                                                    <div style="text-align: left;">
+                                                        <button class="btn abonnement" (click)="showDetailsAbonnement(abonnement.id)" title="Détails"  [routerLink]=" " style="cursor: pointer;">
                                                             Details
-                                                        </a>
-                                                        <app-paydunya  class="col-6" *ngIf="getCodeEtatAbonnement(abonnement.etatAbonnement)=='NON_PAYE'" [isAbonnement]="true" [abonnementId]="abonnement?.id" [abonnement]="abonnement"></app-paydunya>
-                                                    </div>
-                                                    <div class="row">
-                                                        <a class="col-6"(click)="reAbonner(index)" title="Réabonner"  [routerLink]=" " style="cursor: pointer;" class="icon mr-3">
+                                                        </button>
+                                                        <button class="btn abonnement ml-1" (click)="reAbonner(index)" title="Réabonner"  [routerLink]=" " style="cursor: pointer;" >
                                                             Réabonner
-                                                        </a>
+                                                        </button>
+                                                        <app-paydunya class="ml-1"  *ngIf="getCodeEtatAbonnement(abonnement.etatAbonnement)=='NON_PAYE'" [listing]="true" [isAbonnement]="true" [abonnementId]="abonnement?.id" [abonnement]="abonnement"></app-paydunya>
                                                     </div>
                                                    
                                                 </td>

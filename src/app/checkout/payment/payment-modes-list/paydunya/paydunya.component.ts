@@ -31,6 +31,7 @@ export class PaydunyaComponent implements OnInit {
   @Input() isAbonnement:boolean;
   @Input() abonnement:Abonnement;
   @Input() abonnementId:number;
+  @Input() listing:boolean;
   paymentmode: PaymentMode ={id:null, code:'', libelle:''};
   orderId: number;
   totalCartValue$: Observable<number>;

@@ -193,8 +193,8 @@ addFormation(formation: Formation): Observable<any>{
   return this.post(environment.API_ENDPOINT+`formation`,formation)
 }*/
 
-reabonnement(abonnement: Abonnement, terminalResponse: boolean, terminal: Terminal): Observable<any>{
-  return this.http.post(environment.API_ENDPOINT + `reabonnement`, {abonnement,terminal, terminalResponse});
+reabonnement(oldAbonnementdto: Abonnement, terminalResponse: boolean, terminal: Terminal): Observable<any>{
+  return this.http.post(environment.API_ENDPOINT + `abonnement/reabonnement/${terminalResponse}/${terminal.id}`,oldAbonnementdto);
 }
   
 
