@@ -689,9 +689,11 @@ export class AbonnementCatalogueComponent implements OnInit {
       title: 'Êtes vous sûre de vouloir de vouloir souscrire à cet abonnement?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: 'btn btn-success',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'OUI!'
+      confirmButtonColor: '#376809',
+      cancelButtonColor: 'red',
+      reverseButtons: true,
+      confirmButtonText: 'OUI!',
+      cancelButtonText: 'Annuler',
     }).then((result) => {
       if(result.value == true){
         this.ngxService.startLoader("loader-01"); // start foreground spinner of the loader "loader-01" with 'default' taskId
@@ -763,7 +765,7 @@ export class AbonnementCatalogueComponent implements OnInit {
                           icon: 'warning',
                           showCancelButton: true,
                           confirmButtonColor: 'btn btn-success',
-                          cancelButtonColor: '#d33',
+                          cancelButtonColor: 'red',
                           confirmButtonText: 'OUI!',
                           cancelButtonText:'NON',
                         }).then((result) => {

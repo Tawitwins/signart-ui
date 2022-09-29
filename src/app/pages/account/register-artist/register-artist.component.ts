@@ -182,10 +182,11 @@ export class RegisterArtistComponent implements OnInit {
       //text: "Ceci sera irreversible!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: ' #f07c10',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: ' #376809',
+      cancelButtonColor: 'red',
       confirmButtonText: 'Confirmer',
-      cancelButtonText: 'Annuler'
+      cancelButtonText: 'Annuler',
+      reverseButtons: true,
     }).then((result) => {
       if (result.value) {
         this.artisteService.addSouscription(<Souscription>this.form1Value).subscribe(resp=>{
@@ -245,10 +246,11 @@ export class RegisterArtistComponent implements OnInit {
       //text: "Ceci sera irreversible!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: ' #f07c10',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: ' #376809',
+      cancelButtonColor: 'red',
       confirmButtonText: 'Oui',
-      cancelButtonText: 'Non'
+      cancelButtonText: 'Non',
+      reverseButtons: true,
     }).then((result) => {
       if (result.value) {
         /*this.oeuvreService.addOeuvreArtiste(addeddArticle).subscribe(

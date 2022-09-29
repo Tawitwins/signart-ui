@@ -215,10 +215,11 @@ export class PaydunyaComponent implements OnInit {
       text: 'Vous avez choisi ' +this.paymentmode.libelle +'. Vous allez être redirigé(e) sur la plateforme paydunya ...',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: ' #f07c10',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: ' #376809',
+      cancelButtonColor: 'red',
       confirmButtonText: 'Continuer!',
-      cancelButtonText: 'Annuler'
+      cancelButtonText: 'Annuler',
+      reverseButtons: true,
     }).then((result) => {
       if (result.value) {
         this.onpay(data).subscribe(
@@ -248,10 +249,11 @@ Pay() {
     text: 'Vous avez choisi ' +this.paymentmode.libelle +'. Vous allez être redirigé(e) sur la plateforme paydunya ...',
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonColor: ' #f07c10',
-    cancelButtonColor: '#d33',
+    confirmButtonColor: ' #376809',
+    cancelButtonColor: 'red',
     confirmButtonText: 'Continuer!',
-    cancelButtonText: 'Annuler'
+    cancelButtonText: 'Annuler',
+    reverseButtons: true,
   }).then((result) => {
     if (result.value) {
       this.store.dispatch(this.checkoutActions.addPaymentModeSuccess(this.paymentmode));

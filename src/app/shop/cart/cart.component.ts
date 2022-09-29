@@ -93,9 +93,10 @@ export class CartComponent implements OnInit {
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#376809',
-        cancelButtonColor: '#601A17',
+        cancelButtonColor: 'red',
         cancelButtonText: 'annuler',
-        confirmButtonText: 'Oui, se connecter'
+        confirmButtonText: 'Oui, se connecter',
+        reverseButtons: true,
       }).then((result) => {
         if (result.value) {
           console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)

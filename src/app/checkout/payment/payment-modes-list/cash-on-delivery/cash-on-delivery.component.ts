@@ -65,10 +65,10 @@ export class CashOnDeliveryComponent implements OnInit {
       text: "Vous avez choisi "+this.paymentmode.libelle,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: ' #f07c10',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: ' #376809',
+      cancelButtonColor: 'red',
+      cancelButtonText: 'Annuler',
       confirmButtonText: 'Continuer!',
-      cancelButtonText: 'Anuler'
     }).then((result) => {
       if (result.value) {
         //this.store.dispatch(this.checkoutActions.addPaymentModeSuccess(this.paymentmode));

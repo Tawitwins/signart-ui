@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit {
  public abonnements: Abonnement[];
  public abonnementAffiche: Abonnement;
  public allAbonnement: Abonnement[];
- abonnementget: Abonnement;
+ abonnementget: Abonnement[]=[];
  abonne: Abonne;
  etatAbonnements: EtatAbonnement[];
  terminals: Terminal[];
@@ -136,7 +136,7 @@ export class DashboardComponent implements OnInit {
     this.historiques = [];
     this.terminalAffiche = new Terminal('', '', null);
     this.delaiAffiche = new DelaieAbonnement('', '', null, null);
-    this.abonnementget = new Abonnement(null, null, null, null, null, '', null);
+    this.abonnementget = [];
     this.abonne = new Abonne(null, null, '', '', '', '', '', '', '', '');
     this.abonneAffiche = new Abonne(null, null, '', '', '', '', '', '', '', '');
     this.allAbonne = [];
@@ -210,7 +210,13 @@ export class DashboardComponent implements OnInit {
               resp => {
                 this.abonnementget = resp;
                 console.log('abonnementget', this.abonnementget);
-                this.allAbonnement.push(this.abonnementget);
+                if(this.abonnementget.length>0)
+                {
+                  this.abonnementget.forEach(abnmnt => {
+                    this.allAbonnement.push(abnmnt);
+                  });
+                }
+                  //this.allAbonnement = this.allAbonnement.(this.abonnementget);
                  // console.log("abonnements",this.abonnements)
               });
           }
@@ -318,7 +324,7 @@ export class DashboardComponent implements OnInit {
         Swal.fire({
           title: 'votre ancien mot de passe est incorrect!',
           icon: 'error',
-          cancelButtonColor: '#d33',
+          cancelButtonColor: 'red',
         });
       }
       else{
@@ -329,7 +335,7 @@ export class DashboardComponent implements OnInit {
                 Swal.fire({
                   title: 'Votre mot de passe a été modifié avec avec succès!',
                   icon: 'success',
-                  cancelButtonColor: '#d33',
+                  cancelButtonColor: 'red',
                 });
 
               }
