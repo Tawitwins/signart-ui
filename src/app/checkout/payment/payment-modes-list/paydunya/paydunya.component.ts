@@ -17,6 +17,7 @@ import { CheckoutService } from 'src/app/shared/services/checkout.service';
 import { ImageService } from 'src/app/shared/services/image.service';
 import { Abonnement } from 'src/app/shared/modeles/utilisateur';
 import { storage } from 'firebase';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-paydunya',
@@ -132,15 +133,15 @@ export class PaydunyaComponent implements OnInit {
         tagline: "",
         postal_address: "Dakar Plateau_Avenue Lamine Gueye",
         phone: "774698944",
-        logo_url: "",
+        logo_url: "https://lh3.googleusercontent.com/ogw/AOh-ky3njWTf1eU8loMeFpCwS4Fr7pQxk90R1pEt1M0j=s64-c-mo",
         website_url: ""
       },
       custom_data: {
     
       },
       actions: {
-        cancel_url: "http://localhost:4200/shop/checkout",
-        return_url:"http://localhost:4200/pages/order/success",
+        cancel_url: `${environment.serverUrl}/shop/checkout`,
+        return_url:`${environment.serverUrl}/pages/order/success`,
         callback_url: ""
       }
     }
@@ -194,15 +195,15 @@ export class PaydunyaComponent implements OnInit {
           tagline: "",
           postal_address: "Dakar Plateau_Avenue Lamine Gueye",
           phone: "774698944",
-          logo_url: "",
+          logo_url: "https://lh3.googleusercontent.com/ogw/AOh-ky3njWTf1eU8loMeFpCwS4Fr7pQxk90R1pEt1M0j=s64-c-mo",
           website_url: ""
         },
         custom_data: {
       
         },
         actions: {
-          cancel_url: "http://localhost:4200/shop/collection/abonnement-catalogue",
-          return_url:"http://localhost:4200/pages/dashboard",
+          cancel_url: `${environment.serverUrl}/shop/collection/abonnement-catalogue`,
+          return_url:`${environment.serverUrl}/pages/dashboard`,
           callback_url: ""
         }
       }

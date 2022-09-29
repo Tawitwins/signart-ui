@@ -71,6 +71,8 @@ export class CollectionLeftSidebarComponent implements OnInit {
       });
       this.articleService.getAllArticles().subscribe(response => { 
         this.oeuvres = response;
+        
+        this.oeuvres = this.oeuvres.filter(oeuvre => oeuvre.paid == false)
         this.oeuvresSave = this.oeuvres;
         //console.log("maxi ",this.maxPriceValue(this.oeuvres));
         this.maxValue = this.maxPriceValue(this.oeuvres)

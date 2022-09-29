@@ -17,7 +17,7 @@ import Swal from 'sweetalert2';
 import { MustMatchValidators } from './must-Match';
 import { User, AccountInfo } from '../../../shared/modeles/user';
 import { Commande } from '../../../shared/modeles/commande';
-import { Abonnement, Abonne, EtatAbonnement, Terminal, HistoriqueAbonnement, DelaieAbonnement, ListeSelection_Oeuvres } from '../../../shared/modeles/utilisateur';
+import { Abonnement, Abonne, EtatAbonnement, Terminal, HistoriqueAbonnement, DelaieAbonnement, ListeSelection_Oeuvres, TerminalDelai } from '../../../shared/modeles/utilisateur';
 import { ImageService } from '../../../shared/services/image.service';
 import { environment } from '../../../../environments/environment';
 import { ProductService } from '../../../shared/services/product.service';
@@ -73,6 +73,19 @@ export class DashboardComponent implements OnInit {
  returnUrl: string;
  mdpForm: FormGroup;
  etats: EtatAbonnement[];
+ reabonnement: Abonnement;
+ terminalId: number;
+ chooseTerminal: Terminal;
+ terminalDelai: TerminalDelai;
+ delais: DelaieAbonnement[];
+ chooseDelais: DelaieAbonnement;
+ delaiId : number;
+ option_TSIGNART: boolean = false;
+ option_TBOX: boolean = false;
+ option_JDT: boolean = false;
+ option_LOUE: boolean = false;
+ shownTerminal: boolean = false;
+ terminalResponse: boolean = false;
  public oeuvreNumeriqueAfficher: OeuvreNumerique;
  public abonneAffich: Abonne;
 
@@ -118,6 +131,11 @@ export class DashboardComponent implements OnInit {
   paiement: PaiementEtLigneP;
 
 
+  terminalDelaiForm = new FormGroup({
+    terminalId: new FormControl(null,Validators.required),
+    delaiId: new FormControl(null,Validators.required),
+    precisions: new FormControl(''),
+  });
 
   constructor(private authService: AuthServiceS, private toastrService: ToastrService, public productService: ProductService,  private store: Store<AppState>, private router: Router,
               private authS: AuthServiceS,
@@ -135,6 +153,8 @@ export class DashboardComponent implements OnInit {
     this.activePaiement = false;
     this.historiques = [];
     this.terminalAffiche = new Terminal('', '', null);
+    this.terminalDelai = new TerminalDelai('','',null,null,'');
+    this.chooseTerminal = new Terminal('', '', null);
     this.delaiAffiche = new DelaieAbonnement('', '', null, null);
     this.abonnementget = [];
     this.abonne = new Abonne(null, null, '', '', '', '', '', '', '', '');
@@ -182,6 +202,10 @@ export class DashboardComponent implements OnInit {
     });
     this.imageService.getAllTerminal().subscribe( res => {
       this.terminals = res;
+    });
+
+    this.imageService.getAllDelai().subscribe(response => {
+      this.delais = response;
     });
 
     this.imageService.getAllHistoriqueAbonnement(this.user.id).subscribe(
@@ -669,5 +693,146 @@ showDetailsCommande(idCommande: number){
 
     get(i: number){
       return environment.API_ENDPOINT + 'image/oeuvre/' + this.ligneCommande[i].oeuvre.id;
+    }
+
+    //REABONNEMENT
+
+
+    reAbonner(index: number){
+      this.reabonnement = this.abonnements[index];
+      console.log("REABONNEMENT : "+this.reabonnement);
+      this.imageService.getTerminalById(this.reabonnement.idTerminal).subscribe(response => {
+        this.choixTerminal(response);
+      })
+    }
+
+    terminalSignArt(){
+      Swal.fire({
+        title: 'Voulez vous conserver votre terminal SignArt?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: ' #f07c10',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui',
+        cancelButtonText: 'Non'
+      }).then((result)=> {
+        if(result.value){
+          this.terminalResponse = true;
+          console.log(this.terminalResponse)
+        }else{
+          this.terminals = this.terminals.filter(terminal => terminal.code.split(" ").join("") != 'JDT');
+          this.shownTerminal = true;
+          this.terminalResponse = false;
+          console.log(this.terminalResponse)
+        }
+      });
+    }
+  
+    terminalTvBox(){
+      Swal.fire({
+        title: 'Voulez vous conserver votre Tv Box?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: ' #f07c10',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui',
+        cancelButtonText: 'Non'
+      }).then((result)=> {
+        if(result.value){
+          this.terminalResponse = true;
+          console.log(this.terminalResponse)
+        }else{
+          this.terminals = this.terminals.filter(terminal => terminal.code.split(" ").join("") != 'JDT');
+          this.shownTerminal = true
+          this.terminalResponse = false;
+          console.log(this.terminalResponse)
+        }
+      });
+    }
+  
+    myTerminal(){
+      Swal.fire({
+        title: 'Avez-vous toujours votre terminal?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: ' #f07c10',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui',
+        cancelButtonText: 'Non'
+      }).then((result)=> {
+        if(result.value){
+          this.terminalResponse = true;
+          console.log(this.terminalResponse)
+        }else{
+          this.terminals = this.terminals.filter(terminal => terminal.code.split(" ").join("") != 'JDT');
+          this.shownTerminal = true
+          this.terminalResponse = false;
+          console.log(this.terminalResponse)
+        }
+      });
+    }
+  
+    terminalLoue(){
+      Swal.fire({
+        title: 'Voulez vous continuer la location?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: ' #f07c10',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui',
+        cancelButtonText: 'Non'
+      }).then((result)=> {
+        if(result.value){
+          this.terminalResponse = true;
+          console.log(this.terminalResponse)
+        }else{
+          this.terminals = this.terminals.filter(
+            terminal => terminal.code.split(" ").join("") != 'JDT'
+            && terminal.code.split(" ").join("") != 'LOUE'
+            );
+          this.shownTerminal = true
+          this.terminalResponse = false;
+          console.log(this.terminalResponse)
+        }
+      });
+    }
+  
+    choixTerminal(chooseTerminal: Terminal){
+
+      switch(chooseTerminal.code.split(' ').join('')){
+        case 'TSIGNART':
+          this.terminalSignArt();
+          break;
+  
+        case 'TBOX':
+          this.terminalTvBox();
+          break;
+  
+        case 'JDT':
+          this.myTerminal();
+          break;
+  
+        case 'LOUE':
+          this.terminalLoue();
+          break;
+      }
+    }
+    
+    annulerReabonnement(){
+      this.shownTerminal = false;
+    }
+
+    reAbonnement(){
+      this.terminalDelai.terminalId = this.terminalDelaiForm.value.terminalId;
+
+      this.terminals.filter(terminal => {
+        if(terminal.id == this.terminalDelai.terminalId){
+          this.chooseTerminal = terminal;
+        }
+      })
+
+      this.imageService.reabonnement(this.reabonnement, this.terminalResponse, this.chooseTerminal).subscribe(res=>{
+        console.log(res);
+      })
     }
 }
