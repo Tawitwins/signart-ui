@@ -278,7 +278,7 @@
                         <div class="box-account box-info" *ngIf="infopage == 5">
                             <div class="box-head">
                                 <h2 *ngIf="!shownTerminal">Mes abonnements</h2>
-                                <h2 *ngIf="shownTerminal">Se réabonner</h2>
+                                <h2 *ngIf="shownTerminal">Réabonnement</h2>
                             </div> <br><hr>
                             <div class="row">
                                 <p *ngIf="abonnements?.length == 0">
@@ -302,20 +302,41 @@
                                                 <td><h6>{{getLibelleEtatAbonnement(abonnement.etatAbonnement)}}</h6></td>
                                                 <td>
                                                     <div style="text-align: left;">
-                                                        <button class="btn abonnement" (click)="showDetailsAbonnement(abonnement.id)" title="Détails"  [routerLink]=" " style="cursor: pointer;">
-                                                            Details
+                                                        <button 
+                                                            class="btn abonnement" 
+                                                            (click)="showDetailsAbonnement(abonnement.id)" 
+                                                            title="Détails"  
+                                                            [routerLink]=" " 
+                                                            style="cursor: pointer;">Details
                                                         </button>
-                                                        <button class="btn abonnement ml-1" (click)="reAbonner(index)" title="Réabonner"  [routerLink]=" " style="cursor: pointer;" >
-                                                            Réabonner
+                                                        <button 
+                                                            class="btn abonnement ml-1" 
+                                                            [disabled]="getCodeEtatAbonnement(abonnement.etatAbonnement) != 'EXPIRE'" 
+                                                            (click)="reAbonner(index)" title="Réabonner"  
+                                                            [routerLink]=" " 
+                                                            style="cursor: pointer;">Réabonner
                                                         </button>
-                                                        <app-paydunya class="ml-1"  *ngIf="getCodeEtatAbonnement(abonnement.etatAbonnement)=='NON_PAYE'" [listing]="true" [isAbonnement]="true" [abonnementId]="abonnement?.id" [abonnement]="abonnement"></app-paydunya>
+                                                        <span [class.disabled]="getCodeEtatAbonnement(abonnement.etatAbonnement)!='NON_PAYE'">
+                                                            <app-paydunya 
+                                                                class="ml-1" 
+                                                                [listing]="true" [isAbonnement]="true" 
+                                                                [abonnementId]="abonnement?.id" 
+                                                                [abonnement]="abonnement">
+                                                            </app-paydunya>
+                                                        </span>
                                                     </div>
                                                    
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <ngb-pagination style="float: right;" [collectionSize]="abonnements.length" [(page)]="pagAbmt" [pageSize]="pageSizeAbmt" aria-label="Default pagination" *ngIf="!shownTerminal">
+                                    <ngb-pagination 
+                                        style="float: right;" 
+                                        [collectionSize]="abonnements.length" 
+                                        [(page)]="pagAbmt" 
+                                        [pageSize]="pageSizeAbmt" 
+                                        aria-label="Default pagination" 
+                                        *ngIf="!shownTerminal">
                                     </ngb-pagination>
                                 
 
@@ -359,7 +380,7 @@
                                                 <button 
                                                     class="btn btn-solid-Valider" 
                                                     title="Continuer" type="button" 
-                                                    (click)="reAbonnement()">Réabonner
+                                                    (click)="reAbonnement()">Se réabonner
                                                 </button>
                                             </div> 
                                            

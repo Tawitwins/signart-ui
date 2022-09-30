@@ -581,7 +581,7 @@ getLibelleEtatAbonnement(idEtat: number){
 getCodeEtatAbonnement(idEtat: number){
   for (let i = 0; i < this.etats.length; i++) {
     if (this.etats[i].id == idEtat){
-      return this.etats[i].code;
+      return this.etats[i].code.split(' ').join('');
     }
 
   }
@@ -719,7 +719,7 @@ showDetailsCommande(idCommande: number){
         if(result.value){
           this.terminalResponse = true;
           console.log(this.terminalResponse)
-        }else{
+        }else if(result.dismiss === Swal.DismissReason.cancel){
           this.terminals = this.terminals.filter(terminal => terminal.code.split(" ").join("") != 'JDT');
           this.shownTerminal = true;
           this.terminalResponse = false;
@@ -741,7 +741,7 @@ showDetailsCommande(idCommande: number){
         if(result.value){
           this.terminalResponse = true;
           console.log(this.terminalResponse)
-        }else{
+        }else if(result.dismiss === Swal.DismissReason.cancel){
           this.terminals = this.terminals.filter(terminal => terminal.code.split(" ").join("") != 'JDT');
           this.shownTerminal = true
           this.terminalResponse = false;
@@ -764,7 +764,7 @@ showDetailsCommande(idCommande: number){
         if(result.value){
           this.terminalResponse = true;
           console.log(this.terminalResponse)
-        }else{
+        }else if(result.dismiss === Swal.DismissReason.cancel){
           this.terminals = this.terminals.filter(terminal => terminal.code.split(" ").join("") != 'JDT');
           this.shownTerminal = true
           this.terminalResponse = false;
@@ -786,7 +786,7 @@ showDetailsCommande(idCommande: number){
         if(result.value){
           this.terminalResponse = true;
           console.log(this.terminalResponse)
-        }else{
+        }else if(result.dismiss === Swal.DismissReason.cancel){
           this.terminals = this.terminals.filter(
             terminal => terminal.code.split(" ").join("") != 'JDT'
             && terminal.code.split(" ").join("") != 'LOUE'
