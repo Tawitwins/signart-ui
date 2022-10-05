@@ -124,14 +124,13 @@ export class CheckoutComponent implements OnInit {
     this.serviceLivraisonService.getAllServiceLivraisons().subscribe(resp => {
         this.serviceLivraisonList = resp;
         this.getTotal.subscribe( resp => this.totalAmount = resp);
-        
+        console.log("this.serviceLivraisonList: ",this.serviceLivraisonList)
         this.checkoutService.getMontantSeuil().subscribe(resp => {
           this.SeuilLivraison = resp;
           this.MONTANT_SEUIL = this.SeuilLivraison.value;
+          this.montantSeuil(); 
         })
-        if ( this.totalAmount >= this.MONTANT_SEUIL) {
-            this.serviceLivraisonList = this.serviceLivraisonList.filter(element => element.replace(/\s+/g, '') !== "SignArtexpress")
-        }
+        
 
       })
     this.checkoutForm = this.fb.group({
@@ -146,6 +145,12 @@ export class CheckoutComponent implements OnInit {
       //postalcode: ['', Validators.required] 
     });
   }
+
+ montantSeuil(){
+  if ( this.totalAmount >= this.MONTANT_SEUIL) {
+      this.serviceLivraisonList = this.serviceLivraisonList.filter(serviceLivraison =>serviceLivraison.nom.replace(/\s+/g, '') != "Signartexpress")
+  }
+ }
 
   ngOnInit(): void {
     this.productService.cartItems.subscribe(response => this.products = response);

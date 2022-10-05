@@ -307,14 +307,14 @@
                                                             (click)="showDetailsAbonnement(abonnement.id)" 
                                                             title="Détails"  
                                                             [routerLink]=" " 
-                                                            style="cursor: pointer;">Details
+                                                            style="cursor: pointer;">Voir
                                                         </button>
                                                         <button 
                                                             class="btn abonnement ml-1" 
                                                             [disabled]="getCodeEtatAbonnement(abonnement.etatAbonnement) != 'EXPIRE'" 
                                                             (click)="reAbonner(index)" title="Réabonner"  
                                                             [routerLink]=" " 
-                                                            style="cursor: pointer;">Réabonner
+                                                            style="cursor: pointer;">Se réabonner
                                                         </button>
                                                         <span [class.disabled]="getCodeEtatAbonnement(abonnement.etatAbonnement)!='NON_PAYE'">
                                                             <app-paydunya 

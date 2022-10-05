@@ -32,6 +32,7 @@ export class Oeuvre {
   Technique?: Technique;
   quantity?:number;
   reference?: string;
+  specialDelivery?: boolean;
   constructor(/*id: number,
     nom: string,
     prix: number,
