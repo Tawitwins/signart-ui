@@ -31,6 +31,7 @@ export class Oeuvre {
   idSouscription?: number;
   Technique?: Technique;
   quantity?:number;
+  reference?: string;
   constructor(/*id: number,
     nom: string,
     prix: number,

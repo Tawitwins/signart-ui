@@ -17,6 +17,7 @@
                             <!--del *ngIf="oeuvre?.discount"><span class="money">{{ oeuvre.prix * currency?.price | currency:currency?.currency:'symbol' }}</span></del-->
                             <del *ngIf="oeuvre?.tauxremise"><span class="money"> {{ oeuvre?.prix }} FCFA</span></del>
                         </h3>
+                        <h4>{{ oeuvre?.reference}} heloo</h4>
                         <div class="border-product">
                             <h6 class="product-title">Détails oeuvre</h6>
                             <p>{{ oeuvre.description.substring(0, 200)+'...' }}</p>
