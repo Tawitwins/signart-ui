@@ -106,6 +106,10 @@
                   <div class="border-product">
                     <h6 class="product-title">Détails Article</h6>
                     <p>{{ oeuvre?.description?.substring(0, 200)+'...' }}</p>
+                    <span *ngIf="!oeuvre.specialDelivery">
+                      <h6 class="product-title">Type de livraison</h6>
+                      <p>spécial</p>
+                    </span>
                   </div>
                   <div class="border-product">
                     <h6 class="product-title">Partager</h6>

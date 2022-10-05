@@ -740,7 +740,7 @@ getAdresseByClient(idClient){
     })
   }
 
-  getMontantSeuil(){
+  getMontantSeuil(): Observable<any>{
     return this.get(environment.API_ENDPOINT +`parametrage/SeuilLivraison`)
   }
 }

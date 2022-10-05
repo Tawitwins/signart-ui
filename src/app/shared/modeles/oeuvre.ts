@@ -31,6 +31,7 @@ export class Oeuvre {
   idSouscription?: number;
   Technique?: Technique;
   quantity?:number;
+  specialDelivery?: boolean;
   constructor(/*id: number,
     nom: string,
     prix: number,
