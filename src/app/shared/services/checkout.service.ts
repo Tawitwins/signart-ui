@@ -22,13 +22,14 @@ import { ModeLivraison } from '../modeles/mode_livraison';
 import { Address } from '../modeles/address';
 import { Livraison } from '../modeles/livraison';
 import { ToastrService } from 'ngx-toastr';
+import { NullTemplateVisitor } from '@angular/compiler';
 declare var $: any;
 
 @Injectable()
 export class CheckoutService extends HttpService {
   private orderNumber: number;
   private orderId: number;
-  private livraison: Livraison = {id:null,dateLivraisonPrevue: null, dateLivraisonEffective: null, dateLivraison: null,idAdresseLivraison:null,idModeLivraison: null,libelleModeLivraison:'', codeEtatLivraison:null, lignesCommande:[]};
+  private livraison: Livraison = {id:null,dateLivraisonPrevue: null, dateLivraisonEffective: null, dateLivraison: null,idAdresseLivraison:null,idModeLivraison: null,libelleModeLivraison:'', codeEtatLivraison:null, lignesCommande:[], libelleEtatLivraison: null};
   
   /**
    * Creates an instance of CheckoutService.
@@ -686,7 +687,7 @@ getAdresseByClient(idClient){
 
     createLivraison(commande: Commande) {
     this.livraison.id = commande.id;
-    this.livraison.codeEtatLivraison = 'TRAITEMENT';
+    this.livraison.codeEtatLivraison = 'NOLIVREE';
     this.livraison.idModeLivraison = commande.shippingOption.id;
     this.livraison.idAdresseLivraison = parseInt(commande.adresseLivraison.id);
     this.livraison.lignesCommande = commande.lignesCommande;
@@ -719,6 +720,27 @@ getAdresseByClient(idClient){
         .subscribe();
     }));*/
   }
+  getQrCodeWithAmount(total: number){
+  
+    return this.http.post(environment.api_orange_url+`/orange-money/qrcode`, { 
+      orangeMoneyQrCodeInput:{
+      code:environment.code_marchand_orange_money,
+      name:environment.service_name_orange_money,
+      amount:{
+        value: total,
+        unit: "XOF"
+      }
+    }})
+  }
+  getQrCodeWithoutAmount(api_url: string, getTotal: any){
+  
+    return this.http.post(api_url, {
+      code:environment.code_marchand_orange_money,
+      name:environment.service_name_orange_money,
+    })
+  }
 
-
+  getMontantSeuil(): Observable<any>{
+    return this.get(environment.API_ENDPOINT +`parametrage/SeuilLivraison`)
+  }
 }

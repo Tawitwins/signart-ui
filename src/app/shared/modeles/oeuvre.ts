@@ -20,9 +20,10 @@ export class Oeuvre {
   idArtiste?: number;
   idStatus?: number;
   stock?: number;
-  idTechnique?: number;
+  idTechnique?: number; // this.oeuvres.filter(oeuvre => oeuvre.paid)
   annee?: number;
   lithographie?: boolean;
+  paid?: boolean = false;
   auteur?: string;
   dateAjout?: Date;
   currency?: string;
@@ -30,6 +31,8 @@ export class Oeuvre {
   idSouscription?: number;
   Technique?: Technique;
   quantity?:number;
+  reference?: string;
+  specialDelivery?: boolean;
   constructor(/*id: number,
     nom: string,
     prix: number,

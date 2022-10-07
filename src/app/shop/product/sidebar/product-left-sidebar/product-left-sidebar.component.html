@@ -73,8 +73,9 @@
                       <span *ngIf="oeuvre?.tauxremise">{{ oeuvre?.tauxremise }}% Offre Promotionnelle</span>
                   </h4>
                   <h3>
-                    {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100  }} FCFA
+                    {{ (oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100) || 0 }} FCFA
                   </h3>
+                  <h4>Référence: {{ oeuvre?.reference}}</h4>
                   <div class="product-description border-product">
                     <h6 class="product-title size-text">
                         Artiste: {{name}}
@@ -106,6 +107,10 @@
                   <div class="border-product">
                     <h6 class="product-title">Détails Article</h6>
                     <p>{{ oeuvre?.description?.substring(0, 200)+'...' }}</p>
+                    <span *ngIf="oeuvre.specialDelivery">
+                      <h6 class="product-title">Type de livraison</h6>
+                      <p>spécial</p>
+                    </span>
                   </div>
                   <div class="border-product">
                     <h6 class="product-title">Partager</h6>

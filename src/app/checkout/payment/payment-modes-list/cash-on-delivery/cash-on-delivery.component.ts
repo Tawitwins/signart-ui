@@ -55,9 +55,9 @@ export class CashOnDeliveryComponent implements OnInit {
 
   onPay() {
     this.paymentmode.id=2;
-    this.paymentmode.code = 'ESPECE';
-    this.paymentmode.libelle='Espèces a la livraison';
-    this.codePaiement = 'INITIE';
+    this.paymentmode.code = 'MAGASIN';
+    this.paymentmode.libelle='A la galerie';
+    this.codePaiement = 'NOPAYE';
     //localStorage.setItem('mode_payment', JSON.stringify(this.paymentmode));
     console.log('paiement : ', this.paymentmode);
     Swal.fire({
@@ -65,10 +65,10 @@ export class CashOnDeliveryComponent implements OnInit {
       text: "Vous avez choisi "+this.paymentmode.libelle,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: ' #f07c10',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: ' #376809',
+      cancelButtonColor: 'red',
+      cancelButtonText: 'Annuler',
       confirmButtonText: 'Continuer!',
-      cancelButtonText: 'Anuler'
     }).then((result) => {
       if (result.value) {
         //this.store.dispatch(this.checkoutActions.addPaymentModeSuccess(this.paymentmode));
@@ -81,12 +81,12 @@ export class CashOnDeliveryComponent implements OnInit {
           localStorage.setItem('order', JSON.stringify(this.order));
           let paiement = new PaiementEtLigneP();
           paiement.lignePaiements = [];
-          paiement.codeEtatPaiement="INITIE";
+          paiement.codeEtatPaiement="NOPAYE";
           paiement.codeModePaiement=this.order.modePaiement.code;
           paiement.datePaiement=new Date();
           paiement.idCommande=this.order.id;
           paiement.id = this.order.id;
-          this.checkoutService.postPaiement(paiement).subscribe(resp => {
+          this.checkoutService.putPaiement(paiement).subscribe(resp => {
             console.log(resp);
             this.router.navigate(['/pages/order/success']);
           });

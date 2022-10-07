@@ -49,6 +49,7 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ArtisteParamComponent } from './compte-artiste/artiste-profil-param/artiste-param.component';
+import { ShopModule } from '../shop/shop.module';
 
 
 @NgModule({
@@ -95,7 +96,8 @@ import { ArtisteParamComponent } from './compte-artiste/artiste-profil-param/art
     GalleryModule.forRoot(),
     SharedModule,
     PagesRoutingModule,
-    NgxUiLoaderModule 
+    NgxUiLoaderModule,
+    ShopModule
   ]
 })
 export class PagesModule { }

@@ -13,6 +13,11 @@ import { AppState } from '../../../../interfaces';
 import { CheckoutActions } from '../../../actions/checkout.actions';
 import { getTotalCartValue, getShippingOptionPrice, getOrderId } from '../../../reducers/selectors';
 import { Commande } from 'src/app/shared/modeles/commande';
+import { CheckoutService } from 'src/app/shared/services/checkout.service';
+import { ImageService } from 'src/app/shared/services/image.service';
+import { Abonnement } from 'src/app/shared/modeles/utilisateur';
+import { storage } from 'firebase';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-paydunya',
@@ -22,6 +27,11 @@ import { Commande } from 'src/app/shared/modeles/commande';
 export class PaydunyaComponent implements OnInit {
 
   @Output() payOnDunya: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() setTokenEvent: EventEmitter<string> = new EventEmitter<string>();
+  @Input() isAbonnement:boolean;
+  @Input() abonnement:Abonnement;
+  @Input() abonnementId:number;
+  @Input() listing:boolean;
   paymentmode: PaymentMode ={id:null, code:'', libelle:''};
   orderId: number;
   totalCartValue$: Observable<number>;
@@ -30,7 +40,8 @@ export class PaydunyaComponent implements OnInit {
   shippingOptionPrice: number;
   //--------
   data: any;
-  private host : String='https://app.paydunya.com';
+  private hostpaydunya : String='https://app.paydunya.com';
+  private host : String=' http://localhost:8085/';
   httpOptions;
   answer:any;
   totalAmount: number;
@@ -40,7 +51,7 @@ export class PaydunyaComponent implements OnInit {
   itemize:any[];
   order:Commande;
   items:ItemPaydunya[]=[];
-  constructor(private http: HttpClient,private router:Router, private store: Store<AppState>,private toastr: ToastrService, private checkoutActions: CheckoutActions,) {
+  constructor(private http: HttpClient,private imageService:ImageService, private store: Store<AppState>,private checkoutService:CheckoutService, private checkoutActions: CheckoutActions,) {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -62,9 +73,9 @@ export class PaydunyaComponent implements OnInit {
 
 
     this.order = <Commande>JSON.parse(localStorage.getItem('order'));
-    this.totalAmount = this.order.total;
-    this.shippingOptionPrice = this.order.totalLivraison;
-    this.orderId = this.order.id; 
+    this.totalAmount = this.order?.total;
+    this.shippingOptionPrice = this.order?.totalLivraison;
+    this.orderId = this.order?.id; 
     this.Total = this.totalAmount + this.shippingOptionPrice;
 
 
@@ -95,7 +106,7 @@ export class PaydunyaComponent implements OnInit {
 
   }
   onpay(objet){   
-    return this.http.post(this.host+`/sandbox-api/v1/checkout-invoice/create`,JSON.stringify(objet),this.httpOptions)
+    return this.http.post(`/api/paydunya/create-invoice`,objet)
   }
   /*
   onconfirm(token){
@@ -104,44 +115,47 @@ export class PaydunyaComponent implements OnInit {
   sendPayment(){ 
 
   let data={
-    invoice: {
-      items: {
-        
+    payDunyaInput: {
+      invoice: {
+        items: {
+          
+        },
+        taxes: {
+          tax_0: {
+            name: "Livraison",
+            amount: this.shippingOptionPrice$,
+          }
+        },
+        total_amount: 200 ,
+        description: "Paiment d'oeuvre d'art"
       },
-      taxes: {
-        tax_0: {
-          name: "Livraison",
-          amount: this.shippingOptionPrice$,
-        }
+      store: {
+        name: "SignArt",
+        tagline: "",
+        postal_address: "Dakar Plateau_Avenue Lamine Gueye",
+        phone: "774698944",
+        logo_url: "https://lh3.googleusercontent.com/ogw/AOh-ky3njWTf1eU8loMeFpCwS4Fr7pQxk90R1pEt1M0j=s64-c-mo",
+        website_url: ""
       },
-      total_amount: this.Total ,
-      description: "Paiment d'oeuvre d'art"
-    },
-    store: {
-      name: "SignArt",
-      tagline: "",
-      postal_address: "Dakar Plateau_Avenue Lamine Gueye",
-      phone: "774698944",
-      logo_url: "",
-      website_url: ""
-    },
-    custom_data: {
-  
-    },
-    actions: {
-      cancel_url: "http://localhost:4200/pages/order/success",
-      return_url:"http://localhost:4200/pages/order/success",
-      callback_url: ""
+      custom_data: {
+    
+      },
+      actions: {
+        cancel_url: `${environment.serverUrl}/shop/checkout`,
+        return_url:`${environment.serverUrl}/pages/order/success`,
+        callback_url: ""
+      }
     }
   }
   
   console.log(this.items);
-  data.invoice.items=this.convertProductToItems();
+  data.payDunyaInput.invoice.items=this.convertProductToItems();
   console.log(data);
   this.onpay(data).subscribe(
     (response)=>{
      console.log('Ma réponse',response);
-     this.answer=response;
+     this.answer=response; 
+     this.updateCommandeToken(response);
      console.log('Answer',response)
     // window.location.href=this.answer.response_text;
     /*
@@ -164,6 +178,66 @@ export class PaydunyaComponent implements OnInit {
     }
   );
   }
+  sendAbonnementPayment(){ 
+
+    let data={
+      payDunyaInput: {
+        invoice: {
+          items: {
+            
+          },
+          taxes: {
+          },
+          total_amount: 201 ,
+          description: "Paiment d'oeuvre d'art"
+        },
+        store: {
+          name: "SignArt",
+          tagline: "",
+          postal_address: "Dakar Plateau_Avenue Lamine Gueye",
+          phone: "774698944",
+          logo_url: "https://lh3.googleusercontent.com/ogw/AOh-ky3njWTf1eU8loMeFpCwS4Fr7pQxk90R1pEt1M0j=s64-c-mo",
+          website_url: ""
+        },
+        custom_data: {
+      
+        },
+        actions: {
+          cancel_url: `${environment.serverUrl}/shop/collection/abonnement-catalogue`,
+          return_url:`${environment.serverUrl}/pages/dashboard`,
+          callback_url: ""
+        }
+      }
+    }
+    
+    //data.payDunyaInput.invoice.items=this.convertProductToItems();
+    console.log(data);
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: 'Vous avez choisi ' +this.paymentmode.libelle +'. Vous allez être redirigé(e) sur la plateforme paydunya ...',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: ' #376809',
+      cancelButtonColor: 'red',
+      confirmButtonText: 'Continuer!',
+      cancelButtonText: 'Annuler',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.value) {
+        this.onpay(data).subscribe(
+          (response)=>{
+           console.log('Ma réponse',response);
+           this.answer=response; 
+           this.updateAbonnementToken(response);
+           console.log('Answer',response)
+          },
+          (error)=>{
+            console.log('Réponse avec erreur',error)
+          }
+        );
+      }
+    })
+    }
 
 //----------------------------------
 Pay() {
@@ -177,15 +251,17 @@ Pay() {
     text: 'Vous avez choisi ' +this.paymentmode.libelle +'. Vous allez être redirigé(e) sur la plateforme paydunya ...',
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonColor: ' #f07c10',
-    cancelButtonColor: '#d33',
+    confirmButtonColor: ' #376809',
+    cancelButtonColor: 'red',
     confirmButtonText: 'Continuer!',
-    cancelButtonText: 'Anuler'
+    cancelButtonText: 'Annuler',
+    reverseButtons: true,
   }).then((result) => {
     if (result.value) {
       this.store.dispatch(this.checkoutActions.addPaymentModeSuccess(this.paymentmode));
       this.order.modePaiement=this.paymentmode;
       localStorage.setItem('order', JSON.stringify(this.order));
+      console.log("PARFAIT: ",this.answer.response_text)
       window.location.href=this.answer.response_text;
     }
   })
@@ -206,5 +282,31 @@ Pay() {
     /* let json = JSON.stringify(jsonObject);  
     console.log(json); */
     return jsonObject;
+  }
+  updateCommandeToken(response){
+    this.checkoutService.getCommandeById(this.order.id).subscribe(resp => {
+      let splitted =  response.response_text.split("invoice/");
+      resp.token = splitted[1];
+      console.log(resp);
+      this.checkoutService.updateCommande(this.order.id,resp).subscribe(response => {
+        console.log(response);
+      });
+    });
+  }
+  updateAbonnementToken(response){
+    if(this.abonnement.id){
+      this.imageService.getAbonnementById(this.abonnement.id).subscribe(resp => {
+        let splitted =  response.response_text.split("invoice/");
+        resp.token = splitted[1];
+        console.log(resp);
+        this.imageService.updateAbonnement(resp).subscribe(response => {
+          console.log(response);
+           window.location.href=this.answer.response_text;
+        });
+      });
+    }
+    else{
+      this.setTokenEvent.emit(response.response_text.split("invoice/")[1]);
+    }
   }
 }

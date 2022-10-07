@@ -68,10 +68,11 @@ export class LineItemComponent implements OnInit {
       text: "Ceci sera irreversible!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: ' #f07c10',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#376809',
+      cancelButtonColor: 'red',
+      cancelButtonText: 'Annuler',
       confirmButtonText: 'Oui, je supprime!',
-      cancelButtonText: 'Anuler'
+      reverseButtons: true,
     }).then((result) => {
       if (result.value) {
         this.checkoutService.deleteLineItemInLocalStorage(this.lignePanier.id);

@@ -203,15 +203,17 @@
                                                 </ng-template>
                                             </ngb-tab>
                                             <ngb-tab>
-                                                <ng-template ngbTabTitle> Liste de selection </ng-template>
+                                                <ng-template ngbTabTitle> Formulaire D'abonnement </ng-template>
                                                 <ng-template ngbTabContent>
                                                   <div class="container" *ngIf="pageFormu == 0">
                                                     <div class="col-sm-12 empty-cart-cls text-center" *ngIf="!oeuvresNumeriques.length">
                                                         <img src="assets/images/icon-empty-cart.png" class="img-fluid mb-4">
                                                         <h3><strong>Votre liste est vide</strong></h3>
-                                                        <h4>ajouter quelque chose :)</h4>
+                                                        <h4>Ajouter une œuvre :)</h4>
                                                         </div>
                                                     <div class="row" *ngIf="oeuvresNumeriques.length">
+                                                        <br><br>
+                                                        <h4 class="col-12 mt-3"><strong>Liste de selection</strong></h4><br>
                                                         <div class="col-sm-12">
                                                             <table style="text-align: center;" class="table cart-table table-responsive-xs">
                                                                 <thead>
@@ -289,11 +291,12 @@
                                                     <div class="row">
                                                         <div class="col-lg-12">
                                                             <br><br>
-                                                            <h4>Veuillez remplir le formulaire d'abonnement</h4><br>
+                                                            <h4>Veuillez remplir le formulaire de l'abonné</h4><br>
                                                             <div class="theme-card">
                                                                 <form class="theme-form" novalidate="" [formGroup]="abonneeForm" class="text-center">
                                                                     <div class="form-row">
-                                                                      <div class="col-md-6">                             
+                                                                      <div class="col-md-6"> 
+                                                                        <label><strong> Pays </strong> </label>                            
                                                                         <select class="mdb-select md-form form-control" (change)="choisirPays($event)" formControlName="pays" required>     
                                                                             <option value="">Sénégal</option> 
                                                                             <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>                                                                       
@@ -303,10 +306,12 @@
                                                                     <hr>
                                                                     <div class="form-row">
                                                                         <div class="col-md-6">
+                                                                            <label><strong> Prénom </strong> </label>
                                                                             <input type="text" class="form-control" formControlName="prenom" autocomplete="off" [(ngModel)]="clientAdresse.prenom" placeholder="Prénom(s)" required="">
                                                                         </div>
                                                                         
                                                                         <div class="col-md-6">
+                                                                            <label><strong> Nom </strong> </label>
                                                                             <input type="text" class="form-control" placeholder="Nom" formControlName="nom" [(ngModel)]="clientAdresse.nom" autocomplete="off" required="">
                                                                         </div>
                                                                         
@@ -325,31 +330,38 @@
                                                                                 </div>
                                                                         </div>
                                                                         <div class="col-md-6">
+                                                                            <label><strong> E-mail </strong> </label>
                                                                             <input type="email" class="form-control" placeholder="E-mail" required="" formControlName="email" [(ngModel)]="userConnect.email" autocomplete="off">
                                                                         </div>
                                                                     </div>
                                                                     <br><br>
                                                                     <div class="form-row">
                                                                         <div class="col-md-6">
+                                                                            <label><strong> Région </strong> </label>
                                                                             <input type="text" class="form-control" formControlName="region" [(ngModel)]="clientAdresse.region" autocomplete="off" placeholder="Region" required="">
                                                                         </div>
                                                                         
                                                                         <div class="col-md-6">
+                                                                            <label><strong> Ville </strong> </label>
                                                                             <input type="text" class="form-control" placeholder="Ville" [(ngModel)]="clientAdresse.ville" formControlName="ville" autocomplete="off" required="">
                                                                         </div>                                                                             
                                                                     </div><br><br>
                                                                     <div class="form-row">
                                                                         <div class="col-md-12">
+                                                                            <label><strong> Adresse </strong> </label>
                                                                             <input type="text" class="form-control" formControlName="adresse" [(ngModel)]="clientAdresse.adresse" autocomplete="off" placeholder="Votre adresse..." required="">
                                                                         </div>                                                                             
                                                                     </div>
                                                                     <br><br><hr>
                                                                     <div class="form-row">
-                                                                        <div class="col-md-6">
+                                                                        <!-- <div class="col-md-4">
                                                                             <button title="Annuler" type="submit" class="btn btn-solid" (click)="pageFormu = 0" style="background: red;" >Annuler</button>
+                                                                        </div>  -->
+                                                                        <div class="col-md-6">
+                                                                            <button title="Retourner" type="submit" class="btn btn-solid" (click)="pageFormu = 0" style="background: rgb(130, 37, 42);" >Retourner</button>
                                                                         </div> 
                                                                         <div class="col-md-6">
-                                                                            <button title="Continuer" class="btn btn-solid-Valider" type="submit" (click)="onSubmitFormuAbonne()">Continuer</button>
+                                                                            <button title="Continuer" class="btn btn-solid-Valider" type="button" (click)="onSubmitFormuAbonne()">Continuer</button>
                                                                         </div> 
                                                                        
                                                                     </div>
@@ -365,12 +377,13 @@
                                                         <h4>Veuillez Choisir un terminal d'affichage</h4>
                                                         <br><br>
                                                         <div class="form-row">    
-                                                            <div class="col-md-6" *ngFor="let terminal of terminals">
+                                                            <div class="col-md-4" *ngFor="let terminal of terminals">
                                                                 <div class="card profile-card-2">
                                                                     <div class="card-body pt-5">
                                                                         <a><h5 class="card-title">{{terminal.libelle}}</h5></a>
                                                                         <p class="card-text">{{terminal.description}}</p>
-                                                                        <a><h5 class="card-title">Prix : {{terminal.prix}} FCFA</h5></a>
+                                                                        <a><h5 class="card-title" *ngIf="terminal.prix == 0">Gratuit</h5></a>
+                                                                        <a><h5 class="card-title" *ngIf="terminal.prix != 0">Prix : {{terminal.prix}} FCFA</h5></a>
                                                                         <input type="radio" class="register-gender-radio" value={{terminal.id}} formControlName="terminalId">
                                                                     </div>
                                                                 </div>
@@ -405,11 +418,14 @@
                                                         <br><br>
                                                         <hr>
                                                         <div class="form-row">
-                                                            <div class="col-md-6">
-                                                                <button type="submit" title="Annuler" class="btn btn-solid" (click)="pageFormu = 0" style="background: red;" >Annuler</button>
+                                                            <div class="col-md-4">
+                                                                <button type="button" title="Annuler" class="btn btn-solid" (click)="pageFormu = 0" style="background: red;" >Annuler</button>
                                                             </div> 
-                                                            <div class="col-md-6">
-                                                                <button class="btn btn-solid-Valider" title="Continuer" type="submit" (click)="onSubmitFormuTermi()">Continuer</button>
+                                                            <div class="col-md-4">
+                                                                <button title="Retourner" type="submit" class="btn btn-solid" (click)="pageFormu = 1" style="background: rgb(130, 37, 42);" >Retourner</button>
+                                                            </div> 
+                                                            <div class="col-md-4">
+                                                                <button class="btn btn-solid-Valider" title="Continuer" type="button" (click)="onSubmitFormuTermi()">Continuer</button>
                                                             </div> 
                                                            
                                                         </div>
@@ -439,8 +455,8 @@
                                                           <div class="total-sec">
                                                             <h4>Choix Delai et Terminal</h4>
                                                             <ul>
-                                                                <li>Terminal: {{terminalDelai.terminalLibelle}} - <span>{{terminalChoisi.prix}}</span></li><br>
-                                                                <li>Delai: {{terminalDelai.delaiLibelle}} - <span> {{delaiChoisi.prix}}</span></li><br> 
+                                                                <li>Terminal: {{terminalDelai.terminalLibelle}} - <span>{{terminalChoisi.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li><br>
+                                                                <li>Delai: {{terminalDelai.delaiLibelle}} - <span> {{delaiChoisi.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li><br> 
                                                             </ul>
                                                           </div><br>
                                                           <div class="total-sec">
@@ -462,11 +478,18 @@
                                                     </div>
                                                     <br><hr>
                                                     <div class="form-row">
-                                                        <div class="col-md-6">
-                                                            <button type="submit" title="Annuler" class="btn btn-solid-Annuler" (click)="pageFormu = 0" >Annuler</button>
+                                                        <div class="col-md-3">
+                                                            <button type="button" title="Annuler" class="btn btn-solid-Annuler"  style="background: red;" (click)="pageFormu = 0" >Annuler</button>
                                                         </div> 
-                                                        <div class="col-md-6">
-                                                            <button class="btn btn-solid-Valider" title="Soumettre" type="submit" (click)="onSubmitFinal();">Soumettre</button>
+                                                        <div class="col-md-3">
+                                                            <button title="Retourner" type="submit" class="btn btn-solid" (click)="pageFormu = 2" style="background: rgb(130, 37, 42);" >Retourner</button>
+                                                        </div> 
+                                                        <div class="col-md-3">
+                                                            <button class="btn btn-solid-Valider" title="Soumettre" type="button" (click)="onSubmitFinal();">Soumettre sans payer</button>
+                                                        </div> 
+                                                        <div class="col-md-3">
+                                                            <!-- <button class="btn btn-solid-Valider" title="Soumettre" type="button" (click)="onSubmitFinal();">Soumettre et payer</button> -->
+                                                            <app-paydunya (click)="onSubmitFinal()" (setTokenEvent)="setAbonnementToken($event)" [isAbonnement]="true" [abonnementId]="abonnement?.id" [abonnement]="abonnement"></app-paydunya>
                                                         </div> 
                                                        
                                                     </div>

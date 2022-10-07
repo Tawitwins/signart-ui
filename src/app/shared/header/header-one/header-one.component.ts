@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 export class HeaderOneComponent implements OnInit {
   
   @Input() class: string;
-  @Input() themeLogo: string = 'assets/images/icon/logo_signart.png'; // Default Logo
-  //@Input() themeLogo: string = 'assets/images/icon/LogoGif.gif';
+  //@Input() themeLogo: string = 'assets/images/icon/logo_signart.png'; // Default Logo
+  @Input() themeLogo: string = 'assets/images/icon/LogoGif.gif';
   @Input() topbar: boolean = true; // Default True
   @Input() sticky: boolean = false; // Default false
   

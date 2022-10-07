@@ -277,14 +277,15 @@
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 5">
                             <div class="box-head">
-                                <h2>Mes abonnements</h2>
+                                <h2 *ngIf="!shownTerminal">Mes abonnements</h2>
+                                <h2 *ngIf="shownTerminal">Réabonnement</h2>
                             </div> <br><hr>
                             <div class="row">
                                 <p *ngIf="abonnements?.length == 0">
                                     liste vide
                                 </p>
                                 <div class="col-sm-12" *ngIf="abonnements?.length != 0"> 
-                                    <table class="table cart-table table-responsive-md" style="text-align: center;">
+                                    <table class="table cart-table table-responsive-md" style="text-align: center;" *ngIf="!shownTerminal">
                                         <thead>
                                         <tr class="table-head">
                                             <th scope="col">Numéro</th>
@@ -294,22 +295,101 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let abonnement of abonnements | slice: (pagAbmt-1) * pageSizeAbmt : (pagAbmt-1) * pageSizeAbmt + pageSizeAbmt">
+                                            <tr *ngFor="let abonnement of abonnements | slice: (pagAbmt-1) * pageSizeAbmt : (pagAbmt-1) * pageSizeAbmt + pageSizeAbmt, let index = index">
                                                 <td><h4>000{{abonnement.id}}</h4></td>
                                                 <td><h4>{{abonnement.montantPaiement | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h4>
                                                 </td>
                                                 <td><h6>{{getLibelleEtatAbonnement(abonnement.etatAbonnement)}}</h6></td>
                                                 <td>
-                                                    <a (click)="showDetailsAbonnement(abonnement.id)" title="Détails"  [routerLink]=" " style="cursor: pointer;" class="icon mr-3">
-                                                        Details
-                                                    </a>
+                                                    <div style="text-align: left;">
+                                                        <button 
+                                                            class="btn abonnement" 
+                                                            (click)="showDetailsAbonnement(abonnement.id)" 
+                                                            title="Détails"  
+                                                            [routerLink]=" " 
+                                                            style="cursor: pointer;">Voir
+                                                        </button>
+                                                        <button 
+                                                            class="btn abonnement ml-1" 
+                                                            [disabled]="getCodeEtatAbonnement(abonnement.etatAbonnement) != 'EXPIRE'" 
+                                                            (click)="reAbonner(index)" title="Réabonner"  
+                                                            [routerLink]=" " 
+                                                            style="cursor: pointer;">Se réabonner
+                                                        </button>
+                                                        <span [class.disabled]="getCodeEtatAbonnement(abonnement.etatAbonnement)!='NON_PAYE'">
+                                                            <app-paydunya 
+                                                                class="ml-1" 
+                                                                [listing]="true" [isAbonnement]="true" 
+                                                                [abonnementId]="abonnement?.id" 
+                                                                [abonnement]="abonnement">
+                                                            </app-paydunya>
+                                                        </span>
+                                                    </div>
+                                                   
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <ngb-pagination style="float: right;" [collectionSize]="abonnements.length" [(page)]="pagAbmt" [pageSize]="pageSizeAbmt" aria-label="Default pagination">
+                                    <ngb-pagination 
+                                        style="float: right;" 
+                                        [collectionSize]="abonnements.length" 
+                                        [(page)]="pagAbmt" 
+                                        [pageSize]="pageSizeAbmt" 
+                                        aria-label="Default pagination" 
+                                        *ngIf="!shownTerminal">
                                     </ngb-pagination>
-                                </div>
+                                
+
+                                <!-- DEBUT REABONNEMENT -->
+
+                                <div class="container" *ngIf="shownTerminal">
+                                    <form class="theme-form" novalidate="" [formGroup]="terminalDelaiForm" class="text-center">
+                                        <br><br>
+                                        <h4>Veuillez Choisir un terminal d'affichage</h4>
+                                        <br><br>
+                                        <div class="form-row">    
+                                            <div class="col-md-6" *ngFor="let terminal of terminals">
+                                                <div class="card profile-card-2">
+                                                    <div class="card-body pt-5">
+                                                        <a><h5 class="card-title">{{terminal.libelle}}</h5></a>
+                                                        <p class="card-text">{{terminal.description}}</p>
+                                                        <a><h5 class="card-title" *ngIf="terminal.prix == 0">Gratuit</h5></a>
+                                                        <a><h5 class="card-title" *ngIf="terminal.prix != 0">Prix : {{terminal.prix}} FCFA</h5></a>
+                                                        <input 
+                                                            type="radio" 
+                                                            class="register-gender-radio" 
+                                                            value={{terminal.id}} 
+                                                            formControlName="terminalId">
+                                                    </div>
+                                                </div>
+                                            </div>             
+                                        </div>
+                                        <br><br>
+                                        <hr>
+                                        <div class="form-row">
+                                            <div class="col-md-6">
+                                                <button 
+                                                    type="button" 
+                                                    title="Annuler" 
+                                                    class="btn btn-solid"  
+                                                    style="background: red;" 
+                                                    (click)="annulerReabonnement()">Annuler
+                                                </button>
+                                            </div> 
+                                            <div class="col-md-6">
+                                                <button 
+                                                    class="btn btn-solid-Valider" 
+                                                    title="Continuer" type="button" 
+                                                    (click)="reAbonnement()">Se réabonner
+                                                </button>
+                                            </div> 
+                                           
+                                        </div> 
+                                        
+                                    </form>
+                                   </div>
+                                <!-- FIN REABONNEMENT -->
+                            </div>
                             </div>
 
                         </div>
@@ -532,16 +612,16 @@
                                                         </div>
                                                         <div class="col-md-12" *ngIf="activePaiement == false">
                                                             <div class="delivery-sec">
-                                                                <h2>Paiement non effectif</h2>
-                                                                <h4>Abonnement en attente de validation</h4>
+                                                                <h2>Paiement effectif</h2>
+                                                                <h4>Abonnement {{getLibelleEtatAbonnement(abonnementAffiche.etatAbonnement)}}</h4>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12" *ngIf="activePaiement == true">
                                                             <div class="delivery-sec">
                                                                 <h2>Paiement</h2>
                                                                 <div class="product-buttons">
-                                                                    <a href="javascript:void(0)" title="Payer"  class="btn btn-solid-Valider">Clicker ici pour payer</a>
-                                                                    
+<!--                                                                     <a href="javascript:void(0)" title="Payer"  class="btn btn-solid-Valider">Clicker ici pour payer</a>
+ -->                                                                    <app-paydunya [isAbonnement]="true" [abonnementId]="abonnementAffiche?.id" [abonnement]="abonnementAffiche"></app-paydunya>
                                                                 </div>
                                                                 
                                                             </div>
@@ -578,6 +658,7 @@
                                 <li>{{adressLivraison.prenom}} {{adressLivraison.nom}}</li>
                                 <li>Adresse: {{adressLivraison.adresse}}</li>
                                 <li>Mode de livraison: {{livraison.libelleModeLivraison}} </li>
+                                <li>Etat de livraison: {{livraison.libelleEtatLivraison}} </li>
                             </ul>
                         </div><br>
                         
@@ -585,8 +666,10 @@
                     <div class="row order-success-sec">
                         <div class="col-sm-12">
                             <h4  style="text-decoration: underline;">Méthode de paiement</h4>
-                            <p *ngIf="paiement?.libelleModePaiement!=null">{{paiement?.libelleModePaiement}} ({{paiement?.libelleEtatPaiement}}).</p>
-                            <p *ngIf="paiement?.libelleModePaiement==null">Mode de paiement indisponible (Commande annulée).</p>
+                            <ul class="order-detail">
+                                <li *ngIf="paiement?.libelleModePaiement!=null">{{paiement?.libelleModePaiement}} ({{paiement?.libelleEtatPaiement}}).</li>
+                                <li *ngIf="paiement?.libelleModePaiement==null">Mode de paiement indisponible (Commande annulée).</li>
+                            </ul>
                         </div>
                     </div><hr>
                 
@@ -597,6 +680,12 @@
                     <div class="row product-order-detail" *ngFor="let p of commande.lignesCommande;let i=index">
                         <div class="col-2">
                             <img [src]="get(i)" class="img-fluid" alt="quixote">                        
+                        </div>
+                        <div class="col-2 order_detail">
+                            <div style="text-align: center;">
+                                <h4>Référence</h4>
+                                <h5>{{p.oeuvre.reference}}</h5>
+                            </div>
                         </div>
                         <div class="col-2 order_detail">
                             <div style="text-align: center;">
@@ -616,17 +705,17 @@
                                 <h5>{{p.prix| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </h5>
                             </div>
                         </div>
-                        <div class="col-2 order_detail">
+                        <!-- <div class="col-2 order_detail">
                             <div style="text-align: center;">
                                 <h4>prix livraison</h4>
                                 <h5>{{p.oeuvre.fraisLivraison | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </h5>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="total-sec">
                         <ul>
                             <li>Sous-Total <span> {{commande.total| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
-                            <li>Livraison <span>{{commande.totalLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
+                            <li>Livraison et assurance <span> 1100 CFA<!-- {{commande.totalLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} --> </span></li>
                         </ul>
                     </div>
                     <div class="final-total">
@@ -635,7 +724,7 @@
                 </div><br><br>
                 <div class="col-md-12">
                     <div class="delivery-sec">
-                        <h3>Date prévue de livraison</h3>
+                        <h3>Date limite de livraison</h3>
                         <h2>{{livraison?.dateLivraison | date: 'dd/MM/yyyy'}} </h2>
                     </div>
                 </div>

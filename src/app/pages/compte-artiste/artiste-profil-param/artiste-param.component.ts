@@ -315,10 +315,11 @@ this.hide2 =true;
       //text: "Ceci sera irreversible!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: ' #f07c10',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: ' #376809',
+      cancelButtonColor: 'red',
       confirmButtonText: 'Confirmer',
-      cancelButtonText: 'Annuler'
+      cancelButtonText: 'Annuler',
+      reverseButtons: true,
     }).then((result) => {
       if (result.value) {
         this.artisteService.putPhotoArtiste(this.artiste.id,formModel).subscribe(
@@ -392,10 +393,11 @@ this.hide2 =true;
     //text: "Ceci sera irreversible!",
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonColor: ' #f07c10',
-    cancelButtonColor: '#d33',
+    confirmButtonColor: ' #376809',
+    cancelButtonColor: 'red',
     confirmButtonText: 'Confirmer',
-    cancelButtonText: 'Annuler'
+    cancelButtonText: 'Annuler',
+    reverseButtons: true,
   }).then((result) => {
     if (result.value) {
       this.artisteService.getAllBiographie(this.artiste.id).subscribe(
@@ -489,10 +491,11 @@ this.hide2 =true;
       title: "Voulez vous vraiment soumettre cette presentation?",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: ' #f07c10',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: ' #376809',
+      cancelButtonColor: 'red',
+      cancelButtonText: 'Annuler',
       confirmButtonText: 'Oui!',
-      cancelButtonText: 'Anuler'
+      reverseButtons: true,
     }).then((result) => {
       if (result.value) {
         console.log('pres',pres)
@@ -567,10 +570,11 @@ this.hide2 =true;
       title: "Voulez vous vraiment soumettre cette presentation?",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: ' #f07c10',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: ' #376809',
+      cancelButtonColor: 'red',
+      cancelButtonText: 'Annuler',
       confirmButtonText: 'Oui!',
-      cancelButtonText: 'Anuler'
+      reverseButtons: true,
     }).then((result) => {
       if (result.value) {
         console.log('pres',pres)
@@ -671,7 +675,7 @@ this.hide2 =true;
           Swal.fire({
             title: 'votre ancien mot de passe est incorrect!',
             icon: 'error',
-            cancelButtonColor: '#d33',
+            cancelButtonColor: 'red',
           });
         }
         else{
@@ -727,10 +731,11 @@ this.hide2 =true;
       //text: "Ceci sera irreversible!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: ' #f07c10',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: ' #376809',
+      cancelButtonColor: 'red',
+      cancelButtonText: 'Annuler',
       confirmButtonText: 'Oui!',
-      cancelButtonText: 'Anuler'
+      reverseButtons: true,
     }).then((result) => {
       if (result.value) {
         this.artisteService.putArtiste(this.artiste.id, artistem).subscribe(
