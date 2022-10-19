@@ -83,15 +83,7 @@
                                         <li class="empty-checkout"> Il n'y a aucun produit dans le panier </li>
                                     </ul>
                                     <ul class="sub-total" >
-                                      <li>
-                                        Montant <span class="count">{{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span>
-                                      </li>
-                                      <li>
-                                        Frais de Livraison<span class="count">{{ fraisLivraison | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span>
-                                      </li>
-                                      <li>
-                                        Montant total à payer <span class="count">{{ montantTotalAPayer | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span>
-                                      </li>
+                                     
                                         <!--li>
                                         	Total <span class="count">{{ getTotal | async | currency:productService?.Currency.currency:'symbol'}} </span>
                                         </li-->
@@ -133,7 +125,7 @@
                                               </div>
                                             </div>
                                              <div  class="form-group col-6">
-                                              <div class="field-label">Tarification/Zone</div>
+                                              <div class="field-label">Zone</div>
                                               <select name="tarification" [(ngModel)]="selectedTarification">
                                                 <option *ngFor="let t of tarificationList" [value]="t.id">{{t.zone}} - {{t.accessibiliteZone  | uppercase }}</option>
                                               </select>
@@ -159,7 +151,16 @@
                                         </li>
                                     </ul>
                                     <ul class="total">
-                                        <li>Total <span class="count">{{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span></li>
+                                        <!-- <li>Total <span class="count">{{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span></li> -->
+                                        <li>
+                                          Montant <span class="count">{{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span>
+                                        </li>
+                                        <li>
+                                          Frais de Livraison<span class="count">{{ fraisLivraison | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span>
+                                        </li>
+                                        <li>
+                                          Montant total à payer <span class="count">{{ montantTotalAPayer | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span>
+                                        </li>
                                     </ul>
                                 </div>
 
