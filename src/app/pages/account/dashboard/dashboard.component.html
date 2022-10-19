@@ -649,7 +649,7 @@
                             <ul class="order-detail">
                                 <li>ID commande: 000{{commande?.id}}</li>
                                 <li>Date de commande: {{commande.dateCreation}}</li>
-                                <li>Commande totale: {{Sum}} FCFA</li>
+                                <li>Commande totale: {{Sum| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</li>
                             </ul>
                         </div>
                         <div class="col-sm-6">
@@ -716,7 +716,7 @@
                     <div class="total-sec">
                         <ul>
                             <li>Sous-Total <span> {{commande.total| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
-                            <li>Livraison et assurance <span> 1100 CFA<!-- {{commande.totalLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} --> </span></li>
+                            <li>Livraison et assurance <span> {{fraisLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}<!-- {{commande.totalLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} --> </span></li>
                         </ul>
                     </div>
                     <div class="final-total">
