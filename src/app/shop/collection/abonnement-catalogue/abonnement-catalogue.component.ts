@@ -113,6 +113,8 @@ export class AbonnementCatalogueComponent implements OnInit {
   listeSelection: ListSelection;
   imageSelect: OeuvreNumerique;
   montantTotal: number;
+  totalOeuvres: number;
+  montantAlgoDaily:number;
   //abonneeForm: FormGroup;
   //terminalDelaiForm: FormGroup;
   loginForm: FormGroup;
@@ -190,6 +192,7 @@ export class AbonnementCatalogueComponent implements OnInit {
     delaiId: new FormControl(null,Validators.required),
     precisions: new FormControl(''),
   });
+  isListeOeuvreAdded: boolean;
 
 
   //@ViewChild("quickView") QuickView: QuickViewComponent;
@@ -376,7 +379,7 @@ export class AbonnementCatalogueComponent implements OnInit {
         this.terminalChoisi = this.terminals[i];
         //console.log("termi - : ",this.terminalId)
        this.terminalDelai.terminalLibelle = this.terminals[i].libelle;
-       this.montantTotal = this.montantTotal + this.terminals[i].prix;
+       //this.montantTotal = this.montantTotal + this.terminals[i].prix;
       }
     }
     for (let i = 0;i <this.delais.length; i++) { 
@@ -385,7 +388,7 @@ export class AbonnementCatalogueComponent implements OnInit {
        this.delaiChoisi = this.delais[i];
        this.delaiId = this.delais[i].id;
        //console.log(" - delai: ",this.delaiId)
-       this.montantTotal = this.montantTotal + this.delais[i].prix;
+       //this.montantTotal = this.montantTotal + this.delais[i].prix;
       }
     }
     //console.log("termi - delai: ",this.terminalDelai)
@@ -487,12 +490,15 @@ export class AbonnementCatalogueComponent implements OnInit {
   public get getTotal(): Observable<number> {   
     return this.productService.listTotalAmount();
   }
+  public get getTotalAbonnementResume(): Observable<number>  {   
+    return this.imageService.getTotalAlgo(this.abonnement);
+  }
 
   // product Pagination
   setPage(page: number) {
     //console.log("number page", page)
     this.router.navigate([], { 
-      relativeTo: this.route,
+      relativeTo: this.route, 
       queryParams: { page: page },
       queryParamsHandling: 'merge', // preserve the existing query params in the route
       skipLocationChange: false,  // do trigger navigation
@@ -527,10 +533,66 @@ export class AbonnementCatalogueComponent implements OnInit {
   
   showResum(){
     this.pageFormu = 3;
-    this.getTotal.subscribe(response => { 
-      this.montantTotal = this.montantTotal + response;});
+    /* this.getTotal.subscribe(response => { 
+      this.montantTotal = this.montantTotal + response;}); */
+      console.log("la liste des oeuvres",this.listeOeuvre)
+      this.abonnement.idTerminal = this.terminalId;
+      this.abonnement.idDelai = this.delaiId;
+      //this.abonnement.montantPaiement = this.montantTotal;
+      this.listeOeuvre = this.oeuvresNumeriques;
+      console.log("abonne rs",this.abonne)
+      if(!this.isListeOeuvreAdded){
+        for (let i = 0; i < this.listeOeuvre.length; i++) {
+          const listoeuvre = new ListeSelection_Oeuvres(null,null);
+          listoeuvre.idListe = this.abonne.idListeSelection;
+          listoeuvre.nomOeuvre = this.listeOeuvre[i].nom;
+          console.log(listoeuvre)
+          this.imageService.addListOeuvre(listoeuvre).subscribe(
+            respon => { 
+              console.log("add image"+listoeuvre)
+              this.isListeOeuvreAdded = true;
+             
+                  this.abonnement.idListeSelection = this.abonne.idListeSelection;
+                  this.abonnement.montantPaiement = 0;
+                  this.imageService.getTotalAlgo(this.abonnement).subscribe(resp=>{
+                    //this.abonnement.montantPaiement = resp?.montantPaiement;
+                    this.montantAlgoDaily = resp;
+                    this.totalOeuvres = resp*this.delaiChoisi.nbMois*30;
+                    if(this.terminalChoisi.code.trim() == "LOUE"){
+                      this.montantTotal = this.totalOeuvres+this.terminalChoisi.prix*this.delaiChoisi.nbMois;
+                    }
+                    else{
+                      this.montantTotal = this.totalOeuvres+this.terminalChoisi.prix;
+                    }
+                    this.abonnement.montantPaiement = this.montantTotal;
+                    //return this.montantTotal;
+                  })
+            }); 
+          } 
+      }
+      else{
+        this.abonnement.idListeSelection = this.abonne.idListeSelection;
+        this.abonnement.montantPaiement = 0;
+        this.imageService.getTotalAlgo(this.abonnement).subscribe(resp=>{
+          //this.abonnement.montantPaiement = resp?.montantPaiement;
+          this.montantAlgoDaily = resp;
+          this.totalOeuvres = resp*this.delaiChoisi.nbMois*30;
+          if(this.terminalChoisi.code.trim() == "LOUE"){
+            this.montantTotal = this.totalOeuvres+this.terminalChoisi.prix*this.delaiChoisi.nbMois;
+          }
+          else{
+            this.montantTotal = this.totalOeuvres+this.terminalChoisi.prix;
+          }
+          this.abonnement.montantPaiement = this.montantTotal;
+          //return this.montantTotal;
+        })
+      }
+        console.log(this.abonne.idListeSelection);
+      
+      //this.abonnement.idListeSelection = this.abonne.idListeSelection;
+      
     //console.log("montant total "+ this.montantTotal)
-
+        //return null;
   }
 
   maxPriceValue(oeuvres: Oeuvre[]): number{
@@ -679,6 +741,7 @@ export class AbonnementCatalogueComponent implements OnInit {
         this.imageService.addListe(this.listeAdd).subscribe(
           response => { 
             ////console.log("liste crée!!");     
+            this.isListeOeuvreAdded = false;
           });
       });
   }
@@ -738,7 +801,7 @@ export class AbonnementCatalogueComponent implements OnInit {
             
                         
                         
-                        this.listeOeuvre = this.oeuvresNumeriques;
+                        /* this.listeOeuvre = this.oeuvresNumeriques;
                         console.log("la liste des oeuvres",this.listeOeuvre)
                         console.log("abonne rs",this.abonneRes)
                         for (let i = 0; i < this.listeOeuvre.length; i++) {
@@ -751,7 +814,7 @@ export class AbonnementCatalogueComponent implements OnInit {
                               console.log("add image"+listoeuvre)
                               
                             }); 
-                        } 
+                        }  */
                         for(var i=0; i<this.etats.length; i++){
                           if(this.etats[i].code === "NON_PAYE"){
                             this.idEtatAbonnement = this.etats[i].id;
@@ -800,6 +863,7 @@ export class AbonnementCatalogueComponent implements OnInit {
   }
   saveAbonnementToDB(){
     this.abonnement.dateCreation = new Date();
+    this.abonnement.montantPaiement = Math.round( this.abonnement.montantPaiement )
     this.imageService.addAbonnement(this.abonnement).subscribe(
       resp =>{
         ////console.log(resp)

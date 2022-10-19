@@ -594,7 +594,6 @@ showDetailsAbonnement(id: number){
     if (this.abonnements[i].id == id){
       this.abonnementAffiche = this.abonnements[i];
       console.log('abonneAffiche dashboard ', this.abonnementAffiche);
-
       for (let i = 0; i < this.etatAbonnements.length; i++) {
         if (this.abonnementAffiche.etatAbonnement == this.etatAbonnements[i].id){
           console.log('activePaiementttttttttttttttttt', this.etatAbonnements[i] );
@@ -616,6 +615,9 @@ showDetailsAbonnement(id: number){
         console.log('reponse delai', response);
         this.delaiAffiche = response;
         console.log('delai affiche', this.delaiAffiche);
+        this.imageService.getTotalAlgo(this.abonnementAffiche).subscribe(resp=>{
+          this.montantOeuvres = resp*this.delaiAffiche.nbMois*30;
+        })
       });
       this; this.imageService.getTerminalById(this.abonnementAffiche.idTerminal).subscribe(response => {
         console.log('reponse terminal', response);
@@ -631,13 +633,15 @@ showDetailsAbonnement(id: number){
         this.listeOeuvreAffiche = response;
         console.log('liste affiche', this.listeOeuvreAffiche);
         for (let i = 0; i < this.listeOeuvreAffiche.length; i++) {
-          this.imageService.getImage(this.listeOeuvreAffiche[i].nomOeuvre).subscribe(response => {
-            const oeuvre = response;
-            console.log('oeuvre', oeuvre);
-            this.montantOeuvres =  this.montantOeuvres + oeuvre.tarif;
-            console.log('oeuvres total', this.montantOeuvres);
-            this.oeuvresAffiche.push(oeuvre);
-          });
+          //if(this.listeOeuvreAffiche.filter(o=>o.nomOeuvre==this.listeOeuvreAffiche[i].nomOeuvre).length<=0){
+            this.imageService.getImage(this.listeOeuvreAffiche[i].nomOeuvre).subscribe(response => {
+              const oeuvre = response;
+              console.log('oeuvre', oeuvre);
+              //this.montantOeuvres =  this.montantOeuvres + oeuvre.tarif;
+              console.log('oeuvres total', this.montantOeuvres);
+              this.oeuvresAffiche.push(oeuvre);
+            });
+          //}
         }
         console.log('oeuvres affiche', this.oeuvresAffiche);
 
