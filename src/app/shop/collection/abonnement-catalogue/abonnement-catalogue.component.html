@@ -407,9 +407,9 @@
                                                             <div class="col-xl-3" *ngFor="let delai of delais">
                                                                 <div class="marron">
                                                                     <div class="side-l">
-                                                                      <h5>{{delai.libelle}} - {{delai.prix}}</h5> 
+                                                                      <h5>{{delai.libelle}} <!-- - {{delai.prix}} --></h5> 
                                                                       <p class="col-p">{{delai.description}}</p>
-                                                                      <h5>Prix : {{delai.prix}} FCFA</h5> 
+                                                                      <!-- <h5>Prix : {{delai.prix}} FCFA</h5>  -->
                                                                     </div>
                                                                   <input type="radio" class="register-gender-radio" value={{delai.id}} formControlName="delaiId">
                                                                 </div>
@@ -456,13 +456,15 @@
                                                             <h4>Choix Delai et Terminal</h4>
                                                             <ul>
                                                                 <li>Terminal: {{terminalDelai.terminalLibelle}} - <span>{{terminalChoisi.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li><br>
-                                                                <li>Delai: {{terminalDelai.delaiLibelle}} - <span> {{delaiChoisi.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li><br> 
+                                                                <li>Delai: {{terminalDelai.delaiLibelle}} <!-- - <span> {{delaiChoisi.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span> --></li><br> 
                                                             </ul>
                                                           </div><br>
                                                           <div class="total-sec">
                                                             <h4>Montant total des oeuvres</h4>
                                                             <ul>
-                                                                <li>Total Oeuvre: <span>{{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span></li><br>
+                                                                <li>Unité de l'abonnement: <span>{{ montantAlgoDaily | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span></li><br>
+                                                                <li>Nombre de jour: <span>{{ delaiChoisi.nbMois*30 }}</span></li><br>
+                                                                <li>Total Oeuvre: <span>{{ totalOeuvres | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span></li><br>
                                                             </ul>
                                                         </div>
                                                         </div><br>

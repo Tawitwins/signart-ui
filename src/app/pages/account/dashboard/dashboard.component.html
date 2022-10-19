@@ -544,16 +544,17 @@
                                                         </div>
                                                         <div class="col-3 order_detail">
                                                             <div>
-                                                                <h4>prix</h4>
-                                                                <h5>{{oeuvre.tarif| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h5>
+                                                                <h4>Annee</h4>
+                                                                <h5>{{oeuvre.annee}}</h5>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="total-sec">
                                                         <ul>
                                                             <li>Total <span>{{montantOeuvres | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
-                                                            <li>Delai <span>{{delaiAffiche.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
-                                                            <li>Terminal <span>{{terminalAffiche.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
+                                                            <li>Delai <span>{{delaiAffiche.nbMois * 30}} Jours</span></li>
+                                                            <li *ngIf="terminalAffiche.code == 'LOUE'">Terminal <span>{{terminalAffiche.prix * delaiAffiche.nbMois | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
+                                                            <li *ngIf="terminalAffiche.code !== 'LOUE'">Terminal <span>{{terminalAffiche.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
                                                         </ul>
                                                     </div>
                                                     <div class="final-total">
@@ -618,7 +619,7 @@
                                                         </div>
                                                         <div class="col-md-12" *ngIf="activePaiement == true">
                                                             <div class="delivery-sec">
-                                                                <h2>Paiement</h2>
+                                                                <!-- <h2>Paiement</h2> -->
                                                                 <div class="product-buttons">
 <!--                                                                     <a href="javascript:void(0)" title="Payer"  class="btn btn-solid-Valider">Clicker ici pour payer</a>
  -->                                                                    <app-paydunya [isAbonnement]="true" [abonnementId]="abonnementAffiche?.id" [abonnement]="abonnementAffiche"></app-paydunya>

@@ -150,6 +150,9 @@ addListeImage(listeImg: ListeSelection_Oeuvres): Observable<any>{
 addAbonnement(abonnement: Abonnement): Observable<any>{
   return this.http.post(environment.API_ENDPOINT+`abonnement`,abonnement)
 }
+getTotalAlgo(abonnement: Abonnement): Observable<any>{
+  return this.http.post(environment.API_ENDPOINT+`abonnement/getMontantByAbonnementDto`,abonnement)
+}
 
 addListOeuvre(listoeuvre: ListeSelection_Oeuvres): Observable<any>{
   return this.http.post(environment.API_ENDPOINT+`listeSelectionImage`,listoeuvre)
