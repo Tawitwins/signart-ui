@@ -28,6 +28,7 @@ import { TarificationService } from 'src/app/shared/services/tarification.servic
 import { ServiceLivraisonService } from 'src/app/shared/services/service-livraison.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Route, Router } from '@angular/router';
+import { ImageService } from 'src/app/shared/services/image.service';
 
 @Component({
   selector: 'app-checkout',
@@ -76,13 +77,17 @@ export class CheckoutComponent implements OnInit {
   totalAmount: number;
   MONTANT_SEUIL: number;
   SeuilLivraison: any;
+  fraisLivraison: number;
+  montantTotalAPayer: number;
+
   constructor(private fb: FormBuilder,private toastService:ToastrService,private authService:AuthServiceS,
     public productService: ProductService,private newCheckoutService:CheckoutService,private paysService:PaysService,
     private orderService: OrderService, private checkoutService: CheckoutService,
     private addrService: AddressService, private toastrService:ToastrService, 
     private store: Store<AppState>,private authS:AuthServiceS, private magasinService:MagasinService, private tarificationService:TarificationService,
     private serviceLivraisonService: ServiceLivraisonService, private sanitizer: DomSanitizer,
-    private router: Router
+    private router: Router,
+    private imageService: ImageService,
     ) { 
 
    this.indicatifpays = "+221";
@@ -147,6 +152,8 @@ export class CheckoutComponent implements OnInit {
   }
 
  montantSeuil(){
+  this.commande = <Commande>JSON.parse(localStorage.getItem('order'));
+  this.getFraisLivraison(this.commande.id, this.totalAmount)
   if ( this.totalAmount >= this.MONTANT_SEUIL) {
       this.serviceLivraisonList = this.serviceLivraisonList.filter(serviceLivraison =>serviceLivraison.nom.replace(/\s+/g, '') != "Signartexpress")
   }
@@ -359,11 +366,13 @@ export class CheckoutComponent implements OnInit {
   updateCommandePourLivraison() {
     this.order = <Commande>JSON.parse(localStorage.getItem('order'));
       this.order.idMagasin = this.selectedMagasin;
-      this.order.idTarification = this.selectedTarification.id;
+      this.order.idTarification = this.selectedTarification;
       this.order.idServiceLivraison = this.selectedServiceLivraison;
       this.order.totalLivraison = 1100;
+      console.log("this.order")
+      console.log(this.order)
       this.newCheckoutService.updateCommande(this.order.id,this.order).subscribe(resp=>{
-
+        this.getFraisLivraison(this.order.id, this.totalAmount );
       })
   }
   resetPayment(){
@@ -426,5 +435,17 @@ export class CheckoutComponent implements OnInit {
     }, 5000); */
     //window.location.href=this.answer.response_text;
     this.router.navigate(['/pages/order/success']);
+  }
+
+  
+  getFraisLivraison(idCommande:number, totalAmount: number){
+    this.imageService.getFraisLivraison(idCommande).subscribe(resp => {
+      this.fraisLivraison = <number>resp;
+      this.montantTotalAPayer = totalAmount + this.fraisLivraison;
+      console.log("this.fraisLivraison");
+      console.log(this.fraisLivraison);
+      console.log("his.montantTotalAPayer");
+      console.log(this.montantTotalAPayer);
+    })
   }
 }

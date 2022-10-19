@@ -57,15 +57,15 @@
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="email">Email<strong style="color: red;" >*</strong></label>
-                                <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email" [value]="form1Value.email">
+                                <label for="input1">Email<strong style="color: red;" >*</strong></label>
+                                <input type="email" id="input1" class="form-control" id="email" placeholder="Email" formControlName="email" [value]="form1Value.email">
                                 <div *ngIf="infoArtisteForm.get('email').errors && infoArtisteForm.get('email').touched">
                                     <p class="register-error-message" style="color: red;">Veuillez saisir un email valide !</p>
                                   </div>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                <label for="review">Genre<strong style="color: red;" >*</strong></label>
-                                <select name="genre" class="form-control" formControlName="genre" [value]="form1Value.genre">
+                                <label for="select1">Genre<strong style="color: red;" >*</strong></label>
+                                <select name="genre" id="select1" class="form-control" formControlName="genre" [value]="form1Value.genre">
                                     <option value="">-- Selectionner un genre --</option>
                                     <option value="H">Homme</option>
                                     <option value="F">Femme</option>
@@ -77,8 +77,8 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                <label for="review">Pays<strong style="color: red;" >*</strong></label>
-                                <select (change)="choisirPays($event)" class="form-control" formControlName="codePays" [value]="form1Value.codePays">
+                                <label for="select2">Pays<strong style="color: red;" >*</strong></label>
+                                <select id="select2" (change)="choisirPays($event)" class="form-control" formControlName="codePays" [value]="form1Value.codePays">
                                     <option value="">-- Selectionner un pays --</option>
                                     <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>
                                     <!-- <option value="selected">Selectionner un pays</option>
@@ -91,13 +91,13 @@
                                   </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="review">Téléphone<strong style="color: red;" >*</strong></label>
+                                <label for="input2">Téléphone<strong style="color: red;" >*</strong></label>
                                 <div class="row">
                                     <div  class="col-md-2">
-                                        <input type="text" class="form-control" formControlName="indicatif" [(ngModel)]="indicatifpays" disabled="true">
+                                        <input id="input2" type="text" class="form-control" formControlName="indicatif" [(ngModel)]="indicatifpays" disabled="true">
                                     </div>
                                     <div  class="col-md-10">
-                                        <input type="text" class="form-control" id="review" placeholder="00 000 00 00" formControlName="telephone" [value]="form1Value.telephone">
+                                        <input id="input3" type="text" class="form-control" id="review" placeholder="00 000 00 00" formControlName="telephone" [value]="form1Value.telephone">
                                     </div>
                                 </div>
                                 <div *ngIf="infoArtisteForm.get('telephone').errors && infoArtisteForm.get('telephone').touched">
@@ -141,8 +141,8 @@
                                 <input type="password" class="form-control" id="review" placeholder="Enter your password" required="">
                             </div> -->
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                <label for="review">Spécialité</label>
-                                <select (change)="specialiteSelected($event)" name="genre" class="form-control" formControlName="specialites" [value]="form1Value.specialite">
+                                <label for="select3">Spécialité</label>
+                                <select id="select3" (change)="specialiteSelected($event)" name="genre" class="form-control" formControlName="specialites" [value]="form1Value.specialite">
                                     <option value="">-- Selectionner une spécialités --</option>
                                     <option *ngFor="let technique of techniques" [value]="technique.libelle">{{technique.libelle}}</option>
                                     <option value="autres">Autres</option>

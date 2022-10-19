@@ -80,12 +80,10 @@ export class DashboardComponent implements OnInit {
  delais: DelaieAbonnement[];
  chooseDelais: DelaieAbonnement;
  delaiId : number;
- option_TSIGNART: boolean = false;
- option_TBOX: boolean = false;
- option_JDT: boolean = false;
- option_LOUE: boolean = false;
  shownTerminal: boolean = false;
  terminalResponse: boolean = false;
+
+ fraisLivraison: number;
  public oeuvreNumeriqueAfficher: OeuvreNumerique;
  public abonneAffich: Abonne;
 
@@ -659,12 +657,11 @@ showDetailsCommande(idCommande: number){
   this.checkoutService.getCommandeById(idCommande).subscribe(
          (response) => {
           this.commande = response;
-
+          this.getFraisLivraison(this.commande);
          /*  this.commande.lignesCommande.forEach(element => {
             this.commande.total += element.prix * element.quantite;
           });
  */
-          this.Sum = (this.commande.total + 1100/* this.commande.totalLivraison */);
           this.ligneCommande = this.commande.lignesCommande;
           this.idLigneCMD = this.ligneCommande[0].id;
           for (let i = 0; i < this.ligneCommande.length; i++){
@@ -836,6 +833,15 @@ showDetailsCommande(idCommande: number){
         console.log(res);
         this.toastrService.success("Réabonnement initié avec succés","Succés");
         this.shownTerminal = false;
+      })
+    }
+    
+    getFraisLivraison(commande:Commande){
+      this.imageService.getFraisLivraison(commande.id).subscribe(resp => {
+        this.fraisLivraison = <number>resp;
+        this.Sum = <number>(this.commande.total + this.fraisLivraison);
+        console.log(this.fraisLivraison);
+        console.log(this.fraisLivraison);
       })
     }
 }
