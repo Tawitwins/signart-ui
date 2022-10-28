@@ -4,8 +4,8 @@
 import 'zone.js/dist/zone-error';
 
 export const environment = {
-  API_ENDPOINT: 'SignArtWeb-1.0-SNAPSHOT/',
-  AppName: 'SignArtWeb-1.0-SNAPSHOT',
+  API_ENDPOINT: 'SignArt/',
+  AppName: 'SignArt',
   MarquageFavori: 'FAV',
   production: false,
   instagram_token: 'INSTAGRAM_TOKEN',
@@ -15,6 +15,8 @@ export const environment = {
   service_name_orange_money:'SignArt',
   code_marchand_orange_money: '123456',
   serverUrl:'http://localhost:4200',
+  flagCountry_url: 'https://countryflagsapi.com/png',
+  sms_url: 'http://localhost:8081',
   firebase :{
     apiKey: "AIzaSyBA4qsr_6eRWblnoU1K-durRurfYrnYlYw",
     authDomain: "signart-f0f18.firebaseapp.com",

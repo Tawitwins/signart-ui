@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-header-one',
@@ -15,10 +17,17 @@ export class HeaderOneComponent implements OnInit {
   @Input() sticky: boolean = false; // Default false
   
   public stick: boolean = false;
+  codeCountryList: string[] = [];
+  flagUrl: string = environment.flagCountry_url;
+  currentLanguage: string = 'fr';
 
-  constructor(private router:Router) { }
+  constructor(
+    private router:Router,
+    public languageService: LanguageService
+    ) { }
 
   ngOnInit(): void {
+    this.codeCountryList = this.languageService.languageCodeList;
   }
 
   redirect(url){
@@ -35,4 +44,11 @@ export class HeaderOneComponent implements OnInit {
   	}
   }
 
+  changecode(code: string) {
+    code == 'us' ? code = 'en' : code = code;
+    localStorage.setItem("userLanguage", code);
+    this.currentLanguage = code;
+    console.log(localStorage.getItem("userLanguage"))
+    window.location.reload();
+  }
 }

@@ -1,13 +1,19 @@
 {
 
-        "/SignArtWeb-1.0-SNAPSHOT/*": {
-            "target": "http://localhost:8089",
+        "/SignArt/*": {
+            "target": "http://localhost:8080",
             "secure": false,
             "logLevel": "debug",
             "changeOrigin": true
         },
         "/api/*": {
             "target": "http://localhost:8023",
+            "secure": false,
+            "logLevel": "debug",
+            "changeOrigin": true
+        },
+        "/router/*": {
+            "target": "http://localhost:8081",
             "secure": false,
             "logLevel": "debug",
             "changeOrigin": true

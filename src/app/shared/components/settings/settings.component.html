@@ -12,25 +12,25 @@
       <div class="show-div setting">
         <ul *ngIf="! (isAuthenticated | async)">
           <li>
-            <a [routerLink]="['/pages/login']">Se connecter</a>
+            <a [routerLink]="['/pages/login']"> {{"Se connecter" | translate}} </a>
           </li>
           <li>
-            <a [routerLink]="['/pages/register']">S'inscrire</a>
+            <a [routerLink]="['/pages/register']"> {{"S'inscrire" | translate}} </a>
           </li>
 
           <li>
-            <a [routerLink]="['/pages/register-artist']">Créer un compte artiste</a>
+            <a [routerLink]="['/pages/register-artist']">{{"Créer un compte artiste" | translate}}</a>
           </li>
         </ul>
         <ul *ngIf="isAuthenticated | async">
           <li>
-            <a [routerLink]="['/pages/dashboard']">Espace personnel</a>
+            <a [routerLink]="['/pages/dashboard']">{{"Espace personnel" | translate}}</a>
           </li>
           <li>
-            <a [routerLink]="['/pages/wishlist']">Favoris</a>
+            <a [routerLink]="['/pages/wishlist']">{{"Favoris" | translate}}</a>
           </li>
           <li>
-            <a (click)="logout()" style="cursor: pointer;">Déconnexion</a>
+            <a (click)="logout()" style="cursor: pointer;"> {{"Déconnexion" | translate}} </a>
           </li>
         </ul>
       </div>
@@ -78,7 +78,15 @@
         </li>
         <li>
           <div class="buttons">
-            <a [routerLink]="['/shop/cart']" class="view-cart">Voir Panier</a>
+            <a [routerLink]="['/shop/cart']" class="view-cart">
+             <span>
+              <strong>
+                <h5>
+                  {{"Voir Panier" | translate}}
+                </h5>
+              </strong>
+             </span>
+            </a>
            <!--  <a [routerLink]="['/shop/checkout']" class="checkout">Paiement</a> -->
           </div>
         </li>
@@ -95,7 +103,18 @@
       <ul class="show-div shopping-cart" *ngIf='!oeuvres.length'>
         <h5>Votre Panier est vide.</h5>
       </ul>
-      <ul class="show-div shopping-cart" *ngIf='oeuvres.length'>
+     <span class="show-div shopping-cart">
+      <div class="buttons voirPanier">
+        <a [routerLink]="['/shop/cart']" class="view-cart"><h5>
+          <span >
+            <strong>Voir Panier</strong>
+          </span>
+          </h5>
+        </a>
+        <hr>
+      </div>
+      
+      <ul *ngIf='oeuvres.length'>
         <li *ngFor="let oeuvre of oeuvres">
           <div class="media">
             <a [routerLink]="['/shop/product/left/sidebar/', oeuvre.id]">
@@ -125,13 +144,8 @@
             <h5>Total : <span>{{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}</span></h5>
           </div>
         </li>
-        <li>
-          <div class="buttons">
-            <a [routerLink]="['/shop/cart']" class="view-cart">Voir Panier</a>
-           <!--  <a [routerLink]="['/shop/checkout']" class="checkout">Paiement</a> -->
-          </div>
-        </li>
       </ul>
+     </span>
     </li>
   </ul>
 </div>
