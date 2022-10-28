@@ -12,6 +12,12 @@
             "logLevel": "debug",
             "changeOrigin": true
         },
+        "/router/*": {
+            "target": "http://localhost:8081",
+            "secure": false,
+            "logLevel": "debug",
+            "changeOrigin": true
+        },
         "/sandbox/*": {
             "target": "http://localhost:8085",
             "secure": false,

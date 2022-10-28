@@ -15,6 +15,8 @@ export const environment = {
   service_name_orange_money:'SignArt',
   code_marchand_orange_money: '123456',
   serverUrl:'http://localhost:4200',
+  flagCountry_url: 'https://countryflagsapi.com/png',
+  sms_url: 'http://localhost:8081',
   firebase :{
     apiKey: "AIzaSyBA4qsr_6eRWblnoU1K-durRurfYrnYlYw",
     authDomain: "signart-f0f18.firebaseapp.com",

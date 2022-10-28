@@ -12,25 +12,25 @@
       <div class="show-div setting">
         <ul *ngIf="! (isAuthenticated | async)">
           <li>
-            <a [routerLink]="['/pages/login']">Se connecter</a>
+            <a [routerLink]="['/pages/login']"> {{"Se connecter" | translate}} </a>
           </li>
           <li>
-            <a [routerLink]="['/pages/register']">S'inscrire</a>
+            <a [routerLink]="['/pages/register']"> {{"S'inscrire" | translate}} </a>
           </li>
 
           <li>
-            <a [routerLink]="['/pages/register-artist']">Créer un compte artiste</a>
+            <a [routerLink]="['/pages/register-artist']">{{"Créer un compte artiste" | translate}}</a>
           </li>
         </ul>
         <ul *ngIf="isAuthenticated | async">
           <li>
-            <a [routerLink]="['/pages/dashboard']">Espace personnel</a>
+            <a [routerLink]="['/pages/dashboard']">{{"Espace personnel" | translate}}</a>
           </li>
           <li>
-            <a [routerLink]="['/pages/wishlist']">Favoris</a>
+            <a [routerLink]="['/pages/wishlist']">{{"Favoris" | translate}}</a>
           </li>
           <li>
-            <a (click)="logout()" style="cursor: pointer;">Déconnexion</a>
+            <a (click)="logout()" style="cursor: pointer;"> {{"Déconnexion" | translate}} </a>
           </li>
         </ul>
       </div>
@@ -82,7 +82,7 @@
              <span>
               <strong>
                 <h5>
-                  Voir Panier
+                  {{"Voir Panier" | translate}}
                 </h5>
               </strong>
              </span>

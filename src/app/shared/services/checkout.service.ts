@@ -23,6 +23,7 @@ import { Address } from '../modeles/address';
 import { Livraison } from '../modeles/livraison';
 import { ToastrService } from 'ngx-toastr';
 import { NullTemplateVisitor } from '@angular/compiler';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 declare var $: any;
 
 @Injectable()
@@ -741,6 +742,14 @@ getAdresseByClient(idClient){
   }
 
   getMontantSeuil(): Observable<any>{
-    return this.get(environment.API_ENDPOINT +`parametrage/SeuilLivraison`)
+    return this.http.get(environment.API_ENDPOINT +`parametrage/SeuilLivraison`)
+  }
+
+  sendMessage(data: any){
+    return this.post(`/router/sendSMS`, data);
+  }
+
+  getClientByID(idClient: number){
+    return this.http.get(`${environment.API_ENDPOINT}/client/${idClient}`)
   }
 }

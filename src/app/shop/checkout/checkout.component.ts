@@ -29,6 +29,7 @@ import { ServiceLivraisonService } from 'src/app/shared/services/service-livrais
 import { DomSanitizer } from '@angular/platform-browser';
 import { Route, Router } from '@angular/router';
 import { ImageService } from 'src/app/shared/services/image.service';
+import { Utilisateur } from 'src/app/shared/modeles/utilisateur';
 
 @Component({
   selector: 'app-checkout',
@@ -364,13 +365,36 @@ export class CheckoutComponent implements OnInit {
     }
   }
   updateCommandePourLivraison() {
-    this.order = <Commande>JSON.parse(localStorage.getItem('order'));
+      this.order = <Commande>JSON.parse(localStorage.getItem('order'));
       this.order.idMagasin = this.selectedMagasin;
       this.order.idTarification = this.selectedTarification;
       this.order.idServiceLivraison = this.selectedServiceLivraison;
-      this.order.totalLivraison = 1100;
+      this.order.totalLivraison = 0;
       console.log("this.order")
       console.log(this.order)
+
+      let user = JSON.parse(localStorage.getItem('user'));
+      
+      if(this.magasinList.length != 0 &&  this.selectedMagasin != 0){
+        this.magasinList.forEach(m => {
+          if(m.id == this.selectedMagasin){
+            let data = {
+              userName: user.prenom +" "+ user.nom,
+              phoneNumber: "+221768640428",
+              messageToSend: `Bonjour ${user.prenom.trim()} ${user.nom.trim()}, nous vous envoyons les coordonnees de notre galerie: Nom: ${m.nom.trim()}, Adresse: ${m.adresse.trim()}, Nom du responsable: ${m.nomResp.trim()}, tel: ${m.telephoneResp.trim()}`
+            }
+            this.newCheckoutService.getClientByID(this.order.idClient).subscribe(resp => {
+              let client = <any>resp;
+              console.log(client);
+              // data.phoneNumber = client.telephone;
+            })
+            this.newCheckoutService.sendMessage(data).subscribe(res => {
+              console.log(res);
+            })
+          }
+        })
+      }
+
       this.newCheckoutService.updateCommande(this.order.id,this.order).subscribe(resp=>{
         this.getFraisLivraison(this.order.id, this.totalAmount );
       })
@@ -442,10 +466,9 @@ export class CheckoutComponent implements OnInit {
     this.imageService.getFraisLivraison(idCommande).subscribe(resp => {
       this.fraisLivraison = <number>resp;
       this.montantTotalAPayer = totalAmount + this.fraisLivraison;
-      console.log("this.fraisLivraison");
-      console.log(this.fraisLivraison);
-      console.log("his.montantTotalAPayer");
-      console.log(this.montantTotalAPayer);
+      this.order.totalLivraison = this.fraisLivraison;
+      this.newCheckoutService.updateCommande(this.order.id,this.order).subscribe(resp=>{
+      })
     })
   }
 }
