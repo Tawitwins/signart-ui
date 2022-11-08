@@ -38,7 +38,7 @@ export class NavService {
 		},
 
 		{
-			title: 'this.commande.totalLivraison', type: 'link', active: false, path: '/shop/collection/left/sidebar',
+			title: 'Oeuvres', type: 'link', active: false, path: '/shop/collection/left/sidebar',
 		},
 		{
 			title: 'Artistes', type: 'link', active: false, path: '/pages/allartist',

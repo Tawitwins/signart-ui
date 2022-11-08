@@ -1,15 +1,15 @@
 <div class="menu" [ngStyle]="{'left.px': x, 'top.px': y}" (click)="leaveChild()">
   <ul class="list-group" (click)="leaveChild()">
     <li (click)="supprimer()" class="list-group-item list-group-item-action d-flex justify-content-                                                                          between align-items-center">
-      1. Supprimer 
+      1. {{"Supprimer" | translate}} 
       <span class="badge badge-primary badge-pill"> message </span>
     </li>
     <li (click)="transferer()"  class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-      2.Tranférer
+      2.{{"Tranférer" | translate}}
       <span class="badge badge-primary badge-pill"> message </span>
     </li>
     <li (click)="copier()"  class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-      3.Copier
+      3.{{"Copier" | translate}}
       <span class="badge badge-primary badge-pill"> message </span>
     </li>
   </ul>

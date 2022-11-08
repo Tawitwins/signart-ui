@@ -127,7 +127,7 @@
                                              <div  class="form-group col-6">
                                               <div class="field-label">Zone</div>
                                               <select name="tarification" [(ngModel)]="selectedTarification">
-                                                <option *ngFor="let t of tarificationList" [value]="t.id">{{t.zone}} - {{t.accessibiliteZone  | uppercase }}</option>
+                                                <option *ngFor="let t of tarificationList" [value]="t.id">{{t.zone}}</option>
                                               </select>
                                               <div *ngIf="checkoutForm.controls.country.touched && checkoutForm.controls.country.errors?.required" class="text text-danger">
                                                Magasin obligatoire!
@@ -155,10 +155,10 @@
                                         <li>
                                           Montant <span class="count">{{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span>
                                         </li>
-                                        <li>
+                                        <li *ngIf="fraisLivraison != 0">
                                           Frais de Livraison<span class="count">{{ fraisLivraison | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span>
                                         </li>
-                                        <li>
+                                        <li *ngIf="fraisLivraison != 0">
                                           Montant total à payer <span class="count">{{ montantTotalAPayer | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span>
                                         </li>
                                     </ul>

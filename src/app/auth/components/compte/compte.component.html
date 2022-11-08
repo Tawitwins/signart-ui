@@ -5,7 +5,7 @@
             <div class="col-md-10 col-centered">
               <div class="panel panel-default">
                 <div class="panel-heading">
-                  <h3 class="panel-title">Veuillez vous identifier pour finaliser la commande {{title}}</h3>
+                  <h3 class="panel-title">{{"Veuillez vous identifier pour finaliser la commande" | translate}} {{title}}</h3>
                   <p></p>
                 </div>
                 <div id="existing-customer" class="panel-body" data-hook="login">
@@ -14,39 +14,39 @@
                       <div class="login-link-container">
                         <small>
                           <div class="login-left-links">
-                            <span class="text-default">D&eacute;j&agrave; enregistr&eacute; sur {{title}}?</span>
+                            <span class="text-default">{{"D&eacute;j&agrave; enregistr&eacute; sur" | translate}} {{title}}?</span>
                           </div>
                         </small>
                       </div>
                       <form class="login-login-form" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
                         <fieldset class="login-input-container">
                           <div class="login-input-item">
-                            <input type="email" class="login-user-input-email login-user-input" name="email" placeholder="Votre adresse email" formControlName="email"
+                            <input type="email" class="login-user-input-email login-user-input" name="email" placeholder="{{'Votre adresse email' | translate}}" formControlName="email"
                               autocomplete="off">
                             <div *ngIf="signInForm.get('email').errors && signInForm.get('email').touched">
                               <span class="login-error-icon text-danger">!</span>
-                              <p class="login-error-message text-danger">Entez une adresse valide</p>
+                              <p class="login-error-message text-danger">{{"Entez une adresse valide" | translate}}</p>
                             </div>
                           </div>
                           <div class="login-input-item">
-                            <input type="password" class="login-user-input-password login-user-input" name="password" placeholder="Enter Password" formControlName="password"
+                            <input type="password" class="login-user-input-password login-user-input" name="password" placeholder="{{'Entrer votre mot de passe' | translate}}" formControlName="password"
                               autocomplete="off">
                             <div *ngIf="signInForm.get('password').errors && signInForm.get('password').touched">
                               <span class="login-error-icon text-danger">!</span>
                               <p class="login-error-message text-danger">
-                                Le mot de passe doit être au moins de 6 caractères</p>
+                                {{"Le mot de passe doit être au moins de 6 caractères" | translate}}</p>
                             </div>
                           </div>
                         </fieldset>
                         <fieldset class="login-login-button-container">
-                          <button type="submit" class="btn back btn-round">Connexion</button>
+                          <button type="submit" class="btn back btn-round">{{"Connexion" | translate}}</button>
                         </fieldset>
                       </form>
                       <div class="login-link-container">
                         <small>
                           <div class="login-right-links">
-                            <a class="login-create-account-link login-link text-danger" [routerLink]="['/auth']"><span>Mot de
-                                passe oubli&eacute;?
+                            <a class="login-create-account-link login-link text-danger" [routerLink]="['/auth']"><span>
+                              {{"Mot de passe oubli&eacute;" | translate}}?
                               </span></a>
                           </div>
                         </small>
@@ -56,13 +56,13 @@
                       <div class="login-link-container">
                         <small>
                           <div class="login-left-links">
-                            <span class="text-default">Vous êtes nouveau sur {{title}}?</span>
-                            <a class="login-create-account-link login-link" style="color: #f07c10" [routerLink]="['/auth']">Cr&eacute;er un compte
+                            <span class="text-default">{{"Vous êtes nouveau sur" | translate}} {{title}}?</span>
+                            <a class="login-create-account-link login-link" style="color: #f07c10" [routerLink]="['/auth']">{{"Cr&eacute;er un compte" | translate}}
                             </a>
                           </div>
                         </small>
                       </div>
-                      <div class="login-link-container"><button class="btn back btn-round" [routerLink]="['/auth']">Continuer</button></div>
+                      <div class="login-link-container"><button class="btn back btn-round" [routerLink]="['/auth']">{{"Continuer" | translate}}</button></div>
                     </div>
                   </div>
                 </div>

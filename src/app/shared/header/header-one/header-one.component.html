@@ -19,29 +19,7 @@
             <li class="mobile-account" (click)="redirect('/pages/dashboard')">
               <a [routerLink]="['/pages/dashboard']"><i class="fa fa-user"></i> {{"Mon compte" | translate}} </a>
             </li>
-            
-              <li class="mobile-account dropdown">
-                <!-- <div class="contents">
-                  <div class="main">
-                    <img src="{{flagUrl}}/{{codeCountry}}" alt="Flag" width="25" height="15">
-                  </div>
-                </div> -->
-
-                <!-- *ngFor="let codeCountry of codeCountryList" (click)="changecode(codeCountry)" -->
-                <!-- <div class="dropdown"> -->
-                  <!-- <button class="dropbtn">FR</button> -->
-                  <span (click)="changecode(currentLanguage)">
-                    <img src="{{flagUrl}}/{{currentLanguage}}" alt="Flag" width="25" height="15" > {{ currentLanguage | uppercase}}
-                  </span>
-                  <div class="dropdown-content" *ngFor="let codeCountry of codeCountryList" (click)="changecode(codeCountry)">
-                  <!-- <a href="#">FR</a>
-                  <a href="#">EN</a> -->
-                  <img src="{{flagUrl}}/{{codeCountry}}" alt="Flag" width="25" height="15"> {{ codeCountry | uppercase }}
-
-                  <!-- </div> -->
-                </div>
-
-              </li>
+           
           </ul>
         </div>
       </div>

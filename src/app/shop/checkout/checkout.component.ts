@@ -78,8 +78,8 @@ export class CheckoutComponent implements OnInit {
   totalAmount: number;
   MONTANT_SEUIL: number;
   SeuilLivraison: any;
-  fraisLivraison: number;
-  montantTotalAPayer: number;
+  fraisLivraison: number = 0;
+  montantTotalAPayer: number = 0;
 
   constructor(private fb: FormBuilder,private toastService:ToastrService,private authService:AuthServiceS,
     public productService: ProductService,private newCheckoutService:CheckoutService,private paysService:PaysService,
@@ -327,8 +327,10 @@ export class CheckoutComponent implements OnInit {
     } */
     else if(livraison!=null){
       this.isLivraisonOk=true;
+      console.log(this.isLivraisonOk=true)
       this.toastService.success("Le mode de livraison a bien été pris en compte. Vous pouvez poursuivre.");
       this.updateCommandePourLivraison();
+      
     }
     else
     {
@@ -364,6 +366,27 @@ export class CheckoutComponent implements OnInit {
       localStorage['livraison'] = JSON.stringify(this.livraison); */
     }
   }
+
+  sendSms(){
+    let user = JSON.parse(localStorage.getItem('user'));
+    let client = JSON.parse(localStorage.getItem('client'));
+    
+    if(this.magasinList.length != 0 &&  this.selectedMagasin != 0){
+      this.magasinList.forEach(m => {
+        if(m.id == this.selectedMagasin){
+          let data = {
+            phoneNumber:`${client.telephone.trim()}`,
+            message: `Bonjour ${client.prenom.trim()} ${client.nom.trim()},\nMerci de trouver ci-joint les coordonnees de notre galerie\nNom: ${m.nom.trim()},\nAdresse: ${m.adresse.trim()},\nNom du responsable: ${m.nomResp.trim()},\nTel: ${m.telephoneResp.trim()}\nMerci.`
+          }
+          this.newCheckoutService.sendMessage(data).subscribe(res => {
+            console.log(res);
+          })
+        }
+      })
+    }
+
+  }
+
   updateCommandePourLivraison() {
       this.order = <Commande>JSON.parse(localStorage.getItem('order'));
       this.order.idMagasin = this.selectedMagasin;
@@ -372,31 +395,13 @@ export class CheckoutComponent implements OnInit {
       this.order.totalLivraison = 0;
       console.log("this.order")
       console.log(this.order)
-
-      let user = JSON.parse(localStorage.getItem('user'));
-      
-      if(this.magasinList.length != 0 &&  this.selectedMagasin != 0){
-        this.magasinList.forEach(m => {
-          if(m.id == this.selectedMagasin){
-            let data = {
-              userName: user.prenom +" "+ user.nom,
-              phoneNumber: "+221768640428",
-              messageToSend: `Bonjour ${user.prenom.trim()} ${user.nom.trim()}, nous vous envoyons les coordonnees de notre galerie: Nom: ${m.nom.trim()}, Adresse: ${m.adresse.trim()}, Nom du responsable: ${m.nomResp.trim()}, tel: ${m.telephoneResp.trim()}`
-            }
-            this.newCheckoutService.getClientByID(this.order.idClient).subscribe(resp => {
-              let client = <any>resp;
-              console.log(client);
-              // data.phoneNumber = client.telephone;
-            })
-            this.newCheckoutService.sendMessage(data).subscribe(res => {
-              console.log(res);
-            })
-          }
-        })
-      }
-
+      this.sendSms();
       this.newCheckoutService.updateCommande(this.order.id,this.order).subscribe(resp=>{
-        this.getFraisLivraison(this.order.id, this.totalAmount );
+        console.log(resp);
+        if(this.order.idTarification != null && this.order.idServiceLivraison != null){
+          console.log(this.order.idTarification)
+          this.getFraisLivraison(this.order.id, this.totalAmount );
+        }
       })
   }
   resetPayment(){
@@ -463,11 +468,12 @@ export class CheckoutComponent implements OnInit {
 
   
   getFraisLivraison(idCommande:number, totalAmount: number){
-    this.imageService.getFraisLivraison(idCommande).subscribe(resp => {
+      this.imageService.getFraisLivraison(idCommande).subscribe(resp => {
       this.fraisLivraison = <number>resp;
       this.montantTotalAPayer = totalAmount + this.fraisLivraison;
       this.order.totalLivraison = this.fraisLivraison;
       this.newCheckoutService.updateCommande(this.order.id,this.order).subscribe(resp=>{
+        console.log(resp)
       })
     })
   }

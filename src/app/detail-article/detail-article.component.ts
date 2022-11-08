@@ -14,6 +14,7 @@ import { ImageDto } from '../shared/modeles/image';
 import { Panier } from '../shared/modeles/panier';
 import { AuthServiceS } from '../shared/services/auth.service';
 import { CheckoutService } from '../shared/services/checkout.service';
+import { LanguageService } from '../shared/services/language.service';
 
 
 
@@ -60,7 +61,10 @@ export class DetailArticleComponent implements OnInit {
   isAdd: boolean;
 
 
-  constructor(private route: ActivatedRoute, private articleService: ArticleService,
+  constructor(
+    private languageService: LanguageService,
+
+    private route: ActivatedRoute, private articleService: ArticleService,
     private store: Store<AppState>, private checkoutActions: CheckoutActions,
     private sanitizer: DomSanitizer, private router:Router,private toastr:ToastrService, private element: ElementRef, private checkoutService: CheckoutService, public domSanitizer: DomSanitizer,private authService: AuthServiceS) {
     /**On Init

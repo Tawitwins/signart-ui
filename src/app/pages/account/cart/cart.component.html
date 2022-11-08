@@ -7,12 +7,12 @@
                 <table style="text-align: center;" class="table cart-table table-responsive-xs">
                     <thead>
                         <tr class="table-head">
-                            <th scope="col">Image</th>
-                            <th scope="col">product name</th>
-                            <th scope="col">price</th>
-                            <th scope="col">quantity</th>
-                            <th scope="col">action</th>
-                            <th scope="col">total</th>
+                            <th scope="col">{{"Image" | translate}}</th>
+                            <th scope="col">{{"product name" | translate}}</th>
+                            <th scope="col">{{"price" | translate}}</th>
+                            <th scope="col">{{"quantity" | translate}}</th>
+                            <th scope="col">{{"action" | translate}}</th>
+                            <th scope="col">{{"total" | translate}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,10 +82,10 @@
         </div>
         <div class="row cart-buttons">
             <div class="col-6">
-                <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continue shopping</a>
+                <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">{{"continue shopping" | translate}}</a>
             </div>
             <div class="col-6">
-                <a [routerLink]="['/shop/checkout']" class="btn btn-solid">check out</a>
+                <a [routerLink]="['/shop/checkout']" class="btn btn-solid">{{"check out" | translate}}</a>
             </div>
         </div>
     </div>

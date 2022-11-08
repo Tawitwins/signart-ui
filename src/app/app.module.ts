@@ -49,7 +49,6 @@ import { VisiteurService } from './shared/services/visiteur.service';
 import { ArticleService } from './shared/services/article.service';
 import { environment } from '../environments/environment';
 import { AuthActions } from './auth/actions/auth.actions';
-
 import { CheckoutActions } from './checkout/actions/checkout.actions';
 import { PanierEtMarquageService } from './shared/services/panierEtMarquage.service';
 import { MyformatcurrencyPipe } from './shared/pipes/myformatcurrency.pipe';
@@ -140,7 +139,7 @@ export function tokenGetter() {
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    SharedModule,
+  
     // RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
     StoreModule.forRoot(reducers, { metaReducers }),
     // !environment.production ? StoreDevtoolsModule.instrument() : [],
@@ -162,6 +161,7 @@ export function tokenGetter() {
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     CommonModule,
+    
   ],
   providers: [
     SearchActions, 

@@ -12,6 +12,7 @@ import { getOrderState } from '../../../checkout/reducers/selectors';
 import { environment } from 'src/environments/environment';
 import { User } from 'firebase';
 import { OeuvreService } from 'src/app/shared/services/oeuvre.service';
+import { LanguageService } from 'src/app/shared/services/language.service';
 
 declare var $: any;
 @Component({
@@ -37,7 +38,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
     private router: Router,
     private oeuvreS:OeuvreService,
     private authService: AuthServiceS,
-    private paysService: PaysService
+    private paysService: PaysService,
+    private languageService: LanguageService,
+
   ) {
     this.etape=1;
     this.stateSub$ = this.store.select(getOrderState)

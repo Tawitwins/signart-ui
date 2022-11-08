@@ -13,7 +13,16 @@ export class LanguageService {
 
   private supportedLanguages = ['GBR', 'fr'];
   public languageCodeList:string[] = ['fr', 'GBR']
-
+  public languages = [
+    {
+      name: "English",
+      code: "GBR"
+    },
+    {
+      name: "Français",
+      code: "fr"
+    }
+  ]
   constructor( 
     private translate: TranslateService,
     private http: HttpClient

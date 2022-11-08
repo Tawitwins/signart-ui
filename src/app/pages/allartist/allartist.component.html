@@ -30,34 +30,34 @@
                               </video>
                             </section-->
                            <div class="top-banner-content small-section">
-                            <h4>Listes des artistes</h4>
+                            <h4>{{"Liste des artistes" | translate}} </h4>
                             <!-- <h5>Signart
                             </h5> -->
                             <p>
-                                Un artiste est une personne engagée dans une activité liée à la création d'art, à la pratique des arts ou à la démonstration d'un art. 
-                                Avec cette vitrine que propose SignArt, vous pouvez rechercher vos artistes préférés, les suivre et même commander leurs oeuvres. 
+                                {{"Un artiste est une personne engagée dans une activité liée à la création d'art, à la pratique des arts ou à la démonstration d'un art" | translate}}.
+                                {{"Avec cette vitrine que propose SignArt, vous pouvez rechercher vos artistes préférés, les suivre et même commander leurs œuvres" | translate}}.
                             </p>
                           </div>
                         </div>
                        <div class="row margebas">
                         <div class="col-md-4">
-                            <label for="select">Filtre:</label>
+                            <label for="select">{{"Filtre" | translate}} :</label>
                             <select name="select" id="select">
-                                <option>Artiste de A-Z</option>
-                                <option>Artiste de Z-A</option>
+                                <option>{{"Artiste de A-Z" | translate}} </option>
+                                <option>{{"Artiste de Z-A" | translate}} </option>
                             </select>
                         </div>
 
                         <div class="col-md-4 borderleft" >
-                            <label for="select">Filtre par:</label>
+                            <label for="select">{{"Filtre par" | translate}} :</label>
                             <select name="select" id="select" (change)="updateFilterArtiste($event)">
-                              <option value="Tout">Tout </option>
-                              <option value="Sculpteur">Sculpteur </option>
-                              <option value="Peintre">Peintre</option>
-                              <option value="Photographe"> Photographe</option>
-                              <option value="Artiste Plasticien">Artiste Plasticien</option>
-                              <option value="Lisseur">Lisseur </option>
-                              <option value="Cartonnier">Cartonnier </option>
+                              <option value="Tout">{{"Tout" | translate}} </option>
+                              <option value="Sculpteur">{{"Sculpteur" | translate}} </option>
+                              <option value="Peintre">{{"Peintre" | translate}} </option>
+                              <option value="Photographe">{{"Photographe" | translate}} </option>
+                              <option value="Artiste Plasticien">{{"Artiste Plasticien" | translate}} </option>
+                              <option value="Lisseur">{{"Lisseur" | translate}} </option>
+                              <option value="Cartonnier">{{"Cartonnier" | translate}} </option>
                             </select>
                         </div>
 
@@ -99,7 +99,7 @@
 <div class="modal-dialog cascading-modal" >
  <div class="modal-content">
  <div class="modal-header back white-text">
-   <h4 class="title" style="color:white">Identification</h4>
+   <h4 class="title" style="color:white">{{"Identification" | translate}} </h4>
    <button type="button" class="close" title="Fermer" data-dismiss="modal" aria-label="Close"><span
        aria-hidden="true">&times;</span></button>
      </div>
@@ -111,54 +111,54 @@
                 </div>
                 <form  [formGroup]="FormVisiteur" (ngSubmit)="onSubmit()">
                     <div class="form-group">
-                    <label>Prénom</label>
+                    <label>{{"Prénom" | translate}} </label>
                     <input type="text" class="form-control"  formControlName="Prenom"   [(ngModel)]="visiteur.prenom" autocomplete="off"/>
                     <div *ngIf="FormVisiteur.get('Prenom').errors && FormVisiteur.get('Prenom').touched && FormVisiteur.get('TypeVisiteur').value=='Physique'">
                         <span class="register-error-icon">!</span>
-                        <p class="register-error-message">Veuillez saisir votre Prénom</p>
+                        <p class="register-error-message">{{"Veuillez saisir votre Prénom" | translate}}</p>
                     </div>
                     </div>
                     <div class="form-group">
-                    <label>Nom</label>
+                    <label>{{"Nom" | translate}} </label>
                     <input type="text" class="form-control" formControlName="Nom" [(ngModel)]="visiteur.nom" autocomplete="off"/>
                     <div *ngIf="FormVisiteur.get('Nom').errors && FormVisiteur.get('Nom').touched && FormVisiteur.get('TypeVisiteur').value=='Physique'">
                         <span class="register-error-icon">!</span>
-                        <p class="register-error-message">Veuillez saisir votre Nom</p>
+                        <p class="register-error-message">{{"Veuillez saisir votre Nom" | translate}} </p>
                     </div>
                     </div>
                     <div class="form-group">
-                    <label>Type de Visiteur</label>
+                    <label>{{"Type de Visiteur" | translate}} </label>
                     <input type="text" class="form-control" formControlName="TypeVisiteur" [(ngModel)]="visiteur.typeVisiteur" autocomplete="off"/>
                     <div *ngIf="FormVisiteur.get('TypeVisiteur').errors && FormVisiteur.get('TypeVisiteur').touched">
                         <span class="register-error-icon">!</span>
-                        <p class="register-error-message">Veuillez Choisir le type de visiteur svp</p>
+                        <p class="register-error-message">{{"Veuillez Choisir le type de visiteur s'il vous plaît" | translate}}.</p>
                     </div>
                     </div>
                     <div class="form-group">
-                    <label>Raison Sociale</label>
+                    <label>{{"Raison Sociale" | translate}} </label>
                     <input type="text" class="form-control" formControlName="RaisonSociale"  [(ngModel)]="visiteur.raisonSociale"  autocomplete="off"/>
                     <div *ngIf="FormVisiteur.get('RaisonSociale').errors && FormVisiteur.get('RaisonSociale').touched && FormVisiteur.get('TypeVisiteur').value=='Moral'">
                         <span class="register-error-icon">!</span>
-                        <p class="register-error-message">Veuillez saisir votre Raison Sociale</p>
+                        <p class="register-error-message">{{"Veuillez saisir votre Raison Sociale" | translate}} </p>
                     </div>
                     </div>
                     <div class="form-group">
-                    <label>Pays</label>
+                    <label>{{"Pays" | translate}} </label>
                     <select class="form-group" name="pays" id="pays" formControlName="Pays"  [(ngModel)]="selectedPays" required>
-                        <option value="">Choisir votre pays</option>
+                        <option value="">{{"Choisir votre pays" | translate}} </option>
                         <option *ngFor="let p of allPays" [value]="p.libelle">{{p.libelle}}</option>
                     </select>
                     <div *ngIf="FormVisiteur.get('Pays').errors && FormVisiteur.get('Pays').touched">
                         <span class="register-error-icon">!</span>
-                        <p class="register-error-message">Veuillez choisir votre pays</p>
+                        <p class="register-error-message">{{"Veuillez choisir votre pays" | translate}} </p>
                     </div>
                     
                     </div>
                     <div class="form-group">
-                    <button style="float:right" title="Valider" type="submit" class="btn btn-default btn-round"><i class="material-icons">
-                        save
-                        </i>Valider</button>
-                        <button style="float:right" title="Annuler" type="ACTION" class="btn btn-danger btn-round" data-dismiss="modal">Annuler</button>
+                    <button style="float:right" title="{{'Valider' | translate}}" type="submit" class="btn btn-default btn-round"><i class="material-icons">
+                        
+                        </i>{{"Valider" | translate}} </button>
+                        <button style="float:right" title="{{'Annuler' | translate}}" type="ACTION" class="btn btn-danger btn-round" data-dismiss="modal">{{"Annuler" | translate}} </button>
                     </div>
                 </form>
             </div>

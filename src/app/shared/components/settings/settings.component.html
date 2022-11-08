@@ -92,6 +92,8 @@
         </li>
       </ul>
     </li>
+
+
     <li class="onhover-div mobile-cart" *ngIf="isAuthenticated | async">
       <div>
         <a [routerLink]="['/shop/cart']">
@@ -147,5 +149,29 @@
       </ul>
      </span>
     </li>
+    
+    <!-- <li class="mobile-account dropdown">
+      <span (click)="changecode(currentLanguage)">
+        <img src="{{flagUrl}}/{{currentLanguage}}" alt="Flag" width="25" height="15" > {{ currentLanguage | uppercase}}
+      </span>
+      <div class="dropdown-content" *ngFor="let codeCountry of codeCountryList" (click)="changecode(codeCountry)">
+      <img src="{{flagUrl}}/{{codeCountry}}" alt="Flag" width="25" height="15"> {{ codeCountry | uppercase }}
+      </div>
+    </li> -->
+
+    <li class="onhover-div mobile-setting">
+      <div>
+        <img src="{{flagUrl}}/{{currentLanguage.code}}" alt="Flag" width="25" height="15" > 
+        {{ currentLanguage.name | uppercase}}
+        <i class="ti-palette"></i>
+      </div>
+      <div class="show-div setting">
+        <ul>
+          <li class="dropdown-content" *ngFor="let codeCountry of codeCountryList" (click)="changecode(codeCountry.code)" style="cursor:pointer;">
+            <img src="{{flagUrl}}/{{codeCountry.code}}" alt="Flag" width="25" height="15"> <span style="margin-left: 5px;"> {{ codeCountry.name | uppercase }}</span>
+          </li>
+        </ul>
+      </div>
+    </li> 
   </ul>
 </div>

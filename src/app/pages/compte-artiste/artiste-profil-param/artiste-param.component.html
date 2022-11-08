@@ -368,14 +368,14 @@
     <div class="col-sm-12 col-lg-12">
       <ngb-tabset [type]="'tabs'" class="nav-material">
         <ngb-tab>
-          <ng-template ngbTabTitle>Modifier mot de passe</ng-template>
+          <ng-template ngbTabTitle>{{"Modifier mot de passe" | translate}} </ng-template>
           <ng-template ngbTabContent>
               <br>
             <form [formGroup]="mdpForm" (ngSubmit)="onChangePwd()">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-10">
-                            <label for="mdpActu">Mot de passe actuel <strong style="color: red;" >*</strong></label>
+                            <label for="mdpActu">{{"Mot de passe actuel" | translate}} <strong style="color: red;" >*</strong></label>
                             <input [type]="hide ? 'password' : 'text'" class="form-control" formControlName="mdpActu"  id="mdpActu" autocomplete="off"/>                                                                      
                         </div>
                         <div class="col-md-2">
@@ -383,10 +383,10 @@
                             <i [ngClass]="(hide === true)?'fa fa-eye': 'fa fa-eye-slash'"  (click)="hide = !hide"> </i> <!--  {{hide ? 'visibility' :'visibility_off'}} -->
                         </div>
                         <div class="col-md-10">
-                            <div *ngIf="this.mdpForm.get('mdpActu').pending" style="color: darkred;">Vérification...</div>
+                            <div *ngIf="this.mdpForm.get('mdpActu').pending" style="color: darkred;">{{"Vérification" | translate}}...</div>
                             <div class="alert alert-danger" *ngIf="this.mdpForm.get('mdpActu').touched && this.mdpForm.get('mdpActu').invalid">
-                                <div *ngIf="this.mdpForm.get('mdpActu').errors.required">le mot de passe actuel est requis</div>
-                                <div *ngIf="this.mdpForm.get('mdpActu').errors.mustMatch">le mot de passe est incorrect</div> 
+                                <div *ngIf="this.mdpForm.get('mdpActu').errors.required">{{"le mot de passe actuel est requis" | translate}} </div>
+                                <div *ngIf="this.mdpForm.get('mdpActu').errors.mustMatch">{{"le mot de passe est incorrect" | translate}} </div> 
                             </div>
                         </div>
                     </div>
@@ -394,7 +394,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-10">
-                        <label>Nouveau Mot de passe <strong style="color: red;" >*</strong></label>
+                        <label>{{"Nouveau Mot de passe"| translate}} <strong style="color: red;" >*</strong></label>
                         <input [type]="hide2 ? 'password' : 'text'" class="form-control" formControlName="mdpNouv" id="mdpNouv" autocomplete="off"/>
                         </div>
                         <div class="col-md-2">
@@ -403,9 +403,9 @@
                         </div>
                         <div class="col-md-10">
                         <div class="alert alert-danger" *ngIf="this.mdpForm.get('mdpNouv').touched && this.mdpForm.get('mdpNouv').invalid">
-                            <div *ngIf="this.mdpForm.get('mdpNouv').errors.required" >le nouveau mot de passe est requis</div>
-                            <div *ngIf="this.mdpForm.get('mdpNouv').errors.pattern" >le nouveau doit contenir des miniscules et des majuscules</div>
-                            <div *ngIf="this.mdpForm.get('mdpNouv').errors.minlength" >le nouveau mot de passe devrait contenir 8 caractéres ou plus </div>
+                            <div *ngIf="this.mdpForm.get('mdpNouv').errors.required" >{{"le nouveau mot de passe est requis" | translate}} </div>
+                            <div *ngIf="this.mdpForm.get('mdpNouv').errors.pattern" >{{"le nouveau doit contenir des miniscules et des majuscules" | translate}} </div>
+                            <div *ngIf="this.mdpForm.get('mdpNouv').errors.minlength" >{{"le nouveau mot de passe devrait contenir 8 caractéres ou plus" | translate}} </div>
                     
                             </div>
                         </div>        
@@ -414,17 +414,17 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-10">
-                        <label>Confirmation <strong style="color: red;" >*</strong></label>
+                        <label>{{"Confirmation" | translate}} <strong style="color: red;" >*</strong></label>
                         <input type="password" class="form-control" formControlName="mdpConf" id="mdpConf" autocomplete="off"/>
                 
                         </div>
                         <div class="col-md-10">
                             <div class="alert alert-danger" *ngIf="this.mdpForm.get('mdpConf').touched && this.mdpForm.get('mdpConf').invalid">
-                                <div *ngIf="this.mdpForm.get('mdpConf').errors.required" >Veuillez confirmer votre nouveau mot de passe</div>
+                                <div *ngIf="this.mdpForm.get('mdpConf').errors.required" >{{"Veuillez confirmer votre nouveau mot de passe" | translate}} </div>
                                 <!--div *ngIf="this.mdpForm.errors.checkPasswords" >les mots de passe doivent etre identique </div-->
                                 
                             </div>
-                            <div class="alert alert-danger" *ngIf="this.mdpForm.get('mdpConf').touched && (this.mdpForm.value.mdpNouv !== this.mdpForm.value.mdpConf)">les mots de passe doivent être identiques </div>
+                            <div class="alert alert-danger" *ngIf="this.mdpForm.get('mdpConf').touched && (this.mdpForm.value.mdpNouv !== this.mdpForm.value.mdpConf)">{{"les mots de passe doivent être identiques" | translate}} </div>
 
                         </div> 
                     </div>   
@@ -434,14 +434,14 @@
                 <br>
                 <button type="submit" class="btn btn-solid-Valider" title="Modifier" [disabled]="!mdpForm.valid"><i class="material-icons">
                     
-                </i>Modifier</button>    
+                </i>{{"Modifier" | translate}} </button>    
             </div> 
             </form> 
 
           </ng-template>
       </ngb-tab> 
         <ngb-tab>
-              <ng-template ngbTabTitle>Modifier photo de profil</ng-template>
+              <ng-template ngbTabTitle>{{"Modifier photo de profil" | translate}} </ng-template>
               <ng-template ngbTabContent>
                   <br>
                     <!-- <div class="modal-header back white-text">
@@ -452,7 +452,7 @@
                                     <div>
                                     <div class="row">
                                             <div class="col-md-10">
-                                            <label>Image : </label>
+                                            <label>{{"Image" | translate}} : </label>
                                             <input type="file" id="photo" (change)="fileChange($event)" required>     
                                             </div>
                                         </div>
@@ -461,7 +461,7 @@
                                         <br>
                                     <button type="submit" class="btn btn-solid-Valider" title="Modifier" [disabled]="!photoProfilForm.valid"><i class="material-icons">
                                         
-                                    </i>Modifier</button>    
+                                    </i>{{"Modifier" | translate}} </button>    
                                     </div> 
                                 </form> 
               </ng-template>
