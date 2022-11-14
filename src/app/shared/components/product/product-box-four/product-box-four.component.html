@@ -1,7 +1,7 @@
 <div class="img-wrapper">
     <div class="img-block">
         <div class="lable-wrapper">
-            <span class="lable1" *ngIf="product.new">new</span>
+            <span class="lable1" *ngIf="product.new">{{"new" | translate}}</span>
             <span class="lable2" *ngIf="product.sale">{{ product?.discount }}% off</span>
         </div>
         <div class="front">
@@ -17,21 +17,21 @@
             </a>
         </div>
         <div class="cart-info">
-            <button title="Ajouter au panier" (click)="CartModal.openModal(product)" 
+            <button title="{{'Ajouter au panier' | translate}}" (click)="CartModal.openModal(product)" 
                 *ngIf="cartModal">
                 <i class="ti-shopping-cart"></i>
             </button>
-            <button title="Ajouter au panier" (click)="addToCart(product)"
+            <button title="{{'Ajouter au panier' | translate}}" (click)="addToCart(product)"
                 *ngIf="!cartModal">
                 <i class="ti-shopping-cart"></i>
             </button>
-            <a href="javascript:void(0)" title="Add to Wishlist" (click)="addToWishlist(product)">
+            <a href="javascript:void(0)" title="{{'Add to Wishlist' | translate}}" (click)="addToWishlist(product)">
               <i class="ti-heart" aria-hidden="true"></i>
             </a>
-            <a href="javascript:void(0)" title="Voir plus" (click)="QuickView.openModal()">
+            <a href="javascript:void(0)" title="{{'Voir plus' | translate}}" (click)="QuickView.openModal()">
               <i class="ti-search" aria-hidden="true"></i>
             </a>
-            <a href="javascript:void(0)" title="Compare" (click)="addToCompare(product)">
+            <a href="javascript:void(0)" title="{{'Compare' | translate}}" (click)="addToCompare(product)">
               <i class="ti-reload" aria-hidden="true"></i>
             </a>
         </div>

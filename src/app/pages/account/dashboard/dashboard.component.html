@@ -174,7 +174,7 @@
                             <div class="box-head">
                                 <h2> {{"Mes commandes" | translate}} </h2>
                             </div>
-                                <p *ngIf="commandes.length == 0"> {{"Votre liste est vide!"}} </p>
+                                <p *ngIf="commandes.length == 0"> {{"Votre liste est vide"}}! </p>
                             <hr>
                                 <table class="table cart-table table-responsive-md" style="text-align: center;" *ngIf="commandes.length > 0">
                                     <thead>
@@ -405,16 +405,16 @@
                                     <div class="form-row">                                      
                                         <div class="col-md-12">
                                             <label><strong> {{"Mot de passe actuel" | translate}} <strong style="color: red;" >*</strong></strong></label>
-                                            <input type="password" class="form-control" formControlName="mdpActu"  id="mdpActu" placeholder="Mot de passe actuel" required="" autocomplete="off">
+                                            <input type="password" class="form-control" formControlName="mdpActu"  id="mdpActu" placeholder="{{'Mot de passe actuel' | translate}}" required="" autocomplete="off">
                                             <div *ngIf="mdpForm.get('mdpActu').errors && mdpForm.get('mdpActu').touched">
                                                 <p class="register-error-message" style="color: red;">
-                                                 {{" Le mot de passe doit être composé au moins 6 caractères" | translate}} !</p>
+                                                 {{"Le mot de passe doit être composé au moins 6 caractères" | translate}} !</p>
                                             </div>
                                             
                                                 <div *ngIf="this.mdpForm.get('mdpActu').pending" style="color: darkred;">{{"Verification" | translate}}...</div>
                                                 <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpActu').touched && this.mdpForm.get('mdpActu').invalid">
-                                                    <div *ngIf="this.mdpForm.get('mdpActu').errors.required"> {{"le mot de passe actuel est requis" |translate}} </div>
-                                                    <div *ngIf="this.mdpForm.get('mdpActu').errors.mustMatch"> {{"le mot de passe est incorrect" | translate}} </div> 
+                                                    <div *ngIf="this.mdpForm.get('mdpActu').errors.required"> {{"Le mot de passe actuel est requis" |translate}} </div>
+                                                    <div *ngIf="this.mdpForm.get('mdpActu').errors.mustMatch"> {{"Le mot de passe est incorrect" | translate}} </div> 
                                                 </div>
                                                                                        
                                         </div>  
@@ -428,12 +428,12 @@
                                     <div class="form-row">
                                         <div class="col-md-8">
                                             <label><strong> {{"Nouveau mot de passe" | translate}} <strong style="color: red;" >*</strong></strong></label>
-                                            <input type="password" class="form-control" formControlName="mdpNouv" id="mdpNouv" placeholder="Nouveau mot de passe" required="" autocomplete="off">
+                                            <input type="password" class="form-control" formControlName="mdpNouv" id="mdpNouv" placeholder="{{'Nouveau mot de passe' | translate}}" required="" autocomplete="off">
                                             
                                                 <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpNouv').touched && this.mdpForm.get('mdpNouv').invalid">
-                                                    <div *ngIf="this.mdpForm.get('mdpNouv').errors.required" > {{"le nouveau mot de passe est requis" | translate}} </div>
-                                                    <div *ngIf="this.mdpForm.get('mdpNouv').errors.pattern" > {{"le nouveau doit contenir des miniscules et des majuscules" | translate}} </div>
-                                                    <div *ngIf="this.mdpForm.get('mdpNouv').errors.minlength" > {{"le nouveau mot de passe devrait contenir 8 caractéres ou plus" | translate}} </div>                                         
+                                                    <div *ngIf="this.mdpForm.get('mdpNouv').errors.required" > {{"Le nouveau mot de passe est requis" | translate}} </div>
+                                                    <div *ngIf="this.mdpForm.get('mdpNouv').errors.pattern" > {{"Le nouveau doit contenir des miniscules et des majuscules" | translate}} </div>
+                                                    <div *ngIf="this.mdpForm.get('mdpNouv').errors.minlength" > {{"Le nouveau mot de passe devrait contenir 8 caractéres ou plus" | translate}} </div>                                         
                                                 </div>
                                             
                                         </div>
@@ -441,7 +441,7 @@
                                         <div class="col-md-8">
                                             <br><br>
                                             <label><strong> {{"Confirmer nouveau mot de passe" | translate}} <strong style="color: red;" >*</strong></strong></label>
-                                            <input type="password" class="form-control" placeholder="Confirmer nouveau mot de passe" required="" formControlName="mdpConf" autocomplete="off">
+                                            <input type="password" class="form-control" placeholder="{{'Confirmer nouveau mot de passe' | translate}}" required="" formControlName="mdpConf" autocomplete="off">
                                             <!--div *ngIf="(mdpForm.get('mdpNouv').errors || mdpForm.hasError('mismatchedPasswords')) && mdpForm.get('mdpConf').touched">
                                                 <p class="register-error-message" style="color: red;">{{ 'les mots de passe doivent etre identiques'}} !</p>
                                             </div-->
@@ -651,12 +651,13 @@
                             <ul class="order-detail">
                                 <li>{{"ID commande" | translate}}: 000{{commande?.id}}</li>
                                 <li> {{"Date de commande" | translate}}: {{commande.dateCreation}}</li>
-                                <li> {{"Commande totale" | translate}}: {{Sum| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</li>
+                                <li *ngIf="Sum == 0">{{"Commande totale" | translate}} : {{commande.montant | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</li>
+                                <li *ngIf="Sum != 0"> {{"Commande totale" | translate}}: {{Sum| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</li>
                             </ul>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6" *ngIf="adressLivraison != null">
                             <h4 style="text-decoration: underline;;"> {{"Adresse de livraison" | translate}} </h4>
-                            <ul class="order-detail">
+                            <ul class="order-detail" >
                                 
                                 <li>{{adressLivraison.prenom}} {{adressLivraison.nom}}</li>
                                 <li>{{"Adresse" | translate}}: {{adressLivraison.adresse}}</li>
@@ -670,7 +671,7 @@
                         <div class="col-sm-12">
                             <h4  style="text-decoration: underline;"> {{"Méthode de paiement" | translate}} </h4>
                             <ul class="order-detail">
-                                <li *ngIf="paiement?.libelleModePaiement!=null">{{paiement?.libelleModePaiement}} ({{paiement?.libelleEtatPaiement}}).</li>
+                                <li *ngIf="paiement?.libelleModePaiement!=null">{{paiement?.libelleModePaiement | translate}} ({{paiement?.libelleEtatPaiement | translate}}).</li>
                                 <li *ngIf="paiement?.libelleModePaiement==null"> {{"Mode de paiement indisponible (Commande annulée)" | translate}}.</li>
                             </ul>
                         </div>
@@ -717,12 +718,14 @@
                     </div>
                     <div class="total-sec">
                         <ul>
-                            <li> {{"Sous-Total" | translate}} <span> {{commande.total| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
-                            <li> {{"Livraison et assurance" | translate}} <span> {{fraisLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}<!-- {{commande.totalLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} --> </span></li>
+                            <li> {{"Sous-Total" | translate}} <span> {{commande.montant| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
+                            <li *ngIf="adressLivraison != null"> {{"Livraison et assurance" | translate}} <span> {{fraisLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}<!-- {{commande.totalLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} --> </span></li>
                         </ul>
                     </div>
                     <div class="final-total">
-                        <h3>{{"Total" | translate}} : <span> {{Sum | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></h3>
+                        <h3 *ngIf="Sum == 0"> {{"Total" | translate}} <span> {{commande.montant| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></h3>
+
+                        <h3 *ngIf="Sum != 0">{{"Total" | translate}} : <span> {{Sum | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></h3>
                     </div>
                 </div><br><br>
                 <div class="col-md-12">

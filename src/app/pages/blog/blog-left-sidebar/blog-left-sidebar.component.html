@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="'Evenements'" [breadcrumb]="'Évènements'"></app-breadcrumb>
+<app-breadcrumb [title]="'Evenements'" [breadcrumb]="'Evenements'"></app-breadcrumb>
 <!-- section start -->
 <section class="section-b-space  blog-page">
     <div class="container">
@@ -19,7 +19,7 @@
                                     <h6>{{evenementSignart.stringDateOfficielle}}</h6>
                                     <a [routerLink]="'/pages/blog/details'"><h4>{{evenementSignart.titre}} </h4></a>
                                     <ul class="post-social">
-                                        <li>Lieu : {{evenementSignart.lieu}} </li>
+                                        <li>{{"Lieu" | translate}} : {{evenementSignart.lieu}} </li>
                                         <li><i class="fa fa-money"></i>  {{evenementSignart.prixCodeEvent}} </li>
                                         <li><i class="fa fa-tel"></i> {{evenementSignart.contact}}</li>
                                     </ul>
@@ -37,15 +37,15 @@
             <div class="col-xl-3 col-lg-4 col-md-5">
                 <div class="blog-sidebar">
                     <div class="theme-card text-center">
-                        <h4>Evénements récents</h4>
+                        <h4>{{"Evénements récents" | translate}}</h4>
                             <div *ngFor="let oldEventSignart of evenementSignarts" >
                                 <div class="container">
                                     <!-- <iframe [src]='sanitizer.bypassSecurityTrustResourceUrl(oldEventSignart.lienVideo)' frameborder="0" allowfullscreen></iframe> -->
                                     <!-- <img class="img-fluid" src="assets/images/blog/blog_signart.jpg" alt="Generic placeholder image"> -->
 
                                         <h6> {{oldEventSignart.titre}} </h6>
-                                        <p> Lieu: {{oldEventSignart.lieu}} </p>
-                                        <a [href]="oldEventSignart.lienVideo"> Lien vers la video... </a>                                        
+                                        <p> {{"Lieu" | translate}}: {{oldEventSignart.lieu}} </p>
+                                        <a [href]="oldEventSignart.lienVideo"> {{"Lien vers la video" | translate}}... </a>                                        
                                         <h6> {{oldEventSignart.stringDateOfficielle}} </h6>
                                 </div>
                                 <br>

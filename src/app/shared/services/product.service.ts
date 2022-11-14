@@ -21,6 +21,7 @@ import { PanierEtMarquageService } from './panierEtMarquage.service';
 import { LignePanier } from '../modeles/ligne_panier';
 import { OeuvreNumerique } from '../modeles/imageNumerique';
 import { WishItem } from '../modeles/wish_item';
+import { TranslateService } from '@ngx-translate/core';
 
 var state = {
   products: JSON.parse(localStorage['products'] || '[]'),
@@ -58,7 +59,9 @@ export class ProductService {
   constructor(private http: HttpClient,private newCheckoutService:CheckoutService,
     private toastrService: ToastrService, private articleService: ArticleService,
     private checkoutActions: CheckoutActions, private panierEtMarquateService:PanierEtMarquageService,
-    private checkoutService: CheckoutService,private store: Store<AppState>,  private authService: AuthServiceS,) { }
+    private checkoutService: CheckoutService,private store: Store<AppState>,  private authService: AuthServiceS,
+    private translate: TranslateService
+    ) { }
 
   /*
     ---------------------------------------------
@@ -178,7 +181,10 @@ export class ProductService {
     else{
       return false;
     }
-    this.toastrService.success("L'oeuvre a été ajoutée dans vos favoris.");
+    this.translate.get('PopupOeuvAdded').subscribe(popup => {
+      this.toastrService.success(popup);
+      })
+    
     localStorage.setItem("wishlistItems", JSON.stringify(state.wishlist));
     return true
   }
@@ -194,7 +200,9 @@ export class ProductService {
         console.log(resp);
       });
     }
-    this.toastrService.success("L'oeuvre a été retirée de vos favoris.");
+    this.translate.get('PopupOeuvRemoved').subscribe(popup => {
+      this.toastrService.success(popup);
+      })
     localStorage.setItem("wishlistItems", JSON.stringify(state.wishlist));
     return true
   }
@@ -222,7 +230,9 @@ export class ProductService {
         ...product
       })
     }
-    this.toastrService.success("L'oeuvre a été ajoutée pour une comparaison.");
+    this.translate.get('PopupOeuvAddedForCompare').subscribe(popup => {
+      this.toastrService.success(popup);
+      })
     localStorage.setItem("compareItems", JSON.stringify(state.compare));
     return true
   }
@@ -309,7 +319,10 @@ export class ProductService {
 
     //this.OpenCart = true; // If we use cart variation modal
     localStorage.setItem("newCartItems", JSON.stringify(newState.cart));
-    this.toastrService.success('Oeuvre ajoutée à la liste!');
+    this.translate.get('PopupOeuvAddedAtList').subscribe(popup => {
+      this.toastrService.success(popup);
+      })
+    // this.toastrService.success('Oeuvre ajoutée à la liste!');
     return true;
   }
 
@@ -354,7 +367,10 @@ export class ProductService {
       })
     }
     else{
-      this.toastrService.info("Seuls les clients peuvent faire des achats et utiliser le panier!","Attention !!");
+      this.translate.get('PopupAchatClient').subscribe(popup => {
+        this.toastrService.info(popup, "Attention !!");
+        })
+      // this.toastrService.info("Seuls les clients peuvent faire des achats et utiliser le panier!","Attention !!");
       return false;
     }
     
@@ -384,7 +400,10 @@ export class ProductService {
     }
 
     //this.OpenCart = true; // If we use cart variation modal
-    this.toastrService.success('Oeuvre ajoutée à la liste!');
+    this.translate.get('PopupOeuvAddedAtList').subscribe(popup => {
+      this.toastrService.success(popup);
+      })
+    // this.toastrService.success('Oeuvre ajoutée à la liste!');
     localStorage.setItem("listItems", JSON.stringify(stateList.list));
     return true;
    
@@ -426,7 +445,9 @@ export class ProductService {
       })
     }
     else{
-      this.toastrService.info("Seuls les clients peuvent faire des achats et utiliser le panier!","Attention !!");
+      this.translate.get('PopupAchatClient').subscribe(popup => {
+        this.toastrService.info(popup, 'Attention !!');
+        })
       return false;
     }
     
@@ -481,7 +502,9 @@ export class ProductService {
     const qty = oeuvre.quantity + quantity
     const stock = oeuvre.stock
     if (stock < qty || stock == 0) {
-      this.toastrService.error('Oeuvre déja dans le panier. '+ stock +' article(s) restant(s).');
+      this.translate.get('PopupDejaPanier', {stock: stock}).subscribe(popup => {
+        this.toastrService.error(popup);
+        })
       return false
     }
     return true
@@ -509,7 +532,9 @@ public calculateNewStockCounts(oeuvre, quantity) {
   const qty = oeuvre.quantity + quantity;
   const stock = oeuvre.stock;
   if (stock < qty || stock == 0) {
-    this.toastrService.error('Oeuvre déja dans le panier. '+ stock +' article(s) restant(s).');
+    this.translate.get('PopupDejaPanier', {stock: stock}).subscribe(popup => {
+      this.toastrService.error(popup);
+      })
     return false
   }
   return true
@@ -545,7 +570,10 @@ public calculateNewStockCounts(oeuvre, quantity) {
    public removeListItem(oeuvreNumerique: OeuvreNumerique): any {
     const index = stateList.list.indexOf(oeuvreNumerique);
     stateList.list.splice(index, 1);
-    this.toastrService.warning('Oeuvre retirée de la liste!');
+    this.translate.get('PopupOeuvRetire').subscribe(popup => {
+      this.toastrService.warning(popup);
+      })
+    
     localStorage.setItem("listItems", JSON.stringify(stateList.list));
     
     return true
@@ -554,7 +582,9 @@ public calculateNewStockCounts(oeuvre, quantity) {
   public removeNewCartItem(oeuvre: Oeuvre): any {
     const index = newState.cart.indexOf(oeuvre);
     newState.cart.splice(index, 1);
-    this.toastrService.warning('Oeuvre retirée de la liste!');
+    this.translate.get('PopupOeuvRetire').subscribe(popup => {
+      this.toastrService.warning(popup);
+      })
     localStorage.setItem("newCartItems", JSON.stringify(newState.cart));
     return true
   }

@@ -24,6 +24,7 @@ import { Livraison } from '../modeles/livraison';
 import { ToastrService } from 'ngx-toastr';
 import { NullTemplateVisitor } from '@angular/compiler';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { TranslateService } from '@ngx-translate/core';
 declare var $: any;
 
 @Injectable()
@@ -44,6 +45,7 @@ export class CheckoutService extends HttpService {
     private actions: CheckoutActions,
     private store: Store<AppState>,
     private toastrService:ToastrService,
+    private translate: TranslateService
   ) {
     super(http);
     this.store.select(getOrderNumber)
@@ -77,47 +79,55 @@ export class CheckoutService extends HttpService {
       }
     ).pipe(map(res => {
       if (res) {
-        $.notify({
-          icon: "notifications",
-          message: "Oeuvre ajoutée au panier"
-        }, {
-          type: 'success',
-          timer: 2000,
-          placement: {
-            from: 'top',
-            align: 'center'
-          }
-        });
+          this.translate.get('PopupOeuvAddedAtCart').subscribe(popup => {
+            $.notify({
+              icon: "notifications",
+              message: popup
+            }, {
+              type: 'success',
+              timer: 2000,
+              placement: {
+                from: 'top',
+                align: 'center'
+              }
+            });
+        })
+       
         // const panier: Panier = res.json();
         return <any>res;
       } else {
-        $.notify({
-          icon: "notifications",
-          message: "Erreur ajout oeuvre"
-        }, {
-          type: 'danger',
-          timer: 2000,
-          placement: {
-            from: 'top',
-            align: 'center'
-          }
-        });
+        this.translate.get('PopupOeuvAddedError').subscribe(popup => {
+          $.notify({
+            icon: "notifications",
+            message: popup
+          }, {
+            type: 'danger',
+            timer: 2000,
+            placement: {
+              from: 'top',
+              align: 'center'
+            }
+          });
+        })
+       
         return null;
       }
 
     },
       error => {
-        $.notify({
-          icon: "notifications",
-          message: "Erreur ajout oeuvre"
-        }, {
-          type: 'danger',
-          timer: 2000,
-          placement: {
-            from: 'top',
-            align: 'center'
-          }
-        });
+        this.translate.get('PopupOeuvAddedError').subscribe(popup => {
+          $.notify({
+            icon: "notifications",
+            message: popup
+          }, {
+            type: 'danger',
+            timer: 2000,
+            placement: {
+              from: 'top',
+              align: 'center'
+            }
+          });
+        })
       }));
   }
   getLineItemsInLocalStorage(){
@@ -300,17 +310,20 @@ export class CheckoutService extends HttpService {
     return this.delete(environment.API_ENDPOINT + `lignepanier/${lignePanier.id}`).pipe(
       map(() => {
         this.store.dispatch(this.actions.removeLineItemSuccess(lignePanier));
-        $.notify({
-          icon: "notifications",
-          message: "Oeuvre retirée du panier"
-        }, {
-          type: 'success',
-          timer: 2000,
-          placement: {
-            from: 'top',
-            align: 'center'
-          }
-        });
+        this.translate.get('PopupOeuvRemovedFCart').subscribe(popup => {
+          $.notify({
+            icon: "notifications",
+            message: popup
+          }, {
+            type: 'success',
+            timer: 2000,
+            placement: {
+              from: 'top',
+              align: 'center'
+            }
+          });
+        })
+       
         // this.store.select<any>((state: any) => state) // the complete state this time!!!
         //   .subscribe((completeState: any) => {
         //     if(localStorage.getItem('completeState')){
@@ -342,7 +355,11 @@ export class CheckoutService extends HttpService {
        
         return order;
       } else {
-        this.toastrService.error("Erreur lors de la création de la commande, veuillez reprendre SVP!","Succès");
+        this.translate.get('PopupOrdercreatedError').subscribe(popup => {
+          this.translate.get('ERROR').subscribe(alertType => {
+            this.toastrService.error(popup,alertType);
+          })
+        })
       }
 
     }))
@@ -393,7 +410,12 @@ export class CheckoutService extends HttpService {
       params
     ).pipe(map((res) => {
       const adresse = res;
-      this.toastrService.success("Succès","L'adresse a été ajouté à votre liste.")
+      this.translate.get('PopupAddressAddedtoList').subscribe(popup => {
+        this.translate.get('SUCCESS').subscribe(alertType => {
+          this.toastrService.success(popup,alertType);
+        })
+      })
+      // this.toastrService.success("Succès","L'adresse a été ajouté à votre liste.")
       //this.store.dispatch(this.actions.updateOrderSuccess(adresse));
     }));
    
@@ -500,17 +522,19 @@ getAdresseByClient(idClient){
     if(this.setPanier(panier))
     {
       this.store.dispatch(this.actions.removeLineItemSuccess(lignePanier));
-      $.notify({
-        icon: "notifications",
-        message: "Oeuvre retirée du panier"
-      }, {
-        type: 'success',
-        timer: 2000,
-        placement: {
-          from: 'top',
-          align: 'center'
-        }
-      });
+      this.translate.get('PopupOeuvRemovedFCart').subscribe(popup => {
+        $.notify({
+          icon: "notifications",
+          message: popup
+        }, {
+          type: 'success',
+          timer: 2000,
+          placement: {
+            from: 'top',
+            align: 'center'
+          }
+        });
+      })
       return lignePanier;
     }
     else 
@@ -563,17 +587,20 @@ getAdresseByClient(idClient){
         panier.totalTaxes = panier.totalTaxes + lignePanier.oeuvre.taxes;
         localStorage.setItem('panier', JSON.stringify(panier));
         this.store.dispatch(this.actions.changeLineItemQuantityUpSuccess(lignePanier));
-        $.notify({
-          icon: "notifications",
-          message: "Quantité mise à jour!"
-        }, {
-          type: 'success',
-          timer: 2000,
-          placement: {
-            from: 'top',
-            align: 'center'
-          }
-        });
+        this.translate.get('PopupQtyUpdated').subscribe(popup => {
+          $.notify({
+            icon: "notifications",
+            message: popup
+          }, {
+            type: 'success',
+            timer: 2000,
+            placement: {
+              from: 'top',
+              align: 'center'
+            }
+          });
+        })
+       
       }else {
         lignePanier.quantite = quantity;
         lignePanier.total = total;
@@ -583,17 +610,19 @@ getAdresseByClient(idClient){
         panier.totalTaxes = panier.totalTaxes - lignePanier.oeuvre.taxes;
         localStorage.setItem('panier', JSON.stringify(panier));
         this.store.dispatch(this.actions.changeLineItemQuantityDownSuccess(lignePanier));
-        $.notify({
-          icon: "notifications",
-          message: "Quantité mise à jour!"
-        }, {
-          type: 'success',
-          timer: 2000,
-          placement: {
-            from: 'top',
-            align: 'center'
-          }
-        });
+        this.translate.get('PopupQtyUpdated').subscribe(popup => {
+          $.notify({
+            icon: "notifications",
+            message: popup
+          }, {
+            type: 'success',
+            timer: 2000,
+            placement: {
+              from: 'top',
+              align: 'center'
+            }
+          });
+        })
       }
     
     console.log('ligne panier ', lignePanier);
@@ -644,6 +673,11 @@ getAdresseByClient(idClient){
   }
 
   updateCommande(id:number,commande:Commande): Observable<any> {
+    let montant = 0;
+    commande.lignesCommande.forEach(lc=>{
+      montant += lc.prix;
+    })
+    commande.total = montant;
     return this.http.put(environment.API_ENDPOINT + `commande/${id}`,commande);
   }
   getLigneCommandeById(id:number): Observable<any>{

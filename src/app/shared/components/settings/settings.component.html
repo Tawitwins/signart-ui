@@ -44,7 +44,7 @@
       </div>
       <span class="cart_qty_cls">{{ newOeuvres.length }}</span>
       <ul class="show-div shopping-cart" *ngIf='!newOeuvres.length'>
-        <h5>Votre Panier est vide.</h5>
+        <h5>{{"Votre Panier est vide" | translate}}.</h5>
       </ul>
       <ul class="show-div shopping-cart" *ngIf='newOeuvres.length'>
         <li *ngFor="let oeuvre of newOeuvres">
@@ -73,7 +73,7 @@
         </li>
         <li>
           <div class="total">
-            <h5>Total : <span>{{ getNewTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}</span></h5>
+            <h5>{{"Total" | translate}} : <span>{{ getNewTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr' }}</span></h5>
           </div>
         </li>
         <li>
@@ -103,13 +103,13 @@
       </div>
       <span class="cart_qty_cls">{{ oeuvres.length }}</span>
       <ul class="show-div shopping-cart" *ngIf='!oeuvres.length'>
-        <h5>Votre Panier est vide.</h5>
+        <h5>{{"Votre Panier est vide" | translate}}.</h5>
       </ul>
      <span class="show-div shopping-cart">
       <div class="buttons voirPanier">
         <a [routerLink]="['/shop/cart']" class="view-cart"><h5>
           <span >
-            <strong>Voir Panier</strong>
+            <strong>{{"Voir Panier" | translate}}</strong>
           </span>
           </h5>
         </a>
@@ -161,14 +161,16 @@
 
     <li class="onhover-div mobile-setting">
       <div>
-        <img src="{{flagUrl}}/{{currentLanguage.code}}" alt="Flag" width="25" height="15" > 
-        {{ currentLanguage.name | uppercase}}
+        <img src="../../../../assets/images/flagCountry/{{currentLanguage.code}}.png" alt="Flag" width="25" height="15" > 
+
+        <!-- <img src="{{flagUrl}}/{{currentLanguage.code}}" alt="Flag" width="25" height="15" >  -->
+        <!-- {{ currentLanguage.name | uppercase}} -->
         <i class="ti-palette"></i>
       </div>
       <div class="show-div setting">
         <ul>
           <li class="dropdown-content" *ngFor="let codeCountry of codeCountryList" (click)="changecode(codeCountry.code)" style="cursor:pointer;">
-            <img src="{{flagUrl}}/{{codeCountry.code}}" alt="Flag" width="25" height="15"> <span style="margin-left: 5px;"> {{ codeCountry.name | uppercase }}</span>
+            <img src="../../../../assets/images/flagCountry/{{codeCountry.code}}.png" alt="Flag" width="25" height="15"> <span style="margin-left: 5px;"> {{ codeCountry.name | uppercase }}</span>
           </li>
         </ul>
       </div>

@@ -8,7 +8,7 @@
             <div class="col-lg-6 offset-lg-3">
               <form class="form-header">
                 <div class="form-group">
-                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Recherchez une oeuvre">
+                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="{{'Recherchez une œuvre' | translate}}">
                 </div>
                 <button type="submit" title="Rechercher" title="Rechercher" class="btn btn-primary"><i class="fa fa-search"></i></button>
               </form>
@@ -18,9 +18,9 @@
       </section>
         <div class="col-sm-12 text-center">
           <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
-            <h3>Désolé! Impossible de trouver le produit que vous recherchiez !!!    </h3>
-            <p>Veuillez vérifier si vous avez mal orthographié quelque chose ou essayez de rechercher avec d'autres mots.</p>
-            <a [routerLink]="['/shop/collection/left/sidebar']" title="Continuer l'exploration" class="btn btn-solid">Continuer l'exploration</a>
+            <h3>{{"Désolé! Impossible de trouver le produit que vous recherchiez" | translate}} !!!    </h3>
+            <p>{{"Veuillez vérifier si vous avez mal orthographié quelque chose ou essayez de rechercher avec d'autres mots" | translate}}.</p>
+            <a [routerLink]="['/shop/collection/left/sidebar']" title="{{'Continuer l\'exploration' | translate}}" class="btn btn-solid">{{"Continuer l'exploration" | translate}}</a>
         </div>
     </div>
  </section>

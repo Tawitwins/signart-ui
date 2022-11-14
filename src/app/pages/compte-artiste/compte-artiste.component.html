@@ -16,23 +16,23 @@
               <br>
               <div class="row">
                 <div class="col-md-6">
-                  <button title="Information générales" [ngClass]="(section === 'general')?'btn abonnement': 'btn annonces'" (click)='ChangerSection("general")'>{{"Profil" | translate}} </button> 
+                  <button title="{{'Information générales' | translate}}" [ngClass]="(section === 'general')?'btn abonnement': 'btn annonces'" (click)='ChangerSection("general")'>{{"Profil" | translate}} </button> 
                 </div>
                 <div class="col-md-6">
-                  <button title="Mes oeuvres" [ngClass]="(section === 'listeOeuvres' || section === 'addOeuvre' )?'btn abonnement': 'btn annonces'" (click)='ChangerSection("listeOeuvres")'> <i class="ti-PLUS"></i>{{"Mes oeuvres" | translate}} </button>
-                </div>
-              </div>
-              <div class="row" style="margin-top: 20px;">
-                <div class="col-md-6">
-                  <button title="Mes annonces" [ngClass]="(section === 'listeAnnonces' || section === 'addAnnonce')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeAnnonces")'>{{"Mes annonces" | translate}} </button> 
-                </div>
-                <div class="col-md-6">
-                  <button title="Mes expositions" [ngClass]="(section === 'listeExpo' || section === 'addExpo')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeExpo")'> <i class="ti-PLUS"></i>{{"Mes expositions" | translate}} </button>
+                  <button title="{{'Mes oeuvres' | translate}}" [ngClass]="(section === 'listeOeuvres' || section === 'addOeuvre' )?'btn abonnement': 'btn annonces'" (click)='ChangerSection("listeOeuvres")'> <i class="ti-PLUS"></i>{{"Mes oeuvres" | translate}} </button>
                 </div>
               </div>
               <div class="row" style="margin-top: 20px;">
                 <div class="col-md-6">
-                  <button title="Changer votre mot de passe ou votre photo de profil" [ngClass]="(section === 'parametres')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("parametres")'>{{"Paramètres" | translate}} </button> 
+                  <button title="{{'Mes annonces' | translate}}" [ngClass]="(section === 'listeAnnonces' || section === 'addAnnonce')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeAnnonces")'>{{"Mes annonces" | translate}} </button> 
+                </div>
+                <div class="col-md-6">
+                  <button title="{{'Mes expositions' | translate}}" [ngClass]="(section === 'listeExpo' || section === 'addExpo')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeExpo")'> <i class="ti-PLUS"></i>{{"Mes expositions" | translate}} </button>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 20px;">
+                <div class="col-md-6">
+                  <button title="{{'Changer votre mot de passe ou votre photo de profil' | translate}}" [ngClass]="(section === 'parametres')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("parametres")'>{{"Paramètres" | translate}} </button> 
                 </div>
                <!--  <div class="col-md-6">
                   <button [ngClass]="(section === 'listeExpo' || section === 'addExpo')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeExpo")'> <i class="ti-PLUS"></i> Mes expositions</button>
@@ -49,7 +49,7 @@
               </div>
               <div class="col-xl-3 col-sm-6">
                <div class="bbleu">
-                  <div class="side-l"><a [routerLink]="['/pages/followers/',artiste.id]" title="Nombre de followers"><p class="big-l">{{artiste?.nbFans}}</p></a> <p class="col-p">{{"Followers" | translate}} </p></div>
+                  <div class="side-l"><a [routerLink]="['/pages/followers/',artiste.id]" title="{{'Nombre de followers' | translate}}"><p class="big-l">{{artiste?.nbFans}}</p></a> <p class="col-p">{{"Followers" | translate}} </p></div>
               </div> 
                
               </div>
@@ -98,7 +98,7 @@
                           </div>
                         </section>
                         <section *ngIf='section=="listeOeuvres"' class="tab-product m-0">
-                          <button style="float: right;margin-top:-4%; margin-bottom: 2px;" class="btn annonce col-md-2.5" title="Soumettre une oeuvre" (click)='ChangerSection("addOeuvre")'>{{"Soumettre une oeuvre" | translate}} </button>
+                          <button style="float: right;margin-top:-4%; margin-bottom: 2px;" class="btn annonce col-md-2.5" title="{{'Soumettre une oeuvre' | translate}}" (click)='ChangerSection("addOeuvre")'>{{"Soumettre une oeuvre" | translate}} </button>
                           <div class="table-responsive card" style="padding: 20px;">
                             <h4><strong> {{"Liste des oeuvres publiées" | translate}} </strong></h4>
                             <div class="col-md-12">
@@ -114,9 +114,9 @@
                                           </div>
                                           <div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="!oeuvres.length">
                                               <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
-                                              <h3>{{"Désolé ! Il n'y a pas d'œuvres pour le moment" | translate}}!! </h3>
+                                              <h3>{{"Désolé! Il n'y a pas d'œuvres pour le moment" | translate}}!! </h3>
                                               <p>{{"Veuillez actualiser la page ou essayer une recherche avec d'autres mots clés" | translate}}.</p>
-                                              <a [routerLink]="['/shop/collection/left/sidebar']" title="Continuer l'exploration" class="btn btn-solid">{{"Continue à explorer" | translate}} </a>
+                                              <a [routerLink]="['/shop/collection/left/sidebar']" title="{{'Continuer l\'exploration' | translate}}" class="btn btn-solid">{{"Continuer l'exploration" | translate}} </a>
                                           </div>
                                       </div>
                                   </div>
@@ -130,7 +130,7 @@
                                   <thead class="text-warning">
                                       <!--th>ID</th-->
                                       <th>{{"Image" | translate}} </th>
-                                      <th>{{"Nom" | translate}} </th>
+                                      <th>{{"Nom." | translate}} </th>
                                       <th>{{"Auteur" | translate}} </th>
                                       <th>{{"Année" | translate}} </th>
                                     <!-- <th>Sous technique</th>-->
@@ -167,7 +167,7 @@
                           </div>
                         </section>
                         <section *ngIf='section=="listeAnnonces"' class="tab-product m-0">
-                            <button style="float: right;margin-top:-4%;font-size: large;" class="btn annonce col-md-2.5" title="Soumettre une annonce" (click)='ChangerSection("addAnnonce")'>Soumettre une annonce</button>
+                            <button style="float: right;margin-top:-4%;font-size: large;" class="btn annonce col-md-2.5" title="{{'Soumettre une annonce' | translate}}" (click)='ChangerSection("addAnnonce")'>{{"Soumettre une annonce" | translate}}</button>
                           <div class="table-responsive" style="padding: 20px;">
                             <h4><strong> {{"Liste des annonces publiées" | translate}} </strong></h4>
                             <table style="text-align: center;" class="table table-hover">
@@ -231,7 +231,7 @@
                                         </td> -->
                                     </tr>
                                 </tbody>
-                            </table>
+                            </table> 
                             <ngb-pagination style="float: right;"  [collectionSize]="listesAnnonce.length" [(page)]="pagAP" [pageSize]="pageSizeAP" aria-label="Default pagination">
                             </ngb-pagination>
                             <br>
@@ -303,7 +303,7 @@
                           </div>
                         </section>
                         <section *ngIf='section=="listeExpo"' class="tab-product m-0">
-                          <button style="float: right;margin-top:-4%"  class="btn annonce col-md-2.5" title="Soumettre une exposition" (click)='ChangerSection("addExpo")'>Soumettre une exposition</button>
+                          <button style="float: right;margin-top:-4%"  class="btn annonce col-md-2.5" title="{{'Soumettre une exposition' | translate}}" (click)='ChangerSection("addExpo")'>{{"Soumettre une exposition" | translate}}</button>
                           <div class="table-responsive" style="padding: 20px;">
                             <h4><strong> {{"Liste des expositions publiées" | translate}}  </strong></h4>
                             <table style="text-align: center;" class="table table-hover">
