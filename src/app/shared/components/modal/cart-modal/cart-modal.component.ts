@@ -5,7 +5,7 @@ import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-
 import { ProductService } from "../../../services/product.service";
 import { Product } from "../../../classes/product";
 import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { AuthServiceS } from 'src/app/shared/services/auth.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';

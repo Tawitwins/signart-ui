@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Product } from '../classes/product';
 import { ArticleService } from '../services/article.service'
 import { Oeuvre } from '../modeles/oeuvre';
-//import { environment } from 'src/environments/environment';
+//import { environment } from 'src/environments/environment.prod';
 //import { CheckoutActions } from 'src/app/checkout/actions/checkout.actions';
 import { CheckoutService } from './checkout.service';
 import { Panier } from '../modeles/panier';

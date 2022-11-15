@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { getAuthStatus } from '../../reducers/selectors';
 import { Subscription, from } from 'rxjs';
 import { AuthServiceS } from '../../../shared/services/auth.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { User } from 'src/app/shared/modeles/user';
 import { AuthActions } from '../../actions/auth.actions';
 import { OeuvreService } from 'src/app/shared/services/oeuvre.service';

@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { Product } from "../../../classes/product";
 import { ProductService } from '../../../../shared/services/product.service';
 import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { AuthServiceS } from 'src/app/shared/services/auth.service';
 import Swal from 'sweetalert2';
 

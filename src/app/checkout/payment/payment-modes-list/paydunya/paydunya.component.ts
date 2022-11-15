@@ -17,7 +17,7 @@ import { CheckoutService } from 'src/app/shared/services/checkout.service';
 import { ImageService } from 'src/app/shared/services/image.service';
 import { Abonnement } from 'src/app/shared/modeles/utilisateur';
 import { storage } from 'firebase';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-paydunya',

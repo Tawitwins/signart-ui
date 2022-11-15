@@ -9,7 +9,7 @@ import { AuthServiceS } from '../../../shared/services/auth.service';
 import { PaysService } from '../../../shared/services/pays.service';
 import { Pays } from '../../../shared/modeles/pays';
 import { getOrderState } from '../../../checkout/reducers/selectors';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { User } from 'firebase';
 import { OeuvreService } from 'src/app/shared/services/oeuvre.service';
 import { LanguageService } from 'src/app/shared/services/language.service';

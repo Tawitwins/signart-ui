@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { OeuvreNumerique } from '../modeles/imageNumerique';
 import { Abonne, ListSelection, ListeSelection_Oeuvres, Abonnement, Email, Terminal } from '../modeles/utilisateur';
 import { environment } from '../../../environments/environment';
-//import { environment } from 'src/environments/environment';
+//import { environment } from 'src/environments/environment.prod';
 
 @Injectable()
 export class ImageService extends  HttpService {

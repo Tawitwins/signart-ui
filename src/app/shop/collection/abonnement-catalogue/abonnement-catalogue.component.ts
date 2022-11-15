@@ -8,7 +8,7 @@ import { ArticleService } from '../../../shared/services/article.service';
 import { environment } from '../../../../environments/environment';
 /*import { ArticleService } from 'src/app/shared/services/article.service';
 import { Oeuvre } from 'src/app/shared/modeles/oeuvre';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { Options } from 'ng5-slider';
 import { OeuvreService } from 'src/app/shared/services/oeuvre.service';*/
 import { Options } from 'ng5-slider';
