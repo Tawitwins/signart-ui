@@ -390,10 +390,10 @@ export class CheckoutComponent implements OnInit {
       if(this.magasinList.length != 0 &&  this.selectedMagasin != 0){
         this.magasinList.forEach(m => {
           if(m.id == this.selectedMagasin){
-            let data = {
-              phoneNumber:`${client.telephone.trim()}`,
-              message: `Bonjour ${client.prenom.trim()} ${client.nom.trim()},\nMerci de trouver ci-joint les coordonnees de notre galerie\nNom: ${m.nom.trim()},\nAdresse: ${m.adresse.trim()},\nNom du responsable: ${m.nomResp.trim()},\nTel: ${m.telephoneResp.trim()}\nMerci.`
-            }
+            // let data = {
+            //   phoneNumber:`${client.telephone.trim()}`,
+            //   message: `Bonjour ${client.prenom.trim()} ${client.nom.trim()},\nMerci de trouver ci-joint les coordonnees de notre galerie\nNom: ${m.nom.trim()},\nAdresse: ${m.adresse.trim()},\nNom du responsable: ${m.nomResp.trim()},\nTel: ${m.telephoneResp.trim()}\nMerci.`
+            // }
   
             this.translate.get('smsCoordGalerie',
              {
@@ -406,7 +406,8 @@ export class CheckoutComponent implements OnInit {
             }).subscribe(sms => {
                 let data = {
                   phoneNumber:`${client.telephone.trim()}`,
-                  message: sms
+                  message: sms,
+                  nameService:"SignArt"
                 }
                 this.newCheckoutService.sendMessage(data).subscribe(res => {
                   console.log(res);
