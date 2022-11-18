@@ -126,7 +126,7 @@ export class PaydunyaComponent implements OnInit {
             amount: this.shippingOptionPrice$,
           }
         },
-        total_amount: 200 ,
+        total_amount: this.Total ,
         description: "Paiment d'oeuvre d'art"
       },
       store: {
@@ -179,7 +179,6 @@ export class PaydunyaComponent implements OnInit {
   );
   }
   sendAbonnementPayment(){ 
-
     let data={
       payDunyaInput: {
         invoice: {
@@ -188,7 +187,7 @@ export class PaydunyaComponent implements OnInit {
           },
           taxes: {
           },
-          total_amount: 201 ,
+          total_amount: 0,
           description: "Paiment d'oeuvre d'art"
         },
         store: {
@@ -209,7 +208,11 @@ export class PaydunyaComponent implements OnInit {
         }
       }
     }
-    
+    if(this.abonnement.id){
+      this.imageService.getAbonnementById(this.abonnement.id).subscribe(resp => {
+        data.payDunyaInput.invoice.total_amount = resp.montantPaiement;
+      });
+    }
     //data.payDunyaInput.invoice.items=this.convertProductToItems();
     console.log(data);
     Swal.fire({
