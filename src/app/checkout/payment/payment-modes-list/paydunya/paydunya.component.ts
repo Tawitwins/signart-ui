@@ -73,7 +73,7 @@ export class PaydunyaComponent implements OnInit {
 
 
     this.order = <Commande>JSON.parse(localStorage.getItem('order'));
-    this.totalAmount = this.order?.total;
+    this.totalAmount = this.order?.montant;
     this.shippingOptionPrice = this.order?.totalLivraison;
     this.orderId = this.order?.id; 
     this.Total = this.totalAmount + this.shippingOptionPrice;

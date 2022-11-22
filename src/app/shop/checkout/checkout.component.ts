@@ -510,6 +510,7 @@ export class CheckoutComponent implements OnInit {
       this.newCheckoutService.updateCommande(this.order.id,this.order).subscribe(resp=>{
         console.log(resp)
       })
+      localStorage.setItem('order', JSON.stringify(this.order));
     })
   }
 }
