@@ -288,5 +288,9 @@
   "PopupConserveTvBox":"Do you want to keep your Tv Box?",
   "PopupTjrsTerminal":"Do you still have your terminal?",
   "PopupContinuerLocation":"Do you want to continue renting?",
-  "PopupInitieInitieReab":"Resubscription successfully initiated"
+  "PopupInitieInitieReab":"Resubscription successfully initiated",
+  "PopupConfirmSoumission":"Do you confirm the submission of this request?",
+  "PopupCancelSoumission":"Are you sure you want to cancel this submission?",
+  "PopupFormSoumiSucces":"Form submitted successfully!\nAwaiting validation by the administration!",
+  "PopupSoumiCancel":"Submission cancel!"
 }

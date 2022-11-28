@@ -286,6 +286,10 @@
   "PopupConserveTvBox":"Voulez vous conserver votre Tv Box?",
   "PopupTjrsTerminal":"Avez-vous toujours votre terminal?",
   "PopupContinuerLocation":"Voulez vous continuer la location?",
-  "PopupInitieInitieReab":"Réabonnement initié avec succés"
+  "PopupInitieInitieReab":"Réabonnement initié avec succés",
+  "PopupConfirmSoumission":"Confirmez vous la soumission de cette demande?",
+  "PopupCancelSoumission":"Êtes vous sure de vouloir annuler cette soumission?",
+  "PopupFormSoumiSucces":"Formulaire soumis avec succès!\nEn attente de Validation par l'administration!",
+  "PopupSoumiCancel":"Soumission annuler!"
   
 }
