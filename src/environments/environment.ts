@@ -5,7 +5,7 @@ import 'zone.js/dist/zone-error';
 
 export const environment = {
   API_ENDPOINT: 'SignArt/',
-  AppName: 'SignArt',
+  AppName: 'signart',
   MarquageFavori: 'FAV',
   production: false,
   instagram_token: 'INSTAGRAM_TOKEN',
