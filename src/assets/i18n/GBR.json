@@ -292,5 +292,11 @@
   "PopupConfirmSoumission":"Do you confirm the submission of this request?",
   "PopupCancelSoumission":"Are you sure you want to cancel this submission?",
   "PopupFormSoumiSucces":"Form submitted successfully!\nAwaiting validation by the administration!",
-  "PopupSoumiCancel":"Submission cancel!"
+  "PopupSoumiCancel":"Submission cancel!",
+  "paymentmodeLibelle":"You have chosen {{paymentmodeLibelle}} You will be redirected to the paydunya platform...",
+  "PopupOptlivraison":"You have chosen: {{optlivraisonLibelle}}",
+  "PopupOptionLivraisonPriseC": "Delivery option taken into account!\nDelivery costs: {{amount}} FCFA.",
+  "PopupIrreversible":"This will be irreversible!",
+  
+  "Avertissement: Les frais de la commission de paydunya est de: 2% + 100 FCFA sur le montant total de la commande.":"Warning: Paydunya's commission fee is: 2% + 100 FCFA on the total amount of the order."
 }

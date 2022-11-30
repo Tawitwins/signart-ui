@@ -192,6 +192,7 @@
                                                 <li *ngIf="payment == 'PAYDUNYA'"> <!-- + (shippingOptionPrice$ | async) -->
                                                     <strong style="width: 100%;">{{"Paiment avec Orange Money ou Wave" | translate}}</strong>
                                                     <br>
+                                                    <strong style="width: 100%; color: red;">{{"Avertissement: Les frais de la commission de paydunya est de: 2% + 100 FCFA sur le montant total de la commande." | translate}}</strong>
                                                     <app-paydunya (payOnDunya)="makePayment()"></app-paydunya>
                                                 </li>
                                                 <li *ngIf="payment == 'OM'"> <!-- + (shippingOptionPrice$ | async) -->

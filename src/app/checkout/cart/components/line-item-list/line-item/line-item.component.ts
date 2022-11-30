@@ -2,13 +2,12 @@ import { CheckoutActions } from '../../../../actions/checkout.actions';
 import { AppState } from '../../../../../interfaces';
 import { Store } from '@ngrx/store';
 import { Component, OnInit, Input } from '@angular/core';
-import { LineItem } from '../../../../../shared/modeles/line_item';
 import { CheckoutService } from '../../../../../shared/services/checkout.service';
 import { LignePanier } from '../../../../../shared/modeles/ligne_panier';
 import { FavoriteActions } from '../../../../../wishlist/actions/favorite.actions';
-import { ThrowStmt } from '@angular/compiler';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 declare const $: any;
 
@@ -38,8 +37,12 @@ export class LineItemComponent implements OnInit {
   lithographie: boolean;
   @Input() lignePanier: LignePanier;
 
-  constructor(private store: Store<AppState>, private checkoutActions: CheckoutActions, 
-    private checkoutService: CheckoutService, private favoriteActions: FavoriteActions) { }
+  constructor(
+    private store: Store<AppState>, 
+    private checkoutService: CheckoutService, 
+    private favoriteActions: FavoriteActions,
+    private translate: TranslateService,
+    ) { }
 
   ngOnInit() {
     this.image = environment.API_ENDPOINT + 'image/oeuvre/' + this.lignePanier.oeuvre.id;
@@ -63,26 +66,48 @@ export class LineItemComponent implements OnInit {
   removeLineItem() {
     //console.log('oeuvre à supprimer', this.lignePanier);
     // this.store.dispatch(this.actions.removeLineItem(this.lineItem.id));
-    Swal.fire({
-      title: 'Êtes-vous sûr?',
-      text: "Ceci sera irreversible!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#376809',
-      cancelButtonColor: 'red',
-      cancelButtonText: 'Annuler',
-      confirmButtonText: 'Oui, je supprime!',
-      reverseButtons: true,
-    }).then((result) => {
-      if (result.value) {
-        this.checkoutService.deleteLineItemInLocalStorage(this.lignePanier.id);
-        /*Swal.fire(
-          'Supprimé!',
-          'Cette oeuvre est supprimée.',
-          'success'
-        )*/
-      }
+    this.translate.get('PopupAvertissement').subscribe(popupAv => {
+      this.translate.get('PopupIrreversible').subscribe(irreversible => {
+        this.translate.get('PopupCancelBtn').subscribe(cancel => {
+          this.translate.get('PopupConfirmBtn').subscribe(confirm => {
+            Swal.fire({
+              title: popupAv,
+              text: irreversible,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: ' #376809',
+              cancelButtonColor: 'red',
+              cancelButtonText: cancel,
+              confirmButtonText: confirm,
+            }).then((result) => {
+              if (result.value) {
+                this.checkoutService.deleteLineItemInLocalStorage(this.lignePanier.id);
+              }
+            })
+          })
+        })
+      })
     })
+    // Swal.fire({
+    //   title: 'Êtes-vous sûr?',
+    //   text: "Ceci sera irreversible!",
+    //   icon: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonColor: '#376809',
+    //   cancelButtonColor: 'red',
+    //   cancelButtonText: 'Annuler',
+    //   confirmButtonText: 'Oui, je supprime!',
+    //   reverseButtons: true,
+    // }).then((result) => {
+    //   if (result.value) {
+    //     this.checkoutService.deleteLineItemInLocalStorage(this.lignePanier.id);
+    //     /*Swal.fire(
+    //       'Supprimé!',
+    //       'Cette oeuvre est supprimée.',
+    //       'success'
+    //     )*/
+    //   }
+    // })
   }
 
   addToWishlist(id:number){
