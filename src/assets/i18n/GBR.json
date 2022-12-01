@@ -293,7 +293,7 @@
   "PopupCancelSoumission":"Are you sure you want to cancel this submission?",
   "PopupFormSoumiSucces":"Form submitted successfully!\nAwaiting validation by the administration!",
   "PopupSoumiCancel":"Submission cancel!",
-  "paymentmodeLibelle":"You have chosen {{paymentmodeLibelle}} You will be redirected to the paydunya platform...",
+  "PopupTextPaydunya":"You have chosen {{paymentmodeLibelle}} You will be redirected to the paydunya platform...",
   "PopupOptlivraison":"You have chosen: {{optlivraisonLibelle}}",
   "PopupOptionLivraisonPriseC": "Delivery option taken into account!\nDelivery costs: {{amount}} FCFA.",
   "PopupIrreversible":"This will be irreversible!",

@@ -780,7 +780,7 @@ getAdresseByClient(idClient){
   }
 
   sendMessage(data: any){
-    return this.post(`/router/api/notification/v1/messages/sms`, data);
+    return this.post(`/notification/v1/messages/sms`, data);
   }
 
   getClientByID(idClient: number){

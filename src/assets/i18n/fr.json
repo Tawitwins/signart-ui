@@ -291,7 +291,7 @@
   "PopupCancelSoumission":"Êtes vous sure de vouloir annuler cette soumission?",
   "PopupFormSoumiSucces":"Formulaire soumis avec succès!\nEn attente de Validation par l'administration!",
   "PopupSoumiCancel":"Soumission annuler!",
-  "paymentmodeLibelle":"Vous avez choisi {{paymentmodeLibelle}}. Vous allez être redirigé(e) sur la plateforme paydunya...",
+  "PopupTextPaydunya":"Vous avez choisi {{paymentmodeLibelle}}. Vous allez être redirigé(e) sur la plateforme paydunya...",
   "PopupOptlivraison":"Vous avez choisi: {{optlivraisonLibelle}}",
   "PopupOptionLivraisonPriseC": "Option de livraison prise en compte!\nFrais de Livraison : {{montant}} FCFA.",
   "PopupIrreversible":"Ceci sera irreversible!",
