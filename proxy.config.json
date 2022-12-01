@@ -1,7 +1,7 @@
 {
 
         "/SignArt/*": {
-            "target": "http://localhost:65195",
+            "target": "http://localhost:8080",
             "secure": false,
             "logLevel": "debug",
             "changeOrigin": true
@@ -12,8 +12,8 @@
             "logLevel": "debug",
             "changeOrigin": true
         },
-        "/router/*": {
-            "target": "http://app-dev.modelsis.net:8087",
+        "/notification/*": {
+            "target": "http://app-dev.modelsis.net:8087/api",
             "secure": false,
             "logLevel": "debug",
             "changeOrigin": true

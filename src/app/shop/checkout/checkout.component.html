@@ -92,7 +92,7 @@
                                          <div *ngIf="isLivraisonOk==false">
                                             <br>
                                             <div class="shopping-option"  *ngFor="let modeLivraison of allModeLivraison, let index">
-                                                <input  (click)="livraisonCheck(modeLivraison)"  type="radio" [(ngModel)]="livraisonStr" [value]="modeLivraison.LCode" name="shipping_{{modeLivraison.id}}" id="free-shipping_{{modeLivraison.id}}">
+                                                <input  (click)="livraisonCheck(modeLivraison)"  type="radio" [(ngModel)]="livraisonStr" [value]="modeLivraison.code" name="shipping_{{modeLivraison.id}}" id="free-shipping_{{modeLivraison.id}}">
                                                 <label  for="free-shipping_{{modeLivraison.id}}">{{modeLivraison.libelle}}</label>
                                             </div>
                                             
@@ -101,7 +101,7 @@
                                                 <label for="local-pickup">A domicile</label>
                                             </div> -->
                                          </div>
-                                         <div class="row" style="border:dashed 1px;" *ngIf="selectedModeLiv?.LCode == 'MAG'">
+                                         <div class="row" style="border:dashed 1px;" *ngIf="selectedModeLiv?.code == 'MAG'">
                                           <div  class="form-group col-12">
                                             <div class="field-label">{{"Choisissez une galerie" | translate}}.</div>
                                             <select name="magasin" [(ngModel)]="selectedMagasin">
@@ -112,7 +112,7 @@
                                             </div>
                                           </div>
                                         </div>
-                                        <div class="row" style="border:dashed 1px;" *ngIf="selectedModeLiv?.LCode == 'DOM'">
+                                        <div class="row" style="border:dashed 1px;" *ngIf="selectedModeLiv?.code == 'DOM'">
                                              <div  class="form-group col-6">
                                               <div class="field-label">{{"Service" | translate}}.</div>
                                               <select name="serviceLivraison" [(ngModel)]="selectedServiceLivraison">   
