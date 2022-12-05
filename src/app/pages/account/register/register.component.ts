@@ -78,10 +78,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
       //text: "Ceci sera irreversible!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: ' #f07c10',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: ' #376809',
+      cancelButtonColor: 'red',
       confirmButtonText: 'Confirmer',
-      cancelButtonText: 'Annuler'
+      cancelButtonText: 'Annuler',
+      reverseButtons: true,
     }).then((result) => {
       if (result.value) {
         console.log('im innnnnnnnnnnnnnnnnnnnnn')

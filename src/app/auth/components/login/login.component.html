@@ -9,7 +9,7 @@
                         <div class="card">
                           <div class="card-header" style="background-color:#f07c10">
                               <h4 class="card-title text-white">
-                                  <p><strong>Authentification à SignArt</strong></p>
+                                  <p><strong>{{"Authentification à SignArt" | translate}}</strong></p>
                               </h4>
                           </div>
                           <!--<div class="bg-danger">
@@ -37,21 +37,21 @@
                                       </div>
                                     </div> 
                                   </div>-->
-                                  <p class="login-info-text">- OU -</p>
+                                  <p class="login-info-text">- {{"OU" | translate}} -</p>
                                   <form class="" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
                                       <div class="row">
                                         <div class="col-md-2"></div>
                                         <div class="col-md-8">
                                             <div class="md-form ">
-                                                <label for="email" class="prefix"><i class="material-icons gray-text md-18">mail</i></label>
-                                                <input type="email" class="form-control" name="email" placeholder="Votre adresse email"
+                                                <label for="email" class="prefix"><i class="material-icons gray-text md-18">{{"Mail" | translate}}</i></label>
+                                                <input type="email" class="form-control" name="email" placeholder="{{'Votre adresse email' | translate}}"
                                                   formControlName="email" autocomplete="off">
                                             </div>
                                                 
                                             <div *ngIf="signInForm.get('email').errors && signInForm.get('email').touched">
                                                 <span class="login-error-icon text-danger">!</span>
                                                 <!-- <p class="login-error-message text-danger">{{signInForm.get('email').errors.msg || 'Please enter a valid email id'}}</p>  -->
-                                                <p class="login-error-message text-danger">Entez une adresse vadile</p>
+                                                <p class="login-error-message text-danger">{{"Entez une adresse valide" | translate}}</p>
                                             </div>
                                               
                                         </div>
@@ -61,31 +61,31 @@
                                           <div class="col-md-2"></div>
                                         <div class="col-md-8">
                                             <div class="md-form">
-                                                <label for="password" class="prefix"><i class="material-icons gray-text md-18">lock</i></label>
-                                                <input type="password" class="form-control" name="password" placeholder="Votre mot de passe"
-                                                  formControlName="password" autocomplete="off">
+                                                <label for="password" class="prefix"><i class="material-icons gray-text md-18">{{"lock" | translate}}</i></label>
+                                                <input type="password" class="form-control" name="password" placeholder="{{'Votre mot de passe' | translate}}"
+                                                  formControlName="{{'password' | translate}}" autocomplete="off">
                                                   
                                             </div>
                                             <div *ngIf="signInForm.get('password').errors && signInForm.get('password').touched">
                                                 <span class="login-error-icon text-danger">!</span>
                                                   <!-- <p class="login-error-message text-danger">{{signInForm.get('password').errors.msg || 'Password must be at least 6 characters'}}</p> -->
                                                 <p class="login-error-message text-danger">
-                                                    Le mot de passe doit être au moins de 6 caractères</p>
+                                                    {{"Le mot de passe doit être au moins de 6 caractères" | translate}}</p>
                                             </div>
                                               
                                         </div>
                                         <div class="col-md-2"></div>  
                                       </div>
                                       <div class="login-login-button-container">
-                                        <button type="submit" class="btn btn-sm" style="background-color:#f07c10 ;color:azure">Connexion</button>
+                                        <button type="submit" class="btn btn-sm" style="background-color:#f07c10 ;color:azure">{{"Connexion" | translate}}</button>
                                       </div>
                                     </form>
                                   <div class="login-link-container">
                                     <small>
-                                      <a class="login-link text-danger" [routerLink]="['/auth/resetpassword']" routerLinkActive="router-link-active" >Mot de passe oublié ?</a>
+                                      <a class="login-link text-danger" [routerLink]="['/auth/resetpassword']" routerLinkActive="router-link-active" >{{"Mot de passe oublié"  | translate}} ?</a>
                                       <div class="login-right-links">
-                                        <span class="text-default">Vous êtes nouveau dans {{title}}?</span>
-                                        <a class="login-create-account-link login-link text-danger" title="Créer un compte" [routerLink]="['/auth']">Créer un compte</a>
+                                        <span class="text-default">{{"Vous êtes nouveau dans" | translate}} {{title}}?</span>
+                                        <a class="login-create-account-link login-link text-danger" title="{{'Créer un compte' | translate}}" [routerLink]="['/auth']">{{"Créer un compte" | translate}}</a>
                                       </div>
                                     </small>
                                   </div>

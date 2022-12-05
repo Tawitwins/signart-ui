@@ -5,7 +5,7 @@
                 <div class="search-count">
 <!--                     <h5>Affichage de 1-{{ oeuvres.length }} à {{ paginate.totalItems }} Résultat</h5>
  -->               
-                    <h5>Affichage de 1-{{ oeuvres.length }} </h5>
+                    <h5>{{"Affichage de" | translate}} 1-{{ oeuvres.length }} </h5>
             </div>
                 <div class="collection-view">
                     <ul>
@@ -35,13 +35,13 @@
                 </div>
                 <div class="product-page-filter">
                     <select (change)="sorting($event)">
-                        <option value="">Triez</option>
-                        <option value="a-z"  [selected]="sortBy == 'a-z'">Alphabétique A-Z</option>
-                        <option value="z-a"  [selected]="sortBy == 'z-a'">Alphabétique Z-A</option>
-                        <option value="low"  [selected]="sortBy == 'low'">Prix croissant</option>
-                        <option value="high" [selected]="sortBy == 'high'">Prix décroissant</option>
-                        <option value="recent" [selected]="sortBy == 'recent'">Plus recent</option>
-                        <option value="ancien" [selected]="sortBy == 'ancien'">Plus ancien</option>
+                        <option value="">{{"Triez" | translate}}</option>
+                        <option value="a-z"  [selected]="sortBy == 'a-z'">{{"Alphabétique" | translate}} A-Z</option>
+                        <option value="z-a"  [selected]="sortBy == 'z-a'">{{"Alphabétique" | translate}} Z-A</option>
+                        <option value="low"  [selected]="sortBy == 'low'">{{"Prix croissant" | translate}}</option>
+                        <option value="high" [selected]="sortBy == 'high'">{{"Prix décroissant" | translate}}</option>
+                        <option value="recent" [selected]="sortBy == 'recent'">{{"Plus récent" | translate}}</option>
+                        <option value="ancien" [selected]="sortBy == 'ancien'">{{"Plus ancien" | translate}}</option>
                     </select>
                 </div>
             </div>

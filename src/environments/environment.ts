@@ -5,12 +5,18 @@ import 'zone.js/dist/zone-error';
 
 export const environment = {
   API_ENDPOINT: 'SignArt/',
-  AppName: 'SignArt',
+  AppName: 'signart',
   MarquageFavori: 'FAV',
   production: false,
   instagram_token: 'INSTAGRAM_TOKEN',
   stripe_token: 'STRIPE_PUBLISHABLE_KEY',
   paypal_token: 'PAYPAL_CLIENT_ID',
+  api_orange_url: '/api',
+  service_name_orange_money:'SignArt',
+  code_marchand_orange_money: '123456',
+  serverUrl:'http://localhost:4200',
+  flagCountry_url: 'https://countryflagsapi.com/png',
+  sms_url: "http://app-dev.modelsis.net:8087",
   firebase :{
     apiKey: "AIzaSyBA4qsr_6eRWblnoU1K-durRurfYrnYlYw",
     authDomain: "signart-f0f18.firebaseapp.com",

@@ -12,7 +12,7 @@ import { tap } from 'rxjs/operators';
 import { User } from 'src/app/shared/modeles/user';
 import { Client } from 'src/app/shared/modeles/client';
 import { OeuvreService } from 'src/app/shared/services/oeuvre.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-compte',

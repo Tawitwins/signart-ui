@@ -109,10 +109,11 @@ export class AddOeuvreComponent implements OnInit {
       //text: "Ceci sera irreversible!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: ' #f07c10',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: ' #376809',
+      cancelButtonColor: 'red',
       confirmButtonText: 'Confirmer',
-      cancelButtonText: 'Annuler'
+      cancelButtonText: 'Annuler',
+      reverseButtons: true,
     }).then((result) => {
       if (result.value) {
         this.ngxService.startLoader("loader-01"); // start foreground spinner of the loader "loader-01" with 'default' taskId

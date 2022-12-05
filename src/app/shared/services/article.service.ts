@@ -10,6 +10,7 @@ import { AppState } from '../../interfaces';
 import { FavoriteActions } from '../../wishlist/actions/favorite.actions';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 
 declare var $: any;
@@ -23,7 +24,13 @@ export class ArticleService extends HttpService{
    *
    * @memberof ArticleService
    */
-  constructor(public http: HttpClient, private http2: HttpClient, private store: Store<AppState>, private actions: FavoriteActions) {
+  constructor(
+    public http: HttpClient, 
+    private http2: HttpClient, 
+    private store: Store<AppState>, 
+    private actions: FavoriteActions,
+    private translate: TranslateService
+    ) {
     super(http);
   }
 
@@ -104,10 +111,11 @@ export class ArticleService extends HttpService{
         dateMarquage: new Date()
       }
     ).pipe(map(res => {
-      $.notify({
-        icon: "notifications",
-        message: "Oeuvre ajoutée à la liste des favoris"
-      }, {
+      this.translate.get('PopupFavoriteAdded').subscribe(popup => {
+        $.notify({
+          icon: "notifications",
+          message: popup
+        }, {
           type: 'success',
           timer: 2000,
           placement: {
@@ -115,20 +123,25 @@ export class ArticleService extends HttpService{
             align: 'center'
           }
         });
+      })
+     
       return res;
     },
       error => {
-        $.notify({
-          icon: "notifications",
-          message: "Erreur ajout oeuvre"
-        }, {
-            type: 'danger',
+        this.translate.get('PopupOeuvAddedError').subscribe(popup => {
+          $.notify({
+            icon: "notifications",
+            message: popup
+          }, {
+            type: 'success',
             timer: 2000,
             placement: {
               from: 'top',
               align: 'center'
             }
           });
+        })
+       
         return null;
       }));
   }
@@ -141,10 +154,11 @@ export class ArticleService extends HttpService{
     return this.delete(environment.API_ENDPOINT + `marquageoeuvre?idClient=${idClient}&idOeuvre=${idOeuvre}&codeTypeMarquage=${codeTypeMarquage}`).pipe(
       map(() => {
         this.store.dispatch(this.actions.removeWishItemSuccess(idOeuvre));
-        $.notify({
-          icon: "notifications",
-          message: "Oeuvre retirée de la liste favorite."
-        }, {
+        this.translate.get('PopupFavoriteRemoved').subscribe(popup => {
+          $.notify({
+            icon: "notifications",
+            message: popup
+          }, {
             type: 'success',
             timer: 2000,
             placement: {
@@ -152,6 +166,7 @@ export class ArticleService extends HttpService{
               align: 'center'
             }
           });
+        })
       }));
   }
 }

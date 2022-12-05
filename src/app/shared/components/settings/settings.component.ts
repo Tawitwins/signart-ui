@@ -15,6 +15,7 @@ import { getAuthStatus } from '../../../auth/reducers/selectors';
 import { getTotalCartItems } from '../../../checkout/reducers/selectors';
 import { environment } from '../../../../environments/environment';
 import { getTotalWishlistItems } from '../../../wishlist/reducers/selectors';
+import { LanguageService } from '../../services/language.service';
 
 
 @Component({
@@ -28,6 +29,13 @@ export class SettingsComponent implements OnInit {
     @Input() allmenus: any[];
     @Input() child:number[];
     //menus:any[];
+    codeCountryList: any[] = [];
+    flagUrl: string = environment.flagCountry_url;
+    currentLanguage = {
+      name: 'Français',
+      code: 'fr'
+    };
+
     returnUrl:string;
     isAuthenticated: Observable<boolean>;
     totalCartItems: Observable<number>;
@@ -83,7 +91,9 @@ export class SettingsComponent implements OnInit {
          private authService: AuthServiceS,
         private store: Store<AppState>,
         private authActions: AuthActions,
-        private oeuvreS:OeuvreService) {
+        private oeuvreS:OeuvreService,
+        public languageService: LanguageService
+        ) {
           setTimeout(() => {this.productService.cartItems.subscribe(response =>{ this.oeuvres = response;
             console.log("helloooooooo")});}, 1000); 
             
@@ -107,6 +117,16 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.codeCountryList = this.languageService.languages;
+    this.currentLanguage.code = localStorage.getItem("userLanguage")
+    this.languageService.languages.forEach(l => {
+      if(this.currentLanguage.code == 'GBR'){
+        this.currentLanguage.name = 'English';
+      } else if(this.currentLanguage.code == l.code){
+        this.currentLanguage.name = l.name;
+      }
+    })
+    // this.currentLanguage.code == 'GBR'? this.currentLanguage.name = 'English': 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
    // this.redirectIfUserLoggedOut();
     this.store.dispatch(this.authActions.authorize());
@@ -179,6 +199,13 @@ export class SettingsComponent implements OnInit {
     return environment.API_ENDPOINT + 'image/oeuvre/' + id;
   }
 
-
+  changecode(code: string) {
+    code == 'us' ? code = 'en' : code = code;
+    localStorage.setItem("userLanguage", code);
+    this.currentLanguage.code = code;
+    console.log(this.currentLanguage);
+    console.log(localStorage.getItem("userLanguage"))
+    window.location.reload();
+  }
 
 }

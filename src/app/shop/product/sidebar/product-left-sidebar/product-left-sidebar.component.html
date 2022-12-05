@@ -9,7 +9,7 @@
             <div class="collection-filter-block">
                 <div class="collection-mobile-back" (click)="toggleMobileSidebar()">
                   <span class="filter-back">
-                    <i class="fa fa-angle-left" aria-hidden="true"></i> back
+                    <i class="fa fa-angle-left" aria-hidden="true"></i> {{"back" | translate}}
                   </span>
                 </div>
                 <app-categories></app-categories>
@@ -70,51 +70,56 @@
                   <h2>{{ oeuvre?.nom }}</h2>
                   <h4>
                       <del *ngIf="oeuvre?.tauxremise">{{ oeuvre?.prix }} FCFA</del>
-                      <span *ngIf="oeuvre?.tauxremise">{{ oeuvre?.tauxremise }}% Offre Promotionnelle</span>
+                      <span *ngIf="oeuvre?.tauxremise">{{ oeuvre?.tauxremise }}% {{"Offre Promotionnelle" | translate}}</span>
                   </h4>
                   <h3>
-                    {{ oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100  }} FCFA
+                    {{ (oeuvre?.prix - (oeuvre?.tauxremise * oeuvre?.prix)/100) || 0 }} FCFA
                   </h3>
+                  <h4>{{"Référence" | translate}}: {{ oeuvre?.reference}}</h4>
                   <div class="product-description border-product">
                     <h6 class="product-title size-text">
-                        Artiste: {{name}}
+                        {{"Artiste" | translate}}: {{name}}
                     </h6>
-                    <h6 class="product-title">Quantité</h6>
+                    <h6 class="product-title">{{"Quantité" | translate}}</h6>
                     <div class="qty-box">
                       <div class="input-group">
                         <span class="input-group-prepend">
-                          <button type="button" class="btn quantity-left-minus" title="Diminuer la quantité" data-type="minus" (click)="decrement()">
+                          <button type="button" class="btn quantity-left-minus" title="{{'Diminuer la quantité' | translate}}" data-type="minus" (click)="decrement()">
                             <i class="ti-angle-left"></i>
                           </button>
                         </span>
                         <input type="text" name="quantity" class="form-control input-number" [value]="counter" disabled/>
                         <span class="input-group-prepend">
-                          <button type="button" class="btn quantity-right-plus" title="Augmenter la quantité" [disabled]="counter == oeuvre?.stock" data-type="plus" (click)="increment()">
+                          <button type="button" class="btn quantity-right-plus" title="{{'Augmenter la quantité' | translate}}" [disabled]="counter == oeuvre?.stock" data-type="plus" (click)="increment()">
                             <i class="ti-angle-right"></i>
                           </button>
                         </span>
                       </div>
                     </div>
-                    <h5 class="avalibility" *ngIf="counter <= oeuvre?.stock && oeuvre?.stock > 1" style="color: green;"><span>Disponible</span></h5>
-                    <h5 class="avalibility" *ngIf="oeuvre?.stock == 1" style="color: green;"><span>1 seul élément disponible</span></h5>
-                    <h5 class="avalibility" *ngIf="counter > oeuvre?.stock" style="color: darkred;"><span>Non disponible</span></h5>
+                    <h5 class="avalibility" *ngIf="counter <= oeuvre?.stock && oeuvre?.stock > 1" style="color: green;"><span>{{"Disponible" | translate}}</span></h5>
+                    <h5 class="avalibility" *ngIf="oeuvre?.stock == 1" style="color: green;"><span>1 {{"seul élément disponible" | translate}}</span></h5>
+                    <h5 class="avalibility" *ngIf="counter > oeuvre?.stock" style="color: darkred;"><span>{{"Non disponible" | translate}}</span></h5>
                   </div>
                   <div class="product-buttons">
-                    <a href="javascrip:void(0)" class="btn btn-solid-Valider" title="Ajouter au panier" [class.disabled]="counter > oeuvre?.stock" (click)="addToCart(oeuvre)">Ajouter au panier</a>
+                    <a href="javascrip:void(0)" class="btn btn-solid-Valider" title="Ajouter au panier" [class.disabled]="counter > oeuvre?.stock" (click)="addToCart(oeuvre)">{{"Ajouter au panier" | translate}}</a>
                     <!--a [routerLink]="['/pages/wishlist']" class="btn btn-solid" [class.disabled]="counter > oeuvre?.stock">S'abonner</a-->
                   </div>
                   <div class="border-product">
-                    <h6 class="product-title">Détails Article</h6>
+                    <h6 class="product-title">{{"Détails Article" | translate}}</h6>
                     <p>{{ oeuvre?.description?.substring(0, 200)+'...' }}</p>
+                    <span *ngIf="oeuvre.specialDelivery">
+                      <h6 class="product-title">{{"Type de livraison" | translate}}</h6>
+                      <p>{{"spécial" | translate}}</p>
+                    </span>
                   </div>
                   <div class="border-product">
-                    <h6 class="product-title">Partager</h6>
+                    <h6 class="product-title">{{"Partager" | translate}}</h6>
                     <div class="product-icon">
                       <app-social></app-social>
                       <form class="d-inline-block">
-                        <button class="wishlist-btn" title="Favoris" (click)="addToWishlist(oeuvre)">
+                        <button class="wishlist-btn" title="{{'Favoris' | translate}}" (click)="addToWishlist(oeuvre)">
                           <i class="fa fa-heart"></i>
-                          <span class="title-font">Favoris</span>
+                          <span class="title-font">{{"Favoris" | translate}}</span>
                         </button>
                       </form>
                     </div>
@@ -131,13 +136,13 @@
               <div class="col-sm-12 col-lg-12">
                 <ngb-tabset [type]="'tabs'" class="nav-material">
                     <ngb-tab>
-                        <ng-template ngbTabTitle>Description</ng-template>
+                        <ng-template ngbTabTitle>{{"Description" | translate}}</ng-template>
                         <ng-template ngbTabContent>
                           <p>{{ oeuvre?.description }}</p>
                         </ng-template>
                     </ngb-tab>
                     <ngb-tab>
-                        <ng-template ngbTabTitle>Video</ng-template>
+                        <ng-template ngbTabTitle>{{"Video" | translate}}</ng-template>
                         <ng-template ngbTabContent>
                           <div class="mt-3 text-center">
                             <iframe width="560" height="315" src="https://www.youtube.com/embed/BUWzX78Ye_8" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -145,13 +150,13 @@
                         </ng-template>
                     </ngb-tab>
                     <ngb-tab>
-                        <ng-template ngbTabTitle>Noter l'oeuvre</ng-template>
+                        <ng-template ngbTabTitle>{{"Noter l'oeuvre" | translate}}</ng-template>
                         <ng-template ngbTabContent>
                           <form class="theme-form">
                             <div class="form-row">
                               <div class="col-md-12 ">
                                 <div class="media">
-                                  <label>Note</label>
+                                  <label>{{"Note" | translate}}</label>
                                   <div class="media-body ml-3">
                                     <div class="rating three-star">
                                       <i class="fa fa-star"></i>
@@ -164,23 +169,23 @@
                                 </div>
                               </div>
                               <div class="col-md-6">
-                                <label for="name">Nom</label>
-                                <input type="text" class="form-control" id="name" placeholder="Saisissez un nom" required>
+                                <label for="name">{{"Nom" | translate}}</label>
+                                <input type="text" class="form-control" id="name" placeholder="{{'Saisissez un nom' | translate}}" required>
                               </div>
                               <div class="col-md-6">
-                                <label for="email">Email</label>
-                                <input type="text" class="form-control" id="email" placeholder="Email" required>
+                                <label for="email">{{"Email" | translate}}</label>
+                                <input type="text" class="form-control" id="email" placeholder="{{'Email' | translate}}" required>
                               </div>
                               <div class="col-md-12">
-                                <label for="review">Objet</label>
-                                <input type="text" class="form-control" id="review" placeholder="Objet" required>
+                                <label for="review">{{"Objet" | translate}}</label>
+                                <input type="text" class="form-control" id="review" placeholder="{{'Objet' | translate}}" required>
                               </div>
                               <div class="col-md-12">
-                                <label for="review">Message</label>
-                                <textarea class="form-control" placeholder="Commentaire" id="exampleFormControlTextarea1" rows="6"></textarea>
+                                <label for="review">{{"Message" | translate}}</label>
+                                <textarea class="form-control" placeholder="{{'Commentaire' | translate}}" id="exampleFormControlTextarea1" rows="6"></textarea>
                               </div>
                               <div class="col-md-12">
-                                <button class="btn btn-solid" type="submit">Envoyer</button>
+                                <button class="btn btn-solid" type="submit">{{"Envoyer" | translate}}</button>
                               </div>
                             </div>
                           </form>

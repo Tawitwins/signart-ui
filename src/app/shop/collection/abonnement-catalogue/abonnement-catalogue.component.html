@@ -141,7 +141,7 @@
                                                                 <div class="col-lg-6 offset-lg-3">
                                                                     <div class="form-header">
                                                                     <div class="form-group">
-                                                                      <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="Recherchez une oeuvre">
+                                                                      <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="{{'Recherchez une œuvre' | translate}}">
                                                                     </div>
                                                                     <button title="Rechercher" type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                                                                 </div>
@@ -203,25 +203,27 @@
                                                 </ng-template>
                                             </ngb-tab>
                                             <ngb-tab>
-                                                <ng-template ngbTabTitle> Liste de selection </ng-template>
+                                                <ng-template ngbTabTitle> {{"Formulaire D'abonnement" | translate}} </ng-template>
                                                 <ng-template ngbTabContent>
                                                   <div class="container" *ngIf="pageFormu == 0">
                                                     <div class="col-sm-12 empty-cart-cls text-center" *ngIf="!oeuvresNumeriques.length">
                                                         <img src="assets/images/icon-empty-cart.png" class="img-fluid mb-4">
-                                                        <h3><strong>Votre liste est vide</strong></h3>
-                                                        <h4>ajouter quelque chose :)</h4>
+                                                        <h3><strong>{{"Votre liste est vide" | translate}}</strong></h3>
+                                                        <h4>{{"Ajouter une œuvre" | translate}} :)</h4>
                                                         </div>
                                                     <div class="row" *ngIf="oeuvresNumeriques.length">
+                                                        <br><br>
+                                                        <h4 class="col-12 mt-3"><strong>{{"Liste de selection" | translate}}</strong></h4><br>
                                                         <div class="col-sm-12">
                                                             <table style="text-align: center;" class="table cart-table table-responsive-xs">
                                                                 <thead>
                                                                     <tr class="table-head">
-                                                                        <th scope="col">Image</th>
-                                                                        <th scope="col">Titre</th>
-                                                                        <th scope="col">Auteur</th>
-                                                                        <th scope="col">Annee</th>
-                                                                        <th scope="col">Prix</th>
-                                                                        <th scope="col">Action</th>
+                                                                        <th scope="col">{{"Image" | translate}}</th>
+                                                                        <th scope="col">{{"Titre" | translate}}</th>
+                                                                        <th scope="col">{{"Auteur" | translate}}</th>
+                                                                        <th scope="col">{{"Année" | translate}}</th>
+                                                                        <th scope="col">{{"Prix" | translate}}</th>
+                                                                        <th scope="col">{{"Action" | translate}}</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody *ngFor="let imgSelect of oeuvresNumeriques">
@@ -230,7 +232,7 @@
                                                                             <img [src]="domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+getOeuvreImage(imgSelect.id)?.value)" alt="" style="width:100px; height: 120px;">
                                                                         </td>
                                                                         <td style="vertical-align: middle;">
-                                                                            <a >{{imgSelect.titre}}</a>
+                                                                            <a >{{imgSelect.titre | translate}}</a>
                                                                         </td>
                                                                         <td style="vertical-align: middle;">
                                                                             <h5>
@@ -265,7 +267,7 @@
                                                                     <tr>
                                                                         <td>
                                                                             <h4>
-                                                                                Montant total :
+                                                                                {{"Montant total" | translate}} :
                                                                             </h4> 
                                                                         </td>
                                                                         
@@ -280,7 +282,7 @@
                                                         </div>
                                                         <div class="row cart-buttons" *ngIf='oeuvresNumeriques.length'>
                                                             <div class="col-6">
-                                                                <a href="javascript:void(0)" (click)="saveListe()" class="btn btn-solid">Valider</a>
+                                                                <a href="javascript:void(0)" (click)="saveListe()" class="btn btn-solid">{{"Valider" | translate}}</a>
                                                             </div>
                                                             
                                                         </div>
@@ -289,13 +291,14 @@
                                                     <div class="row">
                                                         <div class="col-lg-12">
                                                             <br><br>
-                                                            <h4>Veuillez remplir le formulaire d'abonnement</h4><br>
+                                                            <h4>{{"Veuillez remplir le formulaire de l'abonné" | translate}}</h4><br>
                                                             <div class="theme-card">
                                                                 <form class="theme-form" novalidate="" [formGroup]="abonneeForm" class="text-center">
                                                                     <div class="form-row">
-                                                                      <div class="col-md-6">                             
+                                                                      <div class="col-md-6"> 
+                                                                        <label><strong> {{"Pays" | translate}} </strong> </label>                            
                                                                         <select class="mdb-select md-form form-control" (change)="choisirPays($event)" formControlName="pays" required>     
-                                                                            <option value="">Sénégal</option> 
+                                                                            <option value="">{{"Sénégal" | translate}}</option> 
                                                                             <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>                                                                       
                                                                         </select>
                                                                       </div>
@@ -303,10 +306,12 @@
                                                                     <hr>
                                                                     <div class="form-row">
                                                                         <div class="col-md-6">
-                                                                            <input type="text" class="form-control" formControlName="prenom" autocomplete="off" [(ngModel)]="clientAdresse.prenom" placeholder="Prénom(s)" required="">
+                                                                            <label><strong> {{"Prénom" | translate}} </strong> </label>
+                                                                            <input type="text" class="form-control" formControlName="prenom" autocomplete="off" [(ngModel)]="clientAdresse.prenom" placeholder="{{'Prénom' | translate}}(s)" required="">
                                                                         </div>
                                                                         
                                                                         <div class="col-md-6">
+                                                                            <label><strong> {{"Nom" | translate}} </strong> </label>
                                                                             <input type="text" class="form-control" placeholder="Nom" formControlName="nom" [(ngModel)]="clientAdresse.nom" autocomplete="off" required="">
                                                                         </div>
                                                                         
@@ -314,7 +319,7 @@
                                                                     <br><br>
                                                                     <div class="form-row">
                                                                         <div class="col-md-6">
-                                                                            <label><strong> Téléphone </strong> </label>
+                                                                            <label><strong> {{"Téléphone" | translate}} </strong> </label>
                                                                                 <div class="row">
                                                                                     <div  class="col-md-3">
                                                                                         <input type="text" class="form-control" formControlName="indicatif" [(ngModel)]="indicatifpays" disabled="true">
@@ -325,31 +330,38 @@
                                                                                 </div>
                                                                         </div>
                                                                         <div class="col-md-6">
-                                                                            <input type="email" class="form-control" placeholder="E-mail" required="" formControlName="email" [(ngModel)]="userConnect.email" autocomplete="off">
+                                                                            <label><strong> {{"E-mail" | translate}} </strong> </label>
+                                                                            <input type="email" class="form-control" placeholder="{{'E-mail' | translate}}" required="" formControlName="email" [(ngModel)]="userConnect.email" autocomplete="off">
                                                                         </div>
                                                                     </div>
                                                                     <br><br>
                                                                     <div class="form-row">
                                                                         <div class="col-md-6">
-                                                                            <input type="text" class="form-control" formControlName="region" [(ngModel)]="clientAdresse.region" autocomplete="off" placeholder="Region" required="">
+                                                                            <label><strong> {{"Région" | translate}} </strong> </label>
+                                                                            <input type="text" class="form-control" formControlName="region" [(ngModel)]="clientAdresse.region" autocomplete="off" placeholder="{{'Région' | translate}}" required="">
                                                                         </div>
                                                                         
                                                                         <div class="col-md-6">
-                                                                            <input type="text" class="form-control" placeholder="Ville" [(ngModel)]="clientAdresse.ville" formControlName="ville" autocomplete="off" required="">
+                                                                            <label><strong> {{"Ville" | translate}} </strong> </label>
+                                                                            <input type="text" class="form-control" placeholder="{{'Ville' | translate}}" [(ngModel)]="clientAdresse.ville" formControlName="ville" autocomplete="off" required="">
                                                                         </div>                                                                             
                                                                     </div><br><br>
                                                                     <div class="form-row">
                                                                         <div class="col-md-12">
-                                                                            <input type="text" class="form-control" formControlName="adresse" [(ngModel)]="clientAdresse.adresse" autocomplete="off" placeholder="Votre adresse..." required="">
+                                                                            <label><strong> {{"Adresse" | translate}} </strong> </label>
+                                                                            <input type="text" class="form-control" formControlName="adresse" [(ngModel)]="clientAdresse.adresse" autocomplete="off" placeholder="{{'Votre adresse' | translate}}..." required="">
                                                                         </div>                                                                             
                                                                     </div>
                                                                     <br><br><hr>
                                                                     <div class="form-row">
-                                                                        <div class="col-md-6">
+                                                                        <!-- <div class="col-md-4">
                                                                             <button title="Annuler" type="submit" class="btn btn-solid" (click)="pageFormu = 0" style="background: red;" >Annuler</button>
+                                                                        </div>  -->
+                                                                        <div class="col-md-6">
+                                                                            <button title="{{'Retourner' | translate}}" type="submit" class="btn btn-solid" (click)="pageFormu = 0" style="background: rgb(130, 37, 42);" >{{"Retourner" | translate}}</button>
                                                                         </div> 
                                                                         <div class="col-md-6">
-                                                                            <button title="Continuer" class="btn btn-solid-Valider" type="submit" (click)="onSubmitFormuAbonne()">Continuer</button>
+                                                                            <button title="{{'Continuer' | translate}}" class="btn btn-solid-Valider" type="button" (click)="onSubmitFormuAbonne()">{{"Continuer" | translate}}</button>
                                                                         </div> 
                                                                        
                                                                     </div>
@@ -362,15 +374,16 @@
                                                    <div class="container" *ngIf="pageFormu == 2">
                                                     <form class="theme-form" novalidate="" [formGroup]="terminalDelaiForm" class="text-center">
                                                         <br><br>
-                                                        <h4>Veuillez Choisir un terminal d'affichage</h4>
+                                                        <h4>{{"Veuillez Choisir un terminal d'affichage" | translate}}</h4>
                                                         <br><br>
                                                         <div class="form-row">    
-                                                            <div class="col-md-6" *ngFor="let terminal of terminals">
+                                                            <div class="col-md-4" *ngFor="let terminal of terminals">
                                                                 <div class="card profile-card-2">
                                                                     <div class="card-body pt-5">
                                                                         <a><h5 class="card-title">{{terminal.libelle}}</h5></a>
                                                                         <p class="card-text">{{terminal.description}}</p>
-                                                                        <a><h5 class="card-title">Prix : {{terminal.prix}} FCFA</h5></a>
+                                                                        <a><h5 class="card-title" *ngIf="terminal.prix == 0">{{"Gratuit" | translate}}</h5></a>
+                                                                        <a><h5 class="card-title" *ngIf="terminal.prix != 0">{{"Prix" | translate}} : {{terminal.prix}} FCFA</h5></a>
                                                                         <input type="radio" class="register-gender-radio" value={{terminal.id}} formControlName="terminalId">
                                                                     </div>
                                                                 </div>
@@ -381,22 +394,22 @@
                                                             <div class="col-md-3">
                                                             </div>
                                                             <div class="col-md-6" style="text-align: center;">
-                                                                <textarea placeholder="Si vous disposez d'un ecran, veuillez saisir ses caracteristiques(dimensions, marque, modéle...)" formControlName="precisions" style="width: 500px;height: 70px;"></textarea> 
+                                                                <textarea placeholder="{{'Si vous disposez d\'un écran, veuillez saisir ses caracteristiques(dimensions, marque, modéle...)' | translate}}" formControlName="precisions" style="width: 500px;height: 70px;"></textarea> 
                                                             </div>
                                                             <div class="col-md-3">
                                                             </div>
                                                         </div>  
                                                         <br><br>
                                                         <hr>
-                                                        <h4>Veuillez Choisir un type d'abonnement</h4>
+                                                        <h4>{{"Veuillez Choisir un type d'abonnement" | translate}}</h4>
                                                         <br><br>
                                                         <div class="form-row">
                                                             <div class="col-xl-3" *ngFor="let delai of delais">
                                                                 <div class="marron">
                                                                     <div class="side-l">
-                                                                      <h5>{{delai.libelle}} - {{delai.prix}}</h5> 
-                                                                      <p class="col-p">{{delai.description}}</p>
-                                                                      <h5>Prix : {{delai.prix}} FCFA</h5> 
+                                                                      <h5>{{delai.libelle | translate}} <!-- - {{delai.prix}} --></h5> 
+                                                                      <p class="col-p">{{delai.description | translate}}</p>
+                                                                      <!-- <h5>Prix : {{delai.prix}} FCFA</h5>  -->
                                                                     </div>
                                                                   <input type="radio" class="register-gender-radio" value={{delai.id}} formControlName="delaiId">
                                                                 </div>
@@ -405,11 +418,14 @@
                                                         <br><br>
                                                         <hr>
                                                         <div class="form-row">
-                                                            <div class="col-md-6">
-                                                                <button type="submit" title="Annuler" class="btn btn-solid" (click)="pageFormu = 0" style="background: red;" >Annuler</button>
+                                                            <div class="col-md-4">
+                                                                <button type="button" title="{{'Annuler' | translate}}" class="btn btn-solid" (click)="pageFormu = 0" style="background: red;" >{{"Annuler" | translate}}</button>
                                                             </div> 
-                                                            <div class="col-md-6">
-                                                                <button class="btn btn-solid-Valider" title="Continuer" type="submit" (click)="onSubmitFormuTermi()">Continuer</button>
+                                                            <div class="col-md-4">
+                                                                <button title="{{'Retourner' | translate}}" type="submit" class="btn btn-solid" (click)="pageFormu = 1" style="background: rgb(130, 37, 42);" >{{"Retourner" | translate}}</button>
+                                                            </div> 
+                                                            <div class="col-md-4">
+                                                                <button class="btn btn-solid-Valider" title="{{'Continuer' | translate}}" type="button" (click)="onSubmitFormuTermi()">{{"Continuer" | translate}}</button>
                                                             </div> 
                                                            
                                                         </div>
@@ -418,35 +434,37 @@
                                                    </div>
                                                    <div class="container" *ngIf="pageFormu == 3">
                                                     <br><br>
-                                                    <h4>Récapitulatif de votre abonnement</h4>
+                                                    <h4>{{"Récapitulatif de votre abonnement" | translate}}</h4>
                                                     <br><br>
                                                     <div class="row order-success-sec">
                                                         <div class="col-sm-6">
-                                                            <h4>Informations personnelles</h4>
+                                                            <h4>{{"Informations personnelles" | translate}}</h4>
                                                             <ul class="total-sec">
-                                                                <li>Nom: {{abonne.nom}}</li><br>
-                                                                <li>Prenom: {{abonne.prenom}}</li><br>
-                                                                <li>Telephone: {{abonne.telephone}}</li><br>
-                                                                <li>Email: {{abonne.email}}</li><br>
-                                                                <li>Pays: {{abonne.pays}}</li><br>
-                                                                <li>Region: {{abonne.region}}</li><br>
-                                                                <li>Ville: {{abonne.ville}}</li><br>
-                                                                <li>Adresse: {{abonne.adresse}}</li><br>
+                                                                <li>{{"Nom" | translate}}: {{abonne.nom}}</li><br>
+                                                                <li>{{"Prénom" | translate}}: {{abonne.prenom}}</li><br>
+                                                                <li>{{"Téléphone" | translate}}: {{abonne.telephone}}</li><br>
+                                                                <li>{{"Email" | translate}}: {{abonne.email}}</li><br>
+                                                                <li>{{"Pays" | translate}}: {{abonne.pays}}</li><br>
+                                                                <li>{{"Région" | translate}}: {{abonne.region}}</li><br>
+                                                                <li>{{"Ville" | translate}}: {{abonne.ville}}</li><br>
+                                                                <li>{{"Adresse" | translate}}: {{abonne.adresse}}</li><br>
                                                             </ul>
                                                         </div><br>
                                                         <hr>
                                                         <div class="col-sm-6">
                                                           <div class="total-sec">
-                                                            <h4>Choix Delai et Terminal</h4>
+                                                            <h4>{{"Choix Délai et Terminal" | translate}}</h4>
                                                             <ul>
-                                                                <li>Terminal: {{terminalDelai.terminalLibelle}} - <span>{{terminalChoisi.prix}}</span></li><br>
-                                                                <li>Delai: {{terminalDelai.delaiLibelle}} - <span> {{delaiChoisi.prix}}</span></li><br> 
+                                                                <li>{{"Terminal" | translate}}: {{terminalDelai.terminalLibelle}} - <span>{{terminalChoisi.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li><br>
+                                                                <li>{{"Délai" | translate}}: {{terminalDelai.delaiLibelle}} <!-- - <span> {{delaiChoisi.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span> --></li><br> 
                                                             </ul>
                                                           </div><br>
                                                           <div class="total-sec">
-                                                            <h4>Montant total des oeuvres</h4>
+                                                            <h4>{{"Montant total des œuvres" | translate}}</h4>
                                                             <ul>
-                                                                <li>Total Oeuvre: <span>{{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span></li><br>
+                                                                <li>{{"Unité de l'abonnement" | translate}}: <span>{{ montantAlgoDaily | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span></li><br>
+                                                                <li>{{"Nombre de jour" | translate}}: <span>{{ delaiChoisi.nbMois*30 }}</span></li><br>
+                                                                <li>{{"Total œuvre" | translate}}: <span>{{ totalOeuvres | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span></li><br>
                                                             </ul>
                                                         </div>
                                                         </div><br>
@@ -456,17 +474,24 @@
                                                         
                                                         <div class="col-sm-6">
                                                         <div class="final-total">
-                                                            <h3>Montant Total <span>{{montantTotal | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span></h3>
+                                                            <h3>{{"Montant Total" | translate}} <span>{{montantTotal | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</span></h3>
                                                         </div>
                                                         </div>
                                                     </div>
                                                     <br><hr>
                                                     <div class="form-row">
-                                                        <div class="col-md-6">
-                                                            <button type="submit" title="Annuler" class="btn btn-solid-Annuler" (click)="pageFormu = 0" >Annuler</button>
+                                                        <div class="col-md-3">
+                                                            <button type="button" title="Annuler" class="btn btn-solid-Annuler"  style="background: red;" (click)="pageFormu = 0" >{{"Annuler" | translate}}</button>
                                                         </div> 
-                                                        <div class="col-md-6">
-                                                            <button class="btn btn-solid-Valider" title="Soumettre" type="submit" (click)="onSubmitFinal();">Soumettre</button>
+                                                        <div class="col-md-3">
+                                                            <button title="Retourner" type="submit" class="btn btn-solid" (click)="pageFormu = 2" style="background: rgb(130, 37, 42);" >{{"Retourner" | translate}}</button>
+                                                        </div> 
+                                                        <div class="col-md-3">
+                                                            <button class="btn btn-solid-Valider" title="Soumettre" type="button" (click)="onSubmitFinal();">{{"Soumettre sans payer" | translate}}</button>
+                                                        </div> 
+                                                        <div class="col-md-3">
+                                                            <!-- <button class="btn btn-solid-Valider" title="Soumettre" type="button" (click)="onSubmitFinal();">Soumettre et payer</button> -->
+                                                            <app-paydunya (click)="onSubmitFinal()" (setTokenEvent)="setAbonnementToken($event)" [isAbonnement]="true" [abonnementId]="abonnement?.id" [abonnement]="abonnement"></app-paydunya>
                                                         </div> 
                                                        
                                                     </div>

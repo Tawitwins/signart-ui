@@ -21,7 +21,7 @@
                 </div>
               </div>
               <h4 class="mb-0 text-nowrap">{{connectedUser?.prenom}} {{connectedUser?.nom}}
-                <div class="opacity-7">Profil: <span class="opacity-8">{{connectedUser?.userType}}</span></div>
+                <div class="opacity-7">{{"Profil" | translate}}: <span class="opacity-8">{{connectedUser?.userType}}</span></div>
               </h4>
             </div>
             <div class="pane-right">
@@ -61,7 +61,7 @@
                     </p>
                   </div>
                   <img src="assets/images/tchat/tchater2.gif" alt="Avatar" style="width:10%">
-                  <span class="time-left"> Admin SignArt </span>
+                  <span class="time-left"> {{"Admin SignArt" | translate}} </span>
                   <small class="opacity-6">
                     <i name="calendar-alt mr-1" class="time-right"></i>
                     {{ message?.dateEnvoi | date: "HH:mm:ss"}}
@@ -199,7 +199,7 @@
                 <div class="app-inner-layout__bottom-pane d-block text-center" style="padding: 1%;">
                   <div class="mb-0 position-relative row form-group">
                     <div class="col-sm-12">
-                      <input placeholder="Message à envoyer" type="text" formControlName="message" name="message" class="form-control-lg form-control" style="width: 100%;"/>
+                      <input placeholder="{{'Message à envoyer' | translate}}" type="text" formControlName="message" name="message" class="form-control-lg form-control" style="width: 100%;"/>
                     </div>
                     <div class="col-sm-12">
                       <button type="submit" class="fa fa-paper-plane" style="width: 30px; height: 30px;"></button>

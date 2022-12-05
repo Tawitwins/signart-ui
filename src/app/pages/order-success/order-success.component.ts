@@ -35,7 +35,7 @@ export class OrderSuccessComponent implements OnInit {
     let splitted = window.location.href.split("?token=", 3);
     this.token=splitted[1];
     console.log(this.token);
-    this.checkPaiementStatus();
+    //this.checkPaiementStatus();
   }
 
   ngOnInit(): void {
@@ -54,7 +54,8 @@ export class OrderSuccessComponent implements OnInit {
     this.paymentmode.libelle='Paydunya';
     this.order.modePaiement=this.paymentmode;
     localStorage.setItem('order', JSON.stringify(this.order));
-    return this.http.get(this.host+`/sandbox-api/v1/checkout-invoice/confirm/`+this.token,this.httpOptions).subscribe(resp => {
+    this.updateDB();
+     return this.http.get(`sandbox-api/v1/checkout-invoice/confirm/`+this.token,this.httpOptions).subscribe(resp => {
       console.log(resp);
       let response = <any> resp; 
       this.StatusResponse =  response.status;
@@ -68,7 +69,7 @@ export class OrderSuccessComponent implements OnInit {
         this.updateCommande("ANNULEE","Annulée");
         this.ngxService.stopLoader("loader-01");
       }
-    });
+    }); 
   }
   updateDB(){
     this.updateLigneCommande();
@@ -80,6 +81,7 @@ export class OrderSuccessComponent implements OnInit {
       this.ngxService.startLoader("loader-01");
       this.checkoutService.getLigneCommandeById(elet.id).subscribe(resp => {
         resp.etatLigneCommande="PAYEETNONLIVREE";
+        resp.idCommande=this.order.id
         console.log(resp);
         this.checkoutService.updateLigneCommande(elet.id,resp).subscribe(response => {
           console.log(response)
@@ -87,7 +89,7 @@ export class OrderSuccessComponent implements OnInit {
       });
     });
     
-    return this.http.put(this.host+`/sandbox-api/v1/checkout-invoice/confirm/`+this.token,this.httpOptions);
+    //return this.http.put(this.host+`/sandbox-api/v1/checkout-invoice/confirm/`+this.token,this.httpOptions);
   }
   updateCommande(code, libelle){
     this.ngxService.startLoader("loader-01");
@@ -115,8 +117,12 @@ export class OrderSuccessComponent implements OnInit {
           lignePaiement.codeModePaiement=this.order.modePaiement.code;
           lignePaiement.datePaiement=new Date();
           lignePaiement.montant = elet.prix*elet.quantite;
-          lignePaiement.idPaiement= respPaiement.id;
-          respPaiement.lignePaiements.push(lignePaiement);      
+          lignePaiement.idPaiement = respPaiement.id;
+          if(!respPaiement.lignePaiements || respPaiement.lignePaiements.length===0){
+            respPaiement.lignePaiements = [];
+          }
+          respPaiement.lignePaiements.push(lignePaiement);
+              
         });
         console.log(respPaiement);
         this.checkoutService.putPaiement(respPaiement).subscribe(resp => {
@@ -124,32 +130,30 @@ export class OrderSuccessComponent implements OnInit {
           this.cleanPanierAndLocalStorage();
         });
       }
-      else{
-        let paiement= new PaiementEtLigneP();
-        paiement.lignePaiements = [];
-        paiement.codeEtatPaiement="PAYE";
-        paiement.codeModePaiement=this.order.modePaiement.code;
-        paiement.datePaiement=new Date();
-        paiement.idCommande=this.order.id;
-        paiement.id = this.order.id;
-        //paiement.id=this.order.id;
-        this.order.lignesCommande.forEach(elet => {
-          let lignePaiement = new LignePaiement();
-          //lignePaiement.id = 
-          lignePaiement.codeModePaiement=this.order.modePaiement.code;
-          lignePaiement.datePaiement=new Date();
-          lignePaiement.montant = elet.prix*elet.quantite;
-          lignePaiement.idPaiement= paiement.id;
-          paiement.lignePaiements.push(lignePaiement);      
-        });
-        console.log(paiement);
-          this.checkoutService.postPaiement(paiement).subscribe(resp => {
-            console.log(resp);
-            this.cleanPanierAndLocalStorage();
-          });
-      }
-    });;
-    
+    },err => {
+      let paiement= new PaiementEtLigneP();
+      paiement.lignePaiements = [];
+      paiement.codeEtatPaiement="PAYE";
+      paiement.codeModePaiement=this.order.modePaiement.code;
+      paiement.datePaiement=new Date();
+      paiement.idCommande=this.order.id;
+      paiement.id = this.order.id;
+      //paiement.id=this.order.id;
+      this.order.lignesCommande.forEach(elet => {
+        let lignePaiement = new LignePaiement();
+        //lignePaiement.id = 
+        lignePaiement.codeModePaiement=this.order.modePaiement.code;
+        lignePaiement.datePaiement=new Date();
+        lignePaiement.montant = elet.prix*elet.quantite;
+        lignePaiement.idPaiement= paiement.id;
+        paiement.lignePaiements.push(lignePaiement);  
+      });
+      console.log(paiement);
+      this.checkoutService.postPaiement(paiement).subscribe(resp => {
+        console.log(resp);
+        this.cleanPanierAndLocalStorage();
+      });
+    })
   }
   cleanPanierAndLocalStorage(){
     //let panier = <Panier>JSON.parse(localStorage.getItem('panier'));

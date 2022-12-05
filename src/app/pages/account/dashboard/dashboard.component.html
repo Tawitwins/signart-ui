@@ -6,28 +6,28 @@
             <div class="col-lg-3">
                 <div class="account-sidebar" (click)="ToggleDashboard()">
                     <a hre="javascript:void(0)" class="popup-btn">
-                        Menu  
+                        {{"Menu" | translate}}  
                     </a>
                 </div>
                 <div class="dashboard-left" [class.open]="openDashboard">
                     <div class="collection-mobile-back" (click)="ToggleDashboard()">
                         <span class="filter-back">
-                            <i class="fa fa-angle-left" aria-hidden="true"></i> back
+                            <i class="fa fa-angle-left" aria-hidden="true"></i> {{"back" | translate}}
                         </span>
                     </div>
                     <div class="block-content">
                         <ul>
-                            <li class="active"><a href="javascript:void(0)" (click)="infopage = 0">Info Compte</a></li>
-                            <li><a href="javascript:void(0)" (click)="getAdresse()">Adresse</a></li>
-                            <li><a href="javascript:void(0)" (click)="commandesClient()">Mes commandes</a></li>
-                            <li><a href="javascript:void(0)" (click)="favorisClient()">Mes favoris</a></li>
-                            <li><a href="javascript:void(0)" (click)="infopage = 5" style="cursor: pointer;">Mes abonnements</a></li>
-                            <li><a href="javascript:void(0)" (click)="infopage = 7">Mes artistes suivis</a></li>
+                            <li class="active"><a href="javascript:void(0)" (click)="infopage = 0"> {{"Info Compte" | translate}} </a></li>
+                            <li><a href="javascript:void(0)" (click)="getAdresse()"> {{"Adresse"| translate}} </a></li>
+                            <li><a href="javascript:void(0)" (click)="commandesClient()"> {{"Mes commandes" | translate}} </a></li>
+                            <li><a href="javascript:void(0)" (click)="favorisClient()"> {{"Mes favoris" | translate}} </a></li>
+                            <li><a href="javascript:void(0)" (click)="infopage = 5" style="cursor: pointer;"> {{"Mes abonnements" | translate}} </a></li>
+                            <li><a href="javascript:void(0)" (click)="infopage = 7"> {{"Mes artistes suivis" | translate}} </a></li>
                             <!--li><a href="javascript:void(0)">Newsletter</a></li-->
                             <!--li><a href="javascript:void(0)">Mon compte</a></li-->
-                            <li><a href="javascript:void(0)" (click)="infopage = 6">Changer le mot de passe</a></li>
+                            <li><a href="javascript:void(0)" (click)="infopage = 6"> {{"Changer le mot de passe" | translate}} </a></li>
                             
-                            <li class="last"><a href="javascript:void(0)" (click)="logout()">Déconnexion</a></li>
+                            <li class="last"><a href="javascript:void(0)" (click)="logout()">{{"Déconnexion" | translate}} </a></li>
                         </ul>
                     </div>
                 </div>
@@ -36,23 +36,23 @@
                 <div class="dashboard-right">
                     <div class="dashboard">
                         <div class="page-title">
-                            <h2>Espace personnel</h2>
+                            <h2>{{"Espace personnel" | translate}}</h2>
                         </div>
                         <div class="welcome-msg">
-                            <p>Bonjour, {{client.prenom}} {{client.nom}} !</p>
-                            <p>À partir de votre espace personnel, vous avez la possibilité d'afficher l'activité récente de votre compte et de mettre à jour les informations de votre compte.</p>
+                            <p>{{"Bonjour" | translate}}, {{client.prenom}} {{client.nom}} !</p>
+                            <p>{{"À partir de votre espace personnel, vous avez la possibilité d'afficher l'activité récente de votre compte et de mettre à jour les informations de votre compte." | translate}}</p>
                         </div>
                         <hr>
                         <div class="box-account box-info" *ngIf="infopage == 0">
                             <div class="box-head">
-                                <h2>Informations du compte</h2>
+                                <h2>{{"Informations du compte" | translate}}</h2>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="box">
                                         <div class="box-title">
-                                            <h3>Information de contact</h3>
-                                            <a href="javascript:void(0)" title="Modifier"  (click)="infopage = 1">Modifier</a>
+                                            <h3>{{"Information de contact" | translate}}</h3>
+                                            <a href="javascript:void(0)" title="Modifier"  (click)="infopage = 1">{{"Modifier" | translate}}</a>
                                         </div>
                                         <div class="box-content">
                                             <h6>{{client.prenom}} {{client.nom}}</h6>
@@ -67,8 +67,8 @@
                                 <div class="col-sm-6">
                                     <div class="box">
                                         <div class="box-title">
-                                            <h3>Abonnement</h3>
-                                            <a [routerLink]="['/shop/collection/abonnement-catalogue']" title="Voir le catalogue" >Voir le catalogue</a>
+                                            <h3> {{"Abonnement" | translate}} </h3>
+                                            <a [routerLink]="['/shop/collection/abonnement-catalogue']" title="Voir le catalogue" > {{"Voir le catalogue" | translate}} </a>
                                         </div>                               
                                     </div>
                                 </div>
@@ -78,7 +78,7 @@
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 1">
                             <div class="box-head">
-                                <h2>Modifier votre profil</h2>
+                                <h2> {{"Modifier votre profil" | translate}} </h2>
                             </div>
                             <section class="register-page section-b-space">
                                 <div class="container">
@@ -88,28 +88,28 @@
                                                 <form class="theme-form" [formGroup]="form" (ngSubmit)="onSubmit()">
                                                     <div class="form-row">
                                                         <div class="col-md-6">
-                                                            <label for="email">Prénom</label>
+                                                            <label for="email"> {{"Prénom" | translate}} </label>
                                                             <input type="text" class="form-control" formControlName="prenom" [(ngModel)]="client.prenom" autocomplete="off"required="">
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <label for="email">Nom</label>
+                                                            <label for="email"> {{"Nom" | translate}} </label>
                                                             <input type="text" class="form-control" formControlName="nom" [(ngModel)]="client.nom" autocomplete="off" required="">
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                                            <label for="email">Téléphone</label>
+                                                            <label for="email"> {{"Téléphone" | translate}} </label>
                                                             <input type="text" class="form-control" formControlName="mobile" [(ngModel)]="client.telephone" autocomplete="off" required="">
                                                         </div>
                                                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                                            <label for="email">E-mail</label>
+                                                            <label for="email"> {{"E-mail" | translate}} </label>
                                                             <input type="email" class="form-control" formControlName="dateNaissance" [(ngModel)]="user.email" readonly  autocomplete="off" required="">
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         
-                                                        <button class="btn btn-solid-Valider" title="Valider" type="submit">Valider</button>
-                                                        <button class="btn btn-solid-Annuler gplus" title="Annuler" type="ACTION" (click)="infopage = 0">Annuler</button>
+                                                        <button class="btn btn-solid-Valider" title="Valider" type="submit"> {{"Valider" | translate}} </button>
+                                                        <button class="btn btn-solid-Annuler gplus" title="Annuler" type="ACTION" (click)="infopage = 0"> {{"Annuler" | translate}} </button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -120,25 +120,25 @@
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 2">
                             <div class="box-head">
-                                <a href="javascript:void(0)" style="float: right;" *ngIf="listAdress==true" title="Ajouter une adresse"  (click)="showHideListAdress(false)" >Ajouter une adresse</a>
-                                <a href="javascript:void(0)" style="float: right;" *ngIf="listAdress==false" title="Liste des adresses enregistrées" (click)="showHideListAdress(true)" >Liste des adresses</a>
-                                <h2 *ngIf="listAdress==true" >Liste des adresses</h2>
-                                <h2 *ngIf="listAdress==false">Ajout d'une adresse</h2>
+                                <a href="javascript:void(0)" style="float: right;" *ngIf="listAdress==true" title="Ajouter une adresse"  (click)="showHideListAdress(false)" > {{ "Ajouter une adresse" | translate}} </a>
+                                <a href="javascript:void(0)" style="float: right;" *ngIf="listAdress==false" title="Liste des adresses enregistrées" (click)="showHideListAdress(true)" > {{"Liste des adresses" | translate}} </a>
+                                <h2 *ngIf="listAdress==true" > {{"Liste des adresses" | translate}} </h2>
+                                <h2 *ngIf="listAdress==false"> {{ "Ajout d'une adresse" | translate}} </h2>
                             </div>
                             <hr>
                             <div class="container" *ngIf="listAdress==false">
                                 <app-add-address></app-add-address>
                             </div>
                             <div *ngIf="adresses.length == 0">
-                                <p>Votre liste est vide</p>
+                                <p> {{"Votre liste est vide" | translate}} </p>
                             </div>
                             <table *ngIf="listAdress==true && adresses.length != 0" class="table cart-table table-responsive-md" style="text-align: center;">
                                 <thead>
                                     <tr class="table-head">
                                         <!--th scope="col">Numéro</th-->
-                                        <th scope="col">Adresse</th>
-                                        <th scope="col">Type</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col"> {{"Adresse" | translate}} </th>
+                                        <th scope="col"> {{"Type" | translate}} </th>
+                                        <th scope="col"> {{"Action" | translate}} </th>
                                     </tr>
                                 </thead>
                                 <tbody *ngFor="let adr of adresses | slice: (pagAdress-1) * pageSizeAdress : (pagAdress-1) * pageSizeAdress + pageSizeAdress">
@@ -160,7 +160,7 @@
                                         </td>
                                         <td>
                                             <a href="javascript:void(0)" title="Supprimer"  (click)="onDeleteAdresseOfUser(adr.id)" class="icon">
-                                            Supprimer
+                                            {{"Supprimer"  | translate}}
                                         </a>
                                         </td>
                                     </tr>
@@ -172,17 +172,17 @@
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 3">
                             <div class="box-head">
-                                <h2>Mes commandes</h2>
+                                <h2> {{"Mes commandes" | translate}} </h2>
                             </div>
-                                <p *ngIf="commandes.length == 0">Votre liste est vide!</p>
+                                <p *ngIf="commandes.length == 0"> {{"Votre liste est vide"}}! </p>
                             <hr>
                                 <table class="table cart-table table-responsive-md" style="text-align: center;" *ngIf="commandes.length > 0">
                                     <thead>
                                         <tr class="table-head">
-                                            <th scope="col">Numéro de la commande</th>
-                                            <th scope="col">Date de la commande</th>
-                                            <th scope="col">Etat de la commande</th>
-                                            <th scope="col">Action</th>
+                                            <th scope="col"> {{"Numéro de la commande" | translate}} </th>
+                                            <th scope="col"> {{"Date de la commande" | translate}} </th>
+                                            <th scope="col"> {{"Etat de la commande" | translate}} </th>
+                                            <th scope="col"> {{"Action" | translate}} </th>
                                         </tr>
                                     </thead>
                                     <tbody *ngFor="let commande of commandes | slice: (pagComand-1) * pageSizeComand : (pagComand-1) * pageSizeComand + pageSizeComand">
@@ -204,7 +204,7 @@
                                             </td>
                                             <td>
                                                 <a href="javascript:void(0)" (click)="showDetailsCommande(commande.id)" title="Détails"  class="icon">
-                                                Details
+                                                {{"Details" | translate}}
                                             </a>
                                             </td>
                                         </tr>
@@ -215,16 +215,16 @@
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 4">
                             <div class="row">
-                                <p *ngIf="oeuvresFav.length == 0">Votre liste est vide!</p>
+                                <p *ngIf="oeuvresFav.length == 0"> {{"Votre liste est vide" | translate}}!</p>
                                 <div class="col-sm-12" *ngIf="oeuvresFav.length != 0">
                                     <table class="table cart-table table-responsive-md" style="text-align: center;">
                                         <thead>
                                         <tr class="table-head">
-                                            <th scope="col">Image</th>
-                                            <th scope="col">Article</th>
-                                            <th scope="col">Prix</th>
-                                            <th scope="col">Disponibilité</th>
-                                            <th scope="col">Action</th>
+                                            <th scope="col"> {{"Image" | translate}} </th>
+                                            <th scope="col"> {{"Article | translate"}} </th>
+                                            <th scope="col"> {{"Prix" | translate}} </th>
+                                            <th scope="col"> {{"Disponibilité"| translate}} </th>
+                                            <th scope="col"> {{"Action" | translate}} </th>
                                         </tr>
                                         </thead>
                                         
@@ -277,62 +277,144 @@
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 5">
                             <div class="box-head">
-                                <h2>Mes abonnements</h2>
+                                <h2 *ngIf="!shownTerminal"> {{"Mes abonnements" | translate}} </h2>
+                                <h2 *ngIf="shownTerminal"> {{"Réabonnement" | translate}} </h2>
                             </div> <br><hr>
                             <div class="row">
                                 <p *ngIf="abonnements?.length == 0">
-                                    liste vide
+                                    {{"liste vide" | translate}}
                                 </p>
                                 <div class="col-sm-12" *ngIf="abonnements?.length != 0"> 
-                                    <table class="table cart-table table-responsive-md" style="text-align: center;">
+                                    <table class="table cart-table table-responsive-md" style="text-align: center;" *ngIf="!shownTerminal">
                                         <thead>
                                         <tr class="table-head">
-                                            <th scope="col">Numéro</th>
-                                            <th scope="col">Montant</th>
-                                            <th scope="col">Etat</th>
-                                            <th scope="col">Action</th>
+                                            <th scope="col"> {{"Numéro" | translate}} </th>
+                                            <th scope="col"> {{"Montant" | translate}} </th>
+                                            <th scope="col"> {{"Etat" | translate}} </th>
+                                            <th scope="col"> {{"Action" | translate}} </th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let abonnement of abonnements | slice: (pagAbmt-1) * pageSizeAbmt : (pagAbmt-1) * pageSizeAbmt + pageSizeAbmt">
+                                            <tr *ngFor="let abonnement of abonnements | slice: (pagAbmt-1) * pageSizeAbmt : (pagAbmt-1) * pageSizeAbmt + pageSizeAbmt, let index = index">
                                                 <td><h4>000{{abonnement.id}}</h4></td>
                                                 <td><h4>{{abonnement.montantPaiement | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h4>
                                                 </td>
                                                 <td><h6>{{getLibelleEtatAbonnement(abonnement.etatAbonnement)}}</h6></td>
                                                 <td>
-                                                    <a (click)="showDetailsAbonnement(abonnement.id)" title="Détails"  [routerLink]=" " style="cursor: pointer;" class="icon mr-3">
-                                                        Details
-                                                    </a>
+                                                    <div style="text-align: left;">
+                                                        <button 
+                                                            class="btn abonnement" 
+                                                            (click)="showDetailsAbonnement(abonnement.id)" 
+                                                            title="Détails"  
+                                                            [routerLink]=" " 
+                                                            style="cursor: pointer;">
+                                                        </button>
+                                                        <button 
+                                                            class="btn abonnement ml-1" 
+                                                            [disabled]="getCodeEtatAbonnement(abonnement.etatAbonnement) != 'EXPIRE'" 
+                                                            (click)="reAbonner(index)" title="Réabonner"  
+                                                            [routerLink]=" " 
+                                                            style="cursor: pointer;"> {{"Se réabonner" | translate}}
+                                                        </button>
+                                                        <span [class.disabled]="getCodeEtatAbonnement(abonnement.etatAbonnement)!='NON_PAYE'">
+                                                            <app-paydunya 
+                                                                class="ml-1" 
+                                                                [listing]="true" [isAbonnement]="true" 
+                                                                [abonnementId]="abonnement?.id" 
+                                                                [abonnement]="abonnement">
+                                                            </app-paydunya>
+                                                        </span>
+                                                    </div>
+                                                   
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <ngb-pagination style="float: right;" [collectionSize]="abonnements.length" [(page)]="pagAbmt" [pageSize]="pageSizeAbmt" aria-label="Default pagination">
+                                    <ngb-pagination 
+                                        style="float: right;" 
+                                        [collectionSize]="abonnements.length" 
+                                        [(page)]="pagAbmt" 
+                                        [pageSize]="pageSizeAbmt" 
+                                        aria-label="Default pagination" 
+                                        *ngIf="!shownTerminal">
                                     </ngb-pagination>
-                                </div>
+                                
+
+                                <!-- DEBUT REABONNEMENT -->
+
+                                <div class="container" *ngIf="shownTerminal">
+                                    <form class="theme-form" novalidate="" [formGroup]="terminalDelaiForm" class="text-center">
+                                        <br><br>
+                                        <h4> {{"Veuillez Choisir un terminal d'affichage" | translate}} </h4>
+                                        <br><br>
+                                        <div class="form-row">    
+                                            <div class="col-md-6" *ngFor="let terminal of terminals">
+                                                <div class="card profile-card-2">
+                                                    <div class="card-body pt-5">
+                                                        <a><h5 class="card-title">{{terminal.libelle}}</h5></a>
+                                                        <p class="card-text">{{terminal.description}}</p>
+                                                        <a><h5 class="card-title" *ngIf="terminal.prix == 0">
+                                                            {{"Gratuit" | translate}}
+                                                        </h5></a>
+                                                        <a><h5 class="card-title" *ngIf="terminal.prix != 0">{{"Prix" | translate}} : {{terminal.prix}} FCFA</h5></a>
+                                                        <input 
+                                                            type="radio" 
+                                                            class="register-gender-radio" 
+                                                            value={{terminal.id}} 
+                                                            formControlName="terminalId">
+                                                    </div>
+                                                </div>
+                                            </div>             
+                                        </div>
+                                        <br><br>
+                                        <hr>
+                                        <div class="form-row">
+                                            <div class="col-md-6">
+                                                <button 
+                                                    type="button" 
+                                                    title="Annuler" 
+                                                    class="btn btn-solid"  
+                                                    style="background: red;" 
+                                                    (click)="annulerReabonnement()"> {{"Annuler" | translate}}
+                                                </button>
+                                            </div> 
+                                            <div class="col-md-6">
+                                                <button 
+                                                    class="btn btn-solid-Valider" 
+                                                    title="Continuer" type="button" 
+                                                    (click)="reAbonnement()"> {{"Se réabonner" | translate}}
+                                                </button>
+                                            </div> 
+                                           
+                                        </div> 
+                                        
+                                    </form>
+                                   </div>
+                                <!-- FIN REABONNEMENT -->
+                            </div>
                             </div>
 
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 6">
                             <div class="box-head">
-                                <h2>Modifier le mot de passe</h2>
+                                <h2> {{"Modifier le mot de passe" | translate}} </h2>
                             </div>
                             <div class="row">
                                 <form class="theme-form" novalidate="" [formGroup]="mdpForm" (ngSubmit)="onChangePwd();" > 
                                     <br><br>
                                     <div class="form-row">                                      
                                         <div class="col-md-12">
-                                            <label><strong>Mot de passe actuel<strong style="color: red;" >*</strong></strong></label>
-                                            <input type="password" class="form-control" formControlName="mdpActu"  id="mdpActu" placeholder="Mot de passe actuel" required="" autocomplete="off">
+                                            <label><strong> {{"Mot de passe actuel" | translate}} <strong style="color: red;" >*</strong></strong></label>
+                                            <input type="password" class="form-control" formControlName="mdpActu"  id="mdpActu" placeholder="{{'Mot de passe actuel' | translate}}" required="" autocomplete="off">
                                             <div *ngIf="mdpForm.get('mdpActu').errors && mdpForm.get('mdpActu').touched">
                                                 <p class="register-error-message" style="color: red;">
-                                                  Le mot de passe doit être composé au moins 6 caractères !</p>
+                                                 {{"Le mot de passe doit être composé au moins 6 caractères" | translate}} !</p>
                                             </div>
                                             
-                                                <div *ngIf="this.mdpForm.get('mdpActu').pending" style="color: darkred;">Verrification...</div>
+                                                <div *ngIf="this.mdpForm.get('mdpActu').pending" style="color: darkred;">{{"Verification" | translate}}...</div>
                                                 <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpActu').touched && this.mdpForm.get('mdpActu').invalid">
-                                                    <div *ngIf="this.mdpForm.get('mdpActu').errors.required">le mot de passe actuel est requis</div>
-                                                    <div *ngIf="this.mdpForm.get('mdpActu').errors.mustMatch">le mot de passe est incorrect</div> 
+                                                    <div *ngIf="this.mdpForm.get('mdpActu').errors.required"> {{"Le mot de passe actuel est requis" |translate}} </div>
+                                                    <div *ngIf="this.mdpForm.get('mdpActu').errors.mustMatch"> {{"Le mot de passe est incorrect" | translate}} </div> 
                                                 </div>
                                                                                        
                                         </div>  
@@ -345,29 +427,29 @@
                                     <br>
                                     <div class="form-row">
                                         <div class="col-md-8">
-                                            <label><strong>Nouveau mot de passe<strong style="color: red;" >*</strong></strong></label>
-                                            <input type="password" class="form-control" formControlName="mdpNouv" id="mdpNouv" placeholder="Nouveau mot de passe" required="" autocomplete="off">
+                                            <label><strong> {{"Nouveau mot de passe" | translate}} <strong style="color: red;" >*</strong></strong></label>
+                                            <input type="password" class="form-control" formControlName="mdpNouv" id="mdpNouv" placeholder="{{'Nouveau mot de passe' | translate}}" required="" autocomplete="off">
                                             
                                                 <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpNouv').touched && this.mdpForm.get('mdpNouv').invalid">
-                                                    <div *ngIf="this.mdpForm.get('mdpNouv').errors.required" >le nouveau mot de passe est requis</div>
-                                                    <div *ngIf="this.mdpForm.get('mdpNouv').errors.pattern" >le nouveau doit contenir des miniscules et des majuscules</div>
-                                                    <div *ngIf="this.mdpForm.get('mdpNouv').errors.minlength" >le nouveau mot de passe devrait contenir 8 caractéres ou plus </div>                                         
+                                                    <div *ngIf="this.mdpForm.get('mdpNouv').errors.required" > {{"Le nouveau mot de passe est requis" | translate}} </div>
+                                                    <div *ngIf="this.mdpForm.get('mdpNouv').errors.pattern" > {{"Le nouveau doit contenir des miniscules et des majuscules" | translate}} </div>
+                                                    <div *ngIf="this.mdpForm.get('mdpNouv').errors.minlength" > {{"Le nouveau mot de passe devrait contenir 8 caractéres ou plus" | translate}} </div>                                         
                                                 </div>
                                             
                                         </div>
                                         <br><br>
                                         <div class="col-md-8">
                                             <br><br>
-                                            <label><strong>Confirmer nouveau mot de passe<strong style="color: red;" >*</strong></strong></label>
-                                            <input type="password" class="form-control" placeholder="Confirmer nouveau mot de passe" required="" formControlName="mdpConf" autocomplete="off">
+                                            <label><strong> {{"Confirmer nouveau mot de passe" | translate}} <strong style="color: red;" >*</strong></strong></label>
+                                            <input type="password" class="form-control" placeholder="{{'Confirmer nouveau mot de passe' | translate}}" required="" formControlName="mdpConf" autocomplete="off">
                                             <!--div *ngIf="(mdpForm.get('mdpNouv').errors || mdpForm.hasError('mismatchedPasswords')) && mdpForm.get('mdpConf').touched">
                                                 <p class="register-error-message" style="color: red;">{{ 'les mots de passe doivent etre identiques'}} !</p>
                                             </div-->
 
                                             <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpConf').touched && this.mdpForm.get('mdpConf').invalid">
-                                                <div *ngIf="this.mdpForm.get('mdpConf').errors.required" >Veuillez confirmer votre nouveau mot de passe</div>                                                 
+                                                <div *ngIf="this.mdpForm.get('mdpConf').errors.required" > {{"Veuillez confirmer votre nouveau mot de passe" | translate}} </div>                                                 
                                             </div>
-                                            <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpConf').touched && (this.mdpForm.value.mdpNouv !== this.mdpForm.value.mdpConf)">les mots de passe doivent etre identiques </div>
+                                            <div class="register-error-message" style="color: red;" *ngIf="this.mdpForm.get('mdpConf').touched && (this.mdpForm.value.mdpNouv !== this.mdpForm.value.mdpConf)"> {{"les mots de passe doivent etre identiques" | translate}} </div>
                                         </div>
                                     </div>
                                         
@@ -375,10 +457,10 @@
                                     <br><br><hr>
                                     <div class="form-row">
                                         <div class="col-md-6">
-                                            <button class="btn btn-solid-Valider" title="Valider" type="submit" [disabled]="!mdpForm?.valid">Valider</button>
+                                            <button class="btn btn-solid-Valider" title="Valider" type="submit" [disabled]="!mdpForm?.valid"> {{"Valider" | translate}} </button>
                                         </div> 
                                         <div class="col-md-6">
-                                            <button type="submit" class="btn btn-solid-Annuler" title="Annuler" routerLink="/accueil" routerLinkActive="router-link-active" >Annuler</button>
+                                            <button type="submit" class="btn btn-solid-Annuler" title="Annuler" routerLink="/accueil" routerLinkActive="router-link-active" > {{"Annuler" | translate}} </button>
                                         </div> 
                                     </div>
                                     
@@ -387,22 +469,22 @@
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 7">
                             <div class="box-head">
-                                <h2>Liste des artistes suivis</h2>
+                                <h2> {{"Liste des artistes suivis" | translate}} </h2>
                             </div> <br><br>
                             <div class="row">
                                 
                                     
                                             <p *ngIf="artistes?.length == 0">
-                                                Liste vide
+                                                 {{"Liste vide" | translate}}
                                             </p>
                                             <div class="col-md-12" *ngIf="artistes?.length != 0">
                                                 <table class="table cart-table table-responsive-md" style="text-align: center;">
                                                     <thead>
                                                         <tr class="table-head">
-                                                            <th scope="col">Prénom</th>
-                                                            <th scope="col">Nom</th>
-                                                            <th scope="col">Profession</th>
-                                                            <th scope="col">Action</th>
+                                                            <th scope="col"> {{"Prénom" | translate}} </th>
+                                                            <th scope="col"> {{"Nom" | translate}} </th>
+                                                            <th scope="col"> {{"Profession" | translate}} </th>
+                                                            <th scope="col"> {{"Action" | translate}} </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody *ngFor="let artiste of artistes;let i=index">
@@ -424,7 +506,7 @@
                                                             </td>
                                                             <td>
                                                                 <a [routerLink]="['/pages/artiste/',artiste.id]" href="javascript:void(0)" class="icon" title="Voir plus" >
-                                                                Voir
+                                                                {{"Voir" | translate}}
                                                                 </a>
                                                             </td>
                                                         </tr>
@@ -437,7 +519,7 @@
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 10">
                             <div class="box-head">
-                                <h2>Details de l'abonnement 000{{abonnementAffiche.id}}</h2>
+                                <h2>{{"Details de l'abonnement" | translate}} 000{{abonnementAffiche.id}}</h2>
                             </div> <br><br>
                             <div class="row">
                                 <section class="section-b-space">
@@ -452,32 +534,33 @@
                                                         </div>
                                                         <div class="col-3 order_detail">
                                                             <div>
-                                                                <h4>Article</h4>
+                                                                <h4> {{"Article" | translate}} </h4>
                                                                 <h5>{{oeuvre.titre}}</h5>
                                                             </div>
                                                         </div>
                                                         <div class="col-3 order_detail">
                                                             <div>
-                                                                <h4>quantité</h4>
+                                                                <h4> {{"quantité" | translate}} </h4>
                                                                 <h5>1</h5>
                                                             </div>
                                                         </div>
                                                         <div class="col-3 order_detail">
                                                             <div>
-                                                                <h4>prix</h4>
-                                                                <h5>{{oeuvre.tarif| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h5>
+                                                                <h4> {{"Année" | translate}} </h4>
+                                                                <h5>{{oeuvre.annee}}</h5>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="total-sec">
                                                         <ul>
-                                                            <li>Total <span>{{montantOeuvres | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
-                                                            <li>Delai <span>{{delaiAffiche.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
-                                                            <li>Terminal <span>{{terminalAffiche.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
+                                                            <li> {{"Total" | translate}} <span>{{montantOeuvres | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
+                                                            <li>{{"Délai" | translate}} <span>{{delaiAffiche.nbMois * 30}} {{"Jours" | translate}} </span></li>
+                                                            <li *ngIf="terminalAffiche.code == 'LOUE'"> {{"Terminal" | translate}} <span>{{terminalAffiche.prix * delaiAffiche.nbMois | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
+                                                            <li *ngIf="terminalAffiche.code !== 'LOUE'">{{"Terminal" | translate}} <span>{{terminalAffiche.prix | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
                                                         </ul>
                                                     </div>
                                                     <div class="final-total">
-                                                        <h3>total <span>{{abonnementAffiche.montantPaiement}} FCFA</span></h3>
+                                                        <h3>{{"total" | translate}} <span>{{abonnementAffiche.montantPaiement}} FCFA</span></h3>
                                                     </div>
                                                 </div>
                                             </div>
@@ -510,38 +593,38 @@
                                                 <div class="row order-success-sec">
                                                         <div class="col-sm-7">
                                                             <div class="order-detail">
-                                                                <h4>Information de l'abonné</h4>
+                                                                <h4> {{"Information de l'abonné" | translate}} </h4>
                                                                 <ul class="order-detail"> 
-                                                                    <li>Nom: {{abonneAffiche.nom}}</li>
-                                                                    <li>Prenom: {{abonneAffiche.prenom}}</li>
-                                                                    <li>Telephone: {{abonneAffiche.telephone}}</li>
-                                                                    <li>Email: {{abonneAffiche.email}}</li>
-                                                                    <li>Pays: {{abonneAffiche.pays}}</li>
-                                                                    <li>Region: {{abonneAffiche.region}}</li>
-                                                                    <li>Ville: {{abonneAffiche.ville}}</li>
-                                                                    <li>Adresse: {{abonneAffiche.adresse}}</li>
+                                                                    <li>{{"Nom" | translate}}: {{abonneAffiche.nom}}</li>
+                                                                    <li>{{"Prenom" | translate}}: {{abonneAffiche.prenom}}</li>
+                                                                    <li>{{"Telephone" | translate}}: {{abonneAffiche.telephone}}</li>
+                                                                    <li>{{"Email" | translate}}: {{abonneAffiche.email}}</li>
+                                                                    <li>{{"Pays" | translate}}: {{abonneAffiche.pays}}</li>
+                                                                    <li>{{"Region" | translate}}: {{abonneAffiche.region}}</li>
+                                                                    <li>{{"Ville" | translate}}: {{abonneAffiche.ville}}</li>
+                                                                    <li>{{"Adresse" | translate}}: {{abonneAffiche.adresse}}</li>
                                                                 </ul>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-5">
-                                                            <h4>Terminal et delai</h4>
+                                                            <h4> {{"Terminal et delai" | translate}}</h4>
                                                             <ul class="order-detail">
-                                                                <li>Terminal: {{terminalAffiche.libelle}}</li>
-                                                                <li>Delai: {{delaiAffiche.libelle}}</li>                                                           
+                                                                <li>{{"Terminal" | translate}}: {{terminalAffiche.libelle}}</li>
+                                                                <li>{{"Délai" | translate}}: {{delaiAffiche.libelle}}</li>                                                           
                                                             </ul>
                                                         </div>
                                                         <div class="col-md-12" *ngIf="activePaiement == false">
                                                             <div class="delivery-sec">
-                                                                <h2>Paiement non effectif</h2>
-                                                                <h4>Abonnement en attente de validation</h4>
+                                                                <h2>{{"Paiement effectif" | translate}} </h2>
+                                                                <h4>{{"Abonnement" | translate}} {{getLibelleEtatAbonnement(abonnementAffiche.etatAbonnement)}}</h4>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12" *ngIf="activePaiement == true">
                                                             <div class="delivery-sec">
-                                                                <h2>Paiement</h2>
+                                                                <!-- <h2>Paiement</h2> -->
                                                                 <div class="product-buttons">
-                                                                    <a href="javascript:void(0)" title="Payer"  class="btn btn-solid-Valider">Clicker ici pour payer</a>
-                                                                    
+<!--                                                                     <a href="javascript:void(0)" title="Payer"  class="btn btn-solid-Valider">Clicker ici pour payer</a>
+ -->                                                                    <app-paydunya [isAbonnement]="true" [abonnementId]="abonnementAffiche?.id" [abonnement]="abonnementAffiche"></app-paydunya>
                                                                 </div>
                                                                 
                                                             </div>
@@ -555,7 +638,7 @@
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 11">
                             <div class="box-head">
-                                <h2>Details de la commande 000{{commande?.id}}</h2>
+                                <h2> {{"Détails de la commande" | translate}} 000{{commande?.id}}</h2>
                             </div> <br><br>
                             <div class="row">
                                 <section class="section-b-space">
@@ -564,78 +647,90 @@
             <div class="col-lg-12">
                     <div class="row order-success-sec">
                         <div class="col-sm-6">
-                            <h4  style="text-decoration: underline;">Sommaire</h4>
+                            <h4  style="text-decoration: underline;"> {{"Sommaire" | translate}} </h4>
                             <ul class="order-detail">
-                                <li>ID commande: 000{{commande?.id}}</li>
-                                <li>Date de commande: {{commande.dateCreation}}</li>
-                                <li>Commande totale: {{Sum}} FCFA</li>
+                                <li>{{"ID commande" | translate}}: 000{{commande?.id}}</li>
+                                <li> {{"Date de commande" | translate}}: {{commande.dateCreation}}</li>
+                                <li *ngIf="Sum == 0">{{"Commande totale" | translate}} : {{commande.montant | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</li>
+                                <li *ngIf="Sum != 0"> {{"Commande totale" | translate}}: {{Sum| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</li>
                             </ul>
                         </div>
-                        <div class="col-sm-6">
-                            <h4 style="text-decoration: underline;;">Adresse de livraison</h4>
-                            <ul class="order-detail">
+                        <div class="col-sm-6" *ngIf="adressLivraison != null">
+                            <h4 style="text-decoration: underline;;"> {{"Adresse de livraison" | translate}} </h4>
+                            <ul class="order-detail" >
                                 
                                 <li>{{adressLivraison.prenom}} {{adressLivraison.nom}}</li>
-                                <li>Adresse: {{adressLivraison.adresse}}</li>
-                                <li>Mode de livraison: {{livraison.libelleModeLivraison}} </li>
+                                <li>{{"Adresse" | translate}}: {{adressLivraison.adresse}}</li>
+                                <li>{{"Mode de livraison" | translate}}: {{livraison.libelleModeLivraison}} </li>
+                                <li>{{"Etat de livraison" | translate}}: {{livraison.libelleEtatLivraison}} </li>
                             </ul>
                         </div><br>
                         
                     </div><hr>
                     <div class="row order-success-sec">
                         <div class="col-sm-12">
-                            <h4  style="text-decoration: underline;">Méthode de paiement</h4>
-                            <p *ngIf="paiement?.libelleModePaiement!=null">{{paiement?.libelleModePaiement}} ({{paiement?.libelleEtatPaiement}}).</p>
-                            <p *ngIf="paiement?.libelleModePaiement==null">Mode de paiement indisponible (Commande annulée).</p>
+                            <h4  style="text-decoration: underline;"> {{"Méthode de paiement" | translate}} </h4>
+                            <ul class="order-detail">
+                                <li *ngIf="paiement?.libelleModePaiement!=null">{{paiement?.libelleModePaiement | translate}} ({{paiement?.libelleEtatPaiement | translate}}).</li>
+                                <li *ngIf="paiement?.libelleModePaiement==null"> {{"Mode de paiement indisponible (Commande annulée)" | translate}}.</li>
+                            </ul>
                         </div>
                     </div><hr>
                 
             </div>
             <div class="col-lg-12">
                 <div class="product-order">
-                    <h3>Détails de votre commande</h3>
+                    <h3> {{"Détails de votre commande" | translate}} </h3>
                     <div class="row product-order-detail" *ngFor="let p of commande.lignesCommande;let i=index">
                         <div class="col-2">
                             <img [src]="get(i)" class="img-fluid" alt="quixote">                        
                         </div>
                         <div class="col-2 order_detail">
                             <div style="text-align: center;">
-                                <h4>Article</h4>
+                                <h4> {{"Référence" | translate}} </h4>
+                                <h5>{{p.oeuvre.reference}}</h5>
+                            </div>
+                        </div>
+                        <div class="col-2 order_detail">
+                            <div style="text-align: center;">
+                                <h4> {{"Article" | translate}} </h4>
                                 <h5>{{p.oeuvre.nom}}</h5>
                             </div>
                         </div>
                         <div class="col-2 order_detail">
                             <div style="text-align: center;">
-                                <h4>quantité</h4>
+                                <h4> {{"quantité" | translate}} </h4>
                                 <h5>{{p.quantite}}</h5>
                             </div>
                         </div>
                         <div class="col-2 order_detail">
                             <div style="text-align: center;">
-                                <h4>prix</h4>
+                                <h4> {{"prix" | translate}} </h4>
                                 <h5>{{p.prix| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </h5>
                             </div>
                         </div>
-                        <div class="col-2 order_detail">
+                        <!-- <div class="col-2 order_detail">
                             <div style="text-align: center;">
                                 <h4>prix livraison</h4>
                                 <h5>{{p.oeuvre.fraisLivraison | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </h5>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="total-sec">
                         <ul>
-                            <li>Sous-Total <span> {{commande.total| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
-                            <li>Livraison <span>{{commande.totalLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
+                            <li> {{"Sous-Total" | translate}} <span> {{commande.montant| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
+                            <li *ngIf="adressLivraison != null"> {{"Livraison et assurance" | translate}} <span> {{fraisLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}<!-- {{commande.totalLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} --> </span></li>
                         </ul>
                     </div>
                     <div class="final-total">
-                        <h3>Total : <span> {{Sum | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></h3>
+                        <h3 *ngIf="Sum == 0"> {{"Total" | translate}} <span> {{commande.montant| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></h3>
+
+                        <h3 *ngIf="Sum != 0">{{"Total" | translate}} : <span> {{Sum | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></h3>
                     </div>
                 </div><br><br>
                 <div class="col-md-12">
                     <div class="delivery-sec">
-                        <h3>Date prévue de livraison</h3>
+                        <h3> {{"Date limite de livraison" | translate}} </h3>
                         <h2>{{livraison?.dateLivraison | date: 'dd/MM/yyyy'}} </h2>
                     </div>
                 </div>

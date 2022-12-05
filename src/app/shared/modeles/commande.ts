@@ -10,6 +10,7 @@ export class Commande {
    public numero: string;
    public nbTotal: number;
    public total: number;
+   public montant: number;
    public totalLivraison: number;
    public totalTaxes: number;
    public lignesCommande: LigneCommande[];
@@ -25,4 +26,7 @@ export class Commande {
    public shippingOption?: ModeLivraison;
    public shippingOptionPrice?: number;
    public modePaiement?:PaymentMode;
+   public idMagasin?:number;
+   public idServiceLivraison?:number;
+   public idTarification?:number;
 }

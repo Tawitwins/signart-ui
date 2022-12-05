@@ -57,10 +57,10 @@
               </div>
               <div class="col-7">
                 <h3 class="product-title m-b-0">{{article$?.nom}}</h3>
-                <h4 class="price m-t-0">Prix:
+                <h4 class="price m-t-0">{{"Prix"}}:
                   <span class="col-amber">{{article$?.prix | currency:'XOF':'symbol':'4.0-2':'fr'}}</span>
                 </h4>
-                <h4 class="price m-t-0">Couleur:
+                <h4 class="price m-t-0">{{"Couleur" | translate}}:
                   <span class="col-amber">{{article$?.couleur}}</span>
                 </h4>
                 <!-- <div class="rating">
@@ -133,7 +133,7 @@
                           <p style="font-family: times new roman, times, serif; font-size: 17px;">
                             <span style="color: tomato;">SignArt</span> livre les oeuvres partout au Sénégal.<br/>
 
-                            Chaque oeuvre est emballée par l’artiste lui-même selon un cahier des charges très précis afin de garantir une protection optimale pendant le transport.<br/> <span style="color: tomato;">SignArt</span> sélectionne le transporteur le plus adapté à la typologie d'oeuvre, chaque transport étant suivi et assuré.<br/>Vous serez notifié par <span style="color: tomato;">SignArt</span> dès que l'oeuvre vous sera expédiée.<br/>Si celle-ci arrivait endommagée à votre domicile, <span style="color: tomato;">SignArt</span> prend en charge les frais de retour et s'occupe des démarches de dédommagement de l'artiste et du client.<br/>Si l'oeuvre ne peut être réparée ou restaurée, le client est immédiatement remboursé.
+                            {{"Chaque oeuvre est emballée par l’artiste lui-même selon un cahier des charges très précis afin de garantir une protection optimale pendant le transport SignArt sélectionne le transporteur le plus adapté à la typologie d'oeuvre, chaque transport étant suivi et assuré.<br/>Vous serez notifié par SignArt dès que l'oeuvre vous sera expédiée. Si celle-ci arrivait endommagée à votre domicile, SignArt prend en charge les frais de retour et s'occupe des démarches de dédommagement de l'artiste et du client. Si l'oeuvre ne peut être réparée ou restaurée, le client est immédiatement remboursé" | translate}}.
                           </p>
                         </div>
                       </div>
@@ -147,9 +147,11 @@
                       </div>
                       <div class="col-sm-8">
                         <p style="font-family: times new roman, times, serif; font-size: 17px;">
-                          Retour gratuit : vous disposez d'un délai de 30 jours à compter de la réception de l'oeuvre pour exercer votre droit de rétractation.
+                          Retour gratuit : vous disposez d'un délai de 30 jours à compter de la réception de l'oeuvre pour exercer votre droit de rétractation
+                          Profitez de 30 jours d’essai pour trouver la place idéale de votre œuvre d’art. Et si vous changez d’avis, il vous suffit de nous retourner l'oeuvre et nous vous remboursons intégralement votre commande dans les plus brefs délais
+                          <!-- {{"" | translate}}.
 
-                          Profitez de 30 jours d’essai pour trouver la place idéale de votre œuvre d’art. Et si vous changez d’avis, il vous suffit de nous retourner l'oeuvre et nous vous remboursons intégralement votre commande dans les plus brefs délais.
+                          {{"" | translate}}. -->
                         </p>
                     </div>
                     </div>
@@ -162,8 +164,8 @@
                     </div>
                     <div class="col-sm-8">
                       <p style="font-family: times new roman, times, serif; font-size: 17px;">
-                        <span style="color: tomato;">SignArt</span> vous garantit l'authenticité de l'oeuvre, qu'il vous livre accompagnée d'un certificat officiel.
-                        <span style="color: tomato;">SignArt</span> apporte le plus grand soin à la sélection de ses artistes, qui sont tous des professionnels dont nous garantissons l'originalité et l'authenticité des oeuvres.<br/>Ainsi, chaque oeuvre commandée sur <span style="color: tomato;">SignArt</span> vous est livrée accompagnée d'une facture et d'un certificat d'authenticité, attestant de son originalité.
+                        <span style="color: tomato;">SignArt</span> {{"vous garantit l'authenticité de l'oeuvre, qu'il vous livre accompagnée d'un certificat officiel" | translate}}.
+                        <span style="color: tomato;">SignArt</span> {{"apporte le plus grand soin à la sélection de ses artistes, qui sont tous des professionnels dont nous garantissons l'originalité et l'authenticité des oeuvres.<br/>Ainsi, chaque oeuvre commandée sur <span style="color: tomato;">SignArt</span> vous est livrée accompagnée d'une facture et d'un certificat d'authenticité, attestant de son originalité" | translate}}.
                       </p>
                     </div>
                   </div>

@@ -70,6 +70,10 @@ export class OeuvreService extends  HttpService {
     getCommandeOfClient(idClient: number): Observable<any> {
       return this.http.get(environment.API_ENDPOINT + `commande/client/${idClient}`);
     }
+
+    getGalerie(){
+      return this.http.get(environment.API_ENDPOINT + `magasin`);
+    }
    /* getVisiteurById(id: number) {
       console.log('un client');
       return this.http.get(environment.API_ENDPOINT + `client/user/${id}`)

@@ -93,9 +93,10 @@ export class CartComponent implements OnInit {
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#376809',
-        cancelButtonColor: '#601A17',
+        cancelButtonColor: 'red',
         cancelButtonText: 'annuler',
-        confirmButtonText: 'Oui, se connecter'
+        confirmButtonText: 'Oui, se connecter',
+        reverseButtons: true,
       }).then((result) => {
         if (result.value) {
           console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
@@ -112,7 +113,7 @@ export class CartComponent implements OnInit {
             localStorage.setItem('client',JSON.stringify(response));
             let order =JSON.parse(localStorage.getItem('order'));
             console.log(order)
-            if (order === null) {
+            //if (order === null) {
               this.data = JSON.parse(localStorage.getItem('panier'));
               this.newCheckoutService.createOrder(this.client.id, this.data).pipe(
                 tap(() => {
@@ -121,9 +122,9 @@ export class CartComponent implements OnInit {
                   //localStorage.removeItem('panier');
                 }))
                 .subscribe();
-            } else {
-              this.router.navigate(['/shop/checkout']);
-            }
+            //} else {
+              //this.router.navigate(['/shop/checkout']);
+            //}
           });
     }
   }

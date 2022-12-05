@@ -7,8 +7,8 @@
             <div class="card-header" style="background-color:#f07c10 ;color:azure">
               <div class="">
                   <h4 class="card-title text-white">
-                      <strong *ngIf="etape===1">Créer votre Compte {{title}}</strong>
-                      <strong *ngIf="etape===2">Finaliser La création de votre Compte {{signUpForm.get('codeProfil').value | lowercase}}</strong>
+                      <strong *ngIf="etape===1">{{"Créer votre Compte" }} {{title}}</strong>
+                      <strong *ngIf="etape===2">{{"Finaliser La création de votre Compte" | translate}} {{signUpForm.get('codeProfil').value | lowercase}}</strong>
                   </h4>
                 <p class="card-category"><br></p>
               </div>
@@ -19,36 +19,37 @@
             <form novalidate="" [formGroup]="signUpForm" (ngSubmit)="onSubmit(); signUpForm.reset();" class="text-center" style="color: #757575;">
                     <!-----Etape 1----------------------------->
                     <div *ngIf="etape===1">
+                      
                       <!-------Pays-------------------------->
                           <select class="mdb-select md-form form-control" name="pays" id="pays" formControlName="codePays" required>
-                              <option value="">Choisir votre pays</option>
+                              <option value="">{{"Choisir votre pays" | translate}}</option>
                               <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>
                           </select>
                           <div *ngIf="signUpForm.get('codePays').errors && signUpForm.get('codePays').touched">
                             <span class="register-error-icon">!</span>
-                            <p class="register-error-message">Veuillez choisir votre pays</p>
+                            <p class="register-error-message">{{"Veuillez choisir votre pays" | translate}}</p>
                           </div>
                       <!------------------------------------->
                       <div class="form-row">
                       <div class="col">
                               <div class="md-form">
                                   <input type="text" id="prenom" name="prenom" class="form-control" 
-                                  placeholder="Prénom" formControlName="prenom" autocomplete="off">
+                                  placeholder="{{'Prénom' | translate}}" formControlName="prenom" autocomplete="off">
                               </div>
                               <div *ngIf="signUpForm.get('prenom').errors && signUpForm.get('prenom').touched">
                                   <span class="register-error-icon">!</span>
-                                  <p class="register-error-message">Veuillez saisir votre prénom</p>
+                                  <p class="register-error-message">{{"Veuillez saisir votre prénom" | translate}}</p>
                               </div>
                           </div>
                      <div class="col">
                               <div class="md-form">
                                   <input type="text" id="nom" name="nom" class="form-control"
-                                   placeholder="nom" formControlName="nom" autocomplete="off">
+                                   placeholder="{{'nom' | translate}}" formControlName="nom" autocomplete="off">
                                   <label for="nom"></label>
                               </div>
                               <div *ngIf="signUpForm.get('nom').errors && signUpForm.get('nom').touched">
                                   <span class="register-error-icon">!</span>
-                                  <p class="register-error-message">Veuillez saisir votre nom</p>
+                                  <p class="register-error-message">{{"Veuillez saisir votre nom" | translate}}</p>
                                 </div>
                           </div>
                       </div>
@@ -57,18 +58,18 @@
                       <div class="col">
                             <div class="md-form">
                             <input type="radio" class="register-gender-radio" id="male" name="gender" value="M" formControlName="gender">
-                            <label class="register-gender-label" for="male">Homme</label>
+                            <label class="register-gender-label" for="male">{{"Homme" | translate}}</label>
                             </div>
                       </div>
                         <div class="col">
                             <div class="md-form">
                             <input type="radio" class="register-gender-radio" id="female" name="gender" value="F" formControlName="gender">
-                            <label class="register-gender-label" for="female">Femme</label>
+                            <label class="register-gender-label" for="female">{{"Femme" | translate}}</label>
                             </div>
                         </div>
                         <div *ngIf="signUpForm.get('gender').errors && signUpForm.get('gender').touched">
                             <span class="register-gender-error-icon register-error-icon">!</span>
-                            <p class="register-gender-error-message register-error-message">Svp sélectionner votre genre</p>
+                            <p class="register-gender-error-message register-error-message">{{"Svp sélectionner votre genre" | translate}}</p>
                           </div>
                       </div>
                       <hr>
@@ -94,67 +95,67 @@
                         <div class="row">
                           <div class="col">
                               <button [disabled]="signUpForm.get('codePays').invalid || signUpForm.get('prenom').invalid || signUpForm.get('nom').invalid || signUpForm.get('gender').invalid || signUpForm.get('codeProfil').invalid"
-                              class="btn  btn-sm" style="background-color:#f07c10 ;color:azure" type="button" (click)="goetape(2)">continuer</button>
+                              class="btn  btn-sm" style="background-color:#f07c10 ;color:azure" type="button" (click)="goetape(2)">{{"continuer" | translate}}</button>
                           </div>
                           <div class="col">
-                              <button type="submit" class="btn btn-danger btn-sm" routerLink="/accueil" routerLinkActive="router-link-active" ><i class="material-icons">cancel</i>Annuler</button>
+                              <button type="submit" class="btn btn-danger btn-sm" routerLink="/accueil" routerLinkActive="router-link-active" ><i class="material-icons">{{"cancel" | translate}}</i>{{"Annuler" | translate}}</button>
                           </div>
                       </div>
                     </div>
                       <!------------------Etape2-------------------->
                       <div *ngIf="etape===2">
                       <div class="md-form mt-0">
-                          <label for="email" class="prefix"><i class="material-icons gray-text md-18">mail</i></label>
+                          <label for="email" class="prefix"><i class="material-icons gray-text md-18">{{"mail" | translate}}</i></label>
                           <input type="email" id="email" name="email" class="form-control"
-                           placeholder="E-mail" formControlName="email" autocomplete="off">
+                           placeholder="{{'E-mail' | translate}}" formControlName="email" autocomplete="off">
                           <div *ngIf="signUpForm.get('email').errors && signUpForm.get('email').touched">
                               <span class="register-error-icon">!</span>
-                              <p class="register-error-message">Entrez une adresse mail valide</p>
+                              <p class="register-error-message">{{"Entrez une adresse mail valide" | translate}}</p>
                             </div>
                       </div>
                       <div class="md-form">
-                          <label for="password" class="prefix"><i class="material-icons gray-text md-18">lock</i></label>
+                          <label for="password" class="prefix"><i class="material-icons gray-text md-18">{{"lock" | translate}}</i></label>
                           <input type="password" id="password" name="password" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock" 
-                          placeholder="Mot de password" formControlName="password" autocomplete="off">
+                          placeholder="{{'Mot de password' | translate}}" formControlName="password" autocomplete="off">
                           <div *ngIf="signUpForm.get('password').errors && signUpForm.get('password').touched">
                               <span class="register-error-icon">!</span>
                               <p class="register-error-message">
-                                Le mot de passe doit être composé au moins 6 caractères</p>
+                                {{"Le mot de passe doit être composé au moins 6 caractères" | translate}}</p>
                           </div>
                       </div>
                       <div class="md-form">
                           <label for="confirmation" class="prefix"></label>
                           <input type="password" id="conformation" class="form-control" name="password_confirmation" aria-describedby="materialRegisterFormPasswordHelpBlock" 
-                          placeholder="confirmation Mot de passe" formControlName="password_confirmation" autocomplete="off">
+                          placeholder="{{'confirmation Mot de passe' | translate}}" formControlName="password_confirmation" autocomplete="off">
                           <div *ngIf="(signUpForm.get('password_confirmation').errors || signUpForm.hasError('mismatchedPasswords')) && signUpForm.get('password_confirmation').touched">
                               <span class="register-error-icon">!</span>
-                              <p class="register-error-message">{{ 'les mots de passe doivent se correspondre'}}</p>
+                              <p class="register-error-message">{{ 'les mots de passe doivent se correspondre' | translate}}</p>
                             </div>
                       </div>
                       <div class="md-form">
-                          <label for="modile" class="prefix"><i class="material-icons gray-text md-18">phone</i></label>
-                          <input type="number" id="phone" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock" placeholder="Téléphone" formControlName="mobile" name="mobile">
+                          <label for="modile" class="prefix"><i class="material-icons gray-text md-18">{{"phone" | translate}}</i></label>
+                          <input type="number" id="phone" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock" placeholder="{{'Téléphone' | translate}}" formControlName="mobile" name="mobile">
                           <div *ngIf="signUpForm.get('mobile').errors && signUpForm.get('mobile').touched">
                               <span class="register-error-icon">!</span>
-                              <p class="register-error-message">SVP entrer un numéro valide (9 chiffres)</p>
+                              <p class="register-error-message">{{"SVP entrer un numéro valide (9 chiffres)" | translate}}</p>
                             </div>
                       </div>
                       <div class="btn-group" role="group" aria-label="Basic example">
                         <div class="row">
                           <div class="col">
-                          <button type="button" class="btn btn-default responsive btn-sm" (click)="goetape(1)"><i class="material-icons">reply</i>Retour</button>
+                          <button type="button" class="btn btn-default responsive btn-sm" (click)="goetape(1)"><i class="material-icons">{{"reply" | translate}}</i>{{"Retour" | translate}}</button>
                           </div> 
                           <div class="col">
-                          <button [disabled]="!signUpForm?.valid" type="submit" class="btn responsive btn-sm" style="background-color:#f07c10 ;color:azure">soumettre</button>
+                          <button [disabled]="!signUpForm?.valid" type="submit" class="btn responsive btn-sm" style="background-color:#f07c10 ;color:azure">{{"Soumettre" | translate}}</button>
                          </div>
                          <div class="col">
-                           <button type="submit" class="btn btn-danger responsive btn-sm" routerLink="/accueil" routerLinkActive="router-link-active" ><i class="material-icons">cancel</i>Anuler</button>
+                           <button type="submit" class="btn btn-danger responsive btn-sm" routerLink="/accueil" routerLinkActive="router-link-active" ><i class="material-icons">{{"cancel" | translate}}</i>{{"Annuler" | translate}}</button>
                          </div> 
                         </div>
                         </div>           
                        </div>
                       </form>
-                      <a class="text-right text-default" routerLink="/auth/login" title="Se connecter" routerLinkActive="router-link-active" >Vous avez dejà un compte? Se connecter</a>
+                      <a class="text-right text-default" routerLink="/auth/login" title="Se connecter" routerLinkActive="router-link-active" >{{"Vous avez dejà un compte? Se connecter" | translate}}</a>
                      </div>
                     </div>
                 </div>

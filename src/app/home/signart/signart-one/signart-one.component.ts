@@ -107,7 +107,7 @@ export class SignartOneComponent implements OnInit {
       public dan2 = [{
         image: 'assets/images/collection/fashion/encreChine.png',
         save: 'Technique',
-        title: 'Encre de chine'
+        title: 'Encre de Chine'
       }, {
         image: 'assets/images/collection/fashion/gouach.png',
         save: 'Technique',
@@ -118,17 +118,17 @@ export class SignartOneComponent implements OnInit {
   public blog = [{
     image:  this.getProductImageUrl(7),
     date: '30 Novembre 2020',
-    title: 'L\'inédit',
+    title: "L'inédit",
     by: 'El Hadj Sy'
   }, {
     image: this.getProductImageUrl(4),
     date: '27 Novembre 2020',
-    title: 'Anniversaire: 40 ans de carrière',
+    title: 'Anniversaire : 40 ans de carrière',
     by: 'Kalidou kassé'
   }, {
     image:  this.getProductImageUrl(6),
     date: '25 Décembre 2020',
-    title: 'Fin d\'année artistique',
+    title: "Fin d'année Artistique",
     by: 'Omar BA'
   }, {
     image: 'assets/images/blog/blog_signart.jpg',

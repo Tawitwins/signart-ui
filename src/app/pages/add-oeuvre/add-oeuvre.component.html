@@ -5,76 +5,76 @@
             (ngSubmit)="onAddArticle()">
                 <div class="form-row">
                     <div class="col-md-6">
-                        <label for="email">Nom</label>
-                        <input type="text" class="form-control" id="fname" placeholder="Nom de l'oeuvre" formControlName="nom">
+                        <label for="email">{{"Nom" | translate}} </label>
+                        <input type="text" class="form-control" id="fname" placeholder="{{'Nom de l\'oeuvre' | translate}}" formControlName="nom">
                         <div>
                             <span *ngIf="oeuvreForm.get('nom').errors && oeuvreForm.get('nom').touched" style="color: red;"> Veuillez saisir un nom !</span>
                           </div>
                     </div>
                     <div class="col-md-6">
-                            <label for="review">Technique</label>
+                            <label for="review">{{"Technique" | translate}} </label>
                             <select name="Technique" class="form-control" formControlName="technique">
-                                <option value="">Selectionner une technique</option>
+                                <option value="">{{"Sélectionner une technique" | translate}}</option>
                               <option *ngFor="let technique of techniques" [value]="technique.id">{{technique.libelle}}</option>
                           </select>
                           <div>
-                            <span *ngIf="oeuvreForm.get('technique').errors && oeuvreForm.get('technique').touched" style="color: red;"> Veuillez choisir une technique !</span>
+                            <span *ngIf="oeuvreForm.get('technique').errors && oeuvreForm.get('technique').touched" style="color: red;"> {{"Veuillez choisir une technique" | translate}} !</span>
                           </div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-md-6">
-                        <label for="isNew">Nouvelle Oeuvre</label>
+                        <label for="isNew">{{"Nouvelle Oeuvre" | translate}}</label>
                             <select formControlName="nouveau" name="isNew" class="form-control">
-                                <option selected value="">Selectionner</option>
-                                <option value="true">Oui</option>
-                                <option value="false">Non</option>
+                                <option selected value="">{{"Sélectionner" | translate}}</option>
+                                <option value="true">{{"Oui" | translate}}</option>
+                                <option value="false">{{"Non" | translate}}</option>
                             </select>
                             <div>
-                                <span *ngIf="oeuvreForm.get('nouveau').errors && oeuvreForm.get('nouveau').touched" style="color: red;"> Veuillez choisir pour l'état de l' oeuvre !</span>
+                                <span *ngIf="oeuvreForm.get('nouveau').errors && oeuvreForm.get('nouveau').touched" style="color: red;"> {{"Veuillez choisir pour l'état de l\' oeuvre" | translate}} !</span>
                               </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="country">Couleur</label>
+                        <label for="country">{{"Couleur" | translate}}</label>
                         <select formControlName="couleur" name="country" class="form-control">
-                            <option selected value="">Selectionner une couleur</option>
-                            <option value="1">Noir</option>
-                            <option value="2">Blanc</option>
+                            <option selected value="">{{"Sélectionner une couleur" | translate}}</option>
+                            <option value="1">{{"Noir" | translate}}</option>
+                            <option value="2">{{"Blanc" | translate}}</option>
                         </select>
                         <div>
-                            <span *ngIf="oeuvreForm.get('couleur').errors && oeuvreForm.get('couleur').touched" style="color: red;"> Veuillez choisir une couleur !</span>
+                            <span *ngIf="oeuvreForm.get('couleur').errors && oeuvreForm.get('couleur').touched" style="color: red;"> {{"Veuillez choisir une couleur" | translate}} !</span>
                           </div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-md-6">
-                        <label for="email">Auteur</label>
-                        <input type="text" formControlName="auteur" class="form-control" id="email" placeholder="Auteur">
+                        <label for="email">{{"Auteur" | translate}}</label>
+                        <input type="text" formControlName="auteur" class="form-control" id="email" placeholder="{{'Auteur' | translate}}">
                         <div>
-                            <span *ngIf="oeuvreForm.get('auteur').errors && oeuvreForm.get('auteur').touched" style="color: red;"> Veuillez saisir un auteur !</span>
+                            <span *ngIf="oeuvreForm.get('auteur').errors && oeuvreForm.get('auteur').touched" style="color: red;"> {{"Veuillez saisir un auteur" | translate}} !</span>
                           </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="review">Dimensions</label>
+                        <label for="review">{{"Dimensions" | translate}}</label>
                         <input type="texte" formControlName="dimensions" class="form-control" id="review" placeholder="Dimensions" >
                         <div>
-                            <span *ngIf="oeuvreForm.get('dimensions').errors && oeuvreForm.get('dimensions').touched" style="color: red;"> Veuillez saisir une dimensions !</span>
+                            <span *ngIf="oeuvreForm.get('dimensions').errors && oeuvreForm.get('dimensions').touched" style="color: red;"> {{"Veuillez saisir une dimensions" | translate}} !</span>
                           </div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-md-6">
-                        <label for="email">Année</label>
+                        <label for="email">{{"Année" | translate}}</label>
                         <input type="number" formControlName="annee" class="form-control" id="email" placeholder="Année" >
                         <div>
-                            <span *ngIf="oeuvreForm.get('annee').errors && oeuvreForm.get('annee').touched" style="color: red;"> Veuillez saisir une année !</span>
+                            <span *ngIf="oeuvreForm.get('annee').errors && oeuvreForm.get('annee').touched" style="color: red;"> {{"Veuillez saisir une année" | translate}} !</span>
                           </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="review">Prix</label>
-                        <input type="number" formControlName="prix" class="form-control" id="review" placeholder="Prix (XOF)" >
+                        <label for="review">{{"Prix" | translate}}</label>
+                        <input type="number" formControlName="prix" class="form-control" id="review" placeholder="{{'Prix' | translate}} (XOF)" >
                         <div>
-                            <span *ngIf="oeuvreForm.get('prix').errors && oeuvreForm.get('prix').touched" style="color: red;"> Veuillez saisir un prix !</span>
+                            <span *ngIf="oeuvreForm.get('prix').errors && oeuvreForm.get('prix').touched" style="color: red;"> {{"Veuillez saisir un prix" | translate}} !</span>
                           </div>
                     </div>
                     <!--div class="col-md-6">
@@ -82,28 +82,28 @@
                         <input type="number" formControlName="tauxremise" class="form-control" id="email" placeholder="Remise">
                     </div-->
                     <div class="col-md-6">
-                        <label for="review">Taxes</label>
+                        <label for="review">{{"Taxes" | translate}}</label>
                         <input type="number" formControlName="taxes" class="form-control" id="review" placeholder="18%" >
                         <div>
-                            <span *ngIf="oeuvreForm.get('taxes').errors && oeuvreForm.get('taxes').touched" style="color: red;"> Veuillez renseigner les taxes !</span>
+                            <span *ngIf="oeuvreForm.get('taxes').errors && oeuvreForm.get('taxes').touched" style="color: red;"> {{"Veuillez renseigner les taxes" | translate}} !</span>
                           </div>
                     </div>
                     <div class="col-md-12">
-                        <label for="review">Télécharger l'image &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <label for="review">{{"Télécharger l\'image" | translate}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                         <input type="file" id="image" formControlName="image" (change)="onFileSelected($event)" value="oeuvreForm.image" class="form-control" id="review" >
                         <div>
-                            <span *ngIf="oeuvreForm.get('image').errors && oeuvreForm.get('image').touched" style="color: red;"> Veuillez donner une image de l'oeuvre !</span>
+                            <span *ngIf="oeuvreForm.get('image').errors && oeuvreForm.get('image').touched" style="color: red;"> {{"Veuillez donner une image de l\'oeuvre" | translate}} !</span>
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <label for="review">Description</label>
+                        <label for="review">{{"Description" | translate}}</label>
                         <textarea formControlName="description" ></textarea>
                         <div>
-                            <span *ngIf="oeuvreForm.get('description').errors && oeuvreForm.get('description').touched" style="color: red;"> Veuillez saisir une description !</span>
+                            <span *ngIf="oeuvreForm.get('description').errors && oeuvreForm.get('description').touched" style="color: red;"> {{"Veuillez saisir une description" | translate}} !</span>
                           </div>
                     </div>
                     
-                    <button type="submit" title="Valider" [disabled]="!oeuvreForm.valid" class="btn btn-solid-Valider">Valider</button>
+                    <button type="submit" title="{{'Valider' | translate}}" [disabled]="!oeuvreForm.valid" class="btn btn-solid-Valider">{{"Valider" | translate}}</button>
 <!--                <button type="button" (click)="cancelAdd();" class="btn btn-solid gplus">Annuler</button> -->
                 </div>
             </form>

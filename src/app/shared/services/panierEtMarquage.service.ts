@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthServiceS } from './auth.service';
 import { OeuvreNumerique } from '../modeles/imageNumerique';
 import { Suivre } from '../modeles/suivre';
+import { TranslateService } from '@ngx-translate/core';
 //import { Suivre } from '../modeles/suivre';
 declare var $: any;
 
@@ -28,8 +29,14 @@ export class PanierEtMarquageService extends HttpService{
    *
    * @memberof PanierEtMarquageService
    */
-  constructor(public http: HttpClient,private authService:AuthServiceS,private toastr:ToastrService, private http2: HttpClient, private store: Store<AppState>, 
-    //private actions: FavoriteActions
+  constructor(
+    public http: HttpClient,
+    private authService:AuthServiceS,
+    private toastr:ToastrService, 
+    private http2: HttpClient, 
+    private store: Store<AppState>, 
+    //private actions: FavoriteActions,
+    private translate: TranslateService
     ) {
     super(http);
   }
@@ -87,11 +94,21 @@ export class PanierEtMarquageService extends HttpService{
             align: 'center'
           }
         }); */
-        this.toastr.success("Oeuvre ajoutée au panier","Succès");
+        this.translate.get('PopupOeuvAddedAtCart').subscribe(popup => {
+            this.translate.get('SUCCESS').subscribe(alertType => {
+              this.toastr.success(popup, alertType);
+            })
+          })
+        // this.toastr.success("Oeuvre ajoutée au panier","Succès");
         // const panier: Panier = res.json();
         return <any>res;
       } else {
-        this.toastr.success("Erreur ajout oeuvre","Erreur");
+        this.translate.get('PopupOeuvAddedError').subscribe(popup => {
+          this.translate.get('ERROR').subscribe(alertType => {
+            this.toastr.error(popup, alertType);
+          })
+        })
+        // this.toastr.success("Erreur ajout oeuvre","Erreur");
         /* $.notify({
           icon: "notifications",
           message: "Erreur ajout oeuvre"
@@ -108,9 +125,14 @@ export class PanierEtMarquageService extends HttpService{
 
     },
       error => {
-        this.toastr.success("Échec ajout oeuvre","Échec");
+        this.translate.get('PopupOeuvAddedFailed').subscribe(popup => {
+          this.translate.get('FAILED').subscribe(alertType => {
+            this.toastr.error(popup, alertType);
+          })
+        })
+        // this.toastr.success("Échec ajout oeuvre","Échec");
         console.log(error);
-        /* $.notify({
+        /* $.notify({ FAILED
           icon: "notifications",
           message: "Erreur ajout oeuvre"
         }, {

@@ -13,6 +13,7 @@ import { Visiteur } from '../../shared/modeles/visiteur';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { VisiteurService } from '../../shared/services/visiteur.service';
 import { Route, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -67,7 +68,17 @@ export class AllartistComponent implements OnInit {
     );
   }
 
-  constructor(private artisteService: ArtisteService,private router:Router,private visiteurService:VisiteurService, private fb:FormBuilder, private authS:AuthServiceS,private suivreService:OeuvreService,private oeuvreService: OeuvreService, private toastr: ToastrService) {
+  constructor(
+    private artisteService: ArtisteService,
+    private router:Router,
+    private visiteurService:VisiteurService, 
+    private fb:FormBuilder, 
+    private authS:AuthServiceS,
+    private suivreService:OeuvreService,
+    private oeuvreService: OeuvreService, 
+    private toastr: ToastrService,
+    private translate: TranslateService
+    ) {
     this.initForm();
     this.user = this.authS.getUserConnected();
     if(this.user!=null)
@@ -87,7 +98,10 @@ export class AllartistComponent implements OnInit {
         this.artistesSave = this.artistes;
         console.log("all artiste",this.artistes)
         if(this.artistes && this.artistes.length === 0){
-          this.toastr.info('Liste artiste vide', 'INFO');
+          this.translate.get('PopupListArtisteVide').subscribe(popup => {
+            this.toastr.info(popup, 'INFO');
+            })
+          // this.toastr.info('Liste artiste vide', 'INFO');
         }
         for (let i = 0; i < this.artistes.length; i++) {
           this.marq.push(false);
@@ -113,7 +127,10 @@ export class AllartistComponent implements OnInit {
        },
        err => {
          console.log('erreur : ' + err);
-         this.toastr.error('Erreur récupération de la liste des artistes.', 'Erreur');
+         this.translate.get('PopupErrRecupListArtite').subscribe(popup => {
+          this.toastr.error(popup, 'Erreur');
+          })
+        //  this.toastr.error('Erreur récupération de la liste des artistes.', 'Erreur');
         }
     )
   }
@@ -252,7 +269,10 @@ export class AllartistComponent implements OnInit {
                 console.log("POST call (save visiteur) successful value returned in body", val); 
                 this.visiteur=<Visiteur>val; 
                 console.log("Mise a jour ici", this.visiteur); 
-                alert("Identification réussi et suivi approuvé.");
+                this.translate.get('AlertIdReussiSA').subscribe(popup => {
+                  alert(popup);
+                  })
+                // alert("Identification réussi et suivi approuvé.");
                 this.suivre = new Suivre(null,'SUIV', new Date(), this.currentArtiste.id, 0, 2,this.visiteur.id);
                 console.log("Mon marquest est là "+ this.suivre);
                 this.suivreService.suivreArtiste(this.suivre).subscribe( (val) => {

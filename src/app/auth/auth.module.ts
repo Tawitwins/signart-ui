@@ -55,7 +55,13 @@ import {
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { AuthServiceS } from '../shared/services/auth.service';
 import { UserManagementComponent } from './components/user-management/user-management.component';
+import { TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+}
 @NgModule({
   imports: [
     //AngularFireModule.initializeApp(environment.firebase),
@@ -64,21 +70,28 @@ import { UserManagementComponent } from './components/user-management/user-manag
     //CommonModule,
     //SocialLoginModule,
     RouterModule.forChild(routes),
-    SharedModule,
+    // SharedModule,
     MDBBootstrapModule.forRoot(),
     //FirebaseModule
     MatButtonModule,
     MatInputModule,
     MatIconModule,
-   MatRippleModule,
-   MatTooltipModule,
-   MatSelectModule,
-   MatOptionModule,
-   MatRadioModule,
-   MatFormFieldModule,
-   FormsModule, 
-   ReactiveFormsModule,
-   MatListModule
+    MatRippleModule,
+    MatTooltipModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatRadioModule,
+    MatFormFieldModule,
+    FormsModule, 
+    ReactiveFormsModule,
+    MatListModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+  }),
   ],
   declarations: [
     LoginComponent,

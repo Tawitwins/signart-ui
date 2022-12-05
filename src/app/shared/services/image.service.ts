@@ -6,9 +6,9 @@ import { Injectable } from '@angular/core';
 //import { environment } from 'environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { OeuvreNumerique } from '../modeles/imageNumerique';
-import { Abonne, ListSelection, ListeSelection_Oeuvres, Abonnement, Email } from '../modeles/utilisateur';
+import { Abonne, ListSelection, ListeSelection_Oeuvres, Abonnement, Email, Terminal } from '../modeles/utilisateur';
 import { environment } from '../../../environments/environment';
-//import { environment } from 'src/environments/environment';
+//import { environment } from 'src/environments/environment.prod';
 
 @Injectable()
 export class ImageService extends  HttpService {
@@ -131,6 +131,9 @@ getAbonnement(idAbonne : number): Observable<any> {
 getAbonnementById(idAbonnement : number): Observable<any> {
   return this.http.get(environment.API_ENDPOINT + `abonnement/${idAbonnement}`);
 }
+updateAbonnement(abonnement: Abonnement): Observable<any>{
+  return this.http.put(environment.API_ENDPOINT+`abonnement`,abonnement)
+}
 
 addListe(liste: ListSelection): Observable<any>{
   return this.http.post(environment.API_ENDPOINT+`listeSelection`,liste)
@@ -146,6 +149,9 @@ addListeImage(listeImg: ListeSelection_Oeuvres): Observable<any>{
 
 addAbonnement(abonnement: Abonnement): Observable<any>{
   return this.http.post(environment.API_ENDPOINT+`abonnement`,abonnement)
+}
+getTotalAlgo(abonnement: Abonnement): Observable<any>{
+  return this.http.post(environment.API_ENDPOINT+`abonnement/getMontantByAbonnementDto`,abonnement)
 }
 
 addListOeuvre(listoeuvre: ListeSelection_Oeuvres): Observable<any>{
@@ -190,8 +196,12 @@ addFormation(formation: Formation): Observable<any>{
   return this.post(environment.API_ENDPOINT+`formation`,formation)
 }*/
 
+reabonnement(oldAbonnementdto: Abonnement, terminalResponse: boolean, terminal: Terminal): Observable<any>{
+  return this.http.post(environment.API_ENDPOINT + `abonnement/reabonnement/${terminalResponse}/${terminal.id}`,oldAbonnementdto);
+}
   
-  
-
+getFraisLivraison(idCommande: number){
+  return this.http.get(environment.API_ENDPOINT + `commande/getFraisLivraison/${idCommande}`);
+}
 
 }

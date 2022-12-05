@@ -7,6 +7,8 @@ import { Souscription } from '../../../shared/modeles/souscription';
 import { OeuvreSousc } from '../../../shared/modeles/oeuvre';
 import { Pays } from '../../../shared/modeles/pays';
 import { PaysService } from '../../../shared/services/pays.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register-artist',
@@ -21,6 +23,7 @@ export class RegisterArtistComponent implements OnInit {
   form1Value: any=[];
   form2Value: any=[];
   form3Value: any=[];
+  form4Value: any=[];
   etape:number;
   titreInfoArtistes: any[];
   titreInfoOeuvre1: any[];
@@ -30,6 +33,7 @@ export class RegisterArtistComponent implements OnInit {
   libellePays: string;
   autreSpecialite: boolean;
   autreSpecialiteValue: string;
+  galeries : any = [];
 
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   infoArtisteForm = this.formbuilder.group({
@@ -44,6 +48,7 @@ export class RegisterArtistComponent implements OnInit {
     'adresseGalerie': ['',],
     'ville': ['',],
     'specialites': ['',Validators.required],
+    'idMagasin': ['',Validators.required],
     'autreSepecialite': [''],
     'formation': ['',],
     'exposition': ['',],
@@ -71,9 +76,14 @@ export class RegisterArtistComponent implements OnInit {
   });
   allPays: Pays[];
 
-  constructor(  private formbuilder: FormBuilder, 
+  constructor(  
+    private formbuilder: FormBuilder, 
     private oeuvreService: OeuvreService,
-    private artisteService: ArtisteService,private paysService: PaysService) {
+    private artisteService: ArtisteService,
+    private paysService: PaysService,
+    private translate: TranslateService,
+    private toastrService: ToastrService,
+    ) {
       this.indicatifpays = "+221";
       this.libellePays = "Sénégal";
       this.autreSpecialite = false;
@@ -86,7 +96,16 @@ export class RegisterArtistComponent implements OnInit {
         }
       );
       this.paysService.getAllPays().subscribe(pays => this.allPays = pays);
+
+      this.oeuvreService.getGalerie().subscribe(
+        resp => {
+          this.galeries = resp;
+          console.log('Les galeries ', this.galeries)
+        }
+      )
     }
+
+    
 
   ngOnInit(): void {
   }
@@ -150,104 +169,213 @@ export class RegisterArtistComponent implements OnInit {
     }
   }
 
+  galerieSelected(event){
+
+    if(event.target.value == "autres"){
+      this.autreSpecialite = true;
+    }
+  }
+
+  tester(){
+    console.log(this.infoArtisteForm.value)
+  }
   onSubmit() {
     console.log("Soumission en cours");
     this.onSubmitForm1();
     this.onSubmitForm2();
     this.onSubmitForm3();
-    Swal.fire({
-      title: 'Confirmez vous la soumission de cette demande?',
-      //text: "Ceci sera irreversible!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: ' #f07c10',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Confirmer',
-      cancelButtonText: 'Annuler'
-    }).then((result) => {
-      if (result.value) {
-        this.artisteService.addSouscription(<Souscription>this.form1Value).subscribe(resp=>{
-          let val = <Souscription>resp;
-          if(val.id!=null)
-          {
-            let oeuvreUne=<OeuvreSousc>this.form2Value;
-            oeuvreUne.idSouscription= val.id;
-            this.oeuvreService.addOeuvreSouscriptionArtiste(oeuvreUne).subscribe(resp=>{
-              let val = <Souscription>resp;
-              if(val.id!=null)
-              {
-                console.log("oeuvre une ajouté avec succès");
-              }
-            });
-            let oeuvreDeux=<OeuvreSousc>this.form3Value;
-            oeuvreDeux.idSouscription = val.id;
-            this.oeuvreService.addOeuvreSouscriptionArtiste(oeuvreDeux).subscribe(resp=>{
-              let val = <Souscription>resp;
-              if(val.id!=null)
-              {
-                console.log("oeuvre deux ajouté avec succès");
-              }
-            });
-          }
-        });
-        /*this.oeuvreService.addOeuvreArtiste(addeddArticle).subscribe(
-          res =>{
-            console.log('la reponse est ', res)
-            Swal.fire(
-              'Oeuvre souscrite avec succès!',
-              'Votre oeuvre est en attente de publication!',
-            ) 
-          }
+    
+    this.translate.get('PopupConfirmSoumission').subscribe(popupSm => {
+      this.translate.get('PopupCancelBtn').subscribe(cancel => {
+        this.translate.get('PopupConfirmBtn').subscribe(confirm => {
+          Swal.fire({
+            title: popupSm,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: ' #376809',
+            cancelButtonColor: 'red',
+            cancelButtonText: cancel,
+            confirmButtonText: confirm,
+          }).then((result) => {
+            if (result.value) {
+              this.artisteService.addSouscription(<Souscription>this.form1Value).subscribe(resp=>{
+                let val = <Souscription>resp;
+                if(val.id!=null)
+                {
+                  let oeuvreUne=<OeuvreSousc>this.form2Value;
+                  oeuvreUne.idSouscription= val.id;
+                  this.oeuvreService.addOeuvreSouscriptionArtiste(oeuvreUne).subscribe(resp=>{
+                    let val = <Souscription>resp;
+                    if(val.id!=null)
+                    {
+                      console.log("oeuvre une ajouté avec succès");
+                    }
+                  });
+                  let oeuvreDeux=<OeuvreSousc>this.form3Value;
+                  oeuvreDeux.idSouscription = val.id;
+                  this.oeuvreService.addOeuvreSouscriptionArtiste(oeuvreDeux).subscribe(resp=>{
+                    let val = <Souscription>resp;
+                    if(val.id!=null)
+                    {
+                      console.log("oeuvre deux ajouté avec succès");
+                    }
+                  });
+                }
+              });
+              /*this.oeuvreService.addOeuvreArtiste(addeddArticle).subscribe(
+                res =>{
+                  console.log('la reponse est ', res)
+                  Swal.fire(
+                    'Oeuvre souscrite avec succès!',
+                    'Votre oeuvre est en attente de publication!',
+                  ) 
+                }
+               
+      
+              );*/
+              this.translate.get("PopupFormSoumiSucces").subscribe(formS=>{
+                this.translate.get("SUCCESS").subscribe(alertType=>{
+                  this.toastrService.success(formS,alertType);
+                  location.replace("./accueil");
+                })
+              })
+              // Swal.fire(
+              //   "Formulaire soumis avec succès!",
+              //   "En attente de Validation par l'administration!",
+              // ).then((result)=> {if(result.value){
+              //   location.replace("./accueil");
+              // }})
+      
+            }
+          })
+        })
+      })
+    })
+
+    // Swal.fire({
+    //   title: 'Confirmez vous la soumission de cette demande?',
+    //   //text: "Ceci sera irreversible!",
+    //   icon: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonColor: ' #376809',
+    //   cancelButtonColor: 'red',
+    //   confirmButtonText: 'Confirmer',
+    //   cancelButtonText: 'Annuler',
+    //   reverseButtons: true,
+    // }).then((result) => {
+    //   if (result.value) {
+    //     this.artisteService.addSouscription(<Souscription>this.form1Value).subscribe(resp=>{
+    //       let val = <Souscription>resp;
+    //       if(val.id!=null)
+    //       {
+    //         let oeuvreUne=<OeuvreSousc>this.form2Value;
+    //         oeuvreUne.idSouscription= val.id;
+    //         this.oeuvreService.addOeuvreSouscriptionArtiste(oeuvreUne).subscribe(resp=>{
+    //           let val = <Souscription>resp;
+    //           if(val.id!=null)
+    //           {
+    //             console.log("oeuvre une ajouté avec succès");
+    //           }
+    //         });
+    //         let oeuvreDeux=<OeuvreSousc>this.form3Value;
+    //         oeuvreDeux.idSouscription = val.id;
+    //         this.oeuvreService.addOeuvreSouscriptionArtiste(oeuvreDeux).subscribe(resp=>{
+    //           let val = <Souscription>resp;
+    //           if(val.id!=null)
+    //           {
+    //             console.log("oeuvre deux ajouté avec succès");
+    //           }
+    //         });
+    //       }
+    //     });
+    //     /*this.oeuvreService.addOeuvreArtiste(addeddArticle).subscribe(
+    //       res =>{
+    //         console.log('la reponse est ', res)
+    //         Swal.fire(
+    //           'Oeuvre souscrite avec succès!',
+    //           'Votre oeuvre est en attente de publication!',
+    //         ) 
+    //       }
          
 
-        );*/
-        Swal.fire(
-          "Formulaire soumis avec succès!",
-          "En attente de Validation par l'administration!",
-        ).then((result)=> {if(result.value){
-          location.replace("./accueil");
-        }})
+    //     );*/
+    //     Swal.fire(
+    //       "Formulaire soumis avec succès!",
+    //       "En attente de Validation par l'administration!",
+    //     ).then((result)=> {if(result.value){
+    //       location.replace("./accueil");
+    //     }})
 
-      }
+    //   }
 
-    });
+    // });
     console.log('info artiste',this.form1Value)
     console.log('oeuvre1', this.form2Value)
     console.log('oeuvre2', this.form3Value)
       
   }
   onCancel() {
+    this.translate.get('PopupCancelSoumission').subscribe(popupCSm => {
+      this.translate.get('PopupCancelBtn').subscribe(cancel => {
+        this.translate.get('PopupConfirmBtn').subscribe(confirm => {
+          Swal.fire({
+            title: popupCSm,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: ' #376809',
+            cancelButtonColor: 'red',
+            cancelButtonText: cancel,
+            confirmButtonText: confirm,
+          }).then((result) => {
+            if (result.value) {
+
+              this.translate.get("PopupSoumiCancel").subscribe(soumCancel=>{
+                this.translate.get("SUCCESS").subscribe(alertType=>{
+                  this.toastrService.success(soumCancel,alertType);
+                  location.replace("./accueil");
+                })
+              })
+              // Swal.fire(
+              //   "Soumission annuler!",
+              // ).then((result)=> {if(result.value){
+              //   location.replace("./accueil");}})
+                
+            }
+          })
+        })
+      })
+    })
     
-    Swal.fire({
-      title: 'Êtes vous sure de vouloir annuler cette soumission?',
-      //text: "Ceci sera irreversible!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: ' #f07c10',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Oui',
-      cancelButtonText: 'Non'
-    }).then((result) => {
-      if (result.value) {
-        /*this.oeuvreService.addOeuvreArtiste(addeddArticle).subscribe(
-          res =>{
-            console.log('la reponse est ', res)
-            Swal.fire(
-              'Oeuvre souscrite avec succès!',
-              'Votre oeuvre est en attente de publication!',
-            )
-          }
+    // Swal.fire({
+    //   title: 'Êtes vous sure de vouloir annuler cette soumission?',
+    //   //text: "Ceci sera irreversible!",
+    //   icon: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonColor: ' #376809',
+    //   cancelButtonColor: 'red',
+    //   confirmButtonText: 'Oui',
+    //   cancelButtonText: 'Non',
+    //   reverseButtons: true,
+    // }).then((result) => {
+    //   if (result.value) {
+    //     /*this.oeuvreService.addOeuvreArtiste(addeddArticle).subscribe(
+    //       res =>{
+    //         console.log('la reponse est ', res)
+    //         Swal.fire(
+    //           'Oeuvre souscrite avec succès!',
+    //           'Votre oeuvre est en attente de publication!',
+    //         )
+    //       }
          
 
-        );*/
-        Swal.fire(
-          "Soumission annuler!",
-        ).then((result)=> {if(result.value){
-          location.replace("./accueil");}})
+    //     );*/
+    //     Swal.fire(
+    //       "Soumission annuler!",
+    //     ).then((result)=> {if(result.value){
+    //       location.replace("./accueil");}})
           
-      }
-
-    });
+    //   }
+    // });
   }
   onReturn(){
     location.replace("./accueil");

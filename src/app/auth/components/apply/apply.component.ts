@@ -125,10 +125,10 @@ export class ApplyComponent implements OnInit {
       //text: "Ceci sera irreversible!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: ' #f07c10',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: ' #376809',
+      cancelButtonColor: 'red',
+      cancelButtonText: 'Annuler',
       confirmButtonText: 'Confirmer',
-      cancelButtonText: 'Annuler'
     }).then((result) => {
       if (result.value) {
         this.artisteService.addSouscription(<Souscription>this.form1Value).subscribe(resp=>{
@@ -188,8 +188,8 @@ export class ApplyComponent implements OnInit {
       //text: "Ceci sera irreversible!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: ' #f07c10',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: ' #376809',
+      cancelButtonColor: 'red',
       confirmButtonText: 'Oui',
       cancelButtonText: 'Non'
     }).then((result) => {

@@ -19,16 +19,16 @@
                          SignArt !
                         </p--> 
             <div class="col-lg-12">
-                <h3>créer un compte artiste</h3>
+                <h3>{{"Créer un compte artiste" | translate}}</h3>
                 <p style="font-size: large;" class="text-large">
-                    Vous souhaitez vous référencer sur <strong>SignArt</strong> ? Nous serions heureux de prendre connaissance de votre travail.
+                    {{"Vous souhaitez vous référencer sur" | translate}} <strong>SignArt</strong> ? {{"Nous serions heureux de prendre connaissance de votre travail" | translate}}.
       
-                  <a style="color: #f07c10;text-decoration:underline" [routerLink]="['/critere']">Consultez les conditions</a>. <br>
+                  <a style="color: #f07c10;text-decoration:underline" [routerLink]="['/critere']">{{"Consultez les conditions" | translate}}</a>. <br>
                             
-                            Soumettez votre condidature en remplissant le formulaire ci-dessous.
+                            {{"Soumettez votre condidature en remplissant le formulaire ci-dessous" | translate}}.
                 </p>
                         <p style="font-size: large;">      
-                            Merci pour votre intérêt pour SignArt, et à bientôt !
+                            {{"Merci pour votre intérêt pour SignArt, et à bientôt" | translate}} !
                         </p>    
                         <p  style="font-size: large;">
                          SignArt !
@@ -41,45 +41,45 @@
                     <form [formGroup]="infoArtisteForm" class="theme-form">
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="email">Prénom<strong style="color: red;" >*</strong></label>
+                                <label for="email">{{"Prénom" | translate}}<strong style="color: red;" >*</strong></label>
                                 <input type="text" class="form-control" id="fname" placeholder="Prénom" formControlName="prenom" [value]="form1Value.prenom">
                                 <div *ngIf="infoArtisteForm.get('prenom').errors && infoArtisteForm.get('prenom').touched">
-                                    <p class="register-error-message" style="color: red;">Veuillez saisir votre prénom !</p>
+                                    <p class="register-error-message" style="color: red;">{{"Veuillez saisir votre prénom" | translate}} !</p>
                                   </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="review">Nom<strong style="color: red;" >*</strong></label>
+                                <label for="review">{{"Nom" | translate}}<strong style="color: red;" >*</strong></label>
                                 <input type="text" class="form-control" id="lname" placeholder="Nom" formControlName="nom" [value]="form1Value.nom">
                                 <div *ngIf="infoArtisteForm.get('nom').errors && infoArtisteForm.get('nom').touched">
-                                    <p class="register-error-message" style="color: red;">Veuillez saisir votre nom !</p>
+                                    <p class="register-error-message" style="color: red;">{{"Veuillez saisir votre nom" | translate}} !</p>
                                   </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="email">Email<strong style="color: red;" >*</strong></label>
-                                <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email" [value]="form1Value.email">
+                                <label for="input1">{{"Email" | translate}}<strong style="color: red;" >*</strong></label>
+                                <input type="email" id="input1" class="form-control" id="email" placeholder="{{'Email' | translate}}" formControlName="email" [value]="form1Value.email">
                                 <div *ngIf="infoArtisteForm.get('email').errors && infoArtisteForm.get('email').touched">
-                                    <p class="register-error-message" style="color: red;">Veuillez saisir un email valide !</p>
+                                    <p class="register-error-message" style="color: red;">{{"Veuillez saisir un email valide" | translate}} !</p>
                                   </div>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                <label for="review">Genre<strong style="color: red;" >*</strong></label>
-                                <select name="genre" class="form-control" formControlName="genre" [value]="form1Value.genre">
-                                    <option value="">-- Selectionner un genre --</option>
-                                    <option value="H">Homme</option>
-                                    <option value="F">Femme</option>
+                                <label for="select1">{{"Genre" | translate}}<strong style="color: red;" >*</strong></label>
+                                <select name="genre" id="select1" class="form-control" formControlName="genre" [value]="form1Value.genre">
+                                    <option value="">-- {{"Sélectionner un genre" | translate}} --</option>
+                                    <option value="H">{{"Homme" | translate}}</option>
+                                    <option value="F">{{"Femme" | translate}}</option>
                                 </select>
                                 <div *ngIf="infoArtisteForm.get('genre').errors && infoArtisteForm.get('genre').touched">
-                                    <p class="register-error-message" style="color: red;">Veuillez choisir un genre !</p>
+                                    <p class="register-error-message" style="color: red;">{{"Veuillez choisir un genre" | translate}} !</p>
                                   </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                <label for="review">Pays<strong style="color: red;" >*</strong></label>
-                                <select (change)="choisirPays($event)" class="form-control" formControlName="codePays" [value]="form1Value.codePays">
-                                    <option value="">-- Selectionner un pays --</option>
+                                <label for="select2">{{"Pays" | translate}}<strong style="color: red;" >*</strong></label>
+                                <select id="select2" (change)="choisirPays($event)" class="form-control" formControlName="codePays" [value]="form1Value.codePays">
+                                    <option value="">-- {{"Sélectionner un pays" | translate}} --</option>
                                     <option *ngFor="let p of allPays" [value]="p.code">{{p.libelle}}</option>
                                     <!-- <option value="selected">Selectionner un pays</option>
                                     <option value="sn">Sénégal</option>
@@ -87,52 +87,52 @@
                                     <option value="Australia">Mali</option> -->
                                 </select>
                                 <div *ngIf="infoArtisteForm.get('codePays').errors && infoArtisteForm.get('codePays').touched">
-                                    <p class="register-error-message" style="color: red;">Veuillez choisir un pays !</p>
+                                    <p class="register-error-message" style="color: red;">{{"Veuillez choisir un pays" | translate}} !</p>
                                   </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="review">Téléphone<strong style="color: red;" >*</strong></label>
+                                <label for="input2">{{"Téléphone" | translate}}<strong style="color: red;" >*</strong></label>
                                 <div class="row">
                                     <div  class="col-md-2">
-                                        <input type="text" class="form-control" formControlName="indicatif" [(ngModel)]="indicatifpays" disabled="true">
+                                        <input id="input2" type="text" class="form-control" formControlName="indicatif" [(ngModel)]="indicatifpays" disabled="true">
                                     </div>
                                     <div  class="col-md-10">
-                                        <input type="text" class="form-control" id="review" placeholder="00 000 00 00" formControlName="telephone" [value]="form1Value.telephone">
+                                        <input id="input3" type="text" class="form-control" id="review" placeholder="00 000 00 00" formControlName="telephone" [value]="form1Value.telephone">
                                     </div>
                                 </div>
                                 <div *ngIf="infoArtisteForm.get('telephone').errors && infoArtisteForm.get('telephone').touched">
-                                    <p class="register-error-message" style="color: red;">Veuillez saisir votre numéro de téléphone !</p>
+                                    <p class="register-error-message" style="color: red;">{{"Veuillez saisir votre numéro de téléphone" | translate}} !</p>
                                   </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="email">Nom galerie</label>
+                                <label for="email">{{"Nom galerie" | translate}}</label>
                                 <input type="text" class="form-control" id="fname" placeholder="Art futuriste" formControlName="nomGalerie" [value]="form1Value.nomGalerie">
                             </div>
                             <div class="col-md-6">
-                                <label for="review">Adresse galerie</label>
+                                <label for="review">{{"Adresse galerie" | translate}}</label>
                                 <input type="text" class="form-control" id="lname" placeholder="Yoff, apecsy 2" formControlName="adresseGalerie" [value]="form1Value.adresseGalerie">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="email">Site web</label>
+                                <label for="email">{{"Site web" | translate}}</label>
                                 <input type="text" class="form-control" id="fname" placeholder="wwww.art.domain.sn" formControlName="siteWeb" [value]="form1Value.siteWeb">
                             </div>
                             <div class="col-md-6">
-                                <label for="review">Ville</label>
-                                <input type="text" class="form-control" id="lname" placeholder="Ville"  formControlName="ville" [value]="form1Value.ville">
+                                <label for="review">{{"Ville" | translate}}</label>
+                                <input type="text" class="form-control" id="lname" placeholder="{{'Ville' | translate}}"  formControlName="ville" [value]="form1Value.ville">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="email">Formations</label>
-                                <input type="text" class="form-control" id="fname" placeholder="Formations" formControlName="formation" [value]="form1Value.formation">
+                                <label for="email">{{"Formations" | translate}}</label>
+                                <input type="text" class="form-control" id="fname" placeholder="{{'Formations' | translate}}" formControlName="formation" [value]="form1Value.formation">
                             </div>
                             <div class="col-md-6">
-                                <label for="review">Expositions</label>
-                                <input type="text" class="form-control" id="lname" placeholder="Expositions" formControlName="exposition" [value]="form1Value.exposition">
+                                <label for="review">{{"Expositions" | translate}}</label>
+                                <input type="text" class="form-control" id="lname" placeholder="{{'Expositions' | translate}}" formControlName="exposition" [value]="form1Value.exposition">
                             </div>
                         </div>
                         <div class="form-row">
@@ -141,82 +141,92 @@
                                 <input type="password" class="form-control" id="review" placeholder="Enter your password" required="">
                             </div> -->
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                <label for="review">Spécialité</label>
-                                <select (change)="specialiteSelected($event)" name="genre" class="form-control" formControlName="specialites" [value]="form1Value.specialite">
-                                    <option value="">-- Selectionner une spécialités --</option>
+                                <label for="select3">{{"Spécialité" | translate}}</label>
+                                <select id="select3" (change)="specialiteSelected($event)" name="genre" class="form-control" formControlName="specialites" [value]="form1Value.specialite">
+                                    <option value="">-- {{"Sélectionner une spécialités" | translate}} --</option>
                                     <option *ngFor="let technique of techniques" [value]="technique.libelle">{{technique.libelle}}</option>
-                                    <option value="autres">Autres</option>
+                                    <option value="autres">{{"Autres" | translate}}</option>
                                 </select>
                                 <div *ngIf="infoArtisteForm.get('specialites').errors && infoArtisteForm.get('specialites').touched">
-                                    <p class="register-error-message" style="color: red;">Veuillez choisir une spécialité !</p>
+                                    <p class="register-error-message" style="color: red;">{{"Veuillez choisir une spécialité" | translate}} !</p>
                                   </div>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-12" *ngIf="autreSpecialite == true">
-                                <label for="review">Précisez votre spécialité</label>
-                                <input type="text" class="form-control" id="lname" placeholder="Spécialité" formControlName="autreSepecialite" >
+                                <label for="review">{{"Précisez votre spécialité" | translate}}</label>
+                                <input type="text" class="form-control" id="lname" placeholder="{{'Spécialité' | translate}}" formControlName="autreSepecialite" >
                                 <!--div *ngIf="infoArtisteForm.get('specialite').errors && infoArtisteForm.get('specialite').touched">
                                     <p class="register-error-message" style="color: red;">Veuillez saisir votre spécialité</p>
                                   </div-->
                             </div>
                            
+                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <label for="review">{{"Galerie" | translate}}</label>
+                                <select  name="genre" class="form-control" formControlName="idMagasin" [value]="form1Value.idMagasin">
+                                    <option value="">-- {{"Sélectionner une galerie" | translate}} --</option>
+                                    <option *ngFor="let galerie of galeries" [value]="galerie.id">{{galerie.nom}}, {{galerie.adresse}}</option>
+                                </select>
+                                <div *ngIf="infoArtisteForm.get('idMagasin').errors && infoArtisteForm.get('idMagasin').touched">
+                                    <p class="register-error-message" style="color: red;">{{"Veuillez choisir une galerie" | translate}} !</p>
+                                  </div>
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        <strong><p style="margin-top: 30px;font-size: large;"><a style="text-decoration:underline"> NB </a>:  La soumission de deux oeuvres est obligatoire pour un compte artiste. Veuillez renseigner les champs suivants pour chaque oeuvre.</p></strong><br>
+        <strong><p style="margin-top: 30px;font-size: large;"><a style="text-decoration:underline"> NB </a>:  {{"La soumission de deux oeuvres est obligatoire pour un compte artiste" | translate}}. {{"Veuillez renseigner les champs suivants pour chaque oeuvre" | translate}}.</p></strong><br>
         <div class="row">
             <div class="col-md-6">
-                <h3>Oeuvre n°1</h3>
+                <h3>{{"Oeuvre" | translate}} n°1</h3>
                 <div class="theme-card">
                     <form [formGroup]="oeuvre1Form" class="theme-form">
                         <!-- <strong><p>Deuxième oeuvre à Uploader</p></strong> -->
-                        <label>Image : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong style="color: red;" >*</strong></label>
+                        <label>{{"Image" | translate}} : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong style="color: red;" >*</strong></label>
                         <input type="file" (change)="onFileSelected($event,1)">  
                         <div *ngIf="oeuvre1Form.get('image').errors && oeuvre1Form.get('image').touched">
-                            <p class="register-error-message" style="color: red;">Veuillez choisir une image !</p>
+                            <p class="register-error-message" style="color: red;">{{"Veuillez choisir une image" | translate}} !</p>
                           </div>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="Titre">Titre<strong style="color: red;" >*</strong></label>
-                                <input type="text" class="form-control" id="fname" placeholder="Titre" formControlName="nom" [value]="form2Value.nom">
+                                <label for="Titre">{{"Titre" | translate}}<strong style="color: red;" >*</strong></label>
+                                <input type="text" class="form-control" id="fname" placeholder="{{'Titre' | translate}}" formControlName="nom" [value]="form2Value.nom">
                                 <div *ngIf="oeuvre1Form.get('nom').errors && oeuvre1Form.get('nom').touched">
-                                    <p class="register-error-message" style="color: red;">Veuillez saisir un titre !</p>
+                                    <p class="register-error-message" style="color: red;">{{"Veuillez saisir un titre" | translate}} !</p>
                                   </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="review">Auteur<strong style="color: red;" >*</strong></label>
-                                <input type="text" class="form-control" id="lname" placeholder="Auteur" formControlName="auteur" [value]="form2Value.auteur" >
+                                <label for="review">{{"Auteur" | translate}}<strong style="color: red;" >*</strong></label>
+                                <input type="text" class="form-control" id="lname" placeholder="{{'Auteur' | translate}}" formControlName="auteur" [value]="form2Value.auteur" >
                                 <div *ngIf="oeuvre1Form.get('auteur').errors && oeuvre1Form.get('auteur').touched">
-                                    <p class="register-error-message" style="color: red;">Veuillez donner un auteur !</p>
+                                    <p class="register-error-message" style="color: red;">{{"Veuillez donner un auteur" | translate}} !</p>
                                   </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-10 col-sm-10 col-xs-12">
-                                <label for="review">Technique<strong style="color: red;" >*</strong></label>
+                                <label for="review">{{"Technique" | translate}}<strong style="color: red;" >*</strong></label>
                                 <select name="Technique" class="form-control" formControlName="idTechnique" [value]="form2Value.idTechnique">
-                                    <option value="">-- Selectionner une technique --</option>
+                                    <option value="">-- {{"Sélectionner une technique" | translate}} --</option>
                                     <option *ngFor="let technique of techniques" [value]="technique.id">{{technique.libelle}}</option>
                                 </select>
                                 <div *ngIf="oeuvre1Form.get('idTechnique').errors && oeuvre1Form.get('idTechnique').touched">
-                                    <p class="register-error-message" style="color: red;">Veuillez choisir une technique !</p>
+                                    <p class="register-error-message" style="color: red;">{{"Veuillez choisir une technique" | translate}} !</p>
                                   </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="annee">Année<strong style="color: red;" >*</strong></label>
+                                <label for="annee">{{"Année" | translate}}<strong style="color: red;" >*</strong></label>
                                 <input type="number" class="form-control" id="email" placeholder="Annee" formControlName="annee" [value]="form2Value.annee">
                                 <div *ngIf="oeuvre1Form.get('annee').errors && oeuvre1Form.get('annee').touched">
-                                    <p class="register-error-message" style="color: red;">Veuillez saisir l'année!</p>
+                                    <p class="register-error-message" style="color: red;">{{"Veuillez saisir l\'année" | translate}}!</p>
                                   </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="review">Dimensions<strong style="color: red;" >*</strong></label>
+                                <label for="review">{{"Dimensions" | translate}}<strong style="color: red;" >*</strong></label>
                                 <input type="text" class="form-control" id="review" placeholder="50x60x1cm (Lxlxh)" formControlName="dimensions" [value]="form2Value.dimensions">
                                 <div *ngIf="oeuvre1Form.get('dimensions').errors && oeuvre1Form.get('dimensions').touched">
-                                    <p class="register-error-message" style="color: red;">Veuillez donner l'annee !</p>
+                                    <p class="register-error-message" style="color: red;">{{"Veuillez donner l\'année | translate"}} !</p>
                                   </div>
                             </div>
                         </div>
@@ -224,56 +234,56 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <h3>Oeuvre n°2</h3>
+                <h3>{{"Oeuvre" | translate}} n°2</h3>
                 <div class="theme-card">
                     <form [formGroup]="oeuvre2Form" class="theme-form">
                         <!-- <strong><p>Deuxième oeuvre à Uploader</p></strong> -->
-                        <label>Image : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color: red;" >*</strong></label>
+                        <label>{{"Image" | translate}} : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color: red;" >*</strong></label>
                         <input type="file" (change)="onFileSelected($event,2)">  
                         <div *ngIf="oeuvre2Form.get('image').errors && oeuvre2Form.get('image').touched">
-                            <p class="register-error-message" style="color: red;">Veuillez choisir une image !</p>
+                            <p class="register-error-message" style="color: red;">{{"Veuillez choisir une image" | translate}} !</p>
                           </div>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="Titre">Titre<strong style="color: red;" >*</strong></label>
-                                <input type="text" class="form-control" id="fname" placeholder="Titre" formControlName="nom" [value]="form3Value.nom">
+                                <label for="Titre">{{"Titre" | translate}}<strong style="color: red;" >*</strong></label>
+                                <input type="text" class="form-control" id="fname" placeholder="{{'Titre' | translate}}" formControlName="nom" [value]="form3Value.nom">
                                 <div *ngIf="oeuvre2Form.get('nom').errors && oeuvre2Form.get('nom').touched">
-                                    <p class="register-error-message" style="color: red;">Veuillez saisir un titre !</p>
+                                    <p class="register-error-message" style="color: red;">{{"Veuillez saisir un titre" | translate}} !</p>
                                   </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="review">Auteur<strong style="color: red;" >*</strong></label>
+                                <label for="review">{{"Auteur" | translate}}<strong style="color: red;" >*</strong></label>
                                 <input type="text" class="form-control" id="lname" placeholder="Auteur" formControlName="auteur" [value]="form3Value.auteur" >
                                 <div *ngIf="oeuvre2Form.get('auteur').errors && oeuvre2Form.get('auteur').touched">
-                                    <p class="register-error-message" style="color: red;">Veuillez donner un auteur !</p>
+                                    <p class="register-error-message" style="color: red;">{{"Veuillez donner un auteur" | translate}} !</p>
                                   </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-10 col-sm-10 col-xs-12">
-                                <label for="review">Technique<strong style="color: red;" >*</strong></label>
+                                <label for="review">{{"Technique" | translate}}<strong style="color: red;" >*</strong></label>
                                 <select name="Technique" class="form-control" formControlName="idTechnique" [value]="form3Value.idTechnique">
-                                    <option value="">-- Selectionner une technique --</option>
+                                    <option value="">-- {{"Sélectionner une technique" | translate}} --</option>
                                     <option *ngFor="let technique of techniques" [value]="technique.id">{{technique.libelle}}</option>
                                 </select>
                                 <div *ngIf="oeuvre2Form.get('idTechnique').errors && oeuvre2Form.get('idTechnique').touched">
-                                    <p class="register-error-message" style="color: red;">Veuillez choisir une technique !</p>
+                                    <p class="register-error-message" style="color: red;">{{"Veuillez choisir une technique" | translate}} !</p>
                                   </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="annee">Année<strong style="color: red;" >*</strong></label>
-                                <input type="number" class="form-control" id="email" placeholder="Annee" formControlName="annee" [value]="form3Value.annee">
+                                <label for="annee">{{"Année" | translate}}<strong style="color: red;" >*</strong></label>
+                                <input type="number" class="form-control" id="email" placeholder="{{'Année' | translate}}" formControlName="annee" [value]="form3Value.annee">
                                 <div *ngIf="oeuvre2Form.get('annee').errors && oeuvre2Form.get('annee').touched">
-                                    <p class="register-error-message" style="color: red;">Veuillez saisir l'année!</p>
+                                    <p class="register-error-message" style="color: red;">{{"Veuillez saisir l\'année" | translate}}!</p>
                                   </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="review">Dimensions<strong style="color: red;" >*</strong></label>
+                                <label for="review">{{"Dimensions" | translate}}<strong style="color: red;" >*</strong></label>
                                 <input type="text" class="form-control" id="review" placeholder="50x60x1cm (Lxlxh)" formControlName="dimensions" [value]="form3Value.dimensions">
                                 <div *ngIf="oeuvre2Form.get('dimensions').errors && oeuvre2Form.get('dimensions').touched">
-                                    <p class="register-error-message" style="color: red;">Veuillez donner l'annee !</p>
+                                    <p class="register-error-message" style="color: red;">{{"Veuillez donner l'année" | translate}} !</p>
                                   </div>
                             </div>
                         </div>
@@ -283,7 +293,7 @@
         </div>
         <br>
         <br>
-        <button class="btn btn-solid-Valider" [disabled]="!infoArtisteForm.valid || !oeuvre1Form.valid || !oeuvre2Form.valid || oeuvre1Form.get('image').errors || oeuvre2Form.get('image').errors" title="Valider" (click)="onSubmit();" >Valider</button>
+        <button class="btn btn-solid-Valider" [disabled]="!infoArtisteForm.valid || !oeuvre1Form.valid || !oeuvre2Form.valid || oeuvre1Form.get('image').errors || oeuvre2Form.get('image').errors" title="{{'Valider' | translate}}" (click)="onSubmit();" >{{"Valider" | translate}}</button>
     </div>
 </div>
 </section>
