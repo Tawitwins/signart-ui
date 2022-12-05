@@ -323,12 +323,12 @@ export class CheckoutComponent implements OnInit {
         this.toastService.info(popup ,"Attention");
       })
     }
-    else if(this.selectedModeLiv?.LCode=="MAG" && this.selectedMagasin == null){
+    else if(this.selectedModeLiv?.code=="MAG" && this.selectedMagasin == null){
       this.translate.get('PopupChoixGalerie').subscribe(popup => {
       this.toastService.warning(popup);
       })
     }
-    else if(this.selectedModeLiv?.LCode=="DOM" && (this.selectedTarification == null || this.selectedServiceLivraison == null)){
+    else if(this.selectedModeLiv?.code=="DOM" && (this.selectedTarification == null || this.selectedServiceLivraison == null)){
       this.translate.get('PopupChoixDomicile').subscribe(popup => {
         this.toastService.warning(popup);
         })
@@ -445,7 +445,7 @@ export class CheckoutComponent implements OnInit {
   setCODAsSelectedModeLivraison(modes,code) {
     let selectedMode = new ModeLivraison();;
     modes.forEach((mode) => {
-      if (mode.LCode === code) {
+      if (mode.code === code) {
         selectedMode = mode;
       }
     });
