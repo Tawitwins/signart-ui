@@ -4,7 +4,7 @@ WORKDIR /app
 COPY / ./
 RUN npm install
 RUN npm run build --prod
-EXPOSE 4200
+EXPOSE 8084
 #stage 2
 FROM nginx:alpine as dist
 COPY --from=node /app/dist/signart/browser /usr/share/nginx/html
