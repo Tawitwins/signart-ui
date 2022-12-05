@@ -13,6 +13,7 @@ import { OeuvreService } from '../../shared/services/oeuvre.service';
 import { tap } from 'rxjs/operators';
 import { Client } from '../../shared/modeles/client';
 import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cart',
@@ -29,7 +30,16 @@ export class CartComponent implements OnInit {
   data: any;
   public isConnected: boolean;
 
-  constructor(public productService: ProductService,private toastrService:ToastrService,private oeuvreS: OeuvreService,private toastr:ToastrService,private authS:AuthServiceS,private newCheckoutService:CheckoutService,private router:Router) {
+  constructor(
+    public productService: ProductService,
+    private toastrService:ToastrService,
+    private oeuvreS: OeuvreService,
+    private toastr:ToastrService,
+    private authS:AuthServiceS,
+    private newCheckoutService:CheckoutService,
+    private router:Router,
+    private translate: TranslateService
+    ) {
     //this.productService.cartItems.subscribe(response => this.products = response);
     this.isConnected = false;
     this.productService.cartItems.subscribe(response => this.oeuvres = response);
@@ -86,23 +96,44 @@ export class CartComponent implements OnInit {
   confirmer()
   {
     if (this.user === null) {
-     // this.router.navigate(['/auth', 'account']);
-        Swal.fire({
-        //title: 'Are you sure?',
-        text: "Vous devez vous connecter pour effectuer cette action",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#376809',
-        cancelButtonColor: 'red',
-        cancelButtonText: 'annuler',
-        confirmButtonText: 'Oui, se connecter',
-        reverseButtons: true,
-      }).then((result) => {
-        if (result.value) {
-          console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
-          this.router.navigate(['/pages/login']);
-        }
+      this.translate.get('PopupConnexEffAction').subscribe(connexEff => {
+        this.translate.get('confirmButtonText').subscribe(cbc => {
+          this.translate.get('cancelButtonText').subscribe(cancelButtonText => {
+            Swal.fire({
+              title: connexEff,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: ' #f07c10',
+              cancelButtonColor: '#d33',
+              confirmButtonText: cbc,
+              cancelButtonText: cancelButtonText
+            }).then((result)=> {
+              if (result.value) {
+                console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+                this.router.navigate(['/pages/login']);
+              }
+            });
+          })
+        })
       })
+
+     // this.router.navigate(['/auth', 'account']);
+      //   Swal.fire({
+      //   //title: 'Are you sure?',
+      //   text: "Vous devez vous connecter pour effectuer cette action",
+      //   icon: 'warning',
+      //   showCancelButton: true,
+      //   confirmButtonColor: '#376809',
+      //   cancelButtonColor: 'red',
+      //   cancelButtonText: 'annuler',
+      //   confirmButtonText: 'Oui, se connecter',
+      //   reverseButtons: true,
+      // }).then((result) => {
+      //   if (result.value) {
+      //     console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+      //     this.router.navigate(['/pages/login']);
+      //   }
+      // })
      // this.toastr.info("Vous devez vous authentifier avant la commande!","Redirection");
     }
      else {

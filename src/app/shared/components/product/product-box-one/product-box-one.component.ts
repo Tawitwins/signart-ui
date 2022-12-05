@@ -16,6 +16,7 @@ import { ImageDto } from '../../../modeles/image';
 import { Client } from '../../../modeles/client';
 import { AuthServiceS } from '../../../services/auth.service';
 import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-product-box-one',
@@ -56,9 +57,12 @@ export class ProductBoxOneComponent implements OnInit {
   public ImageSrc : string
   public isFavorite:boolean;
 
-  constructor(public productService: ProductService,
+  constructor(
+    public productService: ProductService,
     private authService: AuthServiceS,
-    private router:Router) { 
+    private router:Router,
+    private translate: TranslateService
+    ) { 
       //const wishlistItem=JSON.parse(localStorage['wishlistItems'] || '[]');
       console.log(this.oeuvre);
       //const result= wishlistItem.find(item => item.id === this.oeuvre.id)
@@ -152,22 +156,42 @@ export class ProductBoxOneComponent implements OnInit {
   addToWishlist(oeuvre: any) {
     this.user = this.authService.getUserConnected();
     if(this.user==null){
-      Swal.fire({
-        //title: 'Are you sure?',
-        text: "Vous devez vous connecter pour effectuer cette action",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#376809',
-        cancelButtonColor: 'red',
-        cancelButtonText: 'annuler',
-        confirmButtonText: 'Oui, se connecter',
-        reverseButtons: true,
-      }).then((result) => {
-        if (result.value) {
-          console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
-          this.router.navigate(['/pages/login']);
-        }
-      }) 
+        this.translate.get('PopupConnexEffAction').subscribe(connexEff => {
+          this.translate.get('confirmButtonText').subscribe(cbc => {
+            this.translate.get('cancelButtonText').subscribe(cancelButtonText => {
+              Swal.fire({
+                title: connexEff,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: ' #f07c10',
+                cancelButtonColor: '#d33',
+                confirmButtonText: cbc,
+                cancelButtonText: cancelButtonText
+              }).then((result)=> {
+                if (result.value) {
+                  console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+                  this.router.navigate(['/pages/login']);
+                }
+              });
+            })
+          })
+        })
+      // Swal.fire({
+      //   //title: 'Are you sure?',
+      //   text: "Vous devez vous connecter pour effectuer cette action",
+      //   icon: 'warning',
+      //   showCancelButton: true,
+      //   confirmButtonColor: '#376809',
+      //   cancelButtonColor: 'red',
+      //   cancelButtonText: 'annuler',
+      //   confirmButtonText: 'Oui, se connecter',
+      //   reverseButtons: true,
+      // }).then((result) => {
+      //   if (result.value) {
+      //     console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+      //     this.router.navigate(['/pages/login']);
+      //   }
+      // }) 
      // this.isFavorite=this.productService.addToWishlist(oeuvre);
      }else{
       this.isFavorite=this.productService.addToWishlist(oeuvre);

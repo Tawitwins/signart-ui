@@ -298,5 +298,8 @@
   "PopupOptionLivraisonPriseC": "Delivery option taken into account!\nDelivery costs: {{amount}} FCFA.",
   "PopupIrreversible":"This will be irreversible!",
   
-  "Avertissement: Les frais de la commission de paydunya est de: 2% + 100 FCFA sur le montant total de la commande.":"Warning: Paydunya's commission fee is: 2% + 100 FCFA on the total amount of the order."
+  "Avertissement: Les frais de la commission de paydunya est de: 2% + 100 FCFA sur le montant total de la commande.":"Warning: Paydunya's commission fee is: 2% + 100 FCFA on the total amount of the order.",
+  
+  "PopupConnexEffAction":"You must log in to perform this action."
+
 }

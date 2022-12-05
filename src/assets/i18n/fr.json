@@ -261,7 +261,7 @@
   "List of published exhibitions":"Liste des expositions publiées",
   "List of exhibitions awaiting publication":"Liste des expositions en attente de publication",
   "Your cart is empty":"Votre panier est vide",
-  "By logging into your SignArt account, you will be able to memorize directly the articles that you have liked. You will easily find your chosen items during a next connection, wherever you are.":"By logging into your SignArt account, you will be able to memorize directly the articles that you have liked. You will easily find your chosen items during a next connection, wherever you are.",
+  "By logging into your SignArt account, you will be able to memorize directly the articles that you have liked. You will easily find your chosen items during a next connection, wherever you are.":  "En vous connectant à votre compte SignArt, vous pourrez mémoriser directement les articles qui vous auront plu.Vous retrouverez facilement vos articles choisis lors d’une prochaine connexion, où que vous soyez.",
   "Order":"Commander",
   "Total amount":"Montant total",
   "Remove from cart":"Supprimer du panier",
@@ -296,6 +296,8 @@
   "PopupOptionLivraisonPriseC": "Option de livraison prise en compte!\nFrais de Livraison : {{montant}} FCFA.",
   "PopupIrreversible":"Ceci sera irreversible!",
 
-  "Warning: Paydunya's commission fee is: 2% + 100 FCFA on the total amount of the order.":"Avertissement: Les frais de la commission de paydunya est de: 2% + 100 FCFA sur le montant total de la commande."
-  
+  "Warning: Paydunya's commission fee is: 2% + 100 FCFA on the total amount of the order.":"Avertissement: Les frais de la commission de paydunya est de: 2% + 100 FCFA sur le montant total de la commande.",
+
+  "PopupConnexEffAction":"Vous devez vous connecter pour effectuer cette action"
+
 }
