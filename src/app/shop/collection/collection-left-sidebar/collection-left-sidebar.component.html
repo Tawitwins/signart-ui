@@ -11,21 +11,21 @@
                         <div class="collection-filter-block">
                             <div class="collection-mobile-back" (click)="toggleMobileSidebar()">
                                 <span class="filter-back">
-                                    <i class="fa fa-angle-left" aria-hidden="true"></i> Retour
+                                    <i class="fa fa-angle-left" aria-hidden="true"></i> {{"Retour" | translate}}
                                 </span>
                             </div>
                             <!-- Category filter start -->
                              <!--app-categories></app-categories-->
 
                              <div class="collection-collapse-block border-0" [class.open]="collapseCategorie">
-                                <h3 class="collapse-block-title" (click)="collapseCategorie = !collapseCategorie">Catégories</h3>
+                                <h3 class="collapse-block-title" (click)="collapseCategorie = !collapseCategorie"> {{"Catégories" | translate}} </h3>
                                 <div class="collection-collapse-block-content">
                                     <div class="collection-brand-filter">
                                         <ul class="category-list">
                                             <li>
                                                 <a 
                                                 (click)="resetFilterCategorie()" style="cursor: pointer;">
-                                                    Tout
+                                                    {{"Tout" | translate}}
                                                 </a>
                                             </li>
                                             <li *ngFor="let category of filterbyCategory">
@@ -47,7 +47,7 @@
                             </app-price-->
 
                             <div class="collection-collapse-block border-0" [class.open]="collapse">
-                                <h3 class="collapse-block-title" (click)="collapse = !collapse">Prix</h3>
+                                <h3 class="collapse-block-title" (click)="collapse = !collapse"> {{"Prix" | translate}} </h3>
                                 <div class="collection-collapse-block-content">
                                     <div class="collection-brand-filter">
                                         <div class="mt-2">
@@ -86,16 +86,14 @@
                                           </video>
                                         </section-->
                                     <div class="top-banner-content small-section">
-                                        <h4>Les oeuvres d'art</h4>
+                                        <h4> {{"Les œuvres d'art" | translate}} </h4>
                                         <!-- <h5> Galerie Signart
                                         </h5> -->
                                         <p>
                                             <!-- "L’art est le ferment nécessaire qui conduit vers une réelle transformation de l’être humain et de son développement, 
                                             car parmi les multiples voies de la connaissance, la voie artistique est la plus douce, et certainement la plus marquante et la plus durable": (Kandinsky, 1989). -->
-                                            L'art est un large éventail d'activités humaines impliquant la création d'artefacts visuels, auditifs ou de performance ( œuvres d'art ) qui expriment l' imagination , 
-                                            les idées conceptuelles ou les compétences techniques du créateur , destinées à être appréciées principalement pour leur beauté ou leur pouvoir émotionnel.
-                                            <br>Nous vous proposons une multitude d'oeuvres de chefs d'oeuvre réalisés par de grands artistes. Embellissez vos locaux par le fruit d'une imagination 
-                                            pure et authentique. 
+                                            {{"L'art est un large éventail d'activités humaines impliquant la création d'artefacts visuels, auditifs ou de performance ( œuvres d'art ) qui expriment l' imagination, les idées conceptuelles ou les compétences techniques du créateur , destinées à être appréciées principalement pour leur beauté ou leur pouvoir émotionnel" | translate}}
+                                            <br> {{"Nous vous proposons une multitude d'oeuvres de chefs d'oeuvre réalisés par de grands artistes. Embellissez vos locaux par le fruit d'une imagination pure et authentique" | translate}}. 
                                         </p>
                                     </div>
                                 </div>
@@ -103,7 +101,7 @@
                                     <div class="col-xl-12">
                                         <div class="filter-main-btn" (click)="toggleMobileSidebar()">
                                             <span class="filter-btn btn btn-theme">
-                                                <i class="fa fa-filter" aria-hidden="true"></i> Filtre
+                                                <i class="fa fa-filter" aria-hidden="true"></i> {{"Filtre" | translate}}
                                             </span>
                                         </div>
                                     </div>
@@ -116,7 +114,7 @@
                                     </li>
                                     <li class="clear_filter" *ngIf="tags.length > 0">
                                         <a href="javascript:void(0)" class="clear_filter" (click)="removeAllTags()">
-                                            Effacer
+                                            {{"Effacer" | translate}}
                                         </a>
                                     </li>
                                 </ul>
@@ -131,7 +129,7 @@
                                                 <div class="col-lg-6 offset-lg-3">
                                                     <div class="form-header">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="Recherchez une oeuvre">
+                                                            <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="{{'Recherchez une œuvre' | translate}}">
                                                         </div>
                                                         <button type="submit" title="Rechercher" class="btn btn-primary"><i class="fa fa-search"></i></button>
                                                     </div>
@@ -163,9 +161,9 @@
                                             </div>
                                             <div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="!oeuvres.length">
                                                 <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
-                                                <h3>Désolé! Il n'y a pas d'oeuvres pour le moment !!! </h3>
-                                                <p>Veuillez actualiser la page ou essayer une recherche avec d'autres mots clés.</p>
-                                                <a [routerLink]="['/shop/collection/left/sidebar']" title="Continuer l'exploration" class="btn btn-solid">Continuer l'exploration</a>
+                                                <h3> {{"Désolé! Il n'y a pas d'oeuvres pour le moment" | translate}} !!! </h3>
+                                                <p> {{"Veuillez actualiser la page ou essayer une recherche avec d'autres mots clés" | translate}} .</p>
+                                                <a [routerLink]="['/shop/collection/left/sidebar']" title="Continuer l'exploration" class="btn btn-solid"> {{"Continuer l'exploration" | translate}} </a>
                                             </div>
                                         </div>
                                     </div>

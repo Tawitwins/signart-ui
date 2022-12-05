@@ -16,23 +16,23 @@
               <br>
               <div class="row">
                 <div class="col-md-6">
-                  <button title="Information générales" [ngClass]="(section === 'general')?'btn abonnement': 'btn annonces'" (click)='ChangerSection("general")'> Profil</button> 
+                  <button title="{{'Information générales' | translate}}" [ngClass]="(section === 'general')?'btn abonnement': 'btn annonces'" (click)='ChangerSection("general")'>{{"Profil" | translate}} </button> 
                 </div>
                 <div class="col-md-6">
-                  <button title="Mes oeuvres" [ngClass]="(section === 'listeOeuvres' || section === 'addOeuvre' )?'btn abonnement': 'btn annonces'" (click)='ChangerSection("listeOeuvres")'> <i class="ti-PLUS"></i> Mes oeuvres</button>
-                </div>
-              </div>
-              <div class="row" style="margin-top: 20px;">
-                <div class="col-md-6">
-                  <button title="Mes annonces" [ngClass]="(section === 'listeAnnonces' || section === 'addAnnonce')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeAnnonces")'> Mes annonces</button> 
-                </div>
-                <div class="col-md-6">
-                  <button title="Mes expositions" [ngClass]="(section === 'listeExpo' || section === 'addExpo')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeExpo")'> <i class="ti-PLUS"></i> Mes expositions</button>
+                  <button title="{{'Mes oeuvres' | translate}}" [ngClass]="(section === 'listeOeuvres' || section === 'addOeuvre' )?'btn abonnement': 'btn annonces'" (click)='ChangerSection("listeOeuvres")'> <i class="ti-PLUS"></i>{{"Mes oeuvres" | translate}} </button>
                 </div>
               </div>
               <div class="row" style="margin-top: 20px;">
                 <div class="col-md-6">
-                  <button title="Changer votre mot de passe ou votre photo de profil" [ngClass]="(section === 'parametres')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("parametres")'> Paramètres</button> 
+                  <button title="{{'Mes annonces' | translate}}" [ngClass]="(section === 'listeAnnonces' || section === 'addAnnonce')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeAnnonces")'>{{"Mes annonces" | translate}} </button> 
+                </div>
+                <div class="col-md-6">
+                  <button title="{{'Mes expositions' | translate}}" [ngClass]="(section === 'listeExpo' || section === 'addExpo')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeExpo")'> <i class="ti-PLUS"></i>{{"Mes expositions" | translate}} </button>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 20px;">
+                <div class="col-md-6">
+                  <button title="{{'Changer votre mot de passe ou votre photo de profil' | translate}}" [ngClass]="(section === 'parametres')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("parametres")'>{{"Paramètres" | translate}} </button> 
                 </div>
                <!--  <div class="col-md-6">
                   <button [ngClass]="(section === 'listeExpo' || section === 'addExpo')?'btn abonnement': 'btn annonces'"  (click)='ChangerSection("listeExpo")'> <i class="ti-PLUS"></i> Mes expositions</button>
@@ -44,18 +44,18 @@
             <div class="row">
               <div class="col-xl-3 col-sm-6">
                 <div class=" bjrouge">
-                  <div class="side-l"><p class="big-l">{{artiste?.nbOeuvres}}</p> <p class="col-p">Oeuvres d'art</p></div>
+                  <div class="side-l"><p class="big-l">{{artiste?.nbOeuvres}}</p> <p class="col-p">{{"Oeuvres d'art" | translate}} </p></div>
               </div>
               </div>
               <div class="col-xl-3 col-sm-6">
                <div class="bbleu">
-                  <div class="side-l"><a [routerLink]="['/pages/followers/',artiste.id]" title="Nombre de followers"><p class="big-l">{{artiste?.nbFans}}</p></a> <p class="col-p">Followers</p></div>
+                  <div class="side-l"><a [routerLink]="['/pages/followers/',artiste.id]" title="{{'Nombre de followers' | translate}}"><p class="big-l">{{artiste?.nbFans}}</p></a> <p class="col-p">{{"Followers" | translate}} </p></div>
               </div> 
                
               </div>
               <div class="col-xl-3 col-sm-6">
                 <div class="marrons">
-                  <div class="side-l"><p class="big-l">Art Plastique</p> <p class="col-p">{{artiste.profession}}</p></div>
+                  <div class="side-l"><p class="big-l">{{"Art Plastique" | translate}} </p> <p class="col-p">{{artiste.profession}}</p></div>
               </div> 
                 </div>
              <!--  <div *ngIf='section=="listeOeuvres"' class="col-xl-3 col-sm-6 col-md-2">	  
@@ -80,7 +80,7 @@
                 <div class="col-xl-12">
                   <nav aria-label="breadcrumb">
                       <ol class="breadcrumb">
-                        <li class="breadcrumb-item">A propos de l'artiste</li>
+                        <li class="breadcrumb-item">{{"A propos de l'artiste" | translate}} </li>
                     </ol>
                   </nav>
                   <div class="top-banner-wrapper">
@@ -98,9 +98,9 @@
                           </div>
                         </section>
                         <section *ngIf='section=="listeOeuvres"' class="tab-product m-0">
-                          <button style="float: right;margin-top:-4%; margin-bottom: 2px;" class="btn annonce col-md-2.5" title="Soumettre une oeuvre" (click)='ChangerSection("addOeuvre")'>Soumettre une oeuvre</button>
+                          <button style="float: right;margin-top:-4%; margin-bottom: 2px;" class="btn annonce col-md-2.5" title="{{'Soumettre une oeuvre' | translate}}" (click)='ChangerSection("addOeuvre")'>{{"Soumettre une oeuvre" | translate}} </button>
                           <div class="table-responsive card" style="padding: 20px;">
-                            <h4><strong>  Liste des oeuvres publiées</strong></h4>
+                            <h4><strong> {{"Liste des oeuvres publiées" | translate}} </strong></h4>
                             <div class="col-md-12">
                               <div class="collection-product-wrapper" id="products">
                                   
@@ -114,9 +114,9 @@
                                           </div>
                                           <div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="!oeuvres.length">
                                               <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
-                                              <h3>Désolé! Il n'ya pas d'oeuvre pour le moment!! </h3>
-                                              <p>Veuilez vérifier votre clé de recherche ou actualiser la page.</p>
-                                              <a [routerLink]="['/shop/collection/left/sidebar']" title="Continuer l'exploration" class="btn btn-solid">Continue à explorer</a>
+                                              <h3>{{"Désolé! Il n'y a pas d'œuvres pour le moment" | translate}}!! </h3>
+                                              <p>{{"Veuillez actualiser la page ou essayer une recherche avec d'autres mots clés" | translate}}.</p>
+                                              <a [routerLink]="['/shop/collection/left/sidebar']" title="{{'Continuer l\'exploration' | translate}}" class="btn btn-solid">{{"Continuer l'exploration" | translate}} </a>
                                           </div>
                                       </div>
                                   </div>
@@ -124,24 +124,24 @@
                             </div>
                             <br>
                             <br>
-                            <h4><strong> Liste des oeuvres en attente de publication</strong></h4>
+                            <h4><strong>{{"Liste des oeuvres en attente de publication" | translate}} </strong></h4>
                             <div class="table-responsive"> 
                               <table class="table table-hover"style="text-align: center;">
                                   <thead class="text-warning">
                                       <!--th>ID</th-->
-                                      <th>Image</th>
-                                      <th>Nom</th>
-                                      <th>Auteur</th>
-                                      <th>Annee</th>
+                                      <th>{{"Image" | translate}} </th>
+                                      <th>{{"Nom." | translate}} </th>
+                                      <th>{{"Auteur" | translate}} </th>
+                                      <th>{{"Année" | translate}} </th>
                                     <!-- <th>Sous technique</th>-->
-                                      <th>Prix</th>
+                                      <th>{{"Prix" | translate}} </th>
                                       
                                     
                                   </thead>
                                   <tbody>
                                       <p *ngIf="oeuvresEnAttenteValidation?.length == 0">
                                         <br>
-                                        La liste est vide.
+                                        {{"La liste est vide" | translate}}.
                                       </p>
                                       <tr *ngFor="let oeuvre of oeuvresEnAttenteValidation | slice: (pagOAP-1) * pageSizeOAP : (pagOAP-1) * pageSizeOAP + pageSizeOAP;">
                                           <!--td>{{index + 1}}</td-->
@@ -167,25 +167,25 @@
                           </div>
                         </section>
                         <section *ngIf='section=="listeAnnonces"' class="tab-product m-0">
-                            <button style="float: right;margin-top:-4%;font-size: large;" class="btn annonce col-md-2.5" title="Soumettre une annonce" (click)='ChangerSection("addAnnonce")'>Soumettre une annonce</button>
+                            <button style="float: right;margin-top:-4%;font-size: large;" class="btn annonce col-md-2.5" title="{{'Soumettre une annonce' | translate}}" (click)='ChangerSection("addAnnonce")'>{{"Soumettre une annonce" | translate}}</button>
                           <div class="table-responsive" style="padding: 20px;">
-                            <h4><strong>  Liste des annonces publiées</strong></h4>
+                            <h4><strong> {{"Liste des annonces publiées" | translate}} </strong></h4>
                             <table style="text-align: center;" class="table table-hover">
                                 <thead class=" text-dark">
                                     <th>
-                                    Titre
+                                    {{"Titre" | translate}}
                                     </th>
                                     <th>
-                                        Lieu
+                                    {{"Lieu" | translate}}
                                     </th>
                                     <th>
-                                    Début
+                                    {{"Début" | translate}}
                                     </th>
                                     <th>
-                                    Fin
+                                    {{"Fin" | translate}}
                                     </th>
                                     <th>
-                                        Description
+                                    {{"Description" | translate}}
                                     </th>
                                     <!--th>
                                         Etat Publication
@@ -197,7 +197,7 @@
                                 <tbody>
                                   <p *ngIf="listesAnnonce?.length == 0">
                                     <br>
-                                    La liste est vide.
+                                    {{"La liste est vide" | translate}}.
                                   </p>
                                     <tr *ngFor="let annonce of listesAnnonce | slice: (pagAP-1) * pageSizeAP : (pagAP-1) * pageSizeAP + pageSizeAP">
                                         <td>
@@ -231,27 +231,27 @@
                                         </td> -->
                                     </tr>
                                 </tbody>
-                            </table>
+                            </table> 
                             <ngb-pagination style="float: right;"  [collectionSize]="listesAnnonce.length" [(page)]="pagAP" [pageSize]="pageSizeAP" aria-label="Default pagination">
                             </ngb-pagination>
                             <br>
-                            <h4><strong>  Liste des annonces en attente de publication</strong></h4>
+                            <h4><strong>{{"Liste des annonces en attente de publication" | translate}}  </strong></h4>
                             <table style="text-align: center;" class="table table-hover">
                               <thead class=" text-dark">
                                   <th>
-                                  Titre
+                                  {{"Titre" | translate}}
                                   </th>
                                   <th>
-                                      Lieu
+                                  {{"Lieu" | translate}}
                                   </th>
                                   <th>
-                                  Début
+                                   {{"Début" | translate}} 
                                   </th>
                                   <th>
-                                  Fin
+                                  {{"Fin" | translate}}
                                   </th>
                                   <th>
-                                      Description
+                                  {{"Description" | translate}}
                                   </th>
                                   <!--th>
                                       Etat Publication
@@ -263,7 +263,7 @@
                               <tbody>
                                 <p *ngIf="listesAnnonceEnAttente?.length == 0">
                                   <br>
-                                  La liste est vide.
+                                  {{"La liste est vide" | translate}}.
                                 </p>
                                   <tr *ngFor="let annonce of listesAnnonceEnAttente | slice: (pagAAP-1) * pageSizeAAP : (pagAAP-1) * pageSizeAAP + pageSizeAAP">
                                       <td>
@@ -303,25 +303,25 @@
                           </div>
                         </section>
                         <section *ngIf='section=="listeExpo"' class="tab-product m-0">
-                          <button style="float: right;margin-top:-4%"  class="btn annonce col-md-2.5" title="Soumettre une exposition" (click)='ChangerSection("addExpo")'>Soumettre une exposition</button>
+                          <button style="float: right;margin-top:-4%"  class="btn annonce col-md-2.5" title="{{'Soumettre une exposition' | translate}}" (click)='ChangerSection("addExpo")'>{{"Soumettre une exposition" | translate}}</button>
                           <div class="table-responsive" style="padding: 20px;">
-                            <h4><strong>   Liste des expositions publiées</strong></h4>
+                            <h4><strong> {{"Liste des expositions publiées" | translate}}  </strong></h4>
                             <table style="text-align: center;" class="table table-hover">
                               <thead class=" text-dark">
                                   <th>
-                                  Titre
+                                  {{"Titre" | translate}}
                                   </th>
                                   <th>
-                                  Type
+                                  {{"Type" | translate}}
                                   </th>
                                   <th>
-                                  Lieu
+                                  {{"Lieu" | translate}}
                                   </th>
                                   <th>
-                                  Date Debut
+                                  {{"Date Début" | translate}}
                                   </th>
                                   <th>
-                                    Date Fin
+                                    {{"Date Fin" | translate}}
                                   </th>
                                   <!--th>
                                     Etat Publication
@@ -330,7 +330,7 @@
                               <tbody>
                                 <p *ngIf="listesExp?.length == 0">
                                   <br>
-                                  La liste est vide.
+                                  {{"La liste est vide" | translate}}.
                                 </p>
                                   <tr *ngFor="let exposition of listesExp | slice: (pagEP-1) * pageSizeEP : (pagEP-1) * pageSizeEP + pageSizeEP">
                                       <td>
@@ -360,23 +360,23 @@
                             <ngb-pagination style="float: right;" [collectionSize]="listesExpEnAttente.length" [(page)]="pagEP" [pageSize]="pageSizeEP" aria-label="Default pagination">
                             </ngb-pagination>
                             <br>
-                            <h4><strong>   Liste des expositions en attente de publication</strong></h4>
+                            <h4><strong> {{"Liste des expositions en attente de publication" | translate}}  </strong></h4>
                             <table style="text-align: center;" class="table table-hover">
                               <thead class=" text-dark">
                                   <th>
-                                  Titre
+                                  {{"Titre" | translate}}
                                   </th>
                                   <th>
-                                  Type
+                                  {{"Type" | translate}}
                                   </th>
                                   <th>
-                                  Lieu
+                                  {{"Lieu" | translate}}
                                   </th>
                                   <th>
-                                  Date Debut
+                                  {{"Date Début" | translate}}
                                   </th>
                                   <th>
-                                    Date Fin
+                                    {{"Date Fin" | translate}}
                                   </th>
                                   <!--th>
                                     Etat Publication
@@ -385,7 +385,7 @@
                               <tbody>
                                 <p *ngIf="listesExpEnAttente?.length == 0">
                                   <br>
-                                  La liste est vide.
+                                  {{"La liste est vide" | translate}}.
                                 </p>
                                   <tr *ngFor="let exposition of listesExpEnAttente | slice: (pagEAP-1) * pageSizeEAP : (pagEAP-1) * pageSizeEAP + pageSizeEAP">
                                       <td>

@@ -32,6 +32,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CheckoutService } from '../../../shared/services/checkout.service';
 import { Address } from '../../../shared/modeles/address';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -80,12 +81,10 @@ export class DashboardComponent implements OnInit {
  delais: DelaieAbonnement[];
  chooseDelais: DelaieAbonnement;
  delaiId : number;
- option_TSIGNART: boolean = false;
- option_TBOX: boolean = false;
- option_JDT: boolean = false;
- option_LOUE: boolean = false;
  shownTerminal: boolean = false;
  terminalResponse: boolean = false;
+
+ fraisLivraison: number;
  public oeuvreNumeriqueAfficher: OeuvreNumerique;
  public abonneAffich: Abonne;
 
@@ -115,7 +114,7 @@ export class DashboardComponent implements OnInit {
   livraison: Livraison;
   image: string;
   images: any[];
-  Sum: number;
+  Sum: number = 0;
 
   pageSizeAdress = 4;
   pagAdress = 0;
@@ -143,7 +142,8 @@ export class DashboardComponent implements OnInit {
               private artisteService: ArtisteService,
               private imageService: ImageService,
               public jwtHelper: JwtHelperService, private ngxService: NgxUiLoaderService,
-              private route: ActivatedRoute, public domSanitizer: DomSanitizer, private checkoutService: CheckoutService) {
+              private route: ActivatedRoute, public domSanitizer: DomSanitizer, private checkoutService: CheckoutService,
+              private translate: TranslateService) {
     this.infopage = 0;
     this.initmdpForm();
     this.listeArtiste = 0;
@@ -345,22 +345,33 @@ export class DashboardComponent implements OnInit {
       const testUser = resp;
       console.log('test1', testUser);
       if (testUser === null){
-        Swal.fire({
-          title: 'votre ancien mot de passe est incorrect!',
-          icon: 'error',
-          cancelButtonColor: 'red',
-        });
+
+        this.translate.get('PopupModeDePasseIncorrect').subscribe(popup => {
+          this.translate.get('ERROR').subscribe(alertType => {
+            Swal.fire({
+              title: popup,
+              icon: alertType,
+              cancelButtonColor: 'red',
+            });
+            })
+          })
+     
       }
       else{
         console.log('test2', testUser);
         this.authS.changeUserPassword(passwordForm.mdpNouv, userDetails).subscribe(
               resp => {
                 console.log(resp);
-                Swal.fire({
-                  title: 'Votre mot de passe a été modifié avec avec succès!',
-                  icon: 'success',
-                  cancelButtonColor: 'red',
-                });
+                this.translate.get('PopupUpdatePasswordSuccess').subscribe(popup => {
+                  this.translate.get('SUCCESS').subscribe(alertType => {
+                    Swal.fire({
+                      title: popup,
+                      icon: alertType,
+                      cancelButtonColor: 'red',
+                    });
+                    })
+                  })
+              
 
               }
             );
@@ -401,8 +412,13 @@ export class DashboardComponent implements OnInit {
   this.authS.editClient(this.client).subscribe(
  data => {
  this.client = data;
- this.toastrService.success('Modification terminée', 'Succès');
- console.log('mise à jour', data);
+ this.translate.get('PopupModificationTermine').subscribe(popup => {
+  this.translate.get('SUCCESS').subscribe(alertType => {
+    this.toastrService.success(popup, alertType);
+    console.log('mise à jour', data);
+    })
+  })
+
  },
  error => {
    alert(error);
@@ -596,7 +612,6 @@ showDetailsAbonnement(id: number){
     if (this.abonnements[i].id == id){
       this.abonnementAffiche = this.abonnements[i];
       console.log('abonneAffiche dashboard ', this.abonnementAffiche);
-
       for (let i = 0; i < this.etatAbonnements.length; i++) {
         if (this.abonnementAffiche.etatAbonnement == this.etatAbonnements[i].id){
           console.log('activePaiementttttttttttttttttt', this.etatAbonnements[i] );
@@ -618,6 +633,9 @@ showDetailsAbonnement(id: number){
         console.log('reponse delai', response);
         this.delaiAffiche = response;
         console.log('delai affiche', this.delaiAffiche);
+        this.imageService.getTotalAlgo(this.abonnementAffiche).subscribe(resp=>{
+          this.montantOeuvres = resp*this.delaiAffiche.nbMois*30;
+        })
       });
       this; this.imageService.getTerminalById(this.abonnementAffiche.idTerminal).subscribe(response => {
         console.log('reponse terminal', response);
@@ -633,13 +651,15 @@ showDetailsAbonnement(id: number){
         this.listeOeuvreAffiche = response;
         console.log('liste affiche', this.listeOeuvreAffiche);
         for (let i = 0; i < this.listeOeuvreAffiche.length; i++) {
-          this.imageService.getImage(this.listeOeuvreAffiche[i].nomOeuvre).subscribe(response => {
-            const oeuvre = response;
-            console.log('oeuvre', oeuvre);
-            this.montantOeuvres =  this.montantOeuvres + oeuvre.tarif;
-            console.log('oeuvres total', this.montantOeuvres);
-            this.oeuvresAffiche.push(oeuvre);
-          });
+          //if(this.listeOeuvreAffiche.filter(o=>o.nomOeuvre==this.listeOeuvreAffiche[i].nomOeuvre).length<=0){
+            this.imageService.getImage(this.listeOeuvreAffiche[i].nomOeuvre).subscribe(response => {
+              const oeuvre = response;
+              console.log('oeuvre', oeuvre);
+              //this.montantOeuvres =  this.montantOeuvres + oeuvre.tarif;
+              console.log('oeuvres total', this.montantOeuvres);
+              this.oeuvresAffiche.push(oeuvre);
+            });
+          //}
         }
         console.log('oeuvres affiche', this.oeuvresAffiche);
 
@@ -658,13 +678,17 @@ showDetailsCommande(idCommande: number){
   this.infopage = 11;
   this.checkoutService.getCommandeById(idCommande).subscribe(
          (response) => {
-          this.commande = response;
-
+          this.commande = <Commande>response;
+          // this.getFraisLivraison(this.commande);
          /*  this.commande.lignesCommande.forEach(element => {
             this.commande.total += element.prix * element.quantite;
           });
- */
-          this.Sum = (this.commande.total + 1100/* this.commande.totalLivraison */);
+ */       
+          console.log(this.commande)
+          if(this.commande != null && this.livraison == null)
+           {
+            this.Sum = this.commande.montant;
+           }
           this.ligneCommande = this.commande.lignesCommande;
           this.idLigneCMD = this.ligneCommande[0].id;
           for (let i = 0; i < this.ligneCommande.length; i++){
@@ -675,9 +699,12 @@ showDetailsCommande(idCommande: number){
        );
   this.checkoutService.getLivraisonBycommande(idCommande).subscribe(
       (response) => {
-          this.livraison = response;
-          this.adressLivraison = this.livraison.adresseLivraison;
+          this.livraison = <Livraison>response;
+          this.adressLivraison = <Address>this.livraison.adresseLivraison;
           console.log('Les informations sur la livraison', this.livraison);
+          if(this.livraison != null){
+            this.getFraisLivraison(this.commande);
+          }
       }
     );
   this.checkoutService.getPaiementById(idCommande).subscribe(
@@ -707,95 +734,123 @@ showDetailsCommande(idCommande: number){
     }
 
     terminalSignArt(){
-      Swal.fire({
-        title: 'Voulez vous conserver votre terminal SignArt?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: ' #f07c10',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Oui',
-        cancelButtonText: 'Non'
-      }).then((result)=> {
-        if(result.value){
-          this.terminalResponse = true;
-          console.log(this.terminalResponse)
-        }else if(result.dismiss === Swal.DismissReason.cancel){
-          this.terminals = this.terminals.filter(terminal => terminal.code.split(" ").join("") != 'JDT');
-          this.shownTerminal = true;
-          this.terminalResponse = false;
-          console.log(this.terminalResponse)
-        }
-      });
+      this.translate.get('PopupConserveTerminal').subscribe(conserveTerminal => {
+        this.translate.get('confirmButtonText').subscribe(confirmButtonText => {
+          this.translate.get('cancelButtonText').subscribe(cancelButtonText => {
+            Swal.fire({
+              title: conserveTerminal,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: ' #f07c10',
+              cancelButtonColor: '#d33',
+              confirmButtonText: confirmButtonText,
+              cancelButtonText: cancelButtonText
+            }).then((result)=> {
+              if(result.value){
+                this.terminalResponse = true;
+                console.log(this.terminalResponse)
+              }else if(result.dismiss === Swal.DismissReason.cancel){
+                this.terminals = this.terminals.filter(terminal => terminal.code.split(" ").join("") != 'JDT');
+                this.shownTerminal = true;
+                this.terminalResponse = false;
+                console.log(this.terminalResponse)
+              }
+            });
+          })
+        })
+      })
+ 
     }
   
     terminalTvBox(){
-      Swal.fire({
-        title: 'Voulez vous conserver votre Tv Box?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: ' #f07c10',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Oui',
-        cancelButtonText: 'Non'
-      }).then((result)=> {
-        if(result.value){
-          this.terminalResponse = true;
-          console.log(this.terminalResponse)
-        }else if(result.dismiss === Swal.DismissReason.cancel){
-          this.terminals = this.terminals.filter(terminal => terminal.code.split(" ").join("") != 'JDT');
-          this.shownTerminal = true
-          this.terminalResponse = false;
-          console.log(this.terminalResponse)
-        }
-      });
+      this.translate.get('PopupConserveTvBox').subscribe(conserveTvBox => {
+        this.translate.get('confirmButtonText').subscribe(confirmButtonText => {
+          this.translate.get('cancelButtonText').subscribe(cancelButtonText => {
+            Swal.fire({
+              title: conserveTvBox,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: ' #f07c10',
+              cancelButtonColor: '#d33',
+              confirmButtonText: confirmButtonText,
+              cancelButtonText: cancelButtonText
+            }).then((result)=> {
+              if(result.value){
+                this.terminalResponse = true;
+                console.log(this.terminalResponse)
+              }else if(result.dismiss === Swal.DismissReason.cancel){
+                this.terminals = this.terminals.filter(terminal => terminal.code.split(" ").join("") != 'JDT');
+                this.shownTerminal = true
+                this.terminalResponse = false;
+                console.log(this.terminalResponse)
+              }
+            });
+          })
+        })
+      })
+ 
     }
   
     myTerminal(){
-      Swal.fire({
-        title: 'Avez-vous toujours votre terminal?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: ' #f07c10',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Oui',
-        cancelButtonText: 'Non'
-      }).then((result)=> {
-        console.log(result);
-        if(result.value){
-          this.terminalResponse = true;
-          console.log(this.terminalResponse)
-        }else if(result.dismiss === Swal.DismissReason.cancel){
-          this.terminals = this.terminals.filter(terminal => terminal.code.split(" ").join("") != 'JDT');
-          this.shownTerminal = true
-          this.terminalResponse = false;
-          console.log(this.terminalResponse)
-        }
-      });
+      this.translate.get('PopupTjrsTerminal').subscribe(TjrsTerminal => {
+        this.translate.get('confirmButtonText').subscribe(confirmButtonText => {
+          this.translate.get('cancelButtonText').subscribe(cancelButtonText => {
+            Swal.fire({
+              title: TjrsTerminal,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: ' #f07c10',
+              cancelButtonColor: '#d33',
+              confirmButtonText: confirmButtonText,
+              cancelButtonText: cancelButtonText
+            }).then((result)=> {
+              console.log(result);
+              if(result.value){
+                this.terminalResponse = true;
+                console.log(this.terminalResponse)
+              }else if(result.dismiss === Swal.DismissReason.cancel){
+                this.terminals = this.terminals.filter(terminal => terminal.code.split(" ").join("") != 'JDT');
+                this.shownTerminal = true
+                this.terminalResponse = false;
+                console.log(this.terminalResponse)
+              }
+            });
+          })
+        })
+      })
+   
     }
   
     terminalLoue(){
-      Swal.fire({
-        title: 'Voulez vous continuer la location?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: ' #f07c10',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Oui',
-        cancelButtonText: 'Non'
-      }).then((result)=> {
-        if(result.value){
-          this.terminalResponse = true;
-          console.log(this.terminalResponse)
-        }else if(result.dismiss === Swal.DismissReason.cancel){
-          this.terminals = this.terminals.filter(
-            terminal => terminal.code.split(" ").join("") != 'JDT'
-            && terminal.code.split(" ").join("") != 'LOUE'
-            );
-          this.shownTerminal = true
-          this.terminalResponse = false;
-          console.log(this.terminalResponse)
-        }
-      });
+      this.translate.get('PopupContinuerLocation').subscribe(location => {
+        this.translate.get('confirmButtonText').subscribe(confirmButtonText => {
+          this.translate.get('cancelButtonText').subscribe(cancelButtonText => {
+            Swal.fire({
+              title: location,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: ' #f07c10',
+              cancelButtonColor: '#d33',
+              confirmButtonText: confirmButtonText,
+              cancelButtonText: cancelButtonText
+            }).then((result)=> {
+              if(result.value){
+                this.terminalResponse = true;
+                console.log(this.terminalResponse)
+              }else if(result.dismiss === Swal.DismissReason.cancel){
+                this.terminals = this.terminals.filter(
+                  terminal => terminal.code.split(" ").join("") != 'JDT'
+                  && terminal.code.split(" ").join("") != 'LOUE'
+                  );
+                this.shownTerminal = true
+                this.terminalResponse = false;
+                console.log(this.terminalResponse)
+              }
+            });
+          })
+        })
+      })
+    
     }
   
     choixTerminal(chooseTerminal: Terminal){
@@ -834,8 +889,23 @@ showDetailsCommande(idCommande: number){
 
       this.imageService.reabonnement(this.reabonnement, this.terminalResponse, this.chooseTerminal).subscribe(res=>{
         console.log(res);
-        this.toastrService.success("Réabonnement initié avec succés","Succés");
+        this.translate.get("PopupInitieInitieReab").subscribe(reab=>{
+          this.translate.get("SUCCESS").subscribe(alertType=>{
+            this.toastrService.success(reab,alertType);
+          })
+        })
         this.shownTerminal = false;
+      })
+    }
+    
+    getFraisLivraison(commande:Commande){
+      this.imageService.getFraisLivraison(commande.id).subscribe(resp => {
+        this.fraisLivraison = <number>resp;
+        console.log(this.commande.montant)
+        console.log(this.fraisLivraison)
+        this.Sum = <number>(this.commande.montant + this.fraisLivraison);
+        console.log(this.fraisLivraison);
+        console.log(this.fraisLivraison);
       })
     }
 }

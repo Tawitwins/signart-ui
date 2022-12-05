@@ -7,11 +7,11 @@
                 <table style="text-align: center;" class="table cart-table table-responsive-xs">
                     <thead>
                     <tr class="table-head">
-                        <th scope="col">image</th>
-                        <th scope="col">Article</th>
-                        <th scope="col">Prix</th>
-                        <th scope="col">Fin d'abonnement</th>
-                        <th scope="col">action</th>
+                        <th scope="col">{{"image" | translate}}</th>
+                        <th scope="col">{{"Article" | translate}}</th>
+                        <th scope="col">{{"Prix" | translate}}</th>
+                        <th scope="col">{{"Fin d\'abonnement" | translate}}</th>
+                        <th scope="col">{{"action" | translate}}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -24,7 +24,7 @@
                             <td><a [routerLink]="['/shop/product/left/sidebar/',product.title.replace(' ', '-')]">La jaconde Leonardo de Vinci</a>
                                 <div class="mobile-cart-content row">
                                     <div class="col-xs-3">
-                                        <p>En stock</p>
+                                        <p>{{"En stock" | translate}}</p>
                                     </div>
                                     <div class="col-xs-3">
                                         <h2 class="td-color">100000 FCFA</h2>

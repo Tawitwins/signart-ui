@@ -4,59 +4,59 @@
           <form [formGroup]="form" class="theme-form">
               <div class="form-row">
                   <div class="col-md-6">
-                      <label for="email">Titre</label>
+                      <label for="email">{{"Titre" | translate}}</label>
                       <input type="text" formControlName="titre" class="form-control" id="fname" placeholder="Prénom" required="">
                       <div>
-                        <span *ngIf="form.get('titre').errors && form.get('titre').touched" style="color: red;"> Veuillez saisir un titre !</span>
+                        <span *ngIf="form.get('titre').errors && form.get('titre').touched" style="color: red;"> {{"Veuillez saisir un titre" | translate}} !</span>
                       </div>
                   </div>
                   <div class="col-md-6">
-                      <label for="email">Lieu</label>
+                      <label for="email">{{"Lieu" | translate}}</label>
                       <input formControlName="adresse" type="text" class="form-control" id="fname" placeholder="Lieu" required="">
                       <div>
-                        <span *ngIf="form.get('adresse').errors && form.get('adresse').touched" style="color: red;"> Veuillez saisir une adresse !</span>
+                        <span *ngIf="form.get('adresse').errors && form.get('adresse').touched" style="color: red;"> {{"Veuillez saisir une adresse" | translate}} !</span>
                       </div>
                   </div>
               </div>
               <div class="form-row">
                 <div class="col-md-12">
-                  <label for="email">Type d'expostion</label>
+                  <label for="email">{{"Type d\'expostion" | translate}}</label>
                   <select formControlName="type" name="typeExpo" class="form-control">
-                    <option value="">Selectionner un type</option>
-                    <option value="personnel">personnel</option>
-                    <option value="collectif">collectif</option>
+                    <option value="">{{"Sélectionner un type" | translate}}</option>
+                    <option value="personnel">{{"personnel" | translate}}</option>
+                    <option value="collectif">{{"collectif" | translate}}</option>
                   </select>
                   <div>
-                    <span *ngIf="form.get('type').errors && form.get('type').touched" style="color: red;"> Veuillez choisir un type !</span>
+                    <span *ngIf="form.get('type').errors && form.get('type').touched" style="color: red;"> {{"Veuillez choisir un type" | translate}} !</span>
                   </div>
                 </div>
               </div>
               <div class="form-row">
                   <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                      <label for="email">Date de début</label>
+                      <label for="email">{{"Date de début" | translate}}</label>
                       <input formControlName="dateDebut" type="datetime-local" class="form-control" id="fname" placeholder="Date" required="">
                       <div>
-                        <span *ngIf="form.get('dateDebut').errors && form.get('dateDebut').touched" style="color: red;"> Veuillez choisir une date de début !</span>
+                        <span *ngIf="form.get('dateDebut').errors && form.get('dateDebut').touched" style="color: red;"> {{"Veuillez choisir une date de début" | translate}} !</span>
                       </div>
                   </div>
                   <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                      <label for="email">Date de fin</label>
+                      <label for="email">{{"Date de fin" | translate}}</label>
                       <input formControlName="dateFin" type="datetime-local" class="form-control" id="fname" placeholder="Date de fin" required="">
                       <div>
-                        <span *ngIf="form.get('dateFin').errors && form.get('dateFin').touched" style="color: red;"> Veuillez choisir un date de fin !</span>
+                        <span *ngIf="form.get('dateFin').errors && form.get('dateFin').touched" style="color: red;"> {{"Veuillez choisir un date de fin" | translate}} !</span>
                       </div>
                   </div>
               </div>
               <div class="form-row">
                   <div class="col-md-12">
-                      <label for="review">Description</label>
+                      <label for="review">{{"Description" | translate}}</label>
                       <textarea  formControlName="description"  ></textarea>
                       <div>
-                        <span *ngIf="form.get('description').errors && form.get('description').touched" style="color: red;"> Veuillez saisir une description !</span>
+                        <span *ngIf="form.get('description').errors && form.get('description').touched" style="color: red;"> {{"Veuillez saisir une description" | translate}} !</span>
                       </div>
                   </div>
                   
-                  <button class="btn btn-solid-Valider" title="Valider" type="submit"  [disabled]="this.isValid === false || this.form.invalid" (click)="onAddExposition()">Valider</button>
+                  <button class="btn btn-solid-Valider" title="Valider" type="submit"  [disabled]="this.isValid === false || this.form.invalid" (click)="onAddExposition()">{{"Valider" | translate}}</button>
                   <!-- <button class="btn btn-solid gplus" type="button" (click)="addNewExposition(0);">Annuler</button> -->
               </div>
           </form>

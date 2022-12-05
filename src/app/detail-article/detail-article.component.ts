@@ -14,6 +14,8 @@ import { ImageDto } from '../shared/modeles/image';
 import { Panier } from '../shared/modeles/panier';
 import { AuthServiceS } from '../shared/services/auth.service';
 import { CheckoutService } from '../shared/services/checkout.service';
+import { LanguageService } from '../shared/services/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 
@@ -60,9 +62,13 @@ export class DetailArticleComponent implements OnInit {
   isAdd: boolean;
 
 
-  constructor(private route: ActivatedRoute, private articleService: ArticleService,
+  constructor(
+    private languageService: LanguageService,
+
+    private route: ActivatedRoute, private articleService: ArticleService,
     private store: Store<AppState>, private checkoutActions: CheckoutActions,
-    private sanitizer: DomSanitizer, private router:Router,private toastr:ToastrService, private element: ElementRef, private checkoutService: CheckoutService, public domSanitizer: DomSanitizer,private authService: AuthServiceS) {
+    private sanitizer: DomSanitizer, private router:Router,private toastr:ToastrService, private element: ElementRef, private checkoutService: CheckoutService, public domSanitizer: DomSanitizer,private authService: AuthServiceS,
+    public translate: TranslateService) {
     /**On Init
    * 1. Parse route params
    * 2. Retrive article id
@@ -94,7 +100,12 @@ export class DetailArticleComponent implements OnInit {
           },
             error => {
               console.log('Erreur récupération image oeuvre');
-              this.toastr.error('Erreur récupération de l\'image', 'ERREUR')
+              this.translate.get("ErrorRecovImage").subscribe(popup=>{
+                this.translate.get("ERROR").subscribe(alertType=>{
+                  this.toastr.error(popup, alertType)
+                })
+              })
+              // this.toastr.error('Erreur récupération de l\'image', 'ERREUR')
             }
           );
 
@@ -106,7 +117,12 @@ export class DetailArticleComponent implements OnInit {
           },
             error => {
               console.log('Erreur récupération détail oeuvre');
-              this.toastr.error('Erreur récupération des infos détaillés', 'ERREUR')
+              this.translate.get("ErrorRecovInfoDetails").subscribe(popup=>{
+                this.translate.get("ERROR").subscribe(alertType=>{
+                  this.toastr.error(popup, alertType)
+                })
+              })
+              // this.toastr.error('Erreur récupération des infos détaillés', 'ERREUR')
             }
           );
       }

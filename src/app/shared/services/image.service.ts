@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { OeuvreNumerique } from '../modeles/imageNumerique';
 import { Abonne, ListSelection, ListeSelection_Oeuvres, Abonnement, Email, Terminal } from '../modeles/utilisateur';
 import { environment } from '../../../environments/environment';
-//import { environment } from 'src/environments/environment';
+//import { environment } from 'src/environments/environment.prod';
 
 @Injectable()
 export class ImageService extends  HttpService {
@@ -150,6 +150,9 @@ addListeImage(listeImg: ListeSelection_Oeuvres): Observable<any>{
 addAbonnement(abonnement: Abonnement): Observable<any>{
   return this.http.post(environment.API_ENDPOINT+`abonnement`,abonnement)
 }
+getTotalAlgo(abonnement: Abonnement): Observable<any>{
+  return this.http.post(environment.API_ENDPOINT+`abonnement/getMontantByAbonnementDto`,abonnement)
+}
 
 addListOeuvre(listoeuvre: ListeSelection_Oeuvres): Observable<any>{
   return this.http.post(environment.API_ENDPOINT+`listeSelectionImage`,listoeuvre)
@@ -197,6 +200,8 @@ reabonnement(oldAbonnementdto: Abonnement, terminalResponse: boolean, terminal: 
   return this.http.post(environment.API_ENDPOINT + `abonnement/reabonnement/${terminalResponse}/${terminal.id}`,oldAbonnementdto);
 }
   
-
+getFraisLivraison(idCommande: number){
+  return this.http.get(environment.API_ENDPOINT + `commande/getFraisLivraison/${idCommande}`);
+}
 
 }

@@ -4,20 +4,20 @@
     <div class="container"  *ngIf="isConnected == true">
         <div class="col-sm-12 empty-cart-cls text-center" *ngIf="!oeuvres.length">
         <img src="assets/images/icon-empty-cart.png" class="img-fluid mb-4">
-        <h3><strong>Votre panier est vide</strong></h3>
-        <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">Visitez nos œuvres</a>
+        <h3><strong>{{"Votre panier est vide" | translate}}</strong></h3>
+        <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">{{"Visitez nos œuvres" | translate}}</a>
         </div>
         <div class="row" *ngIf="oeuvres.length">
         <div class="col-sm-12">
             <table style="text-align: center;" class="table cart-table table-responsive-xs">
                 <thead>
                     <tr class="table-head">
-                        <th scope="col">Oeuvre</th>
-                        <th scope="col">Titre</th>
-                        <th scope="col">Prix</th>
-                        <th scope="col">Quantité</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">{{"Œuvres" | translate}}</th>
+                        <th scope="col">{{"Titre" | translate}}</th>
+                        <th scope="col">{{"Prix" | translate}}</th>
+                        <th scope="col">{{"Quantité" | translate}}</th>
+                        <th scope="col">{{"Total" | translate}}</th>
+                        <th scope="col">{{"Action" | translate}}</th>
                     </tr>
                 </thead>
                 <tbody *ngFor="let oeuvre of oeuvres">
@@ -64,13 +64,13 @@
                             <div class="qty-box">
                                 <div class="input-group">
                                     <span class="input-group-prepend">
-                                        <button type="button" class="btn quantity-left-minus" title="Diminuer la quantité" data-type="minus" (click)="decrement(oeuvre)">
+                                        <button type="button" class="btn quantity-left-minus" title="{{'Diminuer la quantité' | translate}}" data-type="minus" (click)="decrement(oeuvre)">
                                             <i class="ti-angle-left"></i>
                                         </button>
                                     </span>
                                     <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="oeuvre.quantity">
                                     <span class="input-group-prepend">
-                                        <button type="button" class="btn quantity-right-plus" title="Augmenter la quantité" data-type="plus" (click)="increment(oeuvre)">
+                                        <button type="button" class="btn quantity-right-plus" title="{{'Augmenter la quantité' | translate}}" data-type="plus" (click)="increment(oeuvre)">
                                             <i class="ti-angle-right"></i>
                                         </button>
                                     </span>
@@ -83,7 +83,7 @@
                             </h4>
                         </td>
                         <td>
-                            <a title="Supprimer du panier" href="javascript:void(0)" (click)="removeItem(oeuvre)" class="icon">
+                            <a title="{{'Supprimer du panier' | translate}}" href="javascript:void(0)" (click)="removeItem(oeuvre)" class="icon">
                             <i class="ti-close"></i>
                         </a>
                         </td>
@@ -93,7 +93,7 @@
             <table style="text-align: center;" class="table cart-table table-responsive-md">
                 <tfoot>
                     <tr>
-                        <td>Montant total :</td>
+                        <td>{{"Montant total" | translate}} :</td>
                         <td >
                             <h2 class="td-color"> {{ getTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h2>
                         </td>
@@ -107,10 +107,10 @@
         </div>
         <div class="row cart-buttons" *ngIf='oeuvres.length'>
             <div class="col-6">
-                <a [routerLink]="['/shop/collection/left/sidebar']" title="Continuer l'exploration" class="btn btn-solid">Continuer l'exploration</a>
+                <a [routerLink]="['/shop/collection/left/sidebar']" title="{{'Continuer l\'exploration' | translate}}" class="btn btn-solid">{{"Continuer l'exploration" | translate}}</a>
             </div>
             <div class="col-6">
-                <div (click)="confirmer()" title="Commander" class="btn btn-solid-Valider">Commander</div>
+                <div (click)="confirmer()" title="{{'Commander' | translate}}" class="btn btn-solid-Valider">{{"Commander" | translate}}</div>
             </div>
         </div>
     </div>
@@ -118,10 +118,9 @@
     <div class="container" *ngIf="isConnected == false">
         <div class="col-sm-12 empty-cart-cls text-center" *ngIf="!newOeuvres.length">
             <img src="assets/images/icon-empty-cart.png" class="img-fluid mb-4">
-            <h3><strong>Votre panier est vide</strong></h3>
-            <h4> En vous connectant à votre compte SignArt, vous pourrez mémoriser directement les articles qui vous auront plu.
-                Vous retrouverez facilement vos articles choisis lors d’une prochaine connexion, où que vous soyez.</h4>
-                <a [routerLink]="['/pages/login']" class="btn btn-solid">Se connecter</a>
+            <h3><strong>{{"Votre panier est vide" | translate}}</strong></h3>
+            <h4> {{"En vous connectant à votre compte SignArt, vous pourrez mémoriser directement les articles qui vous auront plu.Vous retrouverez facilement vos articles choisis lors d’une prochaine connexion, où que vous soyez."}}</h4>
+                <a [routerLink]="['/pages/login']" class="btn btn-solid">{{"Se connecter" | translate}}</a>
             </div>
            
         <div class="row" *ngIf="newOeuvres.length">
@@ -129,12 +128,12 @@
                 <table style="position: center;" class="table cart-table table-responsive-xs">
                     <thead>
                         <tr class="table-head">
-                            <th scope="col">Oeuvre</th>
-                            <th scope="col">Titre</th>
-                            <th scope="col">Prix</th>
-                            <th scope="col">Quantité</th>
-                            <th scope="col">Total</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">{{"Œuvres" | translate}}</th>
+                            <th scope="col">{{"Titre" | translate}}</th>
+                            <th scope="col">{{"Prix" | translate}}</th>
+                            <th scope="col">{{"Quantité" | translate}}</th>
+                            <th scope="col">{{"Total" | translate}}</th>
+                            <th scope="col">{{"Action" | translate}}</th>
                         </tr>
                     </thead>
                     <tbody *ngFor="let oeuvre of newOeuvres">
@@ -181,7 +180,7 @@
                                 <div class="qty-box">
                                     <div class="input-group">
                                         <span class="input-group-prepend">
-                                            <button type="button" class="btn quantity-left-minus" title="Diminuer la quantité" data-type="minus" (click)="decrementNew(oeuvre)">
+                                            <button type="button" class="btn quantity-left-minus" title="{{'Diminuer la quantité' | translate}}" data-type="minus" (click)="decrementNew(oeuvre)">
                                                 <i class="ti-angle-left"></i>
                                             </button>
                                         </span>
@@ -200,7 +199,7 @@
                                 </h4>
                             </td>
                             <td>
-                                <a title="Supprimer du panier" href="javascript:void(0)" (click)="removeNewItem(oeuvre)" class="icon">
+                                <a title="{{'Supprimer du panier' | translate}}" href="javascript:void(0)" (click)="removeNewItem(oeuvre)" class="icon">
                                 <i class="ti-close"></i>
                             </a>
                             </td>
@@ -210,7 +209,7 @@
                 <table style="text-align: center;" class="table cart-table table-responsive-md">
                     <tfoot>
                         <tr>
-                            <td>Montant total :</td>
+                            <td>{{"Montant total" | translate}} :</td>
                             <td >
                                 <h2 class="td-color"> {{ getNewTotal | async | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</h2>
                             </td>
@@ -224,10 +223,10 @@
         </div>
         <div class="row cart-buttons" *ngIf='newOeuvres.length'>
                 <div class="col-6">
-                    <a [routerLink]="['/shop/collection/left/sidebar']" title="Continuer l'exploration" class="btn btn-solid">Continuer l'exploration</a>
+                    <a [routerLink]="['/shop/collection/left/sidebar']" title="{{'Continuer l\'exploration' | translate}}" class="btn btn-solid">{{"Continuer l'exploration" | translate}}</a>
                 </div>
                 <div class="col-6">
-                    <div (click)="confirmer()" title="Commander" class="btn btn-solid-Valider">Commander</div>
+                    <div (click)="confirmer()" title="{{'Commander' | translate}}" class="btn btn-solid-Valider">{{"Commander" | translate}}</div>
                 </div>
         </div>
     </div>

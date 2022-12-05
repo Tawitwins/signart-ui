@@ -17,7 +17,8 @@ import { CheckoutService } from 'src/app/shared/services/checkout.service';
 import { ImageService } from 'src/app/shared/services/image.service';
 import { Abonnement } from 'src/app/shared/modeles/utilisateur';
 import { storage } from 'firebase';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-paydunya',
@@ -51,7 +52,15 @@ export class PaydunyaComponent implements OnInit {
   itemize:any[];
   order:Commande;
   items:ItemPaydunya[]=[];
-  constructor(private http: HttpClient,private imageService:ImageService, private store: Store<AppState>,private checkoutService:CheckoutService, private checkoutActions: CheckoutActions,) {
+  tauxPaydunya: number = 2/100;
+  constructor(
+    private http: HttpClient,
+    private imageService:ImageService, 
+    private store: Store<AppState>,
+    private checkoutService:CheckoutService, 
+    private checkoutActions: CheckoutActions,
+    private translate: TranslateService,
+    ) {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -73,11 +82,11 @@ export class PaydunyaComponent implements OnInit {
 
 
     this.order = <Commande>JSON.parse(localStorage.getItem('order'));
-    this.totalAmount = this.order?.total;
+    this.totalAmount = this.order?.montant;
     this.shippingOptionPrice = this.order?.totalLivraison;
     this.orderId = this.order?.id; 
     this.Total = this.totalAmount + this.shippingOptionPrice;
-
+    this.Total = (this.Total+100)/(1-this.tauxPaydunya)
 
    /*  this.store.select(getTotalCartValue).subscribe(
       res => {
@@ -126,7 +135,7 @@ export class PaydunyaComponent implements OnInit {
             amount: this.shippingOptionPrice$,
           }
         },
-        total_amount: 200 ,
+        total_amount: this.Total ,
         description: "Paiment d'oeuvre d'art"
       },
       store: {
@@ -179,7 +188,6 @@ export class PaydunyaComponent implements OnInit {
   );
   }
   sendAbonnementPayment(){ 
-
     let data={
       payDunyaInput: {
         invoice: {
@@ -188,7 +196,7 @@ export class PaydunyaComponent implements OnInit {
           },
           taxes: {
           },
-          total_amount: 201 ,
+          total_amount: 0,
           description: "Paiment d'oeuvre d'art"
         },
         store: {
@@ -209,34 +217,70 @@ export class PaydunyaComponent implements OnInit {
         }
       }
     }
-    
+    if(this.abonnement.id){
+      this.imageService.getAbonnementById(this.abonnement.id).subscribe(resp => {
+        data.payDunyaInput.invoice.total_amount = resp.montantPaiement;
+      });
+    }
     //data.payDunyaInput.invoice.items=this.convertProductToItems();
     console.log(data);
-    Swal.fire({
-      title: 'Êtes-vous sûr?',
-      text: 'Vous avez choisi ' +this.paymentmode.libelle +'. Vous allez être redirigé(e) sur la plateforme paydunya ...',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: ' #376809',
-      cancelButtonColor: 'red',
-      confirmButtonText: 'Continuer!',
-      cancelButtonText: 'Annuler',
-      reverseButtons: true,
-    }).then((result) => {
-      if (result.value) {
-        this.onpay(data).subscribe(
-          (response)=>{
-           console.log('Ma réponse',response);
-           this.answer=response; 
-           this.updateAbonnementToken(response);
-           console.log('Answer',response)
-          },
-          (error)=>{
-            console.log('Réponse avec erreur',error)
-          }
-        );
-      }
+    this.translate.get('PopupAvertissement').subscribe(popupAv => {
+      this.translate.get('PopupTextPaydunya',{paymentmodeLibelle: this.paymentmode.libelle}).subscribe(popupTextPaydunya => {
+        this.translate.get('PopupCancelBtn').subscribe(cancel => {
+          this.translate.get('PopupConfirmBtn').subscribe(confirm => {
+            Swal.fire({
+              title: popupAv,
+              text: popupTextPaydunya,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: ' #376809',
+              cancelButtonColor: 'red',
+              cancelButtonText: cancel,
+              confirmButtonText: confirm,
+            }).then((result) => {
+              if (result.value) {
+                this.onpay(data).subscribe(
+                  (response)=>{
+                  console.log('Ma réponse',response);
+                  this.answer=response; 
+                  this.updateAbonnementToken(response);
+                  console.log('Answer',response)
+                  },
+                  (error)=>{
+                    console.log('Réponse avec erreur',error)
+                  }
+                );
+              }
+            })
+          })
+        })
+      })
     })
+    // Swal.fire({
+    //   title: 'Êtes-vous sûr?',
+    //   text: 'Vous avez choisi ' +this.paymentmode.libelle +'. Vous allez être redirigé(e) sur la plateforme paydunya ...',
+    //   icon: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonColor: ' #376809',
+    //   cancelButtonColor: 'red',
+    //   confirmButtonText: 'Continuer!',
+    //   cancelButtonText: 'Annuler',
+    //   reverseButtons: true,
+    // }).then((result) => {
+    //   if (result.value) {
+    //     this.onpay(data).subscribe(
+    //       (response)=>{
+    //        console.log('Ma réponse',response);
+    //        this.answer=response; 
+    //        this.updateAbonnementToken(response);
+    //        console.log('Answer',response)
+    //       },
+    //       (error)=>{
+    //         console.log('Réponse avec erreur',error)
+    //       }
+    //     );
+    //   }
+    // })
     }
 
 //----------------------------------
@@ -246,25 +290,51 @@ Pay() {
   this.paymentmode.libelle='Paydunya';
   //localStorage.setItem('mode_payment', JSON.stringify(this.paymentmode));
   console.log('paiement : ', this.paymentmode);
-  Swal.fire({
-    title: 'Êtes-vous sûr?',
-    text: 'Vous avez choisi ' +this.paymentmode.libelle +'. Vous allez être redirigé(e) sur la plateforme paydunya ...',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: ' #376809',
-    cancelButtonColor: 'red',
-    confirmButtonText: 'Continuer!',
-    cancelButtonText: 'Annuler',
-    reverseButtons: true,
-  }).then((result) => {
-    if (result.value) {
-      this.store.dispatch(this.checkoutActions.addPaymentModeSuccess(this.paymentmode));
-      this.order.modePaiement=this.paymentmode;
-      localStorage.setItem('order', JSON.stringify(this.order));
-      console.log("PARFAIT: ",this.answer.response_text)
-      window.location.href=this.answer.response_text;
-    }
+  this.translate.get('PopupAvertissement').subscribe(popupAv => {
+    this.translate.get('PopupTextPaydunya',{paymentmodeLibelle: this.paymentmode.libelle}).subscribe(popupTextPaydunya => {
+      this.translate.get('PopupCancelBtn').subscribe(cancel => {
+        this.translate.get('PopupConfirmBtn').subscribe(confirm => {
+          Swal.fire({
+            title: popupAv,
+            text: popupTextPaydunya,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: ' #376809',
+            cancelButtonColor: 'red',
+            cancelButtonText: cancel,
+            confirmButtonText: confirm,
+          }).then((result) => {
+            if (result.value) {
+              this.store.dispatch(this.checkoutActions.addPaymentModeSuccess(this.paymentmode));
+              this.order.modePaiement=this.paymentmode;
+              localStorage.setItem('order', JSON.stringify(this.order));
+              console.log("PARFAIT: ",this.answer.response_text)
+              window.location.href=this.answer.response_text;
+            }
+          })
+        })
+      })
+    })
   })
+  // Swal.fire({
+  //   title: 'Êtes-vous sûr?',
+  //   text: 'Vous avez choisi ' +this.paymentmode.libelle +'. Vous allez être redirigé(e) sur la plateforme paydunya ...',
+  //   icon: 'warning',
+  //   showCancelButton: true,
+  //   confirmButtonColor: ' #376809',
+  //   cancelButtonColor: 'red',
+  //   confirmButtonText: 'Continuer!',
+  //   cancelButtonText: 'Annuler',
+  //   reverseButtons: true,
+  // }).then((result) => {
+  //   if (result.value) {
+  //     this.store.dispatch(this.checkoutActions.addPaymentModeSuccess(this.paymentmode));
+  //     this.order.modePaiement=this.paymentmode;
+  //     localStorage.setItem('order', JSON.stringify(this.order));
+  //     console.log("PARFAIT: ",this.answer.response_text)
+  //     window.location.href=this.answer.response_text;
+  //   }
+  // })
 }
   convertProductToItems(){
     this.order.lignesCommande.forEach(elet => {

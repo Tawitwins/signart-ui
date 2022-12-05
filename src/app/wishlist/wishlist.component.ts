@@ -10,7 +10,7 @@ import { ArticleService } from '../shared/services/article.service';
 import { WishItem } from '../shared/modeles/wish_item';
 import {Client} from '../shared/modeles/client';
 import {User} from '../shared/modeles/user';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { AuthServiceS } from '../shared/services/auth.service';
 import { OeuvreService } from '../shared/services/oeuvre.service';
 //import { AuthService } from 'angularx-social-login';

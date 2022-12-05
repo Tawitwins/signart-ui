@@ -11,6 +11,8 @@ import { AuthActions } from '../../../../auth/actions/auth.actions';
 import { getTotalCartValue, getShippingOptionPrice, getOrderId } from '../../../reducers/selectors';
 import { Commande } from '../../../../shared/modeles/commande';
 import { PaiementEtLigneP } from 'src/app/shared/modeles/paiementEtLignesP';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cash-on-delivery',
@@ -29,7 +31,15 @@ export class CashOnDeliveryComponent implements OnInit {
   codePaiement: string;
   order: Commande = new Commande();
 
-  constructor(private store: Store<AppState>,private checkoutService:CheckoutService, private router: Router, private checkoutActions: CheckoutActions, private auth: AuthActions) { 
+  constructor(
+    private store: Store<AppState>,
+    private checkoutService:CheckoutService, 
+    private router: Router, 
+    private checkoutActions: CheckoutActions, 
+    private auth: AuthActions,
+    private toastService:ToastrService,
+    private translate: TranslateService
+    ) { 
   /*   this.store.select(getTotalCartValue).subscribe(
       resp => {
         this.totalCartValue = resp;
@@ -60,45 +70,64 @@ export class CashOnDeliveryComponent implements OnInit {
     this.codePaiement = 'NOPAYE';
     //localStorage.setItem('mode_payment', JSON.stringify(this.paymentmode));
     console.log('paiement : ', this.paymentmode);
-    Swal.fire({
-      title: 'Êtes-vous sûr?',
-      text: "Vous avez choisi "+this.paymentmode.libelle,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: ' #376809',
-      cancelButtonColor: 'red',
-      cancelButtonText: 'Annuler',
-      confirmButtonText: 'Continuer!',
-    }).then((result) => {
-      if (result.value) {
-        //this.store.dispatch(this.checkoutActions.addPaymentModeSuccess(this.paymentmode));
-        Swal.fire(
-          'Vous allez payer une fois livré!',
-        ).then((reslt) => {
-          if (reslt.value) {
-          this.order.modePaiement = this.paymentmode; 
-          this.store.dispatch(this.checkoutActions.orderCompleteSuccess());
-          localStorage.setItem('order', JSON.stringify(this.order));
-          let paiement = new PaiementEtLigneP();
-          paiement.lignePaiements = [];
-          paiement.codeEtatPaiement="NOPAYE";
-          paiement.codeModePaiement=this.order.modePaiement.code;
-          paiement.datePaiement=new Date();
-          paiement.idCommande=this.order.id;
-          paiement.id = this.order.id;
-          this.checkoutService.putPaiement(paiement).subscribe(resp => {
-            console.log(resp);
-            this.router.navigate(['/pages/order/success']);
-          });
-        }
+
+    this.translate.get('PopupAvertissement').subscribe(popupAv => {
+      this.translate.get('PopupChoixPaymentMode').subscribe(choixPM => {
+        this.translate.get('PopupCancelBtn').subscribe(cancel => {
+          this.translate.get('PopupConfirmBtn').subscribe(confirm => {
+            Swal.fire({
+              title: popupAv,
+              text: choixPM +this.paymentmode.libelle,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: ' #376809',
+              cancelButtonColor: 'red',
+              cancelButtonText: cancel,
+              confirmButtonText: confirm,
+            }).then((result) => {
+              if (result.value) {
+                //this.store.dispatch(this.checkoutActions.addPaymentModeSuccess(this.paymentmode));
+                this.translate.get('PopupPayAfterDelivery').subscribe(popup => {
+                  this.translate.get('SUCCESS').subscribe(alertType=>{
+                    this.toastService.success(popup, alertType)
+        
+                    this.order.modePaiement = this.paymentmode; 
+                    this.store.dispatch(this.checkoutActions.orderCompleteSuccess());
+                    localStorage.setItem('order', JSON.stringify(this.order));
+                    let paiement = new PaiementEtLigneP();
+                    paiement.lignePaiements = [];
+                    paiement.codeEtatPaiement="NOPAYE";
+                    paiement.codeModePaiement=this.order.modePaiement.code;
+                    paiement.datePaiement=new Date();
+                    paiement.idCommande=this.order.id;
+                    paiement.id = this.order.id;
+                    this.checkoutService.putPaiement(paiement).subscribe(resp => {
+                      console.log(resp);
+                      this.router.navigate(['/pages/order/success']);
+                    });
+                  })
+        
+                  })
+        
+                // Swal.fire(
+                //   'Vous allez payer une fois livré!',
+                // ).then((reslt) => {
+                //   if (reslt.value) {
+            
+                // }
+                // })
+                /* this.checkouS.createNewPayment(this.paymentmode.id, this.order, this.codePaiement).subscribe(
+                  response => {
+                    console.log('Le retour paiement ', response)
+                  }
+                ); */
+              }
+            })
+          })
         })
-        /* this.checkouS.createNewPayment(this.paymentmode.id, this.order, this.codePaiement).subscribe(
-          response => {
-            console.log('Le retour paiement ', response)
-          }
-        ); */
-      }
+      })
     })
+ 
     //let montant = (this.totalCartValue + this.shippingOptionPrice);
     //this.store.dispatch(this.auth.logoutSuccess());
     //this.store.dispatch(this.checkoutActions.orderCompleteSuccess());

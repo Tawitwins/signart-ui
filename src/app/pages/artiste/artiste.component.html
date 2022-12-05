@@ -40,7 +40,7 @@
               </div>
               <div class="col-xl-3 col-sm-6">
                 <div class="marrons">
-                  <div class="side-l"><p class="big-l">Art Plastique</p> <p class="col-p">{{artiste?.profession}}</p></div>
+                  <div class="side-l"><p class="big-l">{{"Art Plastique" | translate}} </p> <p class="col-p">{{artiste?.profession}}</p></div>
               </div> 
                 </div>
               <div class="col-xl-3 col-sm-6">	  
@@ -55,7 +55,7 @@
                 <div class="col-xl-12">
                   <nav aria-label="breadcrumb">
                       <ol class="breadcrumb">
-                        <li class="breadcrumb-item">A propos de l'artiste</li>
+                        <li class="breadcrumb-item">{{"A propos de l'artiste" | translate}} </li>
                     </ol>
                   </nav>
                   <div class="top-banner-wrapper">
@@ -69,13 +69,13 @@
                           <div class="col-sm-12 col-lg-12">
                             <ngb-tabset [type]="'tabs'" class="nav-material">
                                 <ngb-tab>
-                                    <ng-template ngbTabTitle>Biographie</ng-template>
+                                    <ng-template ngbTabTitle>{{"Biographie" | translate}} </ng-template>
                                     <ng-template ngbTabContent>
                                       <p> {{artiste?.biographie}} </p>
                                     </ng-template>
                                 </ngb-tab>
                                 <ngb-tab>
-                                    <ng-template ngbTabTitle>Formations</ng-template>
+                                    <ng-template ngbTabTitle>{{"Formations" | translate}} </ng-template>
                                     <ng-template ngbTabContent>
                                       <div class="col s12 card horizontal hoverable" style="width: auto; height: auto">
                                         <div *ngFor="let formation of listesFormation">
@@ -93,7 +93,7 @@
                                     </ng-template>
                                 </ngb-tab>
                                 <ngb-tab>
-                                    <ng-template ngbTabTitle>Présentation</ng-template>
+                                    <ng-template ngbTabTitle>{{"Présentation" | translate}} </ng-template>
                                     <ng-template ngbTabContent>
                                       <div class="mt-3 text-center">
                                         <iframe width="560" height="315" src="https://www.youtube.com/embed/BUWzX78Ye_8" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -105,8 +105,8 @@
                         </div>
                       </section>
                     <div class="top-banner-content small-section">
-                        <h4>Oeuvre d'art </h4>
-                        <h5>Voici des oeuvres de {{artiste?.prenom}} {{artiste?.nom}} que vous pourriez apprécier:
+                        <h4>{{"Oeuvre d'art" | translate}} </h4>
+                        <h5>{{"Voici des oeuvres de" | translate}} {{artiste?.prenom}} {{artiste?.nom}} {{"que vous pourriez apprécier" | translate}}:
                         </h5>
                        <!--  <p>
                            Ces oeuvres 
@@ -127,9 +127,9 @@
                                 </div>
                                 <div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="!oeuvres.length">
                                     <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
-                                    <h3>Désolé! Il n'ya pas de produit pour le moment!!! </h3>
-                                    <p>Veuillez vérifier l'orthographe de votre mot clé ou actualiser la page.</p>
-                                    <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">Continuer à explorer</a>
+                                    <h3>{{"Désolé! Il n'ya pas de produit pour le moment" | translate}} !!! </h3>
+                                    <p>{{"Veuillez actualiser la page ou essayer une recherche avec d'autres mots clés" | translate}}.</p>
+                                    <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">{{"Continuer l'exploration" | translate}}</a>
                                 </div>
                             </div>
                         </div>

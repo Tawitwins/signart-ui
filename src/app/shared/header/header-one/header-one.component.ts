@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-header-one',
@@ -16,7 +17,11 @@ export class HeaderOneComponent implements OnInit {
   
   public stick: boolean = false;
 
-  constructor(private router:Router) { }
+
+  constructor(
+    private router:Router,
+    public languageService: LanguageService
+    ) { }
 
   ngOnInit(): void {
   }

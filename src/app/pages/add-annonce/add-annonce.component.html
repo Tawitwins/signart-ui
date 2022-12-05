@@ -4,17 +4,17 @@
           <form class="theme-form" [formGroup]="annonceForm" (ngSubmit)="onAddAnnonce()">
               <div class="form-row">
                   <div class="col-md-6">
-                      <label for="email">Titre</label>
+                      <label for="email">{{"Titre" | translate}}</label>
                       <input type="text" class="form-control" formControlName="titre" id="fname" placeholder="Prénom">
                       <div>
-                        <span *ngIf="annonceForm.get('titre').errors && annonceForm.get('titre').touched" style="color: red;"> Veuillez donner un titre !</span>
+                        <span *ngIf="annonceForm.get('titre').errors && annonceForm.get('titre').touched" style="color: red;"> {{"Veuillez donner un titre" | translate}} !</span>
                       </div>
                   </div>
                   <div class="col-md-6">
                       <label for="email">Lieu</label>
                       <input type="text" class="form-control" formControlName="lieu" id="fname" placeholder="Lieu" >
                       <div>
-                        <span *ngIf="annonceForm.get('lieu').errors && annonceForm.get('lieu').touched" style="color: red;"> Veuillez donner un lieu !</span>
+                        <span *ngIf="annonceForm.get('lieu').errors && annonceForm.get('lieu').touched" style="color: red;"> {{"Veuillez donner un lieu" | translate}} !</span>
                       </div>
                   </div>
               </div>
@@ -26,34 +26,34 @@
                   <ejs-datetimepicker id='datetimepicker' formControlName="dateFin" placeholder='Date fin ' [value]= 'dateValue' format ='dd/MM/yyyy HH:mm'></ejs-datetimepicker>
                 </div> --> 
                   <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                      <label for="email">Date de début</label>
+                      <label for="email">{{"Date de début" | translate}}</label>
                       <input type="datetime-local" class="form-control" id='datetimepicker' formControlName="dateDebut" [value]= 'dateValue' placeholder="Date début" format ='dd/MM/yyyy HH:mm'>
                       <div>
-                        <span *ngIf="annonceForm.get('dateDebut').errors && annonceForm.get('dateDebut').touched" style="color: red;"> Veuillez donner une date de début !</span>
+                        <span *ngIf="annonceForm.get('dateDebut').errors && annonceForm.get('dateDebut').touched" style="color: red;"> {{"Veuillez donner une date de début" | translate}} !</span>
                       </div>
                   </div>
                   <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                      <label for="email">Date de fin</label>
+                      <label for="email">{{"Date de fin" | translate}}</label>
                       <input type="datetime-local" class="form-control" id='datetimepicker' formControlName="dateFin" [value]= 'dateValue'  format ='dd/MM/yyyy HH:mm'>
                       <div>
-                        <span *ngIf="annonceForm.get('dateFin').errors && annonceForm.get('dateFin').touched" style="color: red;"> Veuillez donner une date de fin !</span>
+                        <span *ngIf="annonceForm.get('dateFin').errors && annonceForm.get('dateFin').touched" style="color: red;"> {{"Veuillez donner une date de fin" | translate}} !</span>
                       </div>
                   </div>
                   <div class="alert alert-danger" *ngIf="show()">
-                    La date de début ne peut pas être supérieure ou égale à la date de fin !
+                    {{"La date de début ne peut pas être supérieure ou égale à la date de fin" | translate}} !
                     
                 </div>
               </div>
               <div class="form-row">
                   <div class="col-md-12">
-                      <label for="review">Description</label>
+                      <label for="review">{{"Description" | translate}}</label>
                       <textarea formControlName="description"></textarea>
                       <div>
-                        <span *ngIf="annonceForm.get('description').errors && annonceForm.get('description').touched" style="color: red;"> Veuillez donner une description !</span>
+                        <span *ngIf="annonceForm.get('description').errors && annonceForm.get('description').touched" style="color: red;"> {{"Veuillez donner une description" | translate}} !</span>
                       </div>
                   </div>
                   
-                  <button class="btn btn-solid-Valider" title="Valider" type="submit" [disabled]="this.isValid === false || this.annonceForm.invalid">Valider</button>
+                  <button class="btn btn-solid-Valider" title="{{'Valider' | translate}}" type="submit" [disabled]="this.isValid === false || this.annonceForm.invalid">{{"Valider" | translate}}</button>
                   <!-- <button class="btn btn-solid gplus" type="button"  (click)="addNewAnnonce(0);">Annuler</button> -->
               </div>
           </form>

@@ -9,9 +9,9 @@
           </div>
         </a>
         <div class="blog-details">
-          <h4>{{blog.date}}</h4>
+          <h4>{{blog.date | translate}}</h4>
           <a [routerLink]="'/pages/blog/details'">
-            <p>{{blog.title}}</p>
+            <p>{{blog.title | translate}}</p>
           </a>
           <hr class="style1">
           <!-- <h6> {{ 'by:' +blog.by}} , {{ '2 Comment' }}</h6> -->

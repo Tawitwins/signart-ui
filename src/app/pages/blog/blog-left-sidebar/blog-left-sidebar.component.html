@@ -1,9 +1,81 @@
-<app-breadcrumb [title]="'Evenements'" [breadcrumb]="'Évènements'"></app-breadcrumb>
+<app-breadcrumb [title]="'Evenements'" [breadcrumb]="'Evenements'"></app-breadcrumb>
 <!-- section start -->
 <section class="section-b-space  blog-page">
     <div class="container">
         <div class="row">
             <!--Blog List start-->
+            <div class="col-xl-9 col-lg-8 col-md-7 ">
+                <div *ngFor="let evenementSignart of evenementSignarts">
+                    <div class="row blog-media" style="border: inset; border-radius: 5px ;border-color: #601A17;">
+                        <div class="container">
+                            <div class="p-1 container">
+                                <!-- <a [routerLink]="'/pages/blog/details'"><img src="assets/images/blog/blog_signart.jpg" class="img-fluid" alt=""/></a> -->
+                                <iframe style="border: inset ;border-radius: 5px ;border-color: #601A17;" width="100%" height="300" [src]='sanitizer.bypassSecurityTrustResourceUrl(evenementSignart.lienVideo)' frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="blog-right p-1">
+                                <div>
+                                    <h6>{{evenementSignart.stringDateOfficielle}}</h6>
+                                    <a [routerLink]="'/pages/blog/details'"><h4>{{evenementSignart.titre}} </h4></a>
+                                    <ul class="post-social">
+                                        <li>{{"Lieu" | translate}} : {{evenementSignart.lieu}} </li>
+                                        <!-- <li><i class="fa fa-money"></i>  {{evenementSignart.prixCodeEvent}} </li> -->
+                                        <li><i class="fa fa-tel"></i> {{evenementSignart.contact}}</li>
+                                    </ul>
+                                    <p>{{evenementSignart.description}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            
+            <!--Blog List start-->
+            <!--Blog sidebar start-->
+            <div class="col-xl-3 col-lg-4 col-md-5">
+                <div class="blog-sidebar">
+                    <div class="theme-card text-center">
+                        <h4>{{"Evénements récents" | translate}}</h4>
+                            <div *ngFor="let oldEventSignart of evenementSignarts" >
+                                <div class="container">
+                                    <!-- <iframe [src]='sanitizer.bypassSecurityTrustResourceUrl(oldEventSignart.lienVideo)' frameborder="0" allowfullscreen></iframe> -->
+                                    <!-- <img class="img-fluid" src="assets/images/blog/blog_signart.jpg" alt="Generic placeholder image"> -->
+
+                                        <h6> {{oldEventSignart.titre}} </h6>
+                                        <p> {{"Lieu" | translate}}: {{oldEventSignart.lieu}} </p>
+                                        <a [href]="oldEventSignart.lienVideo"> {{"Lien vers la video" | translate}}... </a>                                        
+                                        <h6> {{oldEventSignart.stringDateOfficielle}} </h6>
+                                </div>
+                                <br>
+                            </div>
+                            <!-- <li>
+                                <div class="media">
+                                    <img class="img-fluid" src="assets/images/blog/blog_signart.jpg" alt="Generic placeholder image">
+                                    <div class="media-body align-self-center">
+                                        <h6>25 Juillet 2020</h6>
+                                        <p>0 Like</p>
+                                    </div>
+                                </div>
+                            </li> -->
+                    </div>
+                </div>
+            </div>
+            <!--Blog sidebar start-->
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<!-- <app-breadcrumb [title]="'Evenements'" [breadcrumb]="'Évènements'"></app-breadcrumb>
+<section class="section-b-space  blog-page">
+    <div class="container">
+        <div class="row">
             <div class="col-xl-9 col-lg-8 col-md-7 ">
                 <div class="row blog-media">
                     <div class="col-xl-6">
@@ -48,8 +120,6 @@
                     </div>
                 </div>
             </div>
-            <!--Blog List start-->
-            <!--Blog sidebar start-->
             <div class="col-xl-3 col-lg-4 col-md-5">
                 <div class="blog-sidebar">
                     <div class="theme-card">
@@ -104,8 +174,7 @@
                     </div>
                 </div>
             </div>
-            <!--Blog sidebar start-->
         </div>
     </div>
 </section>
-<!-- Section ends -->
+-->

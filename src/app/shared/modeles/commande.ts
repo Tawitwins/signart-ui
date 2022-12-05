@@ -10,6 +10,7 @@ export class Commande {
    public numero: string;
    public nbTotal: number;
    public total: number;
+   public montant: number;
    public totalLivraison: number;
    public totalTaxes: number;
    public lignesCommande: LigneCommande[];

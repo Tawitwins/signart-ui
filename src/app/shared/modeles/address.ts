@@ -5,8 +5,8 @@
 
 export class Address {
   id: string;
-  prenom: string;
-  nom: string;
+  prenom: string = "";
+  nom: string = "";
   adresse: string;
   ville: string;
   region: string;

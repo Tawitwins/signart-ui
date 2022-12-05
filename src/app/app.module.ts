@@ -37,7 +37,7 @@ import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestor
 import 'hammerjs';
 import 'mousetrap';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -49,10 +49,10 @@ import { VisiteurService } from './shared/services/visiteur.service';
 import { ArticleService } from './shared/services/article.service';
 import { environment } from '../environments/environment';
 import { AuthActions } from './auth/actions/auth.actions';
-
 import { CheckoutActions } from './checkout/actions/checkout.actions';
 import { PanierEtMarquageService } from './shared/services/panierEtMarquage.service';
 import { MyformatcurrencyPipe } from './shared/pipes/myformatcurrency.pipe';
+import { EvenementSignartService } from './shared/services/evenement-signart.service';
 
 
 // AoT requires an exported function for factories
@@ -139,7 +139,7 @@ export function tokenGetter() {
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    SharedModule,
+  
     // RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
     StoreModule.forRoot(reducers, { metaReducers }),
     // !environment.production ? StoreDevtoolsModule.instrument() : [],
@@ -161,6 +161,7 @@ export function tokenGetter() {
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     CommonModule,
+    
   ],
   providers: [
     SearchActions, 
@@ -190,6 +191,8 @@ export function tokenGetter() {
     MagasinService,
     TarificationService,
     ServiceLivraisonService,
+    EvenementSignartService,
+    DatePipe,
     
   ],
   schemas: [ NO_ERRORS_SCHEMA ],

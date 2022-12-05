@@ -11,14 +11,15 @@
             </ul>
           </div>
         </div>
-        <div class="col-lg-6 text-right">
+        <div class="col-lg-6 text-right mb-5">
           <ul class="header-dropdown">
             <li class="mobile-wishlist" (click)="redirect('/shop/wishlist')">
-              <a [routerLink]="['/shop/wishlist']"><i class="fa fa-heart" ></i>Favoris</a>
+              <a [routerLink]="['/shop/wishlist']"><i class="fa fa-heart" ></i>{{"Favoris" | translate}}</a>
             </li>
             <li class="mobile-account" (click)="redirect('/pages/dashboard')">
-              <a [routerLink]="['/pages/dashboard']"><i class="fa fa-user"></i> Mon compte </a>
+              <a [routerLink]="['/pages/dashboard']"><i class="fa fa-user"></i> {{"Mon compte" | translate}} </a>
             </li>
+           
           </ul>
         </div>
       </div>

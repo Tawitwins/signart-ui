@@ -7,7 +7,7 @@
 
       <li class="back-btn">
         <div class="mobile-back text-right" (click)="mainMenuToggle()">
-          <span>Retour</span>
+          <span>{{"Retour" | translate}}</span>
           <i class="fa fa-angle-right pl-2" aria-hidden="true"></i>
         </div>
       </li>
@@ -23,13 +23,13 @@
         <!-- Link -->
         <a [routerLink]="menuItem.path" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link"
           *ngIf="menuItem.type === 'link'">
-          {{ menuItem.title }}
+          {{ menuItem.title | translate  }}
           <div class="lable-nav" *ngIf="menuItem.badge">{{ menuItem.badgeText | translate }}</div>
           <span class="sub-arrow" *ngIf="menuItem.children"></span>
         </a>
         <!-- External Link -->
         <a href="{{ menuItem.path }}" class="nav-link" *ngIf="menuItem.type === 'extLink'">
-          {{ menuItem.title }}
+          {{ menuItem.title | translate  }}
           <div class="lable-nav" *ngIf="menuItem.badge">{{ menuItem.badgeText | translate }}</div>
           <span class="sub-arrow" *ngIf="menuItem.children"></span>
         </a>
