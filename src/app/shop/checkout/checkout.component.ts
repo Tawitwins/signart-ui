@@ -504,7 +504,7 @@ export class CheckoutComponent implements OnInit {
   
   getFraisLivraison(idCommande:number, totalAmount: number){
       this.imageService.getFraisLivraison(idCommande).subscribe(resp => {
-      this.fraisLivraison = <number>resp;
+      this.fraisLivraison = <number>(resp?.value == null ? resp: resp?.value);
       this.montantTotalAPayer = totalAmount + this.fraisLivraison;
       this.order.totalLivraison = this.fraisLivraison;
       this.newCheckoutService.updateCommande(this.order.id,this.order).subscribe(resp=>{

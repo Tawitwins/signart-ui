@@ -308,7 +308,6 @@ Pay() {
               this.store.dispatch(this.checkoutActions.addPaymentModeSuccess(this.paymentmode));
               this.order.modePaiement=this.paymentmode;
               localStorage.setItem('order', JSON.stringify(this.order));
-              console.log("PARFAIT: ",this.answer.response_text)
               window.location.href=this.answer.response_text;
             }
           })

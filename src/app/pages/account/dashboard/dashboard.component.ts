@@ -685,7 +685,7 @@ showDetailsCommande(idCommande: number){
           });
  */       
           console.log(this.commande)
-          if(this.commande != null && this.livraison == null)
+          if(this.commande != null)
            {
             this.Sum = this.commande.montant;
            }
@@ -703,7 +703,7 @@ showDetailsCommande(idCommande: number){
           this.adressLivraison = <Address>this.livraison.adresseLivraison;
           console.log('Les informations sur la livraison', this.livraison);
           if(this.livraison != null){
-            this.getFraisLivraison(this.commande);
+            this.Sum = this.commande.montant + this.commande.totalLivraison;
           }
       }
     );
@@ -895,17 +895,6 @@ showDetailsCommande(idCommande: number){
           })
         })
         this.shownTerminal = false;
-      })
-    }
-    
-    getFraisLivraison(commande:Commande){
-      this.imageService.getFraisLivraison(commande.id).subscribe(resp => {
-        this.fraisLivraison = <number>resp;
-        console.log(this.commande.montant)
-        console.log(this.fraisLivraison)
-        this.Sum = <number>(this.commande.montant + this.fraisLivraison);
-        console.log(this.fraisLivraison);
-        console.log(this.fraisLivraison);
       })
     }
 }
