@@ -34,7 +34,6 @@ export class CartComponent implements OnInit {
     public productService: ProductService,
     private toastrService:ToastrService,
     private oeuvreS: OeuvreService,
-    private toastr:ToastrService,
     private authS:AuthServiceS,
     private newCheckoutService:CheckoutService,
     private router:Router,
@@ -148,7 +147,11 @@ export class CartComponent implements OnInit {
               this.data = JSON.parse(localStorage.getItem('panier'));
               this.newCheckoutService.createOrder(this.client.id, this.data).pipe(
                 tap(() => {
-                  this.toastrService.success("Commande bien prise en compte, veuillez compléter les étapes restantes!","Succès");
+                  this.translate.get('PopupCommandePriseEnCompte').subscribe(cpc => {
+                    this.translate.get('SUCCESS').subscribe(alertType => {
+                      this.toastrService.success(cpc, alertType);
+                    })
+                  })
                   this.router.navigate(['/shop/checkout']);
                   //localStorage.removeItem('panier');
                 }))

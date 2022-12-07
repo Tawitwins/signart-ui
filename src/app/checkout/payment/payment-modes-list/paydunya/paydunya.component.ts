@@ -115,7 +115,7 @@ export class PaydunyaComponent implements OnInit {
 
   }
   onpay(objet){   
-    return this.http.post(`/api/paydunya/create-invoice`,objet)
+    return this.http.post(`/paiement/api/paydunya/create-invoice`,objet)
   }
   /*
   onconfirm(token){

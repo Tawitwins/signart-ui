@@ -384,7 +384,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   sendSms(){
-    let user = JSON.parse(localStorage.getItem('user'));
     let client = JSON.parse(localStorage.getItem('client'));
     if(this.selectedMagasin != null){
       if(this.magasinList.length != 0 &&  this.selectedMagasin != 0){

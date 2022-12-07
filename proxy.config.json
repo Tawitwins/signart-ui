@@ -6,14 +6,14 @@
             "logLevel": "debug",
             "changeOrigin": true
         },
-        "/api/*": {
+        "/paiement/*": {
             "target": "http://10.42.1.131:8023",
             "secure": false,
             "logLevel": "debug",
             "changeOrigin": true
         }, 
-        "/notification/*": {
-            "target": "http://app-dev.modelsis.net:8087/api",
+        "/api/*": {
+            "target": "http://app-dev.modelsis.net:8087",
             "secure": false,
             "logLevel": "debug",
             "changeOrigin": true
