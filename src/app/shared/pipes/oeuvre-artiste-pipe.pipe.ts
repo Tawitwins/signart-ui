@@ -19,7 +19,7 @@ export class OeuvreArtistePipePipe implements PipeTransform {
     });
    }
   transform(value: number): string {
-    console.log("artisteeeeee pipe",this.artistes)
+    //console.log("artisteeeeee pipe",this.artistes)
     let artiste: Artiste;
     let nomArtiste: string = "";
     for (let i = 0; i < this.artistes.length; i++) {

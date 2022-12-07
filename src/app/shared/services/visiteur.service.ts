@@ -48,19 +48,19 @@ export class VisiteurService extends HttpService{
 
   createVisiteur(visiteur: Visiteur) {
     // let options = new RequestOptions({ responseType:ResponseContentType.Blob});
-    console.log("on va faire appel à  l'api");
+    //console.log("on va faire appel à  l'api");
     //visiteur.id=null;
     return this.post(environment.API_ENDPOINT + `Visiteur`,visiteur
     )/*.subscribe(
       (val) => {
-          console.log("POST call successful value returned in body", 
+          //console.log("POST call successful value returned in body", 
                       val);
       },
       response => {
-          console.log("POST call in error", response);
+          //console.log("POST call in error", response);
       },
       () => {
-          console.log("The POST observable is now completed.");
+          //console.log("The POST observable is now completed.");
       })*/;
       
     /*.pipe(map(res => {

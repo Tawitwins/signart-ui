@@ -69,7 +69,7 @@ export class PanierEtMarquageService extends HttpService{
   }
   createNewLineItem(oeuvre: Oeuvre) {
     this.client = this.authService.getClientConnected();
-    console.log(oeuvre)
+    //console.log(oeuvre)
     return this.post(environment.API_ENDPOINT +
       `lignepanier`,
       {
@@ -131,7 +131,7 @@ export class PanierEtMarquageService extends HttpService{
           })
         })
         // this.toastr.success("Échec ajout oeuvre","Échec");
-        console.log(error);
+        //console.log(error);
         /* $.notify({ FAILED
           icon: "notifications",
           message: "Erreur ajout oeuvre"
@@ -163,20 +163,20 @@ export class PanierEtMarquageService extends HttpService{
 
 
   getListClientByArt(idArtiste:number){
-    console.log('List des clients qui suivent le artist: '+idArtiste);
+    //console.log('List des clients qui suivent le artist: '+idArtiste);
     return this.http.get(environment.API_ENDPOINT + `marquageartiste/ListClientByArt/${idArtiste}`);
   }
   getListVisiteurByArt(idArtiste:number){
-    console.log('List des visiteurs qui suivent le artist: '+idArtiste);
+    //console.log('List des visiteurs qui suivent le artist: '+idArtiste);
     return this.http.get(environment.API_ENDPOINT + `marquageartiste/ListVisiteurByArt/${idArtiste}`);
   }
   getMarquageByArtiste(idClient: number, idArtiste:number, codeTypeMarquage:string):Observable<any>{
-      console.log('marquage');
+      //console.log('marquage');
       return this.http.get(environment.API_ENDPOINT + `marquageartiste/marquage?idClient=${idClient}&idArtiste=${idArtiste}&codeTypeMarquage=${codeTypeMarquage}`);
   }
 
   suivreArtiste(suis: Suivre) {
-      console.log('suivre ' + suis);
+      //console.log('suivre ' + suis);
       return this.http.post(environment.API_ENDPOINT + `marquageartiste`, suis);
   }
 
@@ -189,7 +189,7 @@ export class PanierEtMarquageService extends HttpService{
     
   }
   getClientByUser(id: number) {
-    console.log('un client');
+    //console.log('un client');
     return this.http.get(environment.API_ENDPOINT + `client/user/${id}`)
   }
 }

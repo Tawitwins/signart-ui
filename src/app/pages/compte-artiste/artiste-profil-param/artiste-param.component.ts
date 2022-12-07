@@ -127,37 +127,37 @@ export class ArtisteParamComponent implements OnInit {
     this.youtubeUrlInsert="http://www.youtube.com/embed/"
     this.urlTest="http://www.youtube.com/embed/_zBElvF1VhY";
    
-    console.log('utilisateur',this.user)
+    //console.log('utilisateur',this.user)
     
     if(this.user.userType == 'ARTISTE'){
     this.artisteService.getArtisteByUser(this.user.id).subscribe(
       res => {
         this.artiste = res
-        console.log('Artiste connected ', res)
+        //console.log('Artiste connected ', res)
         this.expoService.getFormationByArtiste(this.artiste.id).subscribe(response => { this.listesFormation = response
-          console.log('formation',this.listesFormation);
+          //console.log('formation',this.listesFormation);
       });
       this.artisteService.getAllBiographie(this.artiste.id).subscribe(
         resp => { 
           this.biographie = resp;
-        console.log('Biographie',this.biographie);
+        //console.log('Biographie',this.biographie);
     });
 
     this.artisteService.getAllPresentation(this.artiste.id).subscribe(
       resp => { 
-        console.log(resp)
+        //console.log(resp)
         this.presentations = resp;
-       // console.log("taille presentation",this.presentations.length)
+       // //console.log("taille presentation",this.presentations.length)
         if(this.presentations.length >= 2){
-         // console.log("vrai")
+         // //console.log("vrai")
           this.artistePresentations = this.presentations.filter(a => a.etatPubPresentation===true);
-         // console.log(" artistePresentations",this.artistePresentations)
+         // //console.log(" artistePresentations",this.artistePresentations)
           this.artistePresentation = this.artistePresentations[0];
         }else{
           
           this.artistePresentations = resp;
           this.artistePresentation = this.artistePresentations[0];
-          console.log(this.artistePresentations);
+          //console.log(this.artistePresentations);
 
         }
       
@@ -166,7 +166,7 @@ export class ArtisteParamComponent implements OnInit {
 
       }
     );
-    console.log('User connected ', this.user)
+    //console.log('User connected ', this.user)
   }  
   }
 
@@ -244,7 +244,7 @@ this.hide2 =true;
   }
 
   onUploadVideo(event){
-    console.log("videoooo",event.target.value)
+    //console.log("videoooo",event.target.value)
     this.fileDataVideo = <File>event.target.files[0];
     let reader = new FileReader();
     //if (files && files.length > 0) {
@@ -252,13 +252,13 @@ this.hide2 =true;
      reader.readAsDataURL(file);
      reader.onload = (event) => {
       this.urlVideo = (<FileReader>event.target).result;
-      console.log("url video",this.urlVideo)
+      //console.log("url video",this.urlVideo)
      };
     
      
-    console.log("file", file)
+    //console.log("file", file)
      this.formDataVideo.append('file', file);
-     console.log("formData change",this.formDataVideo)
+     //console.log("formData change",this.formDataVideo)
   }
 
   public fileChange(event) {
@@ -275,9 +275,9 @@ this.hide2 =true;
       })
      };
      
-    console.log("file", file)
+    //console.log("file", file)
      this.formData.append('file', file);
-     console.log("formData change",this.formData)
+     //console.log("formData change",this.formData)
      
      
    // }  
@@ -304,11 +304,11 @@ this.hide2 =true;
 
   onChangePhotoProfil(){
 
-    console.log("formvalue",this.photoProfilForm.get('photo').value)
+    //console.log("formvalue",this.photoProfilForm.get('photo').value)
     const formModel = this.photoProfilForm.get('photo').value;
-    console.log("formModel", formModel)
+    //console.log("formModel", formModel)
     
-    //console.log("photoProfil", this.photoProfil)
+    ////console.log("photoProfil", this.photoProfil)
 
     Swal.fire({
       title: 'Confirmez vous la modification de votre photo de profil?',
@@ -324,9 +324,9 @@ this.hide2 =true;
       if (result.value) {
         this.artisteService.putPhotoArtiste(this.artiste.id,formModel).subscribe(
           resp =>{
-            console.log(resp)
+            //console.log(resp)
             this.message = 'Image upload succesfully';
-            console.log(this.message)   
+            //console.log(this.message)   
             Swal.fire({
               title: 'Photo profil modifié avec succès! Veuillez actualiser la page SVP.'
             }).then((result) => {
@@ -355,29 +355,29 @@ this.hide2 =true;
   
   infoUser(){
     this.user=this.authS.getUserConnected();
-    console.log('MonUser',this.user);
+    //console.log('MonUser',this.user);
   }
   infoArtiste(){
     this.artisteService.getArtisteByUser(this.user.id)
      .subscribe(
        response=>{
          this.artiste=response;
-         console.log('les infos de l\'artiste',this.artiste)
+         //console.log('les infos de l\'artiste',this.artiste)
        },
        error=>{
-         console.log('erreur de récupération des informations de l\'artiste de l\'artiste')
+         //console.log('erreur de récupération des informations de l\'artiste de l\'artiste')
        }
      );
   }
   goetape(etape:number){
     this.isclicked = etape;
-    //console.log(this.artistePresentation);
+    ////console.log(this.artistePresentation);
   }
 
   onAddBiographie(){
 
   const formvalue = this.biographieForm.value;
-  console.log('formvalue ', formvalue)
+  //console.log('formvalue ', formvalue)
   const biographie = new Biographie('',null,'','',false,null);
   //biographie.dateNaissance = null;
  // biographie.lieuNaissance = 'Dakar',
@@ -386,7 +386,7 @@ this.hide2 =true;
   biographie.etatBiographie = false;
   biographie.idArtiste =this.artiste.id;
   
-  console.log('biographe ', biographie);
+  //console.log('biographe ', biographie);
 
   Swal.fire({
     title: 'Confirmez vous la souscription de cette Biographie?',
@@ -403,7 +403,7 @@ this.hide2 =true;
       this.artisteService.getAllBiographie(this.artiste.id).subscribe(
         resp=>{
             const actuBio = resp;
-            console.log("all Biographie",actuBio)
+            //console.log("all Biographie",actuBio)
             if(actuBio.length >= 2){
               Swal.fire({
                 icon: 'error',
@@ -411,7 +411,7 @@ this.hide2 =true;
                 text: 'Vous avez deja une biographie en attente de validation',
               })
             }else{
-              console.log("etat pres",actuBio[0])
+              //console.log("etat pres",actuBio[0])
               if(actuBio[0].etatPubPresentation === false){
                 Swal.fire({
                   icon: 'error',
@@ -419,10 +419,10 @@ this.hide2 =true;
                   text: 'Vous avez deja une biographie en attente de validation',
                 })
               }else{
-                console.log('biographe will be saved', biographie);
+                //console.log('biographe will be saved', biographie);
                 this.artisteService.addBiographie(biographie).subscribe(
                   resp =>{
-                    console.log(resp)
+                    //console.log(resp)
                     Swal.fire(
                       'Biohgraphie souscrite avec succès!',
                       'Votre biohgraphie est en attente de validation!',
@@ -433,7 +433,7 @@ this.hide2 =true;
             }
            /* this.artisteService.deletePresentation(actuPres.id).subscribe(
               resp=>{
-                console.log(resp);
+                //console.log(resp);
               }
             ) */ 
         }
@@ -453,10 +453,10 @@ this.hide2 =true;
      
     this.artisteService.addFormation(this.etudeForm.value).subscribe(
       data=>{
-        console.log('data',data)
+        //console.log('data',data)
       },
       (error)=>{
-        console.log('erreur',error)
+        //console.log('erreur',error)
       }
     )
   }*/
@@ -466,13 +466,13 @@ this.hide2 =true;
   this.formation = this.etudeForm.value;
    this.formation.idArtiste = this.artiste.id;
    this.formation.etatPublication = false;
-   console.log('formation test',this.formation)
+   //console.log('formation test',this.formation)
    this.artisteService.addFormation(this.formation).subscribe(
      data=>{
-       console.log('data',data)
+       //console.log('data',data)
      },
      (error)=>{
-       console.log('erreur',error)
+       //console.log('erreur',error)
      }
    )
  }
@@ -481,7 +481,7 @@ this.hide2 =true;
  onAddPresentation(valeur: number){
    if(valeur == 1){
     const presForm = this.presentationForm.value;
-    console.log('formpres', this.presentationForm.value);
+    //console.log('formpres', this.presentationForm.value);
     const pres = new Presentation('','',false,null);
     pres.libelle = presForm.libelle;
     pres.etatPubPresentation = false;
@@ -498,11 +498,11 @@ this.hide2 =true;
       reverseButtons: true,
     }).then((result) => {
       if (result.value) {
-        console.log('pres',pres)
+        //console.log('pres',pres)
         this.artisteService.getAllPresentation(this.artiste.id).subscribe(
           resp=>{
               const actuPres = resp;
-              console.log("all presentation",actuPres)
+              //console.log("all presentation",actuPres)
               if(actuPres.length >= 2){
                 Swal.fire({
                   icon: 'error',
@@ -510,7 +510,7 @@ this.hide2 =true;
                   text: 'Vous avez deja une presentation en attente de validation',
                 })
               }else{
-                console.log("etat pres",actuPres[0])
+                //console.log("etat pres",actuPres[0])
                 if(actuPres[0].etatPubPresentation === false){
                   Swal.fire({
                     icon: 'error',
@@ -520,7 +520,7 @@ this.hide2 =true;
                 }else{
                   this.artisteService.addPresentation(pres).subscribe(
                     resp =>{
-                      console.log(resp)
+                      //console.log(resp)
                       Swal.fire({
                        title: 'presentation soumis avec succès!'
                       }).then((result) => {
@@ -535,7 +535,7 @@ this.hide2 =true;
               }
              /* this.artisteService.deletePresentation(actuPres.id).subscribe(
                 resp=>{
-                  console.log(resp);
+                  //console.log(resp);
                 }
               ) */ 
           }
@@ -543,7 +543,7 @@ this.hide2 =true;
         );
           /*this.artisteService.addPresentation(pres).subscribe(
             resp =>{
-              console.log(resp)
+              //console.log(resp)
               Swal.fire({
                title: 'presentation soumis avec succès!'
               }).then((result) => {
@@ -560,7 +560,7 @@ this.hide2 =true;
 
     this.afficheVideo = 1;
     const presForm = this.presentationVideo.value;
-    console.log('formpres', this.presentationVideo.value);
+    //console.log('formpres', this.presentationVideo.value);
     const pres = new Presentation('','',false,null);
     pres.libelle = 'rien';
     pres.etatPubPresentation = false;
@@ -577,11 +577,11 @@ this.hide2 =true;
       reverseButtons: true,
     }).then((result) => {
       if (result.value) {
-        console.log('pres',pres)
+        //console.log('pres',pres)
         this.artisteService.getAllPresentation(this.artiste.id).subscribe(
           resp=>{
               const actuPres = resp;
-              console.log("all presentation",actuPres)
+              //console.log("all presentation",actuPres)
               if(actuPres.length >= 2){
                 Swal.fire({
                   icon: 'error',
@@ -589,7 +589,7 @@ this.hide2 =true;
                   text: 'Vous avez deja une presentation en attente de validation',
                 })
               }else{
-                console.log("etat pres",actuPres[0])
+                //console.log("etat pres",actuPres[0])
                 if(actuPres.length!=0)
                 {
                   if(actuPres[0].etatPubPresentation === false){
@@ -601,8 +601,8 @@ this.hide2 =true;
                   }else{
                     this.artisteService.addPresentation(pres).subscribe(
                       resp =>{
-                        console.log("Ma video a été mise youpi");
-                        console.log(resp);
+                        //console.log("Ma video a été mise youpi");
+                        //console.log(resp);
                         Swal.fire({
                          title: 'presentation soumis avec succès!'
                         }).then((result) => {
@@ -618,7 +618,7 @@ this.hide2 =true;
                 else{
                   this.artisteService.addPresentation(pres).subscribe(
                     resp =>{
-                      console.log(resp)
+                      //console.log(resp)
                       Swal.fire({
                        title: 'presentation soumis avec succès!'
                       }).then((result) => {
@@ -633,7 +633,7 @@ this.hide2 =true;
               }
              /* this.artisteService.deletePresentation(actuPres.id).subscribe(
                 resp=>{
-                  console.log(resp);
+                  //console.log(resp);
                 }
               ) */ 
           }
@@ -641,7 +641,7 @@ this.hide2 =true;
         );
           /*this.artisteService.addPresentation(pres).subscribe(
             resp =>{
-              console.log(resp)
+              //console.log(resp)
               Swal.fire({
                title: 'presentation soumis avec succès!'
               }).then((result) => {
@@ -663,14 +663,14 @@ this.hide2 =true;
   onChangePwd(){
      
     const passwordForm = this.mdpForm.value;
-    console.log('passworForm',passwordForm)
+    //console.log('passworForm',passwordForm)
     const userDetails = new AccountInfo('','');
     userDetails.userName = this.user.email;
     userDetails.password = passwordForm.mdpActu;
     this.authS.testPassword(userDetails).subscribe(
       resp =>{
         const testUser = resp
-        console.log('test1',testUser);
+        //console.log('test1',testUser);
         if(testUser === null){
           Swal.fire({
             title: 'votre ancien mot de passe est incorrect!',
@@ -679,10 +679,10 @@ this.hide2 =true;
           });
         }
         else{
-          console.log('test2',testUser);
+          //console.log('test2',testUser);
           this.authS.changeUserPassword(passwordForm.mdpNouv,userDetails).subscribe(
                 resp =>{
-                  console.log(resp)
+                  //console.log(resp)
                   
                   $.notify({
                     icon: "notifications",
@@ -715,7 +715,7 @@ this.hide2 =true;
 
   onEditArtiste(){
     const formInfo = this.myGroup.value;
-    console.log('formInfo',formInfo)
+    //console.log('formInfo',formInfo)
     const artistem = new Artiste('','','','','','','','','','',null);
     artistem.nom = formInfo.nom;
     artistem.prenom = formInfo.prenom;
@@ -725,7 +725,7 @@ this.hide2 =true;
     artistem.adresse = formInfo.adresse;
     artistem.ville = formInfo.ville;
     artistem.pays = formInfo.pays;
-    console.log('modif artiste',artistem);
+    //console.log('modif artiste',artistem);
     Swal.fire({
       title: 'Voulez vous vraiment modifier ces informations',
       //text: "Ceci sera irreversible!",
@@ -740,7 +740,7 @@ this.hide2 =true;
       if (result.value) {
         this.artisteService.putArtiste(this.artiste.id, artistem).subscribe(
           resp =>{
-            console.log(resp)
+            //console.log(resp)
             Swal.fire({
              title: 'Informatione modifiée avec succès!'
             

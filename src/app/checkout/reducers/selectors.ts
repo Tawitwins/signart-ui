@@ -19,7 +19,7 @@ export function getCheckoutState(state: AppState): CheckoutState {
 export function fetchLineItems(state: CheckoutState) {
   // if (localStorage.getItem('completeState')) {
   //   var newState = JSON.parse(localStorage.getItem('completeState'));
-  //   console.log('newstate : ' + newState);
+  //   //console.log('newstate : ' + newState);
   //   const ids = newState.checkout.lineItemIds.toJS();
   //   const lineItemEntitites = newState.checkout.lineItemEntities.toJS();
   //   return ids.map(id => lineItemEntitites[id]);

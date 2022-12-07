@@ -103,7 +103,7 @@ export class DetailsAbonnementComponent implements OnInit {
       this.actionsSubscription = this.route.params.subscribe(
         (params: any) => {
           this.abonnementAffiche = params['abonnement'];
-        console.log("Abonnement Affiche",this.abonnementAffiche)});
+        //console.log("Abonnement Affiche",this.abonnementAffiche)});
 
       this.imageService.getAllEtat().subscribe( res => {
         this.etatAbonnements = res;
@@ -119,36 +119,36 @@ export class DetailsAbonnementComponent implements OnInit {
       });
 
       this.imageService.getAbonneById(this.abonnement.idAbonne).subscribe(response => {
-        console.log("reponse abonnement",response)
+        //console.log("reponse abonnement",response)
         this.abonneAffiche = response;
-        console.log("abonne affiche",this.abonneAffiche)
+        //console.log("abonne affiche",this.abonneAffiche)
       });
       this;this.imageService.getDelaiById(this.abonnement.idDelai).subscribe(response => {
-        console.log("reponse delai",response)
+        //console.log("reponse delai",response)
         this.delaiAffiche = response;
-        console.log("delai affiche",this.delaiAffiche)
+        //console.log("delai affiche",this.delaiAffiche)
       });
       this;this.imageService.getTerminalById(this.abonnement.idTerminal).subscribe(response => {
-        console.log("reponse terminal",response)
+        //console.log("reponse terminal",response)
         this.terminalAffiche = response;
-        console.log("delai affiche",this.terminalAffiche)
+        //console.log("delai affiche",this.terminalAffiche)
        /* if(this.terminalAffiche.libelle === "Tv box"){
           this.precisionEcran = true;
-          console.log("precsiooooooooooooo",this.precisionEcran)
+          //console.log("precsiooooooooooooo",this.precisionEcran)
         }*/
       });
       this;this.imageService.getListeOeuvre(this.abonnement.idListeSelection).subscribe(response => {
-        console.log("reponse terminal",response)
+        //console.log("reponse terminal",response)
         this.listeOeuvreAffiche = response;
-        console.log("liste affiche",this.listeOeuvreAffiche)
+        //console.log("liste affiche",this.listeOeuvreAffiche)
         for (let i = 0; i < this.listeOeuvreAffiche.length; i++) {
           this.imageService.getImage(this.listeOeuvreAffiche[i].nomOeuvre).subscribe(response => {
             const oeuvre = response;
-            console.log("oeuvre",oeuvre)
+            //console.log("oeuvre",oeuvre)
             this.oeuvresAffiche.push(oeuvre);
           });  
         }
-        console.log("oeuvres affiche", this.oeuvresAffiche)
+        //console.log("oeuvres affiche", this.oeuvresAffiche)
       });
 
 
@@ -173,7 +173,7 @@ export class DetailsAbonnementComponent implements OnInit {
             this.isAdd = false;
           } else{
             this.client = this.authService.getClientConnected();
-            //console.log("client connect", this.client)
+            ////console.log("client connect", this.client)
           }
       }
 
@@ -204,13 +204,13 @@ export class DetailsAbonnementComponent implements OnInit {
     this.imageService.getAllImage().subscribe(
       response => { 
         this.imageRes = response;
-        console.log("image",this.imageRes);
+        //console.log("image",this.imageRes);
         for (let i = 0; i < this.imageRes.length; i++) {
           this.allYears.push(this.imageRes[i].annee);
           this.findMinMax(this.allYears);
         }
         this.imageFiltres = this.imageRes;
-        console.log("imageFiltres",this.imageFiltres)
+        //console.log("imageFiltres",this.imageFiltres)
       });
     
   }
@@ -247,13 +247,13 @@ export class DetailsAbonnementComponent implements OnInit {
     this.oeuvreNumeriqueSave.titre = oeuvreNumerique.titre;
 
 
-    console.log("item to add", this.oeuvreNumeriqueSave)  
+    //console.log("item to add", this.oeuvreNumeriqueSave)  
    if(this.user==null){
       this.router.navigate(['/pages/login']);  
          
      }else{
       this.productService.addToList( this.oeuvreNumeriqueSave); 
-      console.log("add success")    
+      //console.log("add success")    
      }
    
   }
@@ -298,7 +298,7 @@ export class DetailsAbonnementComponent implements OnInit {
 
   findMinMax(tab: number[]){
 
-    console.log("table des aneeeeeeeeeeeee",tab)
+    //console.log("table des aneeeeeeeeeeeee",tab)
     let min = tab[0];
     let max = tab[0];
     for (let i = 0; i < tab.length; i++) {
@@ -311,7 +311,7 @@ export class DetailsAbonnementComponent implements OnInit {
     }
     this.minYears = min;
     this.maxYears = max;
-    console.log("Maxxxxxxxxxx anneee", this.maxYears);
-    console.log("Minnnnnnnnnn anneee", this.minYears);
+    //console.log("Maxxxxxxxxxx anneee", this.maxYears);
+    //console.log("Minnnnnnnnnn anneee", this.minYears);
   }
 }

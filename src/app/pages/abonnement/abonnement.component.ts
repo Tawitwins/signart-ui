@@ -14,7 +14,7 @@ export class AbonnementComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('products', this.products);
+    //console.log('products', this.products);
   }
 
 }

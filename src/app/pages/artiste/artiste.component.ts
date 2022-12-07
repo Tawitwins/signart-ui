@@ -154,25 +154,25 @@ export class ArtisteComponent implements OnInit {
       this.actionsSubscription = this.route.params.subscribe(
         (params: any) => {
             this.artisteId = params['id'];
-            console.log('id artiste: ' + this.artisteId)
+            //console.log('id artiste: ' + this.artisteId)
             this.artisteService
                 .getArtiste(this.artisteId)
                 .subscribe(response => {
                  
                     this.artiste = response;
-                    console.log("aaaaaaaaaaarrrrrrrrttttttttt", this.artiste)
+                    //console.log("aaaaaaaaaaarrrrrrrrttttttttt", this.artiste)
                     this.expoService.getOeuvreByArtiste(this.artiste.id).subscribe(response => { 
                       this.oeuvres = response;
                      });
                     this.artisteService.getAllPresentation(this.artiste.id).subscribe(
                         resp => { 
                           this.artistePresentation = resp;
-                        console.log('Presentation',this.artistePresentation);
+                        //console.log('Presentation',this.artistePresentation);
                     });
-                    // console.log('artiste:' + this.artiste ? this.artiste.idClient : 0);
+                    // //console.log('artiste:' + this.artiste ? this.artiste.idClient : 0);
                 });
 
-            // console.log('c moi');
+            // //console.log('c moi');
         }
     );
 
@@ -180,7 +180,7 @@ export class ArtisteComponent implements OnInit {
       this.oeuvres = this.oeuvres.filter(item => item.prix >= this.minPrice && item.prix <= this.maxPrice) 
       this.paginate = this.productService.getPager(this.oeuvres.length, +this.pageNo); 
       this.oeuvres = this.oeuvres.slice(this.paginate.startIndex, this.paginate.endIndex + 1);
-      console.log("paginationnnnn", this.paginate)
+      //console.log("paginationnnnn", this.paginate)
   
     this.user = this.userAuth.getUserConnected();
     this.isVisiteur=false;
@@ -190,7 +190,7 @@ export class ArtisteComponent implements OnInit {
     this.navigations = NAVIGATION.filter(navigation => navigation);
     this.initForm();
     this.visiteur = new Visiteur(null,"","","","","",0);
-    //console.log(Visiteur.prenom+Visiteur.nom+Visiteur.pays+Visiteur.typeVisiteur+Visiteur.raisonSociale);
+    ////console.log(Visiteur.prenom+Visiteur.nom+Visiteur.pays+Visiteur.typeVisiteur+Visiteur.raisonSociale);
     this.paysService.getAllPays().subscribe(pays => this.allPays = pays);
     this.oeuvreService.getOeuvreByArtiste(this.artisteId).subscribe(response => { this.listes = <any>response });
     this.expoService.getExpoByArtiste(this.artisteId).subscribe(response => {
@@ -211,7 +211,7 @@ export class ArtisteComponent implements OnInit {
     this.annonceService.getAnnoceByArtiste(this.artisteId).subscribe(response => { this.listesAnnonce = response });
     this.clientService.getClientByArtiste(this.artisteId).subscribe(response => { this.listesClient = response });
     this.expoService.getFormationByArtiste(this.artisteId).subscribe(response => { this.listesFormation = response
-        console.log(this.listesFormation);
+        //console.log(this.listesFormation);
     }
        
         );
@@ -343,7 +343,7 @@ followArtiste(){
   if(this.client!=null)
   {
       if (this.marq == false) {
-          console.log('mmmmkl' + this.client.id);
+          //console.log('mmmmkl' + this.client.id);
           this.suivre = new Suivre(null,'SUIV', new Date(), +this.artiste.id, this.client.id, 2,this.visiteur.id);
           this.suivreService.suivreArtiste(this.suivre).subscribe(res => {
             this.listes1 = res
@@ -360,39 +360,39 @@ followArtiste(){
   else if(this.user==null)
   {
     this.router.navigate(['/pages/login']);
-      /*console.log('Aucune connexion est active');
+      /*//console.log('Aucune connexion est active');
       if(this.marq[index]==false)
           this.isVisiteur=true;
       else
       {
           this.isVisiteur=false;
-          console.log("Mon artiste: "+ this.currentArtiste.id + "Mon visiteur: " + this.visiteur.id); 
+          //console.log("Mon artiste: "+ this.currentArtiste.id + "Mon visiteur: " + this.visiteur.id); 
           var result = this.oeuvreService.plusSuivreArtisteByVisiteur(this.suivre.id);
           if(result==null)
-              console.log("Aucun élément a été trouvé pour la suppresion");
+              //console.log("Aucun élément a été trouvé pour la suppresion");
           else
           {
               result.subscribe(
                   (val) => {
-                 console.log("DELETE request en cours ....", <String>val 
+                 //console.log("DELETE request en cours ....", <String>val 
                              );
                              var valSuivre = <Suivre>val;
                              if(valSuivre.id==this.suivre.id)
                              {
                                   this.suivreart = 'Suivre';
                                   this.couleur = '#f07c10';
-                                  console.log('Succès. Vous ne suivez plus cet artiste '+this.currentArtiste.id);
+                                  //console.log('Succès. Vous ne suivez plus cet artiste '+this.currentArtiste.id);
                              }
                              else
                              {
-                                  console.log("Cas particulers !! Val = "+ <Suivre>val );
+                                  //console.log("Cas particulers !! Val = "+ <Suivre>val );
                              }
              },
              response => {
-                 console.log("DELETE call in error", response);
+                 //console.log("DELETE call in error", response);
              },
              () => {
-                 console.log("The DELETE observable is now completed.");
+                 //console.log("The DELETE observable is now completed.");
              });
           }
           //this.oeuvreService.plusSuivreArtisteByVisiteur(this.suivre.id)

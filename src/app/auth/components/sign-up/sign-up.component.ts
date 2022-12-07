@@ -57,15 +57,15 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     const values = this.signUpForm.value;
-    console.log('values: ', values)
+    //console.log('values: ', values)
     const keys = Object.keys(values);
     this.formSubmit = true;
 if (this.signUpForm.valid) {
       this.registerSubs = this.authService.register(values).subscribe(
-        data => {     console.log('datas: ', data)
+        data => {     //console.log('datas: ', data)
 
           this.authService.login(values.email, values.password).subscribe(
-            resp => console.log('resp: ', data)
+            resp => //console.log('resp: ', data)
           );
         }
         );

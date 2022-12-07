@@ -26,13 +26,13 @@ export class SocialAthService {
     return new Promise<any>((resolve, reject) => {
       let provider = new firebase.auth.FacebookAuthProvider();
       provider.addScope('profile')
-      console.log('Facebook provider: ', provider)
+      //console.log('Facebook provider: ', provider)
       this.afa.auth
       .signInWithPopup(provider)
       .then(res => {
         resolve(res);
       }, err => {
-        console.log(err);
+        //console.log(err);
         reject(err);
       })
     })
@@ -41,7 +41,7 @@ export class SocialAthService {
   doGoogleLogin(){
     return new Promise<any>((resolve, reject) => {
       let provider = new firebase.auth.GoogleAuthProvider();
-      console.log('Google provider: ', provider)
+      //console.log('Google provider: ', provider)
       provider.addScope('profile');
       provider.addScope('email');
       this.afa.auth
@@ -49,7 +49,7 @@ export class SocialAthService {
       .then(res => {
         resolve(res);
       },err => {
-        console.log(err);
+        //console.log(err);
         reject(err);
       }
       )

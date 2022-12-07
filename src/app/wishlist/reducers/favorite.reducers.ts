@@ -57,7 +57,7 @@ export function reducer(state = initialState, { type, payload }: any): FavoriteS
             };
 
         // case FavoriteActions.GET_ALL_WISHLIST_SUCCESS:
-        //     console.log('oeuvres favorites : '+payload.oeuvres);
+        //     //console.log('oeuvres favorites : '+payload.oeuvres);
         //     const _oeuvres = payload.oeuvres;
         //     _oeuvresEntities = _oeuvres.reduce((oeuvres: { [id: number]: Oeuvre }, oeuvre: Oeuvre) => {
         //         return Object.assign(oeuvres, {
@@ -65,7 +65,7 @@ export function reducer(state = initialState, { type, payload }: any): FavoriteS
         //         });
         //     }, {});
         //     _wishItemEntities = state.wishItemEntities;
-        //     console.log('wishiTems : '+ Array.from(_wishItemEntities.keys()));
+        //     //console.log('wishiTems : '+ Array.from(_wishItemEntities.keys()));
         //     _totalWishlistItems = state.totalWishlistItems;
         //     return state.merge({
         //         wishItemEntities: _wishItemEntities,

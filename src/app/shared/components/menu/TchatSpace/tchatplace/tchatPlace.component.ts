@@ -9,7 +9,7 @@ export class TchatPlaceComponent {
 
 
   constructor() {
-    console.log("tchat place est là");
+    //console.log("tchat place est là");
   }
   ngOninit(){
 

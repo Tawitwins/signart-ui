@@ -144,7 +144,7 @@ export class QuickViewComponent implements OnInit, OnDestroy  {
         confirmButtonText: 'Oui, se connecter'
       }).then((result) => {
         if (result.value) {
-          console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+          //console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
           this.router.navigate(['/pages/login']);
         }
       })**/  

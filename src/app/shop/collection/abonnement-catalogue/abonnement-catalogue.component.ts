@@ -203,7 +203,7 @@ export class AbonnementCatalogueComponent implements OnInit {
 
   set searchTerm(value: string) {
     this._searchTerm = value;
-    console.log(value)
+    //console.log(value)
     this.imageFiltres = this.filtrerImage(value);
   }
 
@@ -270,7 +270,7 @@ export class AbonnementCatalogueComponent implements OnInit {
               if(this.allClientAdresse.length > 0){
                 this.clientAdresse = this.allClientAdresse[0];
                 //this.indicatifpays = this.clientAdresse.telephone;
-                //console.log("adressssssssssssse clienttttttt",this.clientAdresse)  
+                ////console.log("adressssssssssssse clienttttttt",this.clientAdresse)  
               }
               this.onglet=2;
             });
@@ -286,22 +286,22 @@ export class AbonnementCatalogueComponent implements OnInit {
           this.imageService.getAllDelai().subscribe(
             response => { 
               this.delais = response;
-              //console.log("delais",this.delais);
+              ////console.log("delais",this.delais);
             });
       
             this.imageService.getAllTerminal().subscribe(
               response => { 
                 this.terminals = response;
-                //console.log("terminals",this.terminals);
+                ////console.log("terminals",this.terminals);
               });
             this.imageService.getAllEtat().subscribe(
               response => { 
                 this.etats = response;
-                //console.log("etats",this.etats);
+                ////console.log("etats",this.etats);
               });
       this.expoService.getTechnique().subscribe(response => {
         this.techniques = response
-        //console.log("tech", this.techniques)
+        ////console.log("tech", this.techniques)
       });
       this.articleService.getAllArticles().subscribe(response => { 
         this.oeuvres = response;
@@ -329,7 +329,7 @@ export class AbonnementCatalogueComponent implements OnInit {
           
           this.oeuvres = this.productService.sortOeuvres(this.oeuvres, this.sortBy);
           this.oeuvres = this.oeuvres.filter(item => item.prix >= this.minPrice && item.prix <= this.maxPrice) 
-          //console.log("paginationnnnn", this.paginate)
+          ////console.log("paginationnnnn", this.paginate)
         });
       })
   }
@@ -342,10 +342,10 @@ export class AbonnementCatalogueComponent implements OnInit {
   }
 
   choisirPays(event) {
-    console.log(event.target.value)
+    //console.log(event.target.value)
     for (let i = 0; i < this.allPays.length; i++) {
        if(this.allPays[i].code === event.target.value){
-         console.log(this.allPays[i].indicatif)
+         //console.log(this.allPays[i].indicatif)
          this.indicatifpays = this.allPays[i].indicatif;
        }
       
@@ -361,9 +361,9 @@ export class AbonnementCatalogueComponent implements OnInit {
         let liste = response;
         this.abonne.idListeSelection = liste.id;
       });
-    //console.log(this.abonne)
-    //console.log("inof formulaire", this.abonneeForm.value)
-    console.log("inof abonne", this.abonne)
+    ////console.log(this.abonne)
+    ////console.log("inof formulaire", this.abonneeForm.value)
+    //console.log("inof abonne", this.abonne)
     this.pageFormu = 2;
   }
 
@@ -377,7 +377,7 @@ export class AbonnementCatalogueComponent implements OnInit {
       if(this.terminals[i].id == this.terminalDelai.terminalId){
         this.terminalId = this.terminals[i].id;
         this.terminalChoisi = this.terminals[i];
-        //console.log("termi - : ",this.terminalId)
+        ////console.log("termi - : ",this.terminalId)
        this.terminalDelai.terminalLibelle = this.terminals[i].libelle;
        //this.montantTotal = this.montantTotal + this.terminals[i].prix;
       }
@@ -387,16 +387,16 @@ export class AbonnementCatalogueComponent implements OnInit {
        this.terminalDelai.delaiLibelle = this.delais[i].libelle;
        this.delaiChoisi = this.delais[i];
        this.delaiId = this.delais[i].id;
-       //console.log(" - delai: ",this.delaiId)
+       ////console.log(" - delai: ",this.delaiId)
        //this.montantTotal = this.montantTotal + this.delais[i].prix;
       }
     }
-    //console.log("termi - delai: ",this.terminalDelai)
+    ////console.log("termi - delai: ",this.terminalDelai)
     this.showResum();
   }
 
   filtrerImage(searchString: string){
-    console.log("test",this.imageRes)
+    //console.log("test",this.imageRes)
     return this.imageRes.filter(image =>
       image.motscles.toLowerCase().indexOf(searchString.toLowerCase()) !== -1);
   }
@@ -419,8 +419,8 @@ export class AbonnementCatalogueComponent implements OnInit {
   updateFilterAnnee() {
     this.imageFiltres = this.imageFiltresSave;
     this.imageFiltres = this.imageFiltres.filter(item => item.annee >= this.minYears && item.annee <= this.maxYears) 
-    /*//console.log("min price ",this.minPrice);
-    //console.log("max price ",this.maxPrice);*/
+    /*////console.log("min price ",this.minPrice);
+    ////console.log("max price ",this.maxPrice);*/
     
   }
 
@@ -428,7 +428,7 @@ export class AbonnementCatalogueComponent implements OnInit {
     this.techSelect = technique;
     this.imageFiltres = this.imageFiltresSave;
     this.imageFiltres = this.imageFiltres.filter(item => item.technique == technique) 
-    ////console.log("technique ",idTechnique);
+    //////console.log("technique ",idTechnique);
     
     
   }
@@ -496,7 +496,7 @@ export class AbonnementCatalogueComponent implements OnInit {
 
   // product Pagination
   setPage(page: number) {
-    //console.log("number page", page)
+    ////console.log("number page", page)
     this.router.navigate([], { 
       relativeTo: this.route, 
       queryParams: { page: page },
@@ -535,21 +535,21 @@ export class AbonnementCatalogueComponent implements OnInit {
     this.pageFormu = 3;
     /* this.getTotal.subscribe(response => { 
       this.montantTotal = this.montantTotal + response;}); */
-      console.log("la liste des oeuvres",this.listeOeuvre)
+      //console.log("la liste des oeuvres",this.listeOeuvre)
       this.abonnement.idTerminal = this.terminalId;
       this.abonnement.idDelai = this.delaiId;
       //this.abonnement.montantPaiement = this.montantTotal;
       this.listeOeuvre = this.oeuvresNumeriques;
-      console.log("abonne rs",this.abonne)
+      //console.log("abonne rs",this.abonne)
       if(!this.isListeOeuvreAdded){
         for (let i = 0; i < this.listeOeuvre.length; i++) {
           const listoeuvre = new ListeSelection_Oeuvres(null,null);
           listoeuvre.idListe = this.abonne.idListeSelection;
           listoeuvre.nomOeuvre = this.listeOeuvre[i].nom;
-          console.log(listoeuvre)
+          //console.log(listoeuvre)
           this.imageService.addListOeuvre(listoeuvre).subscribe(
             respon => { 
-              console.log("add image"+listoeuvre)
+              //console.log("add image"+listoeuvre)
               this.isListeOeuvreAdded = true;
              
                   this.abonnement.idListeSelection = this.abonne.idListeSelection;
@@ -587,11 +587,11 @@ export class AbonnementCatalogueComponent implements OnInit {
           //return this.montantTotal;
         })
       }
-        console.log(this.abonne.idListeSelection);
+        //console.log(this.abonne.idListeSelection);
       
       //this.abonnement.idListeSelection = this.abonne.idListeSelection;
       
-    //console.log("montant total "+ this.montantTotal)
+    ////console.log("montant total "+ this.montantTotal)
         //return null;
   }
 
@@ -631,7 +631,7 @@ export class AbonnementCatalogueComponent implements OnInit {
           this.imageRes[i].isInList = false;
           this.allYears.push(this.imageRes[i].annee);
           this.findMinMax(this.allYears);
-          //console.log("checkkkkkkkkkkk",this.productService.checkItemList(this.imageRes[i]));
+          ////console.log("checkkkkkkkkkkk",this.productService.checkItemList(this.imageRes[i]));
         }
 
         for (let i = 0; i < tabList.length; i++) {
@@ -641,12 +641,12 @@ export class AbonnementCatalogueComponent implements OnInit {
             }      
           }   
         }
-        console.log("imageeeeeeeeeee",this.imageRes);
+        //console.log("imageeeeeeeeeee",this.imageRes);
         this.imageFiltres = this.imageRes;
         this.imageFiltresSave = this.imageRes;
-        ////console.log("imageFiltres",this.imageFiltres)
+        //////console.log("imageFiltres",this.imageFiltres)
       }); 
-      //console.log("checkkkkkkkkkkk",this.productService.checkItemList());  
+      ////console.log("checkkkkkkkkkkk",this.productService.checkItemList());  
   }
 
   /*setBouttons(){
@@ -660,11 +660,11 @@ export class AbonnementCatalogueComponent implements OnInit {
       }
       
     }
-    console.log("modiiiiiffff stuuuutttatt oeuvreeeee",this.imageRes);  
+    //console.log("modiiiiiffff stuuuutttatt oeuvreeeee",this.imageRes);  
   }*/
 
   findMinMax(tab: number[]){
-   // //console.log("table des aneeeeeeeeeeeee",tab)
+   // ////console.log("table des aneeeeeeeeeeeee",tab)
     let min = tab[0];
     let max = tab[0];
     for (let i = 0; i < tab.length; i++) {
@@ -677,8 +677,8 @@ export class AbonnementCatalogueComponent implements OnInit {
     }
     this.minYears = min;
     this.maxYears = max;
-  // //console.log("Maxxxxxxxxxx anneee", this.maxYears);
-    ////console.log("Minnnnnnnnnn anneee", this.minYears);
+  // ////console.log("Maxxxxxxxxxx anneee", this.maxYears);
+    //////console.log("Minnnnnnnnnn anneee", this.minYears);
   }
   getArtisteName(idArtiste){
     for (let i = 0; i < this.artistes.length; i++) {
@@ -700,8 +700,8 @@ export class AbonnementCatalogueComponent implements OnInit {
         footer: '<a href=\'auth/login\'><b>Connexion<a></a>'
       })
     }else{
-      //console.log("item",item)  
-    //console.log("liste push",this.listeOeuvre.push(item));
+      ////console.log("item",item)  
+    ////console.log("liste push",this.listeOeuvre.push(item));
     this.montantTotal = this.montantTotal + item.tarif;
     item.isDisabledAdd = true;
     item.isDisabledRemove = false;
@@ -737,10 +737,10 @@ export class AbonnementCatalogueComponent implements OnInit {
         this.allUserListe = response;
         this.listeAdd.idUtilisateur = this.idUtilisateur;
         this.listeAdd.nomListe = this.idUtilisateur+"Liste"+(this.allUserListe.length+1);
-        ////console.log("liste crée: ",this.listeAdd);
+        //////console.log("liste crée: ",this.listeAdd);
         this.imageService.addListe(this.listeAdd).subscribe(
           response => { 
-            ////console.log("liste crée!!");     
+            //////console.log("liste crée!!");     
             this.isListeOeuvreAdded = false;
           });
       });
@@ -762,24 +762,24 @@ export class AbonnementCatalogueComponent implements OnInit {
         this.ngxService.startLoader("loader-01"); // start foreground spinner of the loader "loader-01" with 'default' taskId
         this.imageService.addAbonne(this.abonne).subscribe(
           respon =>{
-            ////console.log(respon)
+            //////console.log(respon)
             if(respon != null){
               let abonnee: Abonne = respon
-              console.log("abonneee creerr ", abonnee)
+              //console.log("abonneee creerr ", abonnee)
               this.imageService.getAbonneByListe(this.abonne.idListeSelection).subscribe(
                 response => { 
                   this.abonneRes = response;
                  
-                  ////console.log("abonneee creerr ", this.abonneRes)
-                  ////console.log('abonneRes',this.abonneRes);
-                       // ////console.log("listId",this.listeSelection.id)
-                        ////console.log("abonneId",this.abonneRes.id)
-                        ////console.log("delaiId",this.delaiId)
-                        ////console.log("terminalId",this.terminalId)
+                  //////console.log("abonneee creerr ", this.abonneRes)
+                  //////console.log('abonneRes',this.abonneRes);
+                       // //////console.log("listId",this.listeSelection.id)
+                        //////console.log("abonneId",this.abonneRes.id)
+                        //////console.log("delaiId",this.delaiId)
+                        //////console.log("terminalId",this.terminalId)
 
 
                         
-                        console.log("abonne ress",this.abonneRes)
+                        //console.log("abonne ress",this.abonneRes)
                         this.abonnement.idTerminal = this.terminalId;
                         this.abonnement.idDelai = this.delaiId;
                         this.abonnement.montantPaiement = this.montantTotal;
@@ -796,22 +796,22 @@ export class AbonnementCatalogueComponent implements OnInit {
                             this.idEtatAbonnement = this.etats[i].id;
                           }
                         }
-                        ////console.log("id etat",this.idEtatAbonnement)
+                        //////console.log("id etat",this.idEtatAbonnement)
                         this.abonnement.etatAbonnement = this.idEtatAbonnement
             
                         
                         
                         /* this.listeOeuvre = this.oeuvresNumeriques;
-                        console.log("la liste des oeuvres",this.listeOeuvre)
-                        console.log("abonne rs",this.abonneRes)
+                        //console.log("la liste des oeuvres",this.listeOeuvre)
+                        //console.log("abonne rs",this.abonneRes)
                         for (let i = 0; i < this.listeOeuvre.length; i++) {
                           const listoeuvre = new ListeSelection_Oeuvres(null,null);
                           listoeuvre.idListe = this.abonneRes.idListeSelection;
                           listoeuvre.nomOeuvre = this.listeOeuvre[i].nom;
-                          console.log(listoeuvre)
+                          //console.log(listoeuvre)
                           this.imageService.addListOeuvre(listoeuvre).subscribe(
                             respon => { 
-                              console.log("add image"+listoeuvre)
+                              //console.log("add image"+listoeuvre)
                               
                             }); 
                         }  */
@@ -820,7 +820,7 @@ export class AbonnementCatalogueComponent implements OnInit {
                             this.idEtatAbonnement = this.etats[i].id;
                           }
                         }
-                        ////console.log("id etat",this.idEtatAbonnement)
+                        //////console.log("id etat",this.idEtatAbonnement)
                         this.abonnement.etatAbonnement = this.idEtatAbonnement
                         this.saveAbonnementToDB();
                         /* Swal.fire({
@@ -866,8 +866,8 @@ export class AbonnementCatalogueComponent implements OnInit {
     this.abonnement.montantPaiement = Math.round( this.abonnement.montantPaiement )
     this.imageService.addAbonnement(this.abonnement).subscribe(
       resp =>{
-        ////console.log(resp)
-        console.log("abonnement",this.abonnement)
+        //////console.log(resp)
+        //console.log("abonnement",this.abonnement)
         if(resp.id)
         {
           this.abonnement = resp;

@@ -96,7 +96,7 @@ export class AllartistComponent implements OnInit {
       response => {
         this.artistes = response;
         this.artistesSave = this.artistes;
-        console.log("all artiste",this.artistes)
+        //console.log("all artiste",this.artistes)
         if(this.artistes && this.artistes.length === 0){
           this.translate.get('PopupListArtisteVide').subscribe(popup => {
             this.toastr.info(popup, 'INFO');
@@ -123,10 +123,10 @@ export class AllartistComponent implements OnInit {
         }
 
 
-        // console.log('artistes:' + JSON.stringify(this.artistes));
+        // //console.log('artistes:' + JSON.stringify(this.artistes));
        },
        err => {
-         console.log('erreur : ' + err);
+         //console.log('erreur : ' + err);
          this.translate.get('PopupErrRecupListArtite').subscribe(popup => {
           this.toastr.error(popup, 'Erreur');
           })
@@ -153,7 +153,7 @@ export class AllartistComponent implements OnInit {
     this.artistes = this.artistesSave;
     if(event.target.value !== "Tout"){
       this.artistes = this.artistes.filter(item => item.profession == event.target.value) 
-      console.log("profession ",event.target.value);  
+      //console.log("profession ",event.target.value);  
     }
     
   }
@@ -169,7 +169,7 @@ export class AllartistComponent implements OnInit {
     const profession = [...new Set(this.artistes.map(artiste => artiste.profession))]
     for (let i = 0; i < profession.length; i++) {
       allProfessions = profession[i].split(",");
-      console.log("profession "+i+" :",allProfessions)
+      //console.log("profession "+i+" :",allProfessions)
       professions.push(allProfessions)
     }
     const finalprofession = [...new Set(professions.map(profess => profess))]
@@ -186,7 +186,7 @@ export class AllartistComponent implements OnInit {
     if(this.client!=null)
     {
         if (this.marq[index] == false) {
-            console.log('mmmmkl' + this.client.id);
+            //console.log('mmmmkl' + this.client.id);
             this.suivre = new Suivre(null,'SUIV', new Date(), +this.currentArtiste.id, this.client.id, 2,this.visiteur.id);
             this.suivreService.suivreArtiste(this.suivre).subscribe(res => {
               this.listes1 = res
@@ -203,39 +203,39 @@ export class AllartistComponent implements OnInit {
     else if(this.user==null)
     {
       this.router.navigate(['/pages/login']);
-        /*console.log('Aucune connexion est active');
+        /*//console.log('Aucune connexion est active');
         if(this.marq[index]==false)
             this.isVisiteur=true;
         else
         {
             this.isVisiteur=false;
-            console.log("Mon artiste: "+ this.currentArtiste.id + "Mon visiteur: " + this.visiteur.id); 
+            //console.log("Mon artiste: "+ this.currentArtiste.id + "Mon visiteur: " + this.visiteur.id); 
             var result = this.oeuvreService.plusSuivreArtisteByVisiteur(this.suivre.id);
             if(result==null)
-                console.log("Aucun élément a été trouvé pour la suppresion");
+                //console.log("Aucun élément a été trouvé pour la suppresion");
             else
             {
                 result.subscribe(
                     (val) => {
-                   console.log("DELETE request en cours ....", <String>val 
+                   //console.log("DELETE request en cours ....", <String>val 
                                );
                                var valSuivre = <Suivre>val;
                                if(valSuivre.id==this.suivre.id)
                                {
                                     this.suivreart = 'Suivre';
                                     this.couleur = '#f07c10';
-                                    console.log('Succès. Vous ne suivez plus cet artiste '+this.currentArtiste.id);
+                                    //console.log('Succès. Vous ne suivez plus cet artiste '+this.currentArtiste.id);
                                }
                                else
                                {
-                                    console.log("Cas particulers !! Val = "+ <Suivre>val );
+                                    //console.log("Cas particulers !! Val = "+ <Suivre>val );
                                }
                },
                response => {
-                   console.log("DELETE call in error", response);
+                   //console.log("DELETE call in error", response);
                },
                () => {
-                   console.log("The DELETE observable is now completed.");
+                   //console.log("The DELETE observable is now completed.");
                });
             }
             //this.oeuvreService.plusSuivreArtisteByVisiteur(this.suivre.id)
@@ -245,71 +245,71 @@ export class AllartistComponent implements OnInit {
   onSubmit(){
           
     //onsole.log(Visiteur.prenom+Visiteur.nom+Visiteur.pays+Visiteur.typeVisiteur+Visiteur.raisonSociale);
-    console.log("Visiteur en cour d'enregistrement...");
+    //console.log("Visiteur en cour d'enregistrement...");
     const values = this.FormVisiteur.value;
-    console.log('values: ', values)
+    //console.log('values: ', values)
     const keys = Object.keys(values);
-    console.log(values);
+    //console.log(values);
     this.visiteur.pays =this.allPays.find(p=>p.libelle=this.selectedPays);
     this.visiteur.idPays= this.visiteur.pays.id;
-    console.log(this.visiteur);
+    //console.log(this.visiteur);
     if (this.FormVisiteur.valid) {
-        console.log("Visiteur a été enregistrer avec succès");
-        console.log(this.visiteur);
+        //console.log("Visiteur a été enregistrer avec succès");
+        //console.log(this.visiteur);
         /*this.visiteur.prenom = values.prenom;
         this.visiteur.nom = values.nom;
         this.visiteur.pays = values.pays;
         this.visiteur.raisonsociale = values.raisonSociale;
         this.visiteur.typeVisiteur = values.typeVisiteur;*/
         //this.visiteur.idPays = this.visiteur.pays.id;
-        console.log(this.visiteur.pays);
+        //console.log(this.visiteur.pays);
         var result =this.visiteurService.createVisiteur(this.visiteur);
         result.subscribe(  
             (val) => {
-                console.log("POST call (save visiteur) successful value returned in body", val); 
+                //console.log("POST call (save visiteur) successful value returned in body", val); 
                 this.visiteur=<Visiteur>val; 
-                console.log("Mise a jour ici", this.visiteur); 
+                //console.log("Mise a jour ici", this.visiteur); 
                 this.translate.get('AlertIdReussiSA').subscribe(popup => {
                   alert(popup);
                   })
                 // alert("Identification réussi et suivi approuvé.");
                 this.suivre = new Suivre(null,'SUIV', new Date(), this.currentArtiste.id, 0, 2,this.visiteur.id);
-                console.log("Mon marquest est là "+ this.suivre);
+                //console.log("Mon marquest est là "+ this.suivre);
                 this.suivreService.suivreArtiste(this.suivre).subscribe( (val) => {
-                    console.log("POST call successful (set marque) value returned in body", 
+                    //console.log("POST call successful (set marque) value returned in body", 
                                 val);
-                                console.log("Reponse souscription", this.listes1);
+                                //console.log("Reponse souscription", this.listes1);
                                 this.suivreart = 'Ne plus suivre';
                                 this.couleur = 'grey';
                                 document.getElementById('Visiteur').click();
                                 this.suivre= <Suivre>val;
                     },
                     response => {
-                        console.log("POST call (set marque) in error", response);
+                        //console.log("POST call (set marque) in error", response);
                     },
                     () => {
-                        console.log("The POST observable (set marque) is now completed.");
+                        //console.log("The POST observable (set marque) is now completed.");
                     });
               
-               // console.log('affiche ' + this.suivre+this.isVisiteur);
+               // //console.log('affiche ' + this.suivre+this.isVisiteur);
             },
             response => {
-                console.log("POST call (save visiteur) in error", response);
-                console.log("Un problème lors de l'enregistrement des vos informations !!" + result );
+                //console.log("POST call (save visiteur) in error", response);
+                //console.log("Un problème lors de l'enregistrement des vos informations !!" + result );
             },
             () => {
-                console.log("The POST (save visiteur) observable is now completed.");
+                //console.log("The POST (save visiteur) observable is now completed.");
         });
         /*this.registerSubs = this.authService.register(values).subscribe(
-          data => {     console.log('datas: ', data)
+          data => {     //console.log('datas: ', data)
   
             this.authService.login(values.email, values.password).subscribe(
-              resp => console.log('resp: ', data)
+              resp => //console.log('resp: ', data)
             );
           }
           );*/
       } else {
-        console.log("Un problème a été rencontré avec le formulaire du visiteur ");
+        //console.log("Un problème a été rencontré avec le formulaire du visiteur ");
         keys.forEach(val => {
           const ctrl = this.FormVisiteur.controls[val];
           if (!ctrl.valid) {

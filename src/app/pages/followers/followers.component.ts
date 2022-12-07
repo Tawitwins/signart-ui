@@ -28,7 +28,7 @@ export class FollowersComponent implements OnInit {
     this.actionsSubscription = this.route.params.subscribe(
       (params: any) => {
           this.artisteId = params['idArtiste'];
-          console.log('id artiste: ' + this.artisteId)
+          //console.log('id artiste: ' + this.artisteId)
           this.artisteService
               .getArtiste(this.artisteId)
               .subscribe(response => {
@@ -37,7 +37,7 @@ export class FollowersComponent implements OnInit {
                   .subscribe(
                     (response)=>{
                       this.clients= <Client[]>response;
-                      console.log('les clients de l\'artiste',this.clients)
+                      //console.log('les clients de l\'artiste',this.clients)
                      
                     }
                   );
@@ -45,7 +45,7 @@ export class FollowersComponent implements OnInit {
                   .subscribe(
                     (response)=>{
                       this.Visiteurs= <Visiteur[]>response; 
-                      console.log("Les visiteurs de l'artiste",this.Visiteurs);
+                      //console.log("Les visiteurs de l'artiste",this.Visiteurs);
                       this.Visiteurs=this.Visiteurs.reverse();
                      })
                });

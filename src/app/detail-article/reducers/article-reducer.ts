@@ -29,7 +29,7 @@ export function reducer(state = initialState, { type, payload }: any): ArticleSt
       }
 
     case ArticleActions.GET_ALL_PRODUCTS_SUCCESS:
-      // console.log('oeuvres : ' + payload.products);
+      // //console.log('oeuvres : ' + payload.products);
       const _products: Oeuvre[] = payload.products;
       const productIds= _products.map(product => product.id);
       const productEntities = _products.reduce((products: { [id: number]: Oeuvre[] }, product: Oeuvre) => {

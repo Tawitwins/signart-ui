@@ -52,9 +52,9 @@ export class ProductLeftSidebarComponent implements OnInit {
       this.route.params.subscribe(
         (params: any) => {
            // this.artisteId = params['id'];
-            console.log("params de resolver", params['id'])
+            //console.log("params de resolver", params['id'])
             this.productService.getOeuvreBySlug(params['id']).subscribe(oeuvre => {
-              console.log("oeuvre de resolver", oeuvre)
+              //console.log("oeuvre de resolver", oeuvre)
               
              if(!oeuvre) { // When product is empty redirect 404
                  this.router.navigateByUrl('/pages/404', {skipLocationChange: true});
@@ -62,7 +62,7 @@ export class ProductLeftSidebarComponent implements OnInit {
                  this.oeuvre = oeuvre
                  this.artisteService.getArtiste(this.oeuvre.idArtiste).subscribe(response => {
                   this.artiste = response;
-                  console.log("artiste name",this.artiste)
+                  //console.log("artiste name",this.artiste)
                   this.name = this.artiste.prenom + " " + this.artiste.nom;
                 });
              }
@@ -78,7 +78,7 @@ export class ProductLeftSidebarComponent implements OnInit {
           this.oeuvre = new Oeuvre();
         }
         });
-      console.log("oeuvre dans left", this.oeuvre)*/
+      //console.log("oeuvre dans left", this.oeuvre)*/
     }
 
     ngOnInit(): void {
@@ -87,7 +87,7 @@ export class ProductLeftSidebarComponent implements OnInit {
       }
       (function ($) {
         $(document).ready(function(){
-          console.log("Hello from jQuery!");
+          //console.log("Hello from jQuery!");
         });
       });
       /* $( "#imgOeuvr" ).on( "click", function() {
@@ -98,15 +98,15 @@ export class ProductLeftSidebarComponent implements OnInit {
       $('.tile')
       // tile mouse actions
       .on('mouseover', function(){
-        console.log("ici over mouse bro");
+        //console.log("ici over mouse bro");
         $(this).children('.photo').css({'transform': 'scale('+ $(this).attr('data-scale') +')'});
       })
       .on('mouseout', function(){
-        console.log("ici out mouse bro");
+        //console.log("ici out mouse bro");
         $(this).children('.photo').css({'transform': 'scale(1)'});
       })
       .on('mousemove', function(e){
-        console.log("ici move mouse bro");
+        //console.log("ici move mouse bro");
         $(this).children('.photo').css({'transform-origin': ((e.pageX - $(this).offset().left) / $(this).width()) * 100 + '% ' + ((e.pageY - $(this).offset().top) / $(this).height()) * 100 +'%'});
       })
       // tiles set up
@@ -181,7 +181,7 @@ export class ProductLeftSidebarComponent implements OnInit {
         confirmButtonText: 'Oui, se connecter'
       }).then((result) => {
         if (result.value) {
-          console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+          //console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
           this.router.navigate(['/pages/login']);
         }
       }) */ 
@@ -216,7 +216,7 @@ export class ProductLeftSidebarComponent implements OnInit {
               cancelButtonText: cancelButtonText
             }).then((result)=> {
               if (result.value) {
-                console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+                //console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
                 this.router.navigate(['/pages/login']);
               }
             });
@@ -236,7 +236,7 @@ export class ProductLeftSidebarComponent implements OnInit {
       //   reverseButtons: true,
       // }).then((result) => {
       //   if (result.value) {
-      //     console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+      //     //console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
       //     this.router.navigate(['/pages/login']);
       //   }
       // })  
