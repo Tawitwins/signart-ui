@@ -33,12 +33,12 @@ export class LineItemListComponent implements OnInit {
     this.lignePaniers$ = this.store.select(getLineItems) as unknown as Observable<LignePanier[]>;
     /*this.lignePaniers$.subscribe(resp => {
       resp.forEach(element => {
-        console.log(this.lzs.decompress(localStorage.getItem('panier')));
+        //console.log(this.lzs.decompress(localStorage.getItem('panier')));
         if (JSON.parse(this.lzs.decompress(localStorage.getItem('panier')))) {
-          console.log("updating panier in local storage");
+          //console.log("updating panier in local storage");
           localStorage.setItem('panier', this.lzs.compress(JSON.stringify(this.updateCart(element.oeuvre))));
         } else {
-          console.log("creating panier in local storage");
+          //console.log("creating panier in local storage");
           localStorage.setItem('panier', this.lzs.compress(JSON.stringify(this.createCart(element.oeuvre))));
         }
       });
@@ -49,12 +49,12 @@ export class LineItemListComponent implements OnInit {
 
   ngOnInit() {
     /*if (this.authService.getUserConnected() == null) {
-      console.log('user non connecté');
+      //console.log('user non connecté');
       this.store.dispatch(this.actions.getAllLineItemsLocal());
       this.lignePaniers$ = this.store.select(getLineItems) as Observable<any>;
       
     } else {
-      console.log('user connecté')
+      //console.log('user connecté')
       this.store.dispatch(this.actions.getAllLineItems());
       this.lignePaniers$ = this.store.select(getLineItems) as Observable<any>;
       //this.panier=JSON.parse(localStorage.getItem('panier'));

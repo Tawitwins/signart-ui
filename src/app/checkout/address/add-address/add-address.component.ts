@@ -84,23 +84,23 @@ export class AddAddressComponent implements OnInit, OnDestroy {
   } 
 
   choisirPays(event) {
-    console.log(this.addressForm.value);
-   // console.log('evennnnt valueeee',event.target.value)
+    //console.log(this.addressForm.value);
+   // //console.log('evennnnt valueeee',event.target.value)
     for (let i = 0; i < this.allPays.length; i++) {
        if(this.allPays[i].id == event.target.value){
-         //console.log('indicatiiiiiiiiiif valuuuuuuuue',this.allPays[i].indicatif)
+         ////console.log('indicatiiiiiiiiiif valuuuuuuuue',this.allPays[i].indicatif)
          this.indicatifpays = this.allPays[i].indicatif;
          this.addressForm.patchValue({ 'idPays': +this.allPays[i].id });
        }
     }
-    console.log(this.addressForm.value);
+    //console.log(this.addressForm.value);
   }
   InitIndicatifPays(paysLibelle) {
-    //console.log(this.myGroup.value);
-    // console.log('evennnnt valueeee',event.target.value)
+    ////console.log(this.myGroup.value);
+    // //console.log('evennnnt valueeee',event.target.value)
      for (let i = 0; i < this.allPays.length; i++) {
         if(this.allPays[i].libelle == paysLibelle){
-          //console.log('indicatiiiiiiiiiif valuuuuuuuue',this.allPays[i].indicatif)
+          ////console.log('indicatiiiiiiiiiif valuuuuuuuue',this.allPays[i].indicatif)
           this.indicatifpays = this.allPays[i].indicatif;
           this.addressForm.patchValue({ 'idPays': +this.allPays[i].id });
         }
@@ -113,10 +113,10 @@ export class AddAddressComponent implements OnInit, OnDestroy {
     address.idClient = this.client.id;
     let addressAttributes;
     addressAttributes = this.addrService.createAddresAttributes(address);
-    console.log('adresses : ', addressAttributes);
+    //console.log('adresses : ', addressAttributes);
     this.checkoutService.addAdressesLivEtFact(addressAttributes).subscribe(
       resp=>{
-        console.log(resp);
+        //console.log(resp);
         this.toastrService.success("Adresse ajoutée","Succès");
       }
     );

@@ -73,7 +73,7 @@ export class ApplyComponent implements OnInit {
     resp => {
       
       this.techniques = resp;
-      console.log('Les techniques ', this.techniques);
+      //console.log('Les techniques ', this.techniques);
     }
   );
 }
@@ -88,7 +88,7 @@ export class ApplyComponent implements OnInit {
     this.etape=val;
   }
   onFileSelected(event,i){
-    console.log(event);
+    //console.log(event);
     //this.fileData = <File>event.target.files[0];
     let reader = new FileReader();
     //if (files && files.length > 0) {
@@ -112,14 +112,14 @@ export class ApplyComponent implements OnInit {
       }
      };
      
-    console.log("file", file)
+    //console.log("file", file)
      
   }
 
   
 
   onSubmit() {
-    console.log("Soumission en cours");
+    //console.log("Soumission en cours");
     Swal.fire({
       title: 'Confirmez vous la souscription de cette demande?',
       //text: "Ceci sera irreversible!",
@@ -141,7 +141,7 @@ export class ApplyComponent implements OnInit {
               let val = <Souscription>resp;
               if(val.id!=null)
               {
-                console.log("oeuvre une ajouté avec succès");
+                //console.log("oeuvre une ajouté avec succès");
               }
             });
             let oeuvreDeux=<OeuvreSousc>this.form3Value;
@@ -150,14 +150,14 @@ export class ApplyComponent implements OnInit {
               let val = <Souscription>resp;
               if(val.id!=null)
               {
-                console.log("oeuvre deux ajouté avec succès");
+                //console.log("oeuvre deux ajouté avec succès");
               }
             });
           }
         });
         /*this.oeuvreService.addOeuvreArtiste(addeddArticle).subscribe(
           res =>{
-            console.log('la reponse est ', res)
+            //console.log('la reponse est ', res)
             Swal.fire(
               'Oeuvre souscrite avec succès!',
               'Votre oeuvre est en attente de publication!',
@@ -176,9 +176,9 @@ export class ApplyComponent implements OnInit {
       }
 
     });
-    console.log('info artiste',this.form1Value)
-    console.log('oeuvre1', this.form2Value)
-    console.log('oeuvre2', this.form3Value)
+    //console.log('info artiste',this.form1Value)
+    //console.log('oeuvre1', this.form2Value)
+    //console.log('oeuvre2', this.form3Value)
       
   }
   onCancel() {
@@ -196,7 +196,7 @@ export class ApplyComponent implements OnInit {
       if (result.value) {
         /*this.oeuvreService.addOeuvreArtiste(addeddArticle).subscribe(
           res =>{
-            console.log('la reponse est ', res)
+            //console.log('la reponse est ', res)
             Swal.fire(
               'Oeuvre souscrite avec succès!',
               'Votre oeuvre est en attente de publication!',
@@ -219,7 +219,7 @@ export class ApplyComponent implements OnInit {
   }
 
   SoumettreFormSouscription(){
-    console.log("Soumission en cours by click");
+    //console.log("Soumission en cours by click");
   }
   onSubmitForm1(){
     this.form1Value = this.infoArtisteForm.value;
@@ -307,8 +307,8 @@ export class ApplyComponent implements OnInit {
       'valeur':[]
     }*/
     
-    console.log(this.form1Value)
-    console.log(this.titreInfoArtistes)
+    //console.log(this.form1Value)
+    //console.log(this.titreInfoArtistes)
     this.etape=3;
   }
   onSubmitForm2(){
@@ -339,7 +339,7 @@ export class ApplyComponent implements OnInit {
         valeur: this.form2Value.dimensions,
       }
     ]
-    console.log(this.form2Value)
+    //console.log(this.form2Value)
     this.etape=4;
   }
 
@@ -371,7 +371,7 @@ export class ApplyComponent implements OnInit {
         valeur: this.form3Value.dimensions,
       }
     ]
-    console.log(this.form3Value)
+    //console.log(this.form3Value)
     this.etape=5;
   }
 

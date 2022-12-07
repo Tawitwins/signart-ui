@@ -132,7 +132,7 @@ export class HttpService {
    * Request interceptor.
    */
   private requestInterceptor(): void {
-    console.log('Sending Request');
+    //console.log('Sending Request');
     // this.loaderService.showPreloader();
     this.loading.next({
       loading: true, hasError: false, hasMsg: ''
@@ -143,7 +143,7 @@ export class HttpService {
    * Response interceptor.
    */
   private responseInterceptor(): void {
-    console.log('Request Complete');
+    //console.log('Request Complete');
     // this.loaderService.hidePreloader();
   }
 
@@ -154,7 +154,7 @@ export class HttpService {
    * @returns {ErrorObservable}
    */
   private onCatch(error: any, caught: Observable<any>): Observable<any> {
-    console.log('Something went terrible wrong and error is', error);
+    //console.log('Something went terrible wrong and error is', error);
     $.notify({
       icon: "notifications",
       message: "Une erreur est survenue lors de l'exécution de la requête! veuillez réessayer!"
@@ -186,7 +186,7 @@ export class HttpService {
    * @param error
    */
   private onSubscribeError(error: any): void {
-    console.log('Something Went wrong while subscribing', error);
+    //console.log('Something Went wrong while subscribing', error);
     // this.loaderService.popError();
 
     this.loading.next({
@@ -214,7 +214,7 @@ export class HttpService {
         console.error(error); // log to console instead
   
         // TODO: better job of transforming error for user consumption
-        console.log(`${operation} failed: ${error.message}`);
+        //console.log(`${operation} failed: ${error.message}`);
   
         // Let the app keep running by returning an empty result.
         return observableOf(result as T);

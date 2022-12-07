@@ -95,10 +95,10 @@ export class SettingsComponent implements OnInit {
         public languageService: LanguageService
         ) {
           setTimeout(() => {this.productService.cartItems.subscribe(response =>{ this.oeuvres = response;
-            console.log("helloooooooo")});}, 1000); 
+            //console.log("helloooooooo")});}, 1000); 
             
             setTimeout(() => {this.productService.newCartItems.subscribe(response =>{ this.newOeuvres = response;
-              console.log("helloooooooo")});}, 500); // Skeleton Loader
+              //console.log("helloooooooo")});}, 500); // Skeleton Loader
     
 
     this.isAdd = true;
@@ -191,7 +191,7 @@ export class SettingsComponent implements OnInit {
      document.getElementById("myForm").style.display = "none";
    }
    reloadTchatComp(){
-     console.log("Changement sur le tchat");
+     //console.log("Changement sur le tchat");
      document.getElementById("tchatComp").focus();
    }
 
@@ -203,8 +203,8 @@ export class SettingsComponent implements OnInit {
     code == 'us' ? code = 'en' : code = code;
     localStorage.setItem("userLanguage", code);
     this.currentLanguage.code = code;
-    console.log(this.currentLanguage);
-    console.log(localStorage.getItem("userLanguage"))
+    //console.log(this.currentLanguage);
+    //console.log(localStorage.getItem("userLanguage"))
     window.location.reload();
   }
 

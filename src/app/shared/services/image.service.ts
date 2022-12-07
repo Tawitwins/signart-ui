@@ -200,7 +200,7 @@ reabonnement(oldAbonnementdto: Abonnement, terminalResponse: boolean, terminal: 
   return this.http.post(environment.API_ENDPOINT + `abonnement/reabonnement/${terminalResponse}/${terminal.id}`,oldAbonnementdto);
 }
   
-getFraisLivraison(idCommande: number){
+getFraisLivraison(idCommande: number): Observable<any>{
   return this.http.get(environment.API_ENDPOINT + `commande/getFraisLivraison/${idCommande}`);
 }
 

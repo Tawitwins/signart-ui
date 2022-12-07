@@ -34,7 +34,7 @@ export class ResetPasswordComponent implements OnInit {
   }
   onSubmit(){
     //let mail = this.resetPasswordFormInit.value;
-    console.log('mail ', this.email.value);
+    //console.log('mail ', this.email.value);
     this.authservice.forgotPassword(this.email.value);
     this.initForm();
   }

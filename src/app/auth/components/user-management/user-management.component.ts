@@ -82,7 +82,7 @@ export class UserManagementComponent implements OnInit , OnDestroy{
             .then(email => {
               this.actionCodeChecked = true;
               this.mail = email;
-              console.log('email ', email)
+              //console.log('email ', email)
             }).catch(e => {
               // Invalid or expired action code. Ask user to try to
               // reset the password again.
@@ -97,7 +97,7 @@ export class UserManagementComponent implements OnInit , OnDestroy{
 
           } break
           default: {
-            console.log('query parameters are missing');
+            //console.log('query parameters are missing');
             this.router.navigate(['/auth/login']);
           }
         }
@@ -117,7 +117,7 @@ export class UserManagementComponent implements OnInit , OnDestroy{
    */
   handleResetPassword() {
     let formvalue = this.newPasswordForm.value;
-    console.log('fv ', formvalue)
+    //console.log('fv ', formvalue)
     this.newPassword = formvalue.newpassword;
     this.confirmPassword = formvalue.confirmation;
     if (this.newPassword != this.confirmPassword) {

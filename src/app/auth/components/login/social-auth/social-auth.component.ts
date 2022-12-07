@@ -61,34 +61,34 @@ export class SocialAuthComponent implements OnInit {
 
   //=================SocialLogin====================//
 tryFacebookLogin(){
-  //console.log('la valeur : ', value)
+  ////console.log('la valeur : ', value)
   this.socialauth.doFacebookLogin()
   .then(res => {
-    //console.log(res);
+    ////console.log(res);
     this.errorMessage = "";
     this.successMessage = "Login Facebook succeeded";
   }, err => {
-    console.log(err);
+    //console.log(err);
     this.errorMessage = err.message;
     this.successMessage = "";
   })
 }
 
 tryGoogleLogin(){
-  //console.log('la valeur : ', value)
+  ////console.log('la valeur : ', value)
   this.socialauth.doGoogleLogin()
   .then(res => {
-    console.log(res);
+    //console.log(res);
     this.errorMessage = "";
     this.successMessage = "Login Google succeeded";
     //This gives you a Google Access Token. You can use it to access the Google API.
       //let token = res.credential;
-      //console.log('Le token : ', token)
+      ////console.log('Le token : ', token)
       //The signed-in user info.
       this.providerUser = res.user;
-      console.log('user : ', this.providerUser);
+      //console.log('user : ', this.providerUser);
       let credentials = res.credential;
-      console.log('credential : ', credentials)
+      //console.log('credential : ', credentials)
      //OTHERS INFORMATINS
       this.addinfo = res.additionalUserInfo;
       this.user.nom = this.addinfo.profile.family_name;
@@ -99,31 +99,31 @@ tryGoogleLogin(){
       // Si le mail est déja utilisé se connecter sinon s'inscrire
       if(this.addinfo.isNewUser === true){
         this.authService.register(this.user).subscribe(
-          data => {     console.log('datas: ', data)
+          data => {     //console.log('datas: ', data)
   
             this.authService.login(data.email, data.password).subscribe(
-              resp => console.log('resp: ', data)
+              resp => //console.log('resp: ', data)
             );
           }
           );
       }
       else{
         this.authService.login(this.user.email, this.user.password).subscribe(
-          resp => console.log('resp: ', res)
+          resp => //console.log('resp: ', res)
         );
       }
       
       //this.user.password = this.providerUser.uid;
-      console.log('Social user is: ', this.user)
-      console.log('additionnal info : ', this.addinfo)
+      //console.log('Social user is: ', this.user)
+      //console.log('additionnal info : ', this.addinfo)
       this.opt= res.operationType;
-      console.log('Operation type : ', this.opt)
+      //console.log('Operation type : ', this.opt)
       //this.profile = res.additionalUserInfo.profile;
-      //console.log('profile', this.profile)
+      ////console.log('profile', this.profile)
       //this.prenom = res.additionalUserInfo.profile.prenom;
     
   }, err => {
-    console.log(err);
+    //console.log(err);
     this.errorMessage = err.message;
     this.successMessage = "";
   })

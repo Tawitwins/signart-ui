@@ -15,13 +15,13 @@ export class BlogLeftSidebarComponent implements OnInit {
 
   constructor(evenementService:EvenementSignartService,public sanitizer: DomSanitizer,private datePipe:DatePipe) { 
     evenementService.getAllEvenement().subscribe(resp=>{
-      console.log(resp);
+      //console.log(resp);
       this.evenementSignarts = resp;
       this.evenementSignarts.forEach(ev=>{
         ev.stringDateCreation = this.datePipe.transform(this.parseDate(ev.dateCreation),'dd/MM/yyyy')
         ev.stringDateOfficielle = this.datePipe.transform(this.parseDate(ev.dateOfficielle),'dd/MM/yyyy')
       })
-      console.log(this.evenementSignarts);
+      //console.log(this.evenementSignarts);
       
       
     })

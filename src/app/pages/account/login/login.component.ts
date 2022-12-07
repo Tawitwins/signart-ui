@@ -99,7 +99,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       let pwd = this.signInForm.value.password;
       this.loginSubs = this.authService.login(email, pwd).subscribe(
         data => {
-          console.log("ici");
+          //console.log("ici");
         const error = data.error;
         if (error) {
           keys.forEach(val => {
@@ -150,7 +150,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   redirectIfUserLoggedIn() {
-    console.log("redirect me");
+    //console.log("redirect me");
     this.newOeuvres = this.productService.getNewCartItem();
     this.store.select(getAuthStatus).subscribe(
       data => {
@@ -161,7 +161,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           .subscribe(
             response => { 
               let client= <Client> response;
-              console.log("ici redi");
+              //console.log("ici redi");
              
               
               this.panierEtMarquageService.getWishList(client.id).subscribe(resp=>{
@@ -173,10 +173,10 @@ export class LoginComponent implements OnInit, OnDestroy {
                 this.productService.initState();
               });
               this.panierEtMarquageService.getPanierByIdClient(client.id).subscribe(resp=>{
-                console.log(resp);
+                //console.log(resp);
                 this.oeuvresClient = resp;
-                console.log("les oeuvreee du clientssss", this.oeuvresClient);
-                console.log("les oeuvreee du visiteurrrrrr", this.newOeuvres);
+                //console.log("les oeuvreee du clientssss", this.oeuvresClient);
+                //console.log("les oeuvreee du visiteurrrrrr", this.newOeuvres);
                 let panier= <Panier>resp;
                 let listProduct:Oeuvre[]=[];
                 if(panier.lignesPanier!=null && panier.lignesPanier!=undefined)
@@ -207,21 +207,21 @@ export class LoginComponent implements OnInit, OnDestroy {
                   if( this.setToLocalStorage(panier,listProduct)==true)
                   {
                     this.productService.initState();
-                    console.log("hello init here get local")
+                    //console.log("hello init here get local")
                   }      
                 for (let j = 0; j < this.newOeuvres.length; j++) {
-                  console.log(this.oeuvresClient.lignesPanier.find(elp=>elp.oeuvre.id === this.newOeuvres[j].id));
+                  //console.log(this.oeuvresClient.lignesPanier.find(elp=>elp.oeuvre.id === this.newOeuvres[j].id));
                   let nbr= this.oeuvresClient.lignesPanier.find(elp=>elp.oeuvre.id === this.newOeuvres[j].id);
-                  console.log(nbr);
+                  //console.log(nbr);
                   if(nbr != undefined)
                   {
                     let quantity= this.newOeuvres[j].quantity;
                     //this.newOeuvres[j].quantity = 0;
                     nbr.quantity=this.newOeuvres[j].quantity;
                     this.productService.updateCartQuantity(this.newOeuvres[j],quantity);
-                    console.log("1- I added");
-                    console.log(this.newOeuvres[j]);
-                    console.log("with quantity"+ quantity);
+                    //console.log("1- I added");
+                    //console.log(this.newOeuvres[j]);
+                    //console.log("with quantity"+ quantity);
                   }
                   else
                   {
@@ -231,16 +231,16 @@ export class LoginComponent implements OnInit, OnDestroy {
                     quantity--;
                     if(quantity>=1)
                       this.productService.updateCartQuantity(this.newOeuvres[j],quantity);
-                    console.log("2- I added");
-                    console.log(this.newOeuvres[j]);
-                    console.log("with quantity"+ quantity);
+                    //console.log("2- I added");
+                    //console.log(this.newOeuvres[j]);
+                    //console.log("with quantity"+ quantity);
                   }
                     
                  /* if(this.newOeuvres[j].id != this.oeuvresClient.lignesPanier[i].oeuvre.id){
-                    console.log("same id");
+                    //console.log("same id");
                    
-                    console.log("new oeuvre matchesss",this.newOeuvres[j]);
-                    console.log("new oeuvre added",this.oeuvresClient.lignesPanier[i].oeuvre);
+                    //console.log("new oeuvre matchesss",this.newOeuvres[j]);
+                    //console.log("new oeuvre added",this.oeuvresClient.lignesPanier[i].oeuvre);
                   } */                 
                 }   
               /*for (let i = 0; i < this.oeuvresClient.lignesPanier.length; i++) {

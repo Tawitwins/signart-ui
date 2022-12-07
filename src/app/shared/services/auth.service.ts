@@ -61,9 +61,9 @@ export class AuthServiceS {
     )
       .pipe(map(res => {
         // Setting token after login
-        console.log('merci pour cela ' + JSON.stringify(res));
+        //console.log('merci pour cela ' + JSON.stringify(res));
         let token = JSON.parse(JSON.stringify(res));
-        console.log("Token from APi :" + token);
+        //console.log("Token from APi :" + token);
 
         let obj: any = JSON.parse((this.jwtHelper.decodeToken(token)).sub);
         let utilisateur: User;
@@ -81,8 +81,8 @@ export class AuthServiceS {
           utilisateur.imgSignature = obj.imgSignature;
           utilisateur.certificat = obj.certificat;
           
-          // console.log('utilisateur.token' + utilisateur.token);
-          // console.log('utilisateur.email' + utilisateur.email);
+          // //console.log('utilisateur.token' + utilisateur.token);
+          // //console.log('utilisateur.email' + utilisateur.email);
           this.setTokenInLocalStorage(utilisateur);
           this.setWishlistInLocalStorage();
           this.setPanierInLocalStorage();
@@ -92,14 +92,14 @@ export class AuthServiceS {
             //this.client = this.getClientConnected();
             this.http.get(environment.API_ENDPOINT + `client/user/${utilisateur.id}`).subscribe(response=>{
               this.client = response;
-              console.log("client auth", this.client)
+              //console.log("client auth", this.client)
               this.checkoutService.getPanierItems(this.client.id).subscribe(res =>{
                 if(res.id != null){
                   this.userPanier = res;
-                  console.log("panier client auth", this.userPanier)
+                  //console.log("panier client auth", this.userPanier)
                 }else{
                   this.userPanier
-                  console.log("panier client existe pas")
+                  //console.log("panier client existe pas")
                 }
                 
               })
@@ -113,7 +113,7 @@ export class AuthServiceS {
         } else {
           utilisateur = null;
           token = null;
-          console.log("token invalide !");
+          //console.log("token invalide !");
           return false;
         }
 
@@ -226,7 +226,7 @@ export class AuthServiceS {
    */
   setTokenInLocalStorage(user_data): void {
     const jsonData = JSON.stringify(user_data);
-    // console.log('herhrr' + jsonData)
+    // //console.log('herhrr' + jsonData)
     localStorage.setItem('user', jsonData);
   }
   setPanierInLocalStorage(){
@@ -253,8 +253,8 @@ signOut() {
   resetPassword(email: string) {
     /* var auth = firebase.auth();
      return auth.sendPasswordResetEmail(email)
-       .then(() => console.log('email sent'))
-       .catch((error) => console.log(error));*/
+       .then(() => //console.log('email sent'))
+       .catch((error) => //console.log(error));*/
   }
 
   getUserConnected(): User {
@@ -318,14 +318,14 @@ signOut() {
 
   getAuth() { 
     let auth = this.afAuth.auth;
-    console.log('afauth Auth is ', auth);
+    //console.log('afauth Auth is ', auth);
     return auth
   }
 // Sign in se connecter avec email/password firebase
 doSignIn(email, password) {
   return this.afAuth.auth.signInWithEmailAndPassword(email, password)
     .then((result) => {
-      console.log('result is ', result);
+      //console.log('result is ', result);
       if (result.user.emailVerified !== true) {
         this.SendVerificationMail();
         window.alert('Please validate your email address. Kindly check your inbox.');
@@ -344,7 +344,7 @@ doSignIn(email, password) {
 doSignUp(email, password) {
   return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
     .then((result) => {
-      console.log('result is ', result);
+      //console.log('result is ', result);
       this.SendVerificationMail(); 
     }).catch((error) => {
       window.alert(error.message)
@@ -355,7 +355,7 @@ doSignUp(email, password) {
 SendVerificationMail() {
   return this.afAuth.auth.currentUser.sendEmailVerification()
   .then((res) => {
-    console.log('send email res ', res)
+    //console.log('send email res ', res)
     this.router.navigate(['/auth/login']);
   })
 }
@@ -380,7 +380,7 @@ return this.afAuth.auth.sendPasswordResetEmail(mail, actionCodeSettings)
         align: 'center'
       }
     });
-    console.log('send reset  res ', res)
+    //console.log('send reset  res ', res)
   //window.alert('Un mail vous a été envoyé merci de consulter votre compte !');
 }).catch(
 err => {

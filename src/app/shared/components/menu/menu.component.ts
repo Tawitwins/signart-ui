@@ -40,7 +40,7 @@ export class MenuComponent implements OnInit {
     document.getElementById("myForm").style.display = "none";
   }
   reloadTchatComp(){
-    console.log("Changement sur le tchat");
+    //console.log("Changement sur le tchat");
     document.getElementById("tchatComp").focus(); 
   }
 

@@ -37,7 +37,7 @@ export class PaymentComponent implements OnInit {
       this.store.select(getTotalCartValue).subscribe(
         res => {
           this.totalCartValue = res;
-          console.log('value : ', this.totalCartValue)
+          //console.log('value : ', this.totalCartValue)
         }
       );
       this.store.select(getTotalCartItems).subscribe(
@@ -54,7 +54,7 @@ export class PaymentComponent implements OnInit {
       this.store.select(getShippingOptionPrice).subscribe(
           reponse => {
             this.shippingOptionPrice = reponse;
-            console.log('shipprice : ', this.shippingOptionPrice)
+            //console.log('shipprice : ', this.shippingOptionPrice)
           }
       );
       this.shippingOptionPrice$ = this.store.select(getShippingOptionPrice);
@@ -64,7 +64,7 @@ export class PaymentComponent implements OnInit {
           if(this.Order !== null){
             this.lignesCommande = this.Order.lignesCommande;
             //this.image = environment.API_ENDPOINT + 'image/oeuvre/' + this.lignesCommande[this.monindex].oeuvre.id;
-            console.log('La commande : ', this.lignesCommande)
+            //console.log('La commande : ', this.lignesCommande)
           }/*else{
             localStorage.removeItem('panier');
             localStorage.removeItem('livraison');

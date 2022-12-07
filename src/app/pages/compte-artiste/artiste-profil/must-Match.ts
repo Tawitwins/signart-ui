@@ -12,7 +12,7 @@ export class MustMatchValidators{
 
    /* constructor(authS:AuthServiceS){
         
-        console.log('looooll',MustMatchValidators.user);
+        //console.log('looooll',MustMatchValidators.user);
 
     }*/
     
@@ -28,7 +28,7 @@ export class MustMatchValidators{
         return new Promise((resolve, rejects) =>{
             setTimeout(() => {
                 if(control.value === 'pendaa'){
-                    //console.log(userfind);
+                    ////console.log(userfind);
                     resolve({ mustMatch: true});
                 
                 }

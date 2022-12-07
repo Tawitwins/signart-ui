@@ -26,8 +26,8 @@ export class RightClicMenuTchatComponent implements OnInit {
   {
     if(confirm("Voulez vous vraiment supprimer ce message:"+this.message.contenu))
     {
-      console.log("suppression du message"+ this.message);
-      console.log(this.message.contenu);
+      //console.log("suppression du message"+ this.message);
+      //console.log(this.message.contenu);
       let user = <User>this.authService.getUserConnected();
       if(user.id==this.message.idSender)
       {
@@ -40,14 +40,14 @@ export class RightClicMenuTchatComponent implements OnInit {
         this.message.msgStateReceiver="DELETED";
       }
       this.tchatService.editMessage(this.message).subscribe(resp =>{
-        console.log(resp);
+        //console.log(resp);
       });
     }
 
   }
   transferer()
   {
-    console.log("transfert du message"+ this.message);
+    //console.log("transfert du message"+ this.message);
     let selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
     selBox.style.left = '0';
@@ -62,7 +62,7 @@ export class RightClicMenuTchatComponent implements OnInit {
   }
   copier()
   {
-    console.log("copie du message"+ this.message);
+    //console.log("copie du message"+ this.message);
     let selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
     selBox.style.left = '0';
@@ -107,7 +107,7 @@ export class RightClicMenuTchatComponent implements OnInit {
 //   ) {
 //     super(menuPackage, contextMenuService);
 //     // grab any required menu context passed via menuContext input
-//     console.log(menuPackage.context)
+//     //console.log(menuPackage.context)
 //   }
 
 //   handleClick() {

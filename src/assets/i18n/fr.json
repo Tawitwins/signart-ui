@@ -47,8 +47,14 @@
   "Change password": "Changer le mot de passe",
   "Contact Information":"Information de contact",
   "Subscription": "Abonnement",
+  "SUBSCRIPTION":"ABONNEMENT",
+  "Subscription to digitized works of art":"Abonnement à des oeuvres d'art numérisées",
+  "The subscription allows the customer to benefit from a temporary acquisition of works of art that he can view on a digital screen. The customer will have the ability to display a variety of artwork in a single frame (digital screen) providing flexibility in purchasing art.":"L’abonnement permet au client de bénéficier d’une acquisition temporaire d’œuvres d’art qu’il pourra visualiser sur un écran numérique. Le client aura la possibilité d'afficher une variété d’œuvres d'art dans un seul cadre (écran numérique) apportant de la flexibilité à l'achat d'art.",
+  "SignArt seeks to create new ways to enhance and bring life to the spaces we live in.":"SignArt cherche à créer de nouvelles façons d'améliorer et de donner vie aux espaces dans lesquels nous vivons.",
   "View the catalog": "Voir le catalogue",
+  "Catalog":"Catalogue",
   "Modify": "Modifier",
+  "Subscription Form":"Formulaire D'abonnement",
   "Exhibition at the place of independence":"Exposition à la place de l'indépendance",
   "The architecture":"L'architecture",
   "Painting": "La peinture",
@@ -73,6 +79,8 @@
   "Oil on canvas": "Huile sur toile",
   "Installation": "Installation",
   "SignArt Exhibition":"Exposition SignArt",
+  "Techniques":"Techniques",
+  "Ajouter une œuvre":"Add a work",
   "An art exhibition is traditionally a space where art works (in the most general sense) meet an audience. The exhibition is universally understood to be for a temporary period unless, as is rarely the case, it is declared to be a 'permanent exhibition'. Find out with SignArt about the different exhibitions planned. 'Place', 'Artist', 'Description', 'Period', 'Position' and many other useful information are waiting for you.":"Une exposition d'art est traditionnellement l'espace dans lequel les objets d'art (au sens le plus général) rencontrent un public . L'exposition est universellement comprise comme étant pour une période temporaire à moins que, comme c'est rarement le cas, elle soit déclarée être une «exposition permanente». Découvrez avec signart les différentes expostions prévues. Lieu, artiste, description, période, position et beaucoup d'autres informations à recueillir vous attendent.",
   "News":"Actualité",
   "A rapid delivery service":"Un service de livraison rapide",
@@ -206,7 +214,7 @@
   "PopupQtyUpdated":"Quantité mise à jour!",
   "PopupFavoriteAdded":"Oeuvre ajoutée à la liste des favoris",
   "PopupFavoriteRemoved":"Oeuvre retirée de la liste favorite.",
-
+  "PopupCommandePriseEnCompte":"Commande bien prise en compte, veuillez compléter les étapes restantes!",
   "Work details":"Détails oeuvre",
   "Available":"Disponible",
   "available":"disponible",
@@ -261,7 +269,7 @@
   "List of published exhibitions":"Liste des expositions publiées",
   "List of exhibitions awaiting publication":"Liste des expositions en attente de publication",
   "Your cart is empty":"Votre panier est vide",
-  "By logging into your SignArt account, you will be able to memorize directly the articles that you have liked. You will easily find your chosen items during a next connection, wherever you are.":"By logging into your SignArt account, you will be able to memorize directly the articles that you have liked. You will easily find your chosen items during a next connection, wherever you are.",
+  "By logging into your SignArt account, you will be able to memorize directly the articles that you have liked. You will easily find your chosen items during a next connection, wherever you are.":  "En vous connectant à votre compte SignArt, vous pourrez mémoriser directement les articles qui vous auront plu.Vous retrouverez facilement vos articles choisis lors d’une prochaine connexion, où que vous soyez.",
   "Order":"Commander",
   "Total amount":"Montant total",
   "Remove from cart":"Supprimer du panier",
@@ -296,6 +304,8 @@
   "PopupOptionLivraisonPriseC": "Option de livraison prise en compte!\nFrais de Livraison : {{montant}} FCFA.",
   "PopupIrreversible":"Ceci sera irreversible!",
 
-  "Warning: Paydunya's commission fee is: 2% + 100 FCFA on the total amount of the order.":"Avertissement: Les frais de la commission de paydunya est de: 2% + 100 FCFA sur le montant total de la commande."
-  
+  "Warning: Paydunya's commission fee is: 2% + 100 FCFA on the total amount of the order.":"Avertissement: Les frais de la commission de paydunya est de: 2% + 100 FCFA sur le montant total de la commande.",
+
+  "PopupConnexEffAction":"Vous devez vous connecter pour effectuer cette action"
+
 }

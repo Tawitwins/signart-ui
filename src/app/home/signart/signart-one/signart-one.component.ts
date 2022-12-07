@@ -20,7 +20,7 @@ export class SignartOneComponent implements OnInit {
   constructor(public productService: ProductService, private articleService: ArticleService) {
     this.productService.getProducts.subscribe(response => {
       this.products = response.filter(item => item.type === 'art','sculpture');
-      // console.log(this.products)
+      // //console.log(this.products)
       // Get Product Collection
       this.products.filter((item) => {
         item.collection.filter((collection) => {

@@ -92,7 +92,7 @@ export class RegisterArtistComponent implements OnInit {
         resp => {
           
           this.techniques = resp;
-          console.log('Les techniques ', this.techniques);
+          //console.log('Les techniques ', this.techniques);
         }
       );
       this.paysService.getAllPays().subscribe(pays => this.allPays = pays);
@@ -100,7 +100,7 @@ export class RegisterArtistComponent implements OnInit {
       this.oeuvreService.getGalerie().subscribe(
         resp => {
           this.galeries = resp;
-          console.log('Les galeries ', this.galeries)
+          //console.log('Les galeries ', this.galeries)
         }
       )
     }
@@ -113,17 +113,17 @@ export class RegisterArtistComponent implements OnInit {
   showInfo(){
     this.autreSpecialiteValue = this.infoArtisteForm.get("autreSepecialite").value;
     if(this.autreSpecialiteValue !== ""){
-      console.log("infoooo specialite not null", this.autreSpecialiteValue)
+      //console.log("infoooo specialite not null", this.autreSpecialiteValue)
 
     }else{
-      console.log("infoooo specialite null", this.autreSpecialiteValue)
+      //console.log("infoooo specialite null", this.autreSpecialiteValue)
     }
    var infoValues = this.infoArtisteForm.value
-    console.log("infoooo valueeee", infoValues)
+    //console.log("infoooo valueeee", infoValues)
   }
 
   onFileSelected(event,i){
-    console.log(event);
+    //console.log(event);
     //this.fileData = <File>event.target.files[0];
     let reader = new FileReader();
     //if (files && files.length > 0) {
@@ -147,15 +147,15 @@ export class RegisterArtistComponent implements OnInit {
       }
      };
      
-    console.log("file", file)
+    //console.log("file", file)
      
   }
 
   choisirPays(event) {
-    //console.log(event.target.value)
+    ////console.log(event.target.value)
     for (let i = 0; i < this.allPays.length; i++) {
        if(this.allPays[i].code === event.target.value){
-         //console.log(this.allPays[i].indicatif)
+         ////console.log(this.allPays[i].indicatif)
          this.indicatifpays = this.allPays[i].indicatif;
        }
       
@@ -177,10 +177,10 @@ export class RegisterArtistComponent implements OnInit {
   }
 
   tester(){
-    console.log(this.infoArtisteForm.value)
+    //console.log(this.infoArtisteForm.value)
   }
   onSubmit() {
-    console.log("Soumission en cours");
+    //console.log("Soumission en cours");
     this.onSubmitForm1();
     this.onSubmitForm2();
     this.onSubmitForm3();
@@ -208,7 +208,7 @@ export class RegisterArtistComponent implements OnInit {
                     let val = <Souscription>resp;
                     if(val.id!=null)
                     {
-                      console.log("oeuvre une ajouté avec succès");
+                      //console.log("oeuvre une ajouté avec succès");
                     }
                   });
                   let oeuvreDeux=<OeuvreSousc>this.form3Value;
@@ -217,14 +217,14 @@ export class RegisterArtistComponent implements OnInit {
                     let val = <Souscription>resp;
                     if(val.id!=null)
                     {
-                      console.log("oeuvre deux ajouté avec succès");
+                      //console.log("oeuvre deux ajouté avec succès");
                     }
                   });
                 }
               });
               /*this.oeuvreService.addOeuvreArtiste(addeddArticle).subscribe(
                 res =>{
-                  console.log('la reponse est ', res)
+                  //console.log('la reponse est ', res)
                   Swal.fire(
                     'Oeuvre souscrite avec succès!',
                     'Votre oeuvre est en attente de publication!',
@@ -274,7 +274,7 @@ export class RegisterArtistComponent implements OnInit {
     //           let val = <Souscription>resp;
     //           if(val.id!=null)
     //           {
-    //             console.log("oeuvre une ajouté avec succès");
+    //             //console.log("oeuvre une ajouté avec succès");
     //           }
     //         });
     //         let oeuvreDeux=<OeuvreSousc>this.form3Value;
@@ -283,14 +283,14 @@ export class RegisterArtistComponent implements OnInit {
     //           let val = <Souscription>resp;
     //           if(val.id!=null)
     //           {
-    //             console.log("oeuvre deux ajouté avec succès");
+    //             //console.log("oeuvre deux ajouté avec succès");
     //           }
     //         });
     //       }
     //     });
     //     /*this.oeuvreService.addOeuvreArtiste(addeddArticle).subscribe(
     //       res =>{
-    //         console.log('la reponse est ', res)
+    //         //console.log('la reponse est ', res)
     //         Swal.fire(
     //           'Oeuvre souscrite avec succès!',
     //           'Votre oeuvre est en attente de publication!',
@@ -309,9 +309,9 @@ export class RegisterArtistComponent implements OnInit {
     //   }
 
     // });
-    console.log('info artiste',this.form1Value)
-    console.log('oeuvre1', this.form2Value)
-    console.log('oeuvre2', this.form3Value)
+    //console.log('info artiste',this.form1Value)
+    //console.log('oeuvre1', this.form2Value)
+    //console.log('oeuvre2', this.form3Value)
       
   }
   onCancel() {
@@ -360,7 +360,7 @@ export class RegisterArtistComponent implements OnInit {
     //   if (result.value) {
     //     /*this.oeuvreService.addOeuvreArtiste(addeddArticle).subscribe(
     //       res =>{
-    //         console.log('la reponse est ', res)
+    //         //console.log('la reponse est ', res)
     //         Swal.fire(
     //           'Oeuvre souscrite avec succès!',
     //           'Votre oeuvre est en attente de publication!',
@@ -382,7 +382,7 @@ export class RegisterArtistComponent implements OnInit {
   }
 
   SoumettreFormSouscription(){
-    console.log("Soumission en cours by click");
+    //console.log("Soumission en cours by click");
   }
   onSubmitForm1(){
     this.form1Value = this.infoArtisteForm.value;
@@ -390,10 +390,10 @@ export class RegisterArtistComponent implements OnInit {
 
     this.autreSpecialiteValue = this.infoArtisteForm.get("autreSepecialite").value;
     if(this.autreSpecialiteValue !== ""){
-      //console.log("infoooo specialite not null", this.autreSpecialiteValue)
+      ////console.log("infoooo specialite not null", this.autreSpecialiteValue)
       this.form1Value.specialites = this.autreSpecialiteValue;
     }else{
-      //console.log("infoooo specialite null", this.autreSpecialiteValue)
+      ////console.log("infoooo specialite null", this.autreSpecialiteValue)
     }
 
     this.titreInfoArtistes = [
@@ -483,8 +483,8 @@ export class RegisterArtistComponent implements OnInit {
       'valeur':[]
     }*/
     
-    console.log('formuleeeeeeeeeairre',this.form1Value)
-    console.log(this.titreInfoArtistes)
+    //console.log('formuleeeeeeeeeairre',this.form1Value)
+    //console.log(this.titreInfoArtistes)
     this.etape=3;
   }
   onSubmitForm2(){
@@ -515,7 +515,7 @@ export class RegisterArtistComponent implements OnInit {
         valeur: this.form2Value.dimensions,
       }
     ]
-    console.log(this.form2Value)
+    //console.log(this.form2Value)
     this.etape=4;
   }
 
@@ -547,7 +547,7 @@ export class RegisterArtistComponent implements OnInit {
         valeur: this.form3Value.dimensions,
       }
     ]
-    console.log(this.form3Value)
+    //console.log(this.form3Value)
     this.etape=5;
   }
 

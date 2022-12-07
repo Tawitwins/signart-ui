@@ -18,23 +18,23 @@
                              <!--app-categories></app-categories-->
 
                              <div class="collection-collapse-block border-0" [class.open]="collapseCategorie">
-                                <h3 class="collapse-block-title" (click)="collapseCategorie = !collapseCategorie">Techniques</h3>
+                                <h3 class="collapse-block-title" (click)="collapseCategorie = !collapseCategorie">{{"Techniques" | translate}}</h3>
                                 <div class="collection-collapse-block-content">
                                     <div class="collection-brand-filter">
                                         <ul class="category-list">
                                             <li>
                                                 <a 
                                                 (click)="resetFilterCategorie()" *ngIf="techSelect !== 'Tout'" style="cursor: pointer;">
-                                                    Tout
+                                                    {{"Tout" | translate}}
                                                 </a>
                                                 <a (click)="resetFilterCategorie()" style="cursor: pointer;  color:#9b1104;" *ngIf="techSelect === 'Tout'">
-                                                    Tout
+                                                    {{"Tout" | translate}}
                                                 </a>
                                             </li>
                                             <li *ngFor="let category of filterbyCategory">
                                                 <a 
                                                 (click)="updateFilterCategorie(category)" style="cursor: pointer;" *ngIf="techSelect !== category">
-                                                    {{ category}}
+                                                    {{ category | translate}}
                                                 </a>
                                                 <a 
                                                 (click)="updateFilterCategorie(category)" style="cursor: pointer; color:#9b1104;" *ngIf="techSelect === category">
@@ -54,7 +54,7 @@
                             </app-price-->
 
                             <div class="collection-collapse-block border-0" [class.open]="collapse">
-                                <h3 class="collapse-block-title" (click)="collapse = !collapse">Annee</h3>
+                                <h3 class="collapse-block-title" (click)="collapse = !collapse">{{"Année" | translate}}</h3>
                                 <div class="collection-collapse-block-content">
                                     <div class="collection-brand-filter">
                                         <div class="mt-2">
@@ -93,13 +93,13 @@
                                           </video>
                                         </section-->
                                     <div class="top-banner-content small-section">
-                                        <h4>ABONNEMENT</h4>
-                                        <h5>Abonnement à des oeuvres d'art numérisées
+                                        <h4>{{"ABONNEMENT" | translate}}</h4>
+                                        <h5>{{"Abonnement à des oeuvres d'art numérisées" | translate}}
                                         </h5>
                                         <p>
-                                            L’abonnement permet au client de bénéficier d’une acquisition temporaire d’œuvres d’art qu’il pourra visualiser sur un écran numérique. Le client aura la possibilité d'afficher une variété d’œuvres d'art dans un seul cadre (écran numérique) apportant de la flexibilité à l'achat d'art.
+                                            {{"L’abonnement permet au client de bénéficier d’une acquisition temporaire d’œuvres d’art qu’il pourra visualiser sur un écran numérique. Le client aura la possibilité d'afficher une variété d’œuvres d'art dans un seul cadre (écran numérique) apportant de la flexibilité à l'achat d'art."| translate}}
 
-                                            SignArt cherche à créer de nouvelles façons d'améliorer et de donner vie aux espaces dans lesquels nous vivons.
+                                            {{"SignArt cherche à créer de nouvelles façons d'améliorer et de donner vie aux espaces dans lesquels nous vivons." | translate}}
                                         </p>
                                     </div>
                                 </div>
@@ -108,14 +108,14 @@
                                       <div class="col-sm-12 col-lg-12">
                                         <ngb-tabset [type]="'tabs'" class="nav-material">
                                             <ngb-tab>
-                                                <ng-template ngbTabTitle>Catalogue</ng-template>
+                                                <ng-template ngbTabTitle>{{"Catalogue" | translate}}</ng-template>
                                                 <ng-template ngbTabContent>
                                                  <div>
                                                     <div class="row">
                                                         <div class="col-xl-12">
                                                             <div class="filter-main-btn" (click)="toggleMobileSidebar()">
                                                                 <span class="filter-btn btn btn-theme">
-                                                                    <i class="fa fa-filter" aria-hidden="true"></i> Filtre
+                                                                    <i class="fa fa-filter" aria-hidden="true"></i> {{"Filtre" | translate}}
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -128,7 +128,7 @@
                                                         </li>
                                                         <li class="clear_filter" *ngIf="tags.length > 0">
                                                             <a href="javascript:void(0)" class="clear_filter" (click)="removeAllTags()">
-                                                                Effacer
+                                                                {{"Effacer" | translate}}
                                                             </a>
                                                         </li>
                                                     </ul>

@@ -170,13 +170,13 @@ export class DashboardComponent implements OnInit {
     this.adressLivraison = new Address('', '', '', '', '', '', '', '', '', '');
     this.user = this.authS.getUserConnected();
     this.productService.wishlistItems.subscribe(resp => this.oeuvresFav = resp);
-    console.log(this.oeuvresFav);
+    //console.log(this.oeuvresFav);
 
 
     this.imageService.getAllEtat().subscribe(
       response => {
         this.etats = response;
-        console.log('etats', this.etats);
+        //console.log('etats', this.etats);
 
       });
 
@@ -184,17 +184,17 @@ export class DashboardComponent implements OnInit {
     this.artisteService.getArtisteByUser(this.user.id).subscribe(
       res => {
         this.artiste = res;
-        console.log('Artiste connected ', res);
+        //console.log('Artiste connected ', res);
         this.oeuvreS.getOeuvreByArtiste(parseInt(res.id)).subscribe(
           resp => {
             this.oeuvres = resp;
-            console.log('ouevres de l\'auteur', resp);
+            //console.log('ouevres de l\'auteur', resp);
           }
         );
 
       }
     );
-    console.log('User connected ', this.user);
+    //console.log('User connected ', this.user);
   }else{
     this.infoClient();
     this.imageService.getAllEtat().subscribe( res => {
@@ -212,7 +212,7 @@ export class DashboardComponent implements OnInit {
       res => {
         this.historiques = res;
         if (this.historiques.length > 0){
-          console.log('historiques', this.historiques);
+          //console.log('historiques', this.historiques);
           for (let i = 0; i < this.historiques.length; i++) {
             this.historiques[i].dateDebut = this.myDateParser(this.historiques[i].dateDebut);
             this.historiques[i].dateFin = this.myDateParser(this.historiques[i].dateFin);
@@ -227,13 +227,13 @@ export class DashboardComponent implements OnInit {
     this.imageService.getAllAbonne(this.user.id).subscribe(
       res => {
         this.allAbonne = res;
-        console.log('allAbonne', this.allAbonne);
+        //console.log('allAbonne', this.allAbonne);
         if (this.allAbonne.length > 0){
           for (let i = 0; i < this.allAbonne.length; i++) {
             this.imageService.getAbonnement(this.allAbonne[i].id).subscribe(
               resp => {
                 this.abonnementget = resp;
-                console.log('abonnementget', this.abonnementget);
+                //console.log('abonnementget', this.abonnementget);
                 if(this.abonnementget.length>0)
                 {
                   this.abonnementget.forEach(abnmnt => {
@@ -241,11 +241,11 @@ export class DashboardComponent implements OnInit {
                   });
                 }
                   //this.allAbonnement = this.allAbonnement.(this.abonnementget);
-                 // console.log("abonnements",this.abonnements)
+                 // //console.log("abonnements",this.abonnements)
               });
           }
           this.abonnementExiste = true;
-          console.log('abonnements', this.allAbonnement);
+          //console.log('abonnements', this.allAbonnement);
           this.allAbonnement.reverse();
           this.abonnements = this.allAbonnement;
           this.abonnements.reverse();
@@ -258,13 +258,13 @@ export class DashboardComponent implements OnInit {
     /*this.imageService.getAbonne(parseInt(this.user.id)).subscribe(
       res => {
         this.abonne = res;
-        console.log("abonne",this.abonne)
+        //console.log("abonne",this.abonne)
         this.imageService.getAbonnement(this.abonne.id).subscribe(
           resp => {
             this.abonnements = resp;
             if(this.abonnements.length > 0){
               this.abonnementExiste = false;
-              console.log("abonnements",this.abonnements)
+              //console.log("abonnements",this.abonnements)
               this.abonnements=this.abonnements.reverse();
             }else{
               this.abonnementExiste = true;
@@ -336,14 +336,14 @@ export class DashboardComponent implements OnInit {
  onChangePwd(){
 
   const passwordForm = this.mdpForm.value;
-  console.log('passworForm', passwordForm);
+  //console.log('passworForm', passwordForm);
   const userDetails = new AccountInfo('', '');
   userDetails.userName = this.user.email;
   userDetails.password = passwordForm.mdpActu;
   this.authS.testPassword(userDetails).subscribe(
     resp => {
       const testUser = resp;
-      console.log('test1', testUser);
+      //console.log('test1', testUser);
       if (testUser === null){
 
         this.translate.get('PopupModeDePasseIncorrect').subscribe(popup => {
@@ -358,10 +358,10 @@ export class DashboardComponent implements OnInit {
      
       }
       else{
-        console.log('test2', testUser);
+        //console.log('test2', testUser);
         this.authS.changeUserPassword(passwordForm.mdpNouv, userDetails).subscribe(
               resp => {
-                console.log(resp);
+                //console.log(resp);
                 this.translate.get('PopupUpdatePasswordSuccess').subscribe(popup => {
                   this.translate.get('SUCCESS').subscribe(alertType => {
                     Swal.fire({
@@ -408,14 +408,14 @@ export class DashboardComponent implements OnInit {
    pays: this.client.pays,
    idUser: this.client.idUser,
  };
-  console.log('client à mettre à jour', this.client);
+  //console.log('client à mettre à jour', this.client);
   this.authS.editClient(this.client).subscribe(
  data => {
  this.client = data;
  this.translate.get('PopupModificationTermine').subscribe(popup => {
   this.translate.get('SUCCESS').subscribe(alertType => {
     this.toastrService.success(popup, alertType);
-    console.log('mise à jour', data);
+    //console.log('mise à jour', data);
     })
   })
 
@@ -447,17 +447,17 @@ initForm(){
  }
  infoUser(){
    this.user = this.authS.getUserConnected();
-   console.log('MonUser', this.user);
+   //console.log('MonUser', this.user);
  }
 infoClient(){
   this.oeuvreS.getClientByUser(this.user.id)
   .subscribe(
     response => {
       this.client = response;
-      console.log('MonClient', this.client);
+      //console.log('MonClient', this.client);
      },
      (error) => {
-       console.log(error);
+       //console.log(error);
      });
 }
 
@@ -472,18 +472,18 @@ commandesClient(){
      this.client = response;
      this.oeuvreS.getCommandeOfClient(this.client.id).subscribe(
        data => {
-         console.log(data);
+         //console.log(data);
          this.commandes = data;
          // this.size=this.commandes.length;
          this.commandes = this.commandes.reverse();
-         console.log('les commandes:' , this.commandes);
+         //console.log('les commandes:' , this.commandes);
          this.ngxService.stopLoader('loader-01');
          /*setTimeout(() => {
           // stop foreground spinner of the loader "loader-01" with 'default' taskId
         }, 500);*/
        },
        error => {
-         console.log(error);
+         //console.log(error);
        });
    });
 }
@@ -504,25 +504,25 @@ getAdresse(){
      this.authS.getAdresseOfUserConnected(this.client.id).subscribe(
     (adr: any) => {
       this.adresses = adr;
-      console.log('adresses:', this.adresses);
+      //console.log('adresses:', this.adresses);
       this.ngxService.stopLoader('loader-01');
       /*setTimeout(() => {
          // stop foreground spinner of the loader "loader-01" with 'default' taskId
       }, 500);*/
     },
     error => {
-      console.log(error);
+      //console.log(error);
     }
   ); });
 }
 onDeleteAdresseOfUser(id: number){
   this.authS.deleteAdresseOfUser(id).subscribe(
     (data: any) => {
-      console.log(data);
+      //console.log(data);
       this.ngOnInit();
     },
     error => {
-      console.log(error);
+      //console.log(error);
     }
   );
 
@@ -538,10 +538,10 @@ onGetArtisteSuiviByClient(){
    (response: any) => {
      this.artistes = response;
      this.size = this.artistes.length;
-     console.log('artistes suivis', this.artistes);
+     //console.log('artistes suivis', this.artistes);
      },
     (error) => {
-     console.log(error);
+     //console.log(error);
      });
    });
 }
@@ -571,15 +571,15 @@ myDateParser(dateStr: string): string {
 // let validDate = date + ' à ' + time;
  const validDate = jour + '/' + moi + '/' + annee + ' à ' + time;
  // + '.' + millisecond;
- console.log(validDate);
+ //console.log(validDate);
  return validDate;
 }
 addOeuvreToCart(element){
-  console.log(element);
+  //console.log(element);
   this.productService.addToCartOeuvre(element);
 }
 removeOeuvre(element){
-  console.log(element);
+  //console.log(element);
   this.productService.removeWishlistItem(element);
 }
 getOeuvreImageUrl(id: number) {
@@ -611,57 +611,57 @@ showDetailsAbonnement(id: number){
   for (let i = 0; i < this.abonnements.length; i++) {
     if (this.abonnements[i].id == id){
       this.abonnementAffiche = this.abonnements[i];
-      console.log('abonneAffiche dashboard ', this.abonnementAffiche);
+      //console.log('abonneAffiche dashboard ', this.abonnementAffiche);
       for (let i = 0; i < this.etatAbonnements.length; i++) {
         if (this.abonnementAffiche.etatAbonnement == this.etatAbonnements[i].id){
-          console.log('activePaiementttttttttttttttttt', this.etatAbonnements[i] );
+          //console.log('activePaiementttttttttttttttttt', this.etatAbonnements[i] );
           if (this.etatAbonnements[i].code === 'NON_PAYE'){
-            console.log('activePaiementttttttttttttttttt2');
+            //console.log('activePaiementttttttttttttttttt2');
             this.activePaiement = true;
-            console.log('activePaiementttttttttttttttttt', this.activePaiement);
+            //console.log('activePaiementttttttttttttttttt', this.activePaiement);
           }
         }
 
       }
 
       this.imageService.getAbonneById(this.abonnementAffiche.idAbonne).subscribe(response => {
-        console.log('reponse abonnement', response);
+        //console.log('reponse abonnement', response);
         this.abonneAffiche = response;
-        console.log('abonne affiche', this.abonneAffiche);
+        //console.log('abonne affiche', this.abonneAffiche);
       });
       this; this.imageService.getDelaiById(this.abonnementAffiche.idDelai).subscribe(response => {
-        console.log('reponse delai', response);
+        //console.log('reponse delai', response);
         this.delaiAffiche = response;
-        console.log('delai affiche', this.delaiAffiche);
+        //console.log('delai affiche', this.delaiAffiche);
         this.imageService.getTotalAlgo(this.abonnementAffiche).subscribe(resp=>{
           this.montantOeuvres = resp*this.delaiAffiche.nbMois*30;
         })
       });
       this; this.imageService.getTerminalById(this.abonnementAffiche.idTerminal).subscribe(response => {
-        console.log('reponse terminal', response);
+        //console.log('reponse terminal', response);
         this.terminalAffiche = response;
-        console.log('delai affiche', this.terminalAffiche);
+        //console.log('delai affiche', this.terminalAffiche);
        /* if(this.terminalAffiche.libelle === "Tv box"){
           this.precisionEcran = true;
-          console.log("precsiooooooooooooo",this.precisionEcran)
+          //console.log("precsiooooooooooooo",this.precisionEcran)
         }*/
       });
       this.imageService.getListeOeuvre(this.abonnementAffiche.idListeSelection).subscribe(response => {
-        console.log('reponse terminal', response);
+        //console.log('reponse terminal', response);
         this.listeOeuvreAffiche = response;
-        console.log('liste affiche', this.listeOeuvreAffiche);
+        //console.log('liste affiche', this.listeOeuvreAffiche);
         for (let i = 0; i < this.listeOeuvreAffiche.length; i++) {
           //if(this.listeOeuvreAffiche.filter(o=>o.nomOeuvre==this.listeOeuvreAffiche[i].nomOeuvre).length<=0){
             this.imageService.getImage(this.listeOeuvreAffiche[i].nomOeuvre).subscribe(response => {
               const oeuvre = response;
-              console.log('oeuvre', oeuvre);
+              //console.log('oeuvre', oeuvre);
               //this.montantOeuvres =  this.montantOeuvres + oeuvre.tarif;
-              console.log('oeuvres total', this.montantOeuvres);
+              //console.log('oeuvres total', this.montantOeuvres);
               this.oeuvresAffiche.push(oeuvre);
             });
           //}
         }
-        console.log('oeuvres affiche', this.oeuvresAffiche);
+        //console.log('oeuvres affiche', this.oeuvresAffiche);
 
 
 
@@ -684,8 +684,8 @@ showDetailsCommande(idCommande: number){
             this.commande.total += element.prix * element.quantite;
           });
  */       
-          console.log(this.commande)
-          if(this.commande != null && this.livraison == null)
+          //console.log(this.commande)
+          if(this.commande != null)
            {
             this.Sum = this.commande.montant;
            }
@@ -694,23 +694,23 @@ showDetailsCommande(idCommande: number){
           for (let i = 0; i < this.ligneCommande.length; i++){
             this.image = environment.API_ENDPOINT + 'image/oeuvre/' + this.ligneCommande[i].oeuvre.id;
           }
-          console.log('Details de la commande', this.commande);
+          //console.log('Details de la commande', this.commande);
          }
        );
   this.checkoutService.getLivraisonBycommande(idCommande).subscribe(
       (response) => {
           this.livraison = <Livraison>response;
           this.adressLivraison = <Address>this.livraison.adresseLivraison;
-          console.log('Les informations sur la livraison', this.livraison);
+          //console.log('Les informations sur la livraison', this.livraison);
           if(this.livraison != null){
-            this.getFraisLivraison(this.commande);
+            this.Sum = this.commande.montant + this.commande.totalLivraison;
           }
       }
     );
   this.checkoutService.getPaiementById(idCommande).subscribe(
       (response) => {
           this.paiement = response;
-          console.log('Les informations sur le paiement', this.paiement);
+          //console.log('Les informations sur le paiement', this.paiement);
       }
     );
 
@@ -727,7 +727,7 @@ showDetailsCommande(idCommande: number){
 
     reAbonner(index: number){
       this.reabonnement = this.abonnements[index];
-      console.log("REABONNEMENT : "+this.reabonnement);
+      //console.log("REABONNEMENT : "+this.reabonnement);
       this.imageService.getTerminalById(this.reabonnement.idTerminal).subscribe(response => {
         this.choixTerminal(response);
       })
@@ -748,12 +748,12 @@ showDetailsCommande(idCommande: number){
             }).then((result)=> {
               if(result.value){
                 this.terminalResponse = true;
-                console.log(this.terminalResponse)
+                //console.log(this.terminalResponse)
               }else if(result.dismiss === Swal.DismissReason.cancel){
                 this.terminals = this.terminals.filter(terminal => terminal.code.split(" ").join("") != 'JDT');
                 this.shownTerminal = true;
                 this.terminalResponse = false;
-                console.log(this.terminalResponse)
+                //console.log(this.terminalResponse)
               }
             });
           })
@@ -777,12 +777,12 @@ showDetailsCommande(idCommande: number){
             }).then((result)=> {
               if(result.value){
                 this.terminalResponse = true;
-                console.log(this.terminalResponse)
+                //console.log(this.terminalResponse)
               }else if(result.dismiss === Swal.DismissReason.cancel){
                 this.terminals = this.terminals.filter(terminal => terminal.code.split(" ").join("") != 'JDT');
                 this.shownTerminal = true
                 this.terminalResponse = false;
-                console.log(this.terminalResponse)
+                //console.log(this.terminalResponse)
               }
             });
           })
@@ -804,15 +804,15 @@ showDetailsCommande(idCommande: number){
               confirmButtonText: confirmButtonText,
               cancelButtonText: cancelButtonText
             }).then((result)=> {
-              console.log(result);
+              //console.log(result);
               if(result.value){
                 this.terminalResponse = true;
-                console.log(this.terminalResponse)
+                //console.log(this.terminalResponse)
               }else if(result.dismiss === Swal.DismissReason.cancel){
                 this.terminals = this.terminals.filter(terminal => terminal.code.split(" ").join("") != 'JDT');
                 this.shownTerminal = true
                 this.terminalResponse = false;
-                console.log(this.terminalResponse)
+                //console.log(this.terminalResponse)
               }
             });
           })
@@ -836,7 +836,7 @@ showDetailsCommande(idCommande: number){
             }).then((result)=> {
               if(result.value){
                 this.terminalResponse = true;
-                console.log(this.terminalResponse)
+                //console.log(this.terminalResponse)
               }else if(result.dismiss === Swal.DismissReason.cancel){
                 this.terminals = this.terminals.filter(
                   terminal => terminal.code.split(" ").join("") != 'JDT'
@@ -844,7 +844,7 @@ showDetailsCommande(idCommande: number){
                   );
                 this.shownTerminal = true
                 this.terminalResponse = false;
-                console.log(this.terminalResponse)
+                //console.log(this.terminalResponse)
               }
             });
           })
@@ -888,24 +888,13 @@ showDetailsCommande(idCommande: number){
       })
 
       this.imageService.reabonnement(this.reabonnement, this.terminalResponse, this.chooseTerminal).subscribe(res=>{
-        console.log(res);
+        //console.log(res);
         this.translate.get("PopupInitieInitieReab").subscribe(reab=>{
           this.translate.get("SUCCESS").subscribe(alertType=>{
             this.toastrService.success(reab,alertType);
           })
         })
         this.shownTerminal = false;
-      })
-    }
-    
-    getFraisLivraison(commande:Commande){
-      this.imageService.getFraisLivraison(commande.id).subscribe(resp => {
-        this.fraisLivraison = <number>resp;
-        console.log(this.commande.montant)
-        console.log(this.fraisLivraison)
-        this.Sum = <number>(this.commande.montant + this.fraisLivraison);
-        console.log(this.fraisLivraison);
-        console.log(this.fraisLivraison);
       })
     }
 }

@@ -43,18 +43,18 @@ export class CashOnDeliveryComponent implements OnInit {
   /*   this.store.select(getTotalCartValue).subscribe(
       resp => {
         this.totalCartValue = resp;
-        console.log('total value', this.totalCartValue)
+        //console.log('total value', this.totalCartValue)
       }
     );
     this.store.select(getShippingOptionPrice).subscribe(
       response => {
         this.shippingOptionPrice = response;
-        console.log('ship value', this.shippingOptionPrice)
+        //console.log('ship value', this.shippingOptionPrice)
       });
     this.store.select(getOrderId).subscribe(
       response => {
         this.orderId = response;
-        console.log('Order number ', this.orderId)
+        //console.log('Order number ', this.orderId)
       }
     ); */
     this.order = JSON.parse(localStorage.getItem('order'));
@@ -69,7 +69,7 @@ export class CashOnDeliveryComponent implements OnInit {
     this.paymentmode.libelle='A la galerie';
     this.codePaiement = 'NOPAYE';
     //localStorage.setItem('mode_payment', JSON.stringify(this.paymentmode));
-    console.log('paiement : ', this.paymentmode);
+    //console.log('paiement : ', this.paymentmode);
 
     this.translate.get('PopupAvertissement').subscribe(popupAv => {
       this.translate.get('PopupChoixPaymentMode').subscribe(choixPM => {
@@ -102,7 +102,7 @@ export class CashOnDeliveryComponent implements OnInit {
                     paiement.idCommande=this.order.id;
                     paiement.id = this.order.id;
                     this.checkoutService.putPaiement(paiement).subscribe(resp => {
-                      console.log(resp);
+                      //console.log(resp);
                       this.router.navigate(['/pages/order/success']);
                     });
                   })
@@ -118,7 +118,7 @@ export class CashOnDeliveryComponent implements OnInit {
                 // })
                 /* this.checkouS.createNewPayment(this.paymentmode.id, this.order, this.codePaiement).subscribe(
                   response => {
-                    console.log('Le retour paiement ', response)
+                    //console.log('Le retour paiement ', response)
                   }
                 ); */
               }

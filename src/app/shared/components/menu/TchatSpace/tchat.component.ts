@@ -58,7 +58,7 @@ export class TchatComponent implements OnInit {
     this.tchat = tchat;
     this.isAdmin= false;
     this.connectedUser=this.authService.getUserConnected();
-    console.log(this.connectedUser);
+    //console.log(this.connectedUser);
     if(this.connectedUser==null)
     {
       this.connectedUser = new User(0, "", "", "anonyme", "anonyme", "", "", "VISITEUR", "", "", "");
@@ -67,19 +67,19 @@ export class TchatComponent implements OnInit {
       this.connectedUser.nom="Visiteur";
       this.connectedUser.userType="VISITEUR"; 
     }
-    console.log(this.connectedUser);
+    //console.log(this.connectedUser);
     //this.adminService.utilisateur=this.adminService.getUserConnected();
-    // console.log(this.connectedUser.nom);
+    // //console.log(this.connectedUser.nom);
     let host =`${window.location.host}`;
     this.tchat.initTchatService(this.isAdmin,"ws://"+host+"/stream/SignArt/admin/Ws/",authService,<User>this.connectedUser/*, { query: `username=${adminService.utilisateur.nom}&idTchat=${auth.idTchat}&isAdmin=${this.isAdmin}`}*/);    
-    console.log(this.connectedUser);
+    //console.log(this.connectedUser);
     this.messages = this.tchat.messages.sort((a,b)=> +b.idMsg - +a.idMsg);
     this.messagesAdmin = this.tchat.messagesAdmin;
     this.username = /* (!this.connectedUser ?  */this.connectedUser.nom/* : "anonyme") */;
     this.selectedUsername = this.username;
     this.showEmojis = false ;
     this.connectedUser=this.tchat.connectedUser;
-    console.log(this);
+    //console.log(this);
     
   }
 
@@ -93,7 +93,7 @@ export class TchatComponent implements OnInit {
         this.router.navigated = false;
       }
     });
-    console.log(this.mySubscription.loaded); */
+    //console.log(this.mySubscription.loaded); */
   }
   
   /* ngOnDestroy() {
@@ -108,10 +108,10 @@ export class TchatComponent implements OnInit {
         this.sendTo = sento.idReceiver.toString();
     }*/
     if (this.formGroup.get('file').value != null) {
-      console.log("send PJ");
+      //console.log("send PJ");
       this.fileService.displayLoader$.next(true);
       this.fileService.upload(this.fileName, this.formGroup.get('file').value).subscribe(res => {
-        console.log(res);
+        //console.log(res);
         this.message = this.formGroup.controls['message'].value;
         if (this.isAdmin == true) {
           this.tchat.sendMessage(this.message, this.sendTo, this.profilReceiver, this.fileName);
@@ -179,9 +179,9 @@ export class TchatComponent implements OnInit {
   selectedEmoji(event) {
     this.message = this.message + event.emoji.native;
     this.formGroup.patchValue({ 'message': this.formGroup.controls['message'].value + event.emoji.native });
-    console.log(event);
-    console.log(event.emoji.colons);
-    console.log(event.emoji.native);
+    //console.log(event);
+    //console.log(event.emoji.colons);
+    //console.log(event.emoji.native);
   }
   EmojVisibleFunction(yesOrNo) {
     event.stopPropagation();
@@ -214,9 +214,9 @@ export class TchatComponent implements OnInit {
             });
           };
           this.fileName = droppedFile.relativePath;
-          console.log(this.formGroup.controls['file'].value);
+          //console.log(this.formGroup.controls['file'].value);
           // Here you can access the real file
-          console.log(droppedFile.relativePath, file);
+          //console.log(droppedFile.relativePath, file);
 
           /**
           // You could upload it like this:
@@ -238,18 +238,18 @@ export class TchatComponent implements OnInit {
       } else {
         // It was a directory (empty directories are added, otherwise only files)
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
+        //console.log(droppedFile.relativePath, fileEntry);
       }
     }
   }
 
   public fileOver(event) {
-    console.log(event);
+    //console.log(event);
     this.isFile = true;
   }
 
   public fileLeave(event) {
-    console.log(event);
+    //console.log(event);
     this.isFile = false;
   }
 
@@ -259,12 +259,12 @@ export class TchatComponent implements OnInit {
     this.yPosTabMenu = event.pageY;
     this.isHidden = false;
     this.selectedMsg = message;
-    console.log(message);
+    //console.log(message);
     return false;
   }
 
   closeRightClickMenu() {
-    //console.log(event);
+    ////console.log(event);
     this.isHidden = true;
     this.showEmojis = false;
   }

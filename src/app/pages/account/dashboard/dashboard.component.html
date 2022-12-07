@@ -194,7 +194,7 @@
                                             </td>
                                             <td>
                                                 <h4>
-                                                    {{commande.dateCreation}}
+                                                    {{commande.dateCreation | date: 'dd/MM/yyyy'}}
                                                 </h4>                                         
                                             </td>
                                             <td>
@@ -650,9 +650,8 @@
                             <h4  style="text-decoration: underline;"> {{"Sommaire" | translate}} </h4>
                             <ul class="order-detail">
                                 <li>{{"ID commande" | translate}}: 000{{commande?.id}}</li>
-                                <li> {{"Date de commande" | translate}}: {{commande.dateCreation}}</li>
-                                <li *ngIf="Sum == 0">{{"Commande totale" | translate}} : {{commande.montant | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</li>
-                                <li *ngIf="Sum != 0"> {{"Commande totale" | translate}}: {{Sum| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</li>
+                                <li> {{"Date de commande" | translate}}: {{commande.dateCreation | date: 'dd/MM/yyyy'}}</li>
+                                <li> {{"Commande totale" | translate}}: {{Sum| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}</li>
                             </ul>
                         </div>
                         <div class="col-sm-6" *ngIf="adressLivraison != null">
@@ -719,13 +718,11 @@
                     <div class="total-sec">
                         <ul>
                             <li> {{"Sous-Total" | translate}} <span> {{commande.montant| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></li>
-                            <li *ngIf="adressLivraison != null"> {{"Livraison et assurance" | translate}} <span> {{fraisLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}<!-- {{commande.totalLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} --> </span></li>
+                            <li *ngIf="adressLivraison != null"> {{"Livraison et assurance" | translate}} <span> {{commande.totalLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}}<!-- {{commande.totalLivraison| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} --> </span></li>
                         </ul>
                     </div>
                     <div class="final-total">
-                        <h3 *ngIf="Sum == 0"> {{"Total" | translate}} <span> {{commande.montant| currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></h3>
-
-                        <h3 *ngIf="Sum != 0">{{"Total" | translate}} : <span> {{Sum | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></h3>
+                        <h3>{{"Total" | translate}} : <span> {{Sum | currency:productService?.Currency.currency:'symbol':'4.0-0':'fr'}} </span></h3>
                     </div>
                 </div><br><br>
                 <div class="col-md-12">

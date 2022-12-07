@@ -70,7 +70,7 @@ export class ProductService {
   */
 
  initState(){
-   console.log("ca kass un peu les pied quand meme");
+   //console.log("ca kass un peu les pied quand meme");
    state.cart =JSON.parse(localStorage['cartItems'] || '[]');
    state.wishlist= JSON.parse(localStorage['wishlistItems'] || '[]');
  }
@@ -92,7 +92,7 @@ export class ProductService {
     //  this.Oeuvres = response;
       this.Oeuvres.pipe(map(data => data));
      // this.Oeuvres.subscribe(next => { localStorage['oeuvres'] = JSON.stringify(next) });
-     // console.log("oeuvres product service", this.oeuvres)
+     // //console.log("oeuvres product service", this.oeuvres)
     //        });
     return this.Oeuvres;// = this.Oeuvres.pipe(startWith(JSON.parse(localStorage['oeuvres'] || '[]')));
   }
@@ -120,9 +120,9 @@ export class ProductService {
 
 
   public getOeuvreBySlug(id: number): Observable<Oeuvre> {
-    console.log("oeuvres dans product service", this.oeuvres)
+    //console.log("oeuvres dans product service", this.oeuvres)
     return this.oeuvres.pipe(map(oeuves => { 
-      console.log("items dans product service", oeuves)
+      //console.log("items dans product service", oeuves)
       return oeuves.find((oeuve: Oeuvre) => { 
         return oeuve.id == id; 
       }); 
@@ -130,7 +130,7 @@ export class ProductService {
   }
 
   public findOeuvreBySlug(slug: string): Oeuvre {
-    console.log("oeuvres dans product service", this.oeuvres)
+    //console.log("oeuvres dans product service", this.oeuvres)
     let unoeuvre: Oeuvre;
     this.articleService.getAllArticles().subscribe(response => { 
       this.oeuvs = response;
@@ -175,7 +175,7 @@ export class ProductService {
       wishedItem.dateMarquage= new Date();
     
       this.panierEtMarquateService.postWishlistItem(wishedItem).subscribe(resp=>{
-        console.log(resp);
+        //console.log(resp);
       });
     }
     else{
@@ -197,7 +197,7 @@ export class ProductService {
     if(client!=null)
     {
       this.panierEtMarquateService.deleteWishlistItem(product.id,client.id,environment.MarquageFavori).subscribe(resp=>{
-        console.log(resp);
+        //console.log(resp);
       });
     }
     this.translate.get('PopupOeuvRemoved').subscribe(popup => {
@@ -334,12 +334,12 @@ export class ProductService {
       const cartItem = state.cart.find(item => item.id === oeuvre.id);
       const qty = oeuvre.quantity!=null && oeuvre.quantity!=undefined ? oeuvre.quantity : 1;
       const items = cartItem ? cartItem : oeuvre;
-      console.log("item", items);
-      console.log("qty", qty)
+      //console.log("item", items);
+      //console.log("qty", qty)
       const stock = this.calculateStockCounts(items, qty);
       this.client = this.authService.getClientConnected();
-      console.log("client", this.client)
-      console.log("oeuvre", oeuvre)
+      //console.log("client", this.client)
+      //console.log("oeuvre", oeuvre)
       
       if(!stock) return false
   
@@ -377,15 +377,15 @@ export class ProductService {
   }
 
   public addToList(oeuvreNumerique: OeuvreNumerique): any {
-    console.log("show item added", oeuvreNumerique)
+    //console.log("show item added", oeuvreNumerique)
     
     const listItem = stateList.list.find(item => item.id === oeuvreNumerique.id);
     const qty = 1;// oeuvre.stock ? oeuvre.stock : 1;
     const items = listItem ? listItem : oeuvreNumerique;
     //const stock = this.calculateStockCounts(items, qty);
     this.client = this.authService.getClientConnected();
-   /* console.log("client", this.client)
-    console.log("oeuvre", oeuvre)*/
+   /* //console.log("client", this.client)
+    //console.log("oeuvre", oeuvre)*/
     
     //if(!stock) return false
 
@@ -464,20 +464,20 @@ export class ProductService {
           this.newCheckoutService.createNewLineItemInLocalStorage(product,this.client.id);
           localStorage.setItem("cartItems", JSON.stringify(state.cart));
           this.client = this.authService.getClientConnected();
-          console.log(this.client);
+          //console.log(this.client);
           this.panierEtMarquateService.getLineItemsByClient(this.client.id).subscribe(resp=>{
             let lignePaniers = <LignePanier[]> resp;
-            console.log(lignePaniers); 
+            //console.log(lignePaniers); 
             let lp=lignePaniers.find(lp=>lp.oeuvre.id===product.id);
-            console.log(lp);
+            //console.log(lp);
             if(lp!=null && lp != undefined)
             {
-              console.log(lignePaniers);
-              console.log(lp);
+              //console.log(lignePaniers);
+              //console.log(lp);
               lp.quantite=state.cart[index].quantity;
               lp.oeuvre.image=null;
               lp.idClient=this.client.id;
-              this.panierEtMarquateService.updateLigneItems(lp).subscribe(resp=> console.log(resp));
+              this.panierEtMarquateService.updateLigneItems(lp).subscribe(resp=> //console.log(resp));
               this.syncroniseLocalStorageAndCartItem();
             }
           })
@@ -548,16 +548,16 @@ public calculateNewStockCounts(oeuvre, quantity) {
     state.cart.splice(index, 1);
     localStorage.setItem("cartItems", JSON.stringify(state.cart));
     this.client = this.authService.getClientConnected();
-        console.log(this.client);
+        //console.log(this.client);
         this.panierEtMarquateService.getLineItemsByClient(this.client.id).subscribe(resp=>{
           let lignePaniers = <LignePanier[]> resp;
-          console.log(lignePaniers); 
+          //console.log(lignePaniers); 
           let lps=lignePaniers.filter(lp=>lp.oeuvre.id===product.id);
-          console.log(lps);
+          //console.log(lps);
           lps.forEach(lp => {
             if(lp!=null || lp != undefined)
             {
-              this.panierEtMarquateService.deleteLineItem(lp).subscribe(resp=> console.log(resp));
+              this.panierEtMarquateService.deleteLineItem(lp).subscribe(resp=> //console.log(resp));
             }
           });
          
@@ -593,7 +593,7 @@ public calculateNewStockCounts(oeuvre, quantity) {
     let index = 0;
     //index = stateList.list.indexOf(oeuvreNumerique);
     return stateList.list;
-    console.log("indexxxxxx checkkkkk", stateList.list)
+    //console.log("indexxxxxx checkkkkk", stateList.list)
    /* if(index == -1){
       return false;
     }else{

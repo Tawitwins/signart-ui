@@ -105,7 +105,7 @@ export class OeuvreNumeriqueBoxOneComponent implements OnInit {
             this.isAdd = false;
           } else{
             this.client = this.authService.getClientConnected();
-            //console.log("client connect", this.client)
+            ////console.log("client connect", this.client)
           }
       }
 
@@ -136,13 +136,13 @@ export class OeuvreNumeriqueBoxOneComponent implements OnInit {
     this.imageService.getAllImage().subscribe(
       response => { 
         this.imageRes = response;
-        console.log("image",this.imageRes);
+        //console.log("image",this.imageRes);
         for (let i = 0; i < this.imageRes.length; i++) {
           this.allYears.push(this.imageRes[i].annee);
           this.findMinMax(this.allYears);
         }
         this.imageFiltres = this.imageRes;
-        console.log("imageFiltres",this.imageFiltres)
+        //console.log("imageFiltres",this.imageFiltres)
       });
     
   }
@@ -180,13 +180,13 @@ export class OeuvreNumeriqueBoxOneComponent implements OnInit {
     this.oeuvreNumeriqueSave.titre = oeuvreNumerique.titre;
 
 
-    console.log("item to add", this.oeuvreNumeriqueSave)  
+    //console.log("item to add", this.oeuvreNumeriqueSave)  
    if(this.user==null){
       this.router.navigate(['/pages/login']);  
          
      }else{
       this.productService.addToList( this.oeuvreNumeriqueSave); 
-      console.log("add success")    
+      //console.log("add success")    
      }
    
   }
@@ -236,7 +236,7 @@ export class OeuvreNumeriqueBoxOneComponent implements OnInit {
 
   findMinMax(tab: number[]){
 
-    console.log("table des aneeeeeeeeeeeee",tab)
+    //console.log("table des aneeeeeeeeeeeee",tab)
     let min = tab[0];
     let max = tab[0];
     for (let i = 0; i < tab.length; i++) {
@@ -249,7 +249,7 @@ export class OeuvreNumeriqueBoxOneComponent implements OnInit {
     }
     this.minYears = min;
     this.maxYears = max;
-    console.log("Maxxxxxxxxxx anneee", this.maxYears);
-    console.log("Minnnnnnnnnn anneee", this.minYears);
+    //console.log("Maxxxxxxxxxx anneee", this.maxYears);
+    //console.log("Minnnnnnnnnn anneee", this.minYears);
   }
 }

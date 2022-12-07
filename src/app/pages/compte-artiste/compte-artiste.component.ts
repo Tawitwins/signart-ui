@@ -173,12 +173,12 @@ export class CompteArtisteComponent implements OnInit {
       })
 
       
-     // this.actionsSubscription = this.lartiste.subscribe(resp=>{console.log(resp)})
+     // this.actionsSubscription = this.lartiste.subscribe(resp=>{//console.log(resp)})
   this.artiste=this.authService.getArtisteConnected();
   this.artisteId= this.artiste.id;
-  console.log(this.artiste);
-  console.log('id artiste: ' + this.artisteId)
-  console.log('lartiste: ' + this.lartiste)
+  //console.log(this.artiste);
+  //console.log('id artiste: ' + this.artisteId)
+  //console.log('lartiste: ' + this.lartiste)
   this.artisteService
       .getArtiste(this.artisteId)
       .subscribe(response => {
@@ -197,7 +197,7 @@ export class CompteArtisteComponent implements OnInit {
               this.urlSous[i] = this.sanitizer.bypassSecurityTrustResourceUrl(murl);
             }/*,
               error => {
-                console.log('Erreur récupération image oeuvre');
+                //console.log('Erreur récupération image oeuvre');
                 //this.toastr.error('Erreur récupération de l\'image', 'ERREUR')
               }*/
             );
@@ -207,15 +207,15 @@ export class CompteArtisteComponent implements OnInit {
           this.artisteService.getAllPresentation(this.artiste.id).subscribe(
               resp => { 
                 this.artistePresentation = resp;
-              console.log('Presentation',this.artistePresentation);
+              //console.log('Presentation',this.artistePresentation);
           });
-          // console.log('artiste:' + this.artiste ? this.artiste.idClient : 0);
+          // //console.log('artiste:' + this.artiste ? this.artiste.idClient : 0);
       });
 
       /*this.actionsSubscription = this.route.params.subscribe(
         (params: any) => {
             this.artisteId = params['id'];
-            console.log('id artiste: ' + this.artisteId)
+            //console.log('id artiste: ' + this.artisteId)
             this.artisteService
                 .getArtiste(this.artisteId)
                 .subscribe(response => {
@@ -226,12 +226,12 @@ export class CompteArtisteComponent implements OnInit {
                     this.artisteService.getAllPresentation(this.artiste.id).subscribe(
                         resp => { 
                           this.artistePresentation = resp;
-                        console.log('Presentation',this.artistePresentation);
+                        //console.log('Presentation',this.artistePresentation);
                     });
-                    // console.log('artiste:' + this.artiste ? this.artiste.idClient : 0);
+                    // //console.log('artiste:' + this.artiste ? this.artiste.idClient : 0);
                 });
 
-            // console.log('c moi');
+            // //console.log('c moi');
         }
     );
 */
@@ -239,7 +239,7 @@ export class CompteArtisteComponent implements OnInit {
       this.oeuvres = this.oeuvres.filter(item => item.prix >= this.minPrice && item.prix <= this.maxPrice) 
       this.paginate = this.productService.getPager(this.oeuvres.length, +this.pageNo); 
       this.oeuvres = this.oeuvres.slice(this.paginate.startIndex, this.paginate.endIndex + 1);
-      console.log("paginationnnnn", this.paginate)
+      //console.log("paginationnnnn", this.paginate)
     
   
    // this.user = this.userAuth.getUserConnected();
@@ -258,7 +258,7 @@ export class CompteArtisteComponent implements OnInit {
     this.navigations = NAVIGATION.filter(navigation => navigation);
     this.initForm();
     this.visiteur = new Visiteur(null,"","","","","",0);
-    //console.log(Visiteur.prenom+Visiteur.nom+Visiteur.pays+Visiteur.typeVisiteur+Visiteur.raisonSociale);
+    ////console.log(Visiteur.prenom+Visiteur.nom+Visiteur.pays+Visiteur.typeVisiteur+Visiteur.raisonSociale);
     this.paysService.getAllPays().subscribe(pays => this.allPays = pays);
     this.oeuvreService.getOeuvreByArtiste(this.artisteId).subscribe(response => { this.listes = <any>response });
     this.expoService.getExpoByArtiste(this.artisteId).subscribe(response => {
@@ -312,7 +312,7 @@ export class CompteArtisteComponent implements OnInit {
     });
     this.clientService.getClientByArtiste(this.artisteId).subscribe(response => { this.listesClient = response });
     this.expoService.getFormationByArtiste(this.artisteId).subscribe(response => { this.listesFormation = response
-        console.log(this.listesFormation);
+        //console.log(this.listesFormation);
     }
        
         );
@@ -448,69 +448,69 @@ suivi() {
         this.suivreService.getMarquageByArtiste(+this.client.id, +this.artisteId, 'SUIV')
         .subscribe(response => { this.marq = response });
         if (this.marq == null) {
-            console.log('mmmmkl' + this.client.id);
+            //console.log('mmmmkl' + this.client.id);
             this.suivre = new Suivre(null,'SUIV', new Date(), +this.artisteId, this.client.id, 2,this.visiteur.id);
             this.suivreService.suivreArtiste(this.suivre).subscribe(res => this.listes1 = res);
             this.suivreart = 'Ne plus suivre';
             this.couleur = 'grey';
-            console.log('affiche ' + this.suivre+this.isVisiteur);
+            //console.log('affiche ' + this.suivre+this.isVisiteur);
         } else {
             this.oeuvreService.plusSuivreArtiste(this.client.id, this.artisteId, 'SUIV').subscribe();
             this.suivreart = 'Suivre';
             this.couleur = '#f07c10';
-            console.log('skguybgg'+this.isVisiteur);
+            //console.log('skguybgg'+this.isVisiteur);
         }
         /*  if((this.client.id == this.marq.idClient) && (this.artisteId == this.marq.idArtiste) && (this.marq.codeTypeMarquage=='SUIV'))
 
-        console.log('mmmmkl'+ this.client.id);
+        //console.log('mmmmkl'+ this.client.id);
         this.suivre = new Suivre('SUIV', new Date(), +this.artisteId, this.user.id, 2);
         this.suivreService.suivreArtiste(this.suivre).subscribe(res => this.listes1 = res);
         this.suivreart = 'Ne plus suivre';
         this.couleur = 'grey';
-        console.log('affiche ' + this.suivre);
+        //console.log('affiche ' + this.suivre);
 
         noSuivi() {
         this.oeuvreService.plusSuivreArtiste(this.client.id, this.artisteId, 'SUIV').subscribe();
         this.suivreart = 'Suivre';
         this.couleur = 'rgb(239, 83, 80)';
-        console.log('affiche non suivi ' + this.suivre);
+        //console.log('affiche non suivi ' + this.suivre);
     }*/
     }
     else
     {
-        console.log('Aucune connexion est active');
+        //console.log('Aucune connexion est active');
         if(this.suivreart == 'Suivre')
             this.isVisiteur=true;
         else
         {
             this.isVisiteur=false;
-            console.log("Mon artiste: "+ this.artiste.id + "Mon visiteur: " + this.visiteur.id); 
+            //console.log("Mon artiste: "+ this.artiste.id + "Mon visiteur: " + this.visiteur.id); 
             var result = this.oeuvreService.plusSuivreArtisteByVisiteur(this.suivre.id);
             if(result==null)
-                console.log("Aucun élément a été trouvé pour la suppresion");
+                //console.log("Aucun élément a été trouvé pour la suppresion");
             else
             {
                 result.subscribe(
                     (val) => {
-                   console.log("DELETE request en cours ....", <String>val 
+                   //console.log("DELETE request en cours ....", <String>val 
                                );
                                var valSuivre = <Suivre>val;
                                if(valSuivre.id==this.suivre.id)
                                {
                                     this.suivreart = 'Suivre';
                                     this.couleur = '#f07c10';
-                                    console.log('Succès. Vous ne suivez plus cet artiste '+this.artiste.id);
+                                    //console.log('Succès. Vous ne suivez plus cet artiste '+this.artiste.id);
                                }
                                else
                                {
-                                    console.log("Cas particulers !! Val = "+ <Suivre>val );
+                                    //console.log("Cas particulers !! Val = "+ <Suivre>val );
                                }
                },
                response => {
-                   console.log("DELETE call in error", response);
+                   //console.log("DELETE call in error", response);
                },
                () => {
-                   console.log("The DELETE observable is now completed.");
+                   //console.log("The DELETE observable is now completed.");
                });
             }
             //this.oeuvreService.plusSuivreArtisteByVisiteur(this.suivre.id)
@@ -522,68 +522,68 @@ suivi() {
 
 onSubmit(){
     //onsole.log(Visiteur.prenom+Visiteur.nom+Visiteur.pays+Visiteur.typeVisiteur+Visiteur.raisonSociale);
-    console.log("Visiteur en cour d'enregistrement...");
+    //console.log("Visiteur en cour d'enregistrement...");
     const values = this.FormVisiteur.value;
-    console.log('values: ', values)
+    //console.log('values: ', values)
     const keys = Object.keys(values);
-    console.log(values);
+    //console.log(values);
     this.visiteur.pays =this.allPays.find(p=>p.libelle=this.selectedPays);
     this.visiteur.idPays= this.visiteur.pays.id;
-    console.log(this.visiteur);
+    //console.log(this.visiteur);
     if (this.FormVisiteur.valid) {
-        console.log("Visiteur a été enregistrer avec succès");
-        console.log(this.visiteur);
+        //console.log("Visiteur a été enregistrer avec succès");
+        //console.log(this.visiteur);
         /*this.visiteur.prenom = values.prenom;
         this.visiteur.nom = values.nom;
         this.visiteur.pays = values.pays;
         this.visiteur.raisonsociale = values.raisonSociale;
         this.visiteur.typeVisiteur = values.typeVisiteur;*/
         //this.visiteur.idPays = this.visiteur.pays.id;
-        console.log(this.visiteur.pays);
+        //console.log(this.visiteur.pays);
         var result =this.visiteurService.createVisiteur(this.visiteur);
         result.subscribe(  
             (val) => {
-                console.log("POST call (save visiteur) successful value returned in body", val); 
+                //console.log("POST call (save visiteur) successful value returned in body", val); 
                 this.visiteur=<Visiteur>val; 
-                console.log("Mise a jour ici", this.visiteur); 
+                //console.log("Mise a jour ici", this.visiteur); 
                 alert("Identification réussi et suivi approuvé.");
                 this.suivre = new Suivre(null,'SUIV', new Date(), this.artisteId, 0, 2,this.visiteur.id);
-                console.log("Mon marquest est là "+ this.suivre);
+                //console.log("Mon marquest est là "+ this.suivre);
                 this.suivreService.suivreArtiste(this.suivre).subscribe( (val) => {
-                    console.log("POST call successful (set marque) value returned in body", 
+                    //console.log("POST call successful (set marque) value returned in body", 
                                 val);
-                                console.log("Reponse souscription", this.listes1);
+                                //console.log("Reponse souscription", this.listes1);
                                 this.suivreart = 'Ne plus suivre';
                                 this.couleur = 'grey';
                                 document.getElementById('Visiteur').click();
                                 this.suivre= <Suivre>val;
                     },
                     response => {
-                        console.log("POST call (set marque) in error", response);
+                        //console.log("POST call (set marque) in error", response);
                     },
                     () => {
-                        console.log("The POST observable (set marque) is now completed.");
+                        //console.log("The POST observable (set marque) is now completed.");
                     });
               
-               // console.log('affiche ' + this.suivre+this.isVisiteur);
+               // //console.log('affiche ' + this.suivre+this.isVisiteur);
             },
             response => {
-                console.log("POST call (save visiteur) in error", response);
-                console.log("Un problème lors de l'enregistrement des vos informations !!" + result );
+                //console.log("POST call (save visiteur) in error", response);
+                //console.log("Un problème lors de l'enregistrement des vos informations !!" + result );
             },
             () => {
-                console.log("The POST (save visiteur) observable is now completed.");
+                //console.log("The POST (save visiteur) observable is now completed.");
         });
         /*this.registerSubs = this.authService.register(values).subscribe(
-          data => {     console.log('datas: ', data)
+          data => {     //console.log('datas: ', data)
   
             this.authService.login(values.email, values.password).subscribe(
-              resp => console.log('resp: ', data)
+              resp => //console.log('resp: ', data)
             );
           }
           );*/
       } else {
-        console.log("Un problème a été rencontré avec le formulaire du visiteur ");
+        //console.log("Un problème a été rencontré avec le formulaire du visiteur ");
         keys.forEach(val => {
           const ctrl = this.FormVisiteur.controls[val];
           if (!ctrl.valid) {

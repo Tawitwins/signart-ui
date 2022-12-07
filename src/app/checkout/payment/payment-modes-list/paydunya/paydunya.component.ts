@@ -96,13 +96,13 @@ export class PaydunyaComponent implements OnInit {
       this.store.select(getShippingOptionPrice).subscribe(
       response => {
         this.shippingOptionPrice = response;
-        console.log('ship value', this.shippingOptionPrice)
+        //console.log('ship value', this.shippingOptionPrice)
       });
 
     this.store.select(getOrderId).subscribe(
       response => {
         this.orderId = response;
-        console.log('Order number ', this.orderId)
+        //console.log('Order number ', this.orderId)
       }
     );
     this.store.select(getShippingOptionPrice).subscribe(resp => { this.shiptotal = resp});
@@ -115,7 +115,7 @@ export class PaydunyaComponent implements OnInit {
 
   }
   onpay(objet){   
-    return this.http.post(`/api/paydunya/create-invoice`,objet)
+    return this.http.post(`/paiement/api/paydunya/create-invoice`,objet)
   }
   /*
   onconfirm(token){
@@ -157,15 +157,15 @@ export class PaydunyaComponent implements OnInit {
     }
   }
   
-  console.log(this.items);
+  //console.log(this.items);
   data.payDunyaInput.invoice.items=this.convertProductToItems();
-  console.log(data);
+  //console.log(data);
   this.onpay(data).subscribe(
     (response)=>{
-     console.log('Ma réponse',response);
+     //console.log('Ma réponse',response);
      this.answer=response; 
      this.updateCommandeToken(response);
-     console.log('Answer',response)
+     //console.log('Answer',response)
     // window.location.href=this.answer.response_text;
     /*
      this.onconfirm(this.answer.token).subscribe(
@@ -178,12 +178,12 @@ export class PaydunyaComponent implements OnInit {
           
         },
         (error)=>{
-          console.log('Erreur lors de la  confirmation')
+          //console.log('Erreur lors de la  confirmation')
         }
      ) */
     },
     (error)=>{
-      console.log('Réponse avec erreur',error)
+      //console.log('Réponse avec erreur',error)
     }
   );
   }
@@ -223,7 +223,7 @@ export class PaydunyaComponent implements OnInit {
       });
     }
     //data.payDunyaInput.invoice.items=this.convertProductToItems();
-    console.log(data);
+    //console.log(data);
     this.translate.get('PopupAvertissement').subscribe(popupAv => {
       this.translate.get('PopupTextPaydunya',{paymentmodeLibelle: this.paymentmode.libelle}).subscribe(popupTextPaydunya => {
         this.translate.get('PopupCancelBtn').subscribe(cancel => {
@@ -241,13 +241,13 @@ export class PaydunyaComponent implements OnInit {
               if (result.value) {
                 this.onpay(data).subscribe(
                   (response)=>{
-                  console.log('Ma réponse',response);
+                  //console.log('Ma réponse',response);
                   this.answer=response; 
                   this.updateAbonnementToken(response);
-                  console.log('Answer',response)
+                  //console.log('Answer',response)
                   },
                   (error)=>{
-                    console.log('Réponse avec erreur',error)
+                    //console.log('Réponse avec erreur',error)
                   }
                 );
               }
@@ -270,13 +270,13 @@ export class PaydunyaComponent implements OnInit {
     //   if (result.value) {
     //     this.onpay(data).subscribe(
     //       (response)=>{
-    //        console.log('Ma réponse',response);
+    //        //console.log('Ma réponse',response);
     //        this.answer=response; 
     //        this.updateAbonnementToken(response);
-    //        console.log('Answer',response)
+    //        //console.log('Answer',response)
     //       },
     //       (error)=>{
-    //         console.log('Réponse avec erreur',error)
+    //         //console.log('Réponse avec erreur',error)
     //       }
     //     );
     //   }
@@ -289,7 +289,7 @@ Pay() {
   this.paymentmode.code = 'PAYDUNYA';
   this.paymentmode.libelle='Paydunya';
   //localStorage.setItem('mode_payment', JSON.stringify(this.paymentmode));
-  console.log('paiement : ', this.paymentmode);
+  //console.log('paiement : ', this.paymentmode);
   this.translate.get('PopupAvertissement').subscribe(popupAv => {
     this.translate.get('PopupTextPaydunya',{paymentmodeLibelle: this.paymentmode.libelle}).subscribe(popupTextPaydunya => {
       this.translate.get('PopupCancelBtn').subscribe(cancel => {
@@ -308,7 +308,6 @@ Pay() {
               this.store.dispatch(this.checkoutActions.addPaymentModeSuccess(this.paymentmode));
               this.order.modePaiement=this.paymentmode;
               localStorage.setItem('order', JSON.stringify(this.order));
-              console.log("PARFAIT: ",this.answer.response_text)
               window.location.href=this.answer.response_text;
             }
           })
@@ -331,35 +330,35 @@ Pay() {
   //     this.store.dispatch(this.checkoutActions.addPaymentModeSuccess(this.paymentmode));
   //     this.order.modePaiement=this.paymentmode;
   //     localStorage.setItem('order', JSON.stringify(this.order));
-  //     console.log("PARFAIT: ",this.answer.response_text)
+  //     //console.log("PARFAIT: ",this.answer.response_text)
   //     window.location.href=this.answer.response_text;
   //   }
   // })
 }
   convertProductToItems(){
     this.order.lignesCommande.forEach(elet => {
-      console.log(elet);
-      console.log(new ItemPaydunya(elet.oeuvre.nom,elet.oeuvre.description,elet.prix,elet.prix*elet.quantite,elet.quantite));
+      //console.log(elet);
+      //console.log(new ItemPaydunya(elet.oeuvre.nom,elet.oeuvre.description,elet.prix,elet.prix*elet.quantite,elet.quantite));
       this.items.push(new ItemPaydunya(elet.oeuvre.nom,elet.oeuvre.description,elet.prix,+elet.prix*elet.quantite,elet.quantite));
     });
     let jsonObject = {};  
     let i=0
     for(i=0;i<this.items.length;i++){
-      console.log(this.items[i]);
+      //console.log(this.items[i]);
       jsonObject["item_"+i] = this.items[i];
     }
-    console.log(jsonObject);
+    //console.log(jsonObject);
     /* let json = JSON.stringify(jsonObject);  
-    console.log(json); */
+    //console.log(json); */
     return jsonObject;
   }
   updateCommandeToken(response){
     this.checkoutService.getCommandeById(this.order.id).subscribe(resp => {
       let splitted =  response.response_text.split("invoice/");
       resp.token = splitted[1];
-      console.log(resp);
+      //console.log(resp);
       this.checkoutService.updateCommande(this.order.id,resp).subscribe(response => {
-        console.log(response);
+        //console.log(response);
       });
     });
   }
@@ -368,9 +367,9 @@ Pay() {
       this.imageService.getAbonnementById(this.abonnement.id).subscribe(resp => {
         let splitted =  response.response_text.split("invoice/");
         resp.token = splitted[1];
-        console.log(resp);
+        //console.log(resp);
         this.imageService.updateAbonnement(resp).subscribe(response => {
-          console.log(response);
+          //console.log(response);
            window.location.href=this.answer.response_text;
         });
       });

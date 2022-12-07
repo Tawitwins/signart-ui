@@ -40,7 +40,7 @@ export class AddExpoComponent implements OnInit {
   show() {
     //Return if not running. Shouldn't be needed as runShow proceeds show in the template.
     if(this.form.get('dateFin').touched && (this.form.value.dateDebut >= this.form.value.dateFin)) {
-      console.log("invalide form",this.isValid)
+      //console.log("invalide form",this.isValid)
       this.isValid = false;
       return true;
     }else{
@@ -55,7 +55,7 @@ export class AddExpoComponent implements OnInit {
   }
   onAddExposition(){
     const formvalue = this.form.value;
-    console.log('formvalue ', formvalue)
+    //console.log('formvalue ', formvalue)
     const exposition = new Exposition('', '', '', '',null, null,null,false,null);
     exposition.titre = formvalue.titre;
     exposition.description = formvalue.description;
@@ -65,7 +65,7 @@ export class AddExpoComponent implements OnInit {
     exposition.dateFin = formvalue.dateFin;
     exposition.idArtiste =this.artiste.id
     exposition.etatExposition = formvalue.etat
-    console.log('exposition ', exposition);
+    //console.log('exposition ', exposition);
   
     Swal.fire({
       title: 'Confirmez vous la souscription de cette Exposition?',
@@ -81,7 +81,7 @@ export class AddExpoComponent implements OnInit {
       if (result.value) {
         this.artisteService.onAddExposition(exposition).subscribe(
           resp =>{
-            console.log(resp)
+            //console.log(resp)
             $.notify({
               icon: "notifications",
               message: "Expositon souscrite avec succès!"

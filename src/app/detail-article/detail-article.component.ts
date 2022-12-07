@@ -85,21 +85,21 @@ export class DetailArticleComponent implements OnInit {
     this.actionsSubscription = this.route.params.subscribe(
       (params: any) => {
         this.articleId = params['id'];
-        console.log('id: ', this.articleId)
+        //console.log('id: ', this.articleId)
         //récupération de l'image de l'oeuvre
 
         this.articleService.getImage(this.articleId).subscribe(response => {
-            console.log("response")
+            //console.log("response")
             //this.imageRes = response;
             let urlCreator = window.URL; let blob; let url;
             
             blob = new Blob([response], { type: 'application/octet-stream' });
             url = urlCreator.createObjectURL(blob);
             this.url = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-           // console.log("image", this.imageRes.valeur)
+           // //console.log("image", this.imageRes.valeur)
           },
             error => {
-              console.log('Erreur récupération image oeuvre');
+              //console.log('Erreur récupération image oeuvre');
               this.translate.get("ErrorRecovImage").subscribe(popup=>{
                 this.translate.get("ERROR").subscribe(alertType=>{
                   this.toastr.error(popup, alertType)
@@ -113,10 +113,10 @@ export class DetailArticleComponent implements OnInit {
         this.articleService.getArticle(this.articleId)
           .subscribe(oeuvre => {
             this.article$ = oeuvre;
-            console.log('oeuvre:' + this.article$);
+            //console.log('oeuvre:' + this.article$);
           },
             error => {
-              console.log('Erreur récupération détail oeuvre');
+              //console.log('Erreur récupération détail oeuvre');
               this.translate.get("ErrorRecovInfoDetails").subscribe(popup=>{
                 this.translate.get("ERROR").subscribe(alertType=>{
                   this.toastr.error(popup, alertType)
@@ -135,11 +135,11 @@ export class DetailArticleComponent implements OnInit {
     this.store.select(getLineItems).subscribe(
       res => {
         this.listeItems = res;
-        console.log('line items ', this.listeItems)
+        //console.log('line items ', this.listeItems)
         if(this.listeItems.length !== 0){
           for(let i = 0; i < this.listeItems.length; i++){
-            //console.log('list id: ', this.listeItems[i].oeuvre.id)
-            //console.log('article id: ', this.articleId)
+            ////console.log('list id: ', this.listeItems[i].oeuvre.id)
+            ////console.log('article id: ', this.articleId)
             if(this.listeItems[i] !== undefined && this.listeItems[i].oeuvre.id == this.articleId){
               this.button.classList.add('disabled');
               //this.button.classList.add('disabled');
@@ -149,9 +149,9 @@ export class DetailArticleComponent implements OnInit {
       }
     );
     
-    //console.log('present ? : ', this.present);
-    //console.log('element', this.elmt);
-    //console.log('bouton', this.button);
+    ////console.log('present ? : ', this.present);
+    ////console.log('element', this.elmt);
+    ////console.log('bouton', this.button);
     /*if(this.addToCart){
       this.button.classList.add('disabled');
     }*/

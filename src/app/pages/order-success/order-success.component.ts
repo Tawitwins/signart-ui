@@ -28,13 +28,13 @@ export class OrderSuccessComponent implements OnInit {
   constructor(private route:ActivatedRoute,private http: HttpClient,private checkoutService:CheckoutService,private ngxService: NgxUiLoaderService,
     private panierEtMarquateService: PanierEtMarquageService) { 
     this.order =<Commande>JSON.parse(localStorage.getItem('order'));
-    console.log(this.order);
+    //console.log(this.order);
     this.token = this.route.snapshot.paramMap.get('token');
-    console.log(this.token);
-    console.log(window.location.href);
+    //console.log(this.token);
+    //console.log(window.location.href);
     let splitted = window.location.href.split("?token=", 3);
     this.token=splitted[1];
-    console.log(this.token);
+    //console.log(this.token);
     //this.checkPaiementStatus();
   }
 
@@ -56,10 +56,10 @@ export class OrderSuccessComponent implements OnInit {
     localStorage.setItem('order', JSON.stringify(this.order));
     this.updateDB();
      return this.http.get(`sandbox-api/v1/checkout-invoice/confirm/`+this.token,this.httpOptions).subscribe(resp => {
-      console.log(resp);
+      //console.log(resp);
       let response = <any> resp; 
       this.StatusResponse =  response.status;
-      console.log(this.StatusResponse);
+      //console.log(this.StatusResponse);
       if(this.StatusResponse=="completed")
       { 
         this.updateDB();
@@ -82,9 +82,9 @@ export class OrderSuccessComponent implements OnInit {
       this.checkoutService.getLigneCommandeById(elet.id).subscribe(resp => {
         resp.etatLigneCommande="PAYEETNONLIVREE";
         resp.idCommande=this.order.id
-        console.log(resp);
+        //console.log(resp);
         this.checkoutService.updateLigneCommande(elet.id,resp).subscribe(response => {
-          console.log(response)
+          //console.log(response)
         });
       });
     });
@@ -96,16 +96,16 @@ export class OrderSuccessComponent implements OnInit {
     this.checkoutService.getCommandeById(this.order.id).subscribe(resp => {
       resp.state = code;
       resp.libelleEtatCommande=libelle;
-      console.log(resp);
+      //console.log(resp);
       this.checkoutService.updateCommande(this.order.id,resp).subscribe(response => {
-        console.log(response);
+        //console.log(response);
       });
     });
   }
   postPaiement(){
     this.ngxService.startLoader("loader-01");
     this.checkoutService.getPaiementById(this.order.id).subscribe(response => {
-      console.log(response);
+      //console.log(response);
       let respPaiement = <PaiementEtLigneP> response;
       if(respPaiement!=null)
       {
@@ -124,9 +124,9 @@ export class OrderSuccessComponent implements OnInit {
           respPaiement.lignePaiements.push(lignePaiement);
               
         });
-        console.log(respPaiement);
+        //console.log(respPaiement);
         this.checkoutService.putPaiement(respPaiement).subscribe(resp => {
-          console.log(resp);
+          //console.log(resp);
           this.cleanPanierAndLocalStorage();
         });
       }
@@ -148,9 +148,9 @@ export class OrderSuccessComponent implements OnInit {
         lignePaiement.idPaiement= paiement.id;
         paiement.lignePaiements.push(lignePaiement);  
       });
-      console.log(paiement);
+      //console.log(paiement);
       this.checkoutService.postPaiement(paiement).subscribe(resp => {
-        console.log(resp);
+        //console.log(resp);
         this.cleanPanierAndLocalStorage();
       });
     })
@@ -160,9 +160,9 @@ export class OrderSuccessComponent implements OnInit {
     let client = <Client>JSON.parse(localStorage.getItem('client'));
     this.panierEtMarquateService.getLineItemsByClient(client.id).subscribe(resp=>{
       let lignePaniers = <LignePanier[]> resp;
-      console.log(lignePaniers);
+      //console.log(lignePaniers);
       lignePaniers.forEach(elet => {
-      this.panierEtMarquateService.deleteLineItem(elet).subscribe(resp=> console.log(resp));
+      this.panierEtMarquateService.deleteLineItem(elet).subscribe(resp=> //console.log(resp));
     });
       this.ngxService.stopLoader("loader-01");
     })

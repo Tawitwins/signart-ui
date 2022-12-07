@@ -13,18 +13,18 @@ export class WishlistComponent implements OnInit {
   constructor(public productService: ProductService,) { 
     setTimeout(() => {  this.productService.wishlistItems.subscribe(resp=> this.oeuvres=resp);}, 2000); // Skeleton Loader
 
-    console.log(this.oeuvres);
+    //console.log(this.oeuvres);
   }
 
   ngOnInit(): void {
   }
 
   addOeuvreToCart(element){
-    console.log(element);
+    //console.log(element);
     this.productService.addToCartOeuvre(element);
   }
   removeOeuvre(element){
-    console.log(element);
+    //console.log(element);
     this.productService.removeWishlistItem(element);
   }
   getOeuvreImageUrl(id: number) {
