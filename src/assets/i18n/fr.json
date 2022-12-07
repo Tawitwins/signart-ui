@@ -306,6 +306,36 @@
 
   "Warning: Paydunya's commission fee is: 2% + 100 FCFA on the total amount of the order.":"Avertissement: Les frais de la commission de paydunya est de: 2% + 100 FCFA sur le montant total de la commande.",
 
-  "PopupConnexEffAction":"Vous devez vous connecter pour effectuer cette action"
+  "PopupConnexEffAction":"Vous devez vous connecter pour effectuer cette action",
+
+  "The submission of two works is mandatory for an artist account. Please fill in the following fields for each work":"La soumission de deux oeuvres est obligatoire pour un compte artiste. Veuillez renseigner les champs suivants pour chaque oeuvre",
+  "You want to reference yourself on":"Vous souhaitez vous référencer sur",
+  "We would be happy to hear about your work":"Nous serions heureux de prendre connaissance de votre travail",
+  "You can consult the conditions that we offer to artists in the corresponding section":"Vous pouvez consulter les conditions que nous proposons aux artistes dans la rubrique correspondante",
+  "To send us your application, please fill out the small form below. Our Selection Committee will read it and we will get back to you":"Pour nous adresser votre candidature, merci de remplir le petit formulaire ci-aprés. Notre Comité de sélection en prendra connaissance et nous vous reviendrons",
+  "Thank you for your interest in SignArt, and see you soon":"Merci pour votre intérêt pour SignArt, et à bientôt",
+  "Do you already have an account? Sign in":"Vous avez dejà un compte? Se connecter",
+  "Man":"Homme",
+  "Woman":"Femme",
+  "Name of your Gallery":"Nom de votre Galerie",
+  "First work to Upload":"Première oeuvre à Uploader",
+  "This artwork will be used as cover image (default) in the platform":"Cette oeuvre sera utilisée comme image de couverture (par défaut) dans la plateforme",
+  "Submit your condidature by filling out the form below":"Soumettez votre condidature en remplissant le formulaire ci-dessous",
+  "Please choose a genre":"Veuillez choisir un genre",
+  "Please enter your phone number":"Veuillez saisir votre numéro de téléphone",
+  "Town":"Ville",
+  "Training":"Formations",
+  "Speciality":"Spécialité",
+  "Select a specialty":"Sélectionner une spécialités",
+  "Other":"Autres",
+  "Please choose a specialty":"Veuillez choisir une spécialité",
+  "Specify your specialty":"Précisez votre spécialité",
+  "Please choose a gallery":"Veuillez choisir une galerie",
+  "Please choose a country":"Veuillez choisir un pays",
+  "Please give an author":"Veuillez donner un auteur",
+  "Select a technique":"Sélectionner une technique",
+  "Please choose a technique":"Veuillez choisir une technique",
+  "Please give the year":"Veuillez donner l'année",
+  "Please enter the year":"Veuillez saisir l'année"
 
 }
