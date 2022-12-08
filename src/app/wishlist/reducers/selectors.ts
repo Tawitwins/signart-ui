@@ -15,7 +15,7 @@ export function fetchTotalWishlistItems(state: FavoriteState) {
 
 export function fetchAllWishlist(state: FavoriteState) {
   const ids = state.wishItemIds;
-  // console.log('ids : '+JSON.stringify(ids));
+  // //console.log('ids : '+JSON.stringify(ids));
   const wishItemEntities = state.wishItemEntities;
   return ids.map(id => wishItemEntities[id]);
 

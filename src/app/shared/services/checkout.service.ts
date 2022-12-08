@@ -140,12 +140,12 @@ export class CheckoutService extends HttpService {
     oeuvre.image=null;
     let panier;
     if (localStorage.getItem('panier')) {
-      console.log("updating panier in local storage");
+      //console.log("updating panier in local storage");
       panier = this.updateCart(oeuvre,idClient);
       localStorage.setItem('panier', JSON.stringify(panier));
     } else {
       panier = this.createCart(oeuvre,idClient);
-      console.log("creating panier in local storage");
+      //console.log("creating panier in local storage");
       localStorage.setItem('panier',JSON.stringify(panier));
     }
 
@@ -192,7 +192,7 @@ export class CheckoutService extends HttpService {
     panierStockee.lignesPanier.forEach(element => { 
       if(element.oeuvre.id === oeuvre.id)
       {
-        console.log("l'oeuvre est déja ajouté au panier.");
+        //console.log("l'oeuvre est déja ajouté au panier.");
         isUptodate=true;
         return panierStockee;
       }
@@ -200,7 +200,7 @@ export class CheckoutService extends HttpService {
     if(isUptodate==false)
     {
       let nb = panierStockee.lignesPanier.length;
-      console.log("l'oeuvre est déja ajouté au panier mais je sais pa pk je continu.");
+      //console.log("l'oeuvre est déja ajouté au panier mais je sais pa pk je continu.");
       //création d'une nouvelle ligne panier
       let lignePanier: LignePanier = { id: null, oeuvre: null, prix: null, quantite: null, total: null, lithographie: false,idClient:null };
 
@@ -306,7 +306,7 @@ export class CheckoutService extends HttpService {
    * @memberof CheckoutService
    */
   deleteLineItem(lignePanier: LignePanier) {
-    console.log("item retire : " + lignePanier);
+    //console.log("item retire : " + lignePanier);
     return this.delete(environment.API_ENDPOINT + `lignepanier/${lignePanier.id}`).pipe(
       map(() => {
         this.store.dispatch(this.actions.removeLineItemSuccess(lignePanier));
@@ -345,7 +345,7 @@ export class CheckoutService extends HttpService {
     return this.post(environment.API_ENDPOINT +
       `commande/passer/${idClient}`,value)
       .pipe(map(res => {
-      console.log('order response : ' + res);
+      //console.log('order response : ' + res);
       const order: Commande = <Commande>res;
       if (order != null && order != undefined) {
         // Ajouter au localstorage
@@ -438,7 +438,7 @@ getAdresseByClient(idClient){
       //.pipe(map((resp) => {
       //  let addresses = resp;
         //this.store.dispatch(this.actions.updateOrderSuccess(address));
-      //  console.log('les adress : ', addresses);
+      //  //console.log('les adress : ', addresses);
       //}));
   }
   
@@ -481,7 +481,7 @@ getAdresseByClient(idClient){
   createNewPayment(paymentModeId, orderId, codePaiement) {
     return this.http.post(environment.API_ENDPOINT + `paiement`, {idModePaiement: paymentModeId, idCommade: orderId,codeEtatPaiement: codePaiement/* , lignePaiements: order.lignesCommande. */});
     /*.pipe(map((res) => {
-      console.log('La reponse paiement est ', res)
+      //console.log('La reponse paiement est ', res)
       //this.changeOrderState().subscribe();
     }));
     return this.post(
@@ -493,7 +493,7 @@ getAdresseByClient(idClient){
         }
       }
     ).pipe(map((res) => {
-      console.log('La reponse paiement est ', res)
+      //console.log('La reponse paiement est ', res)
       this.changeOrderState()
         .subscribe();
     }));*/
@@ -504,17 +504,17 @@ getAdresseByClient(idClient){
     let panier = <Panier>JSON.parse(localStorage.getItem('panier'));
 /*     let checkoutLS = JSON.parse(localStorage.getItem('panier'));
     let panier = checkoutLS.lineItemEntities[] */
-    console.log("panier : ", panier);
+    //console.log("panier : ", panier);
     let lignePanier = panier.lignesPanier.find(lp=>lp.id=Id);
-    //console.log("lignes panier à modifier : ", panier.lignesPanier);
+    ////console.log("lignes panier à modifier : ", panier.lignesPanier);
     let Removed = panier.lignesPanier.splice(panier.lignesPanier.indexOf(lignePanier),1);
     /*  let i=0;
     for(i=Id-1;i<panier.lignesPanier.length;i++)
     {
       panier.lignesPanier[i].id--;
     } */
-    //console.log("lignes panier modifié: ", panier.lignesPanier);
-    console.log("oeuvre supprimée : ", Removed);
+    ////console.log("lignes panier modifié: ", panier.lignesPanier);
+    //console.log("oeuvre supprimée : ", Removed);
     panier.nbTotal = panier.nbTotal - lignePanier.quantite;
     panier.total = panier.total - lignePanier.prix;
     panier.totalTaxes = panier.totalTaxes -lignePanier.oeuvre.taxes;
@@ -538,7 +538,7 @@ getAdresseByClient(idClient){
       return lignePanier;
     }
     else 
-      console.log("la suppression a échoué");
+      //console.log("la suppression a échoué");
   }
   setPanier(panier)
   {
@@ -554,7 +554,7 @@ getAdresseByClient(idClient){
     //     lignePanierId:lineItemId
     //   }
     // ).map(res => {
-    //   console.log('res : ' + res);
+    //   //console.log('res : ' + res);
     //   const lignePanier: LignePanier = res.json();
     let panier = JSON.parse(localStorage.getItem('panier'));
 
@@ -625,7 +625,7 @@ getAdresseByClient(idClient){
         })
       }
     
-    console.log('ligne panier ', lignePanier);
+    //console.log('ligne panier ', lignePanier);
     return lignePanier;
   }
 
@@ -728,7 +728,7 @@ getAdresseByClient(idClient){
     this.livraison.lignesCommande = commande.lignesCommande;
     // Ajouter au localstorage
     localStorage.setItem('livraison', JSON.stringify(this.livraison));
-    console.log('la livraison :', this.livraison);
+    //console.log('la livraison :', this.livraison);
 
     return this.http.post(environment.API_ENDPOINT + `livraison/commande`, this.livraison)
     }

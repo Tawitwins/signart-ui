@@ -36,8 +36,8 @@ export class Resolver implements Resolve<Product> {
     })*/
 
      this.productService.getOeuvreBySlug(route.params.id).subscribe(oeuvre => {
-       console.log("oeuvre de resolver", oeuvre)
-       console.log("params de resolver", route.params.id)
+       //console.log("oeuvre de resolver", oeuvre)
+       //console.log("params de resolver", route.params.id)
       if(!oeuvre) { // When product is empty redirect 404
           this.router.navigateByUrl('/pages/404', {skipLocationChange: true});
       } else {

@@ -48,7 +48,7 @@ export class AddOeuvreComponent implements OnInit {
       resp => {
         
         this.techniques = resp;
-        console.log('Les techniques ', this.techniques);
+        //console.log('Les techniques ', this.techniques);
       }
     );
     this.initForm();
@@ -68,10 +68,10 @@ export class AddOeuvreComponent implements OnInit {
       })
      };
      
-    console.log("file", file)
+    //console.log("file", file)
      //this.formData.append('file', file);
-     //console.log("formData change",this.formData)
-     console.log("image value",this.oeuvreForm)
+     ////console.log("formData change",this.formData)
+     //console.log("image value",this.oeuvreForm)
   }
   onAddArticle() {
     const formValue = this.oeuvreForm.value;
@@ -94,8 +94,8 @@ export class AddOeuvreComponent implements OnInit {
     //addeddArticle.artiste = this.artiste;  
     //this.userService.addUser(newUser);
     //this.router.navigate(['/users']);
-    //console.log('To add', addeddArticle)
-    //console.log('form value ', formValue)
+    ////console.log('To add', addeddArticle)
+    ////console.log('form value ', formValue)
     //this.article.nom = formValue.nom;
     //addeddArticle.technique = formValue.technique;
     //addeddArticle.idSousTechnique = formValue.soustechnique.id;
@@ -103,7 +103,7 @@ export class AddOeuvreComponent implements OnInit {
     //addeddArticle.couleur = formValue.couleur;
     //addeddArticle.annee = formValue.annee;
 
-    console.log('To add', addeddArticle);
+    //console.log('To add', addeddArticle);
     Swal.fire({
       title: 'Confirmez vous la souscription de cette oeuvre?',
       //text: "Ceci sera irreversible!",
@@ -119,7 +119,7 @@ export class AddOeuvreComponent implements OnInit {
         this.ngxService.startLoader("loader-01"); // start foreground spinner of the loader "loader-01" with 'default' taskId
         this.oeuvreService.addOeuvreSouscriptionArtiste(addeddArticle).subscribe(
           res =>{
-            console.log('la reponse est ', res)
+            //console.log('la reponse est ', res)
             setTimeout(() => {
               this.ngxService.stopLoader("loader-01"); // stop foreground spinner of the loader "loader-01" with 'default' taskId
             }, 3000);
@@ -147,15 +147,15 @@ export class AddOeuvreComponent implements OnInit {
       }
     })
     //this.article.nom = formValue.nom;
-    // console.log('addeded article ', this.article)
+    // //console.log('addeded article ', this.article)
     // this.oeuvreService.editOeuvreArtiste(this.article).subscribe(
     //   res =>{
     //     let status = res;
-    //     console.log('status', status)
+    //     //console.log('status', status)
     //   },
     //   error =>{
     //     let erreur = error;
-    //     console.log('error', erreur)
+    //     //console.log('error', erreur)
     //   });
      
 

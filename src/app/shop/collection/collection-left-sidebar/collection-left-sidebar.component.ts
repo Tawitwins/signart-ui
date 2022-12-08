@@ -57,7 +57,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
   set searchTerm(value: string) {
     this._searchTerm = value;
-    console.log(value)
+    //console.log(value)
     this.oeuvres = this.filtrerImageName(value);
   }
 
@@ -67,17 +67,17 @@ export class CollectionLeftSidebarComponent implements OnInit {
       // Get Query params..
       this.expoService.getTechnique().subscribe(response => {
         this.techniques = response
-        console.log("tech", this.techniques)
+        //console.log("tech", this.techniques)
       });
       this.articleService.getAllArticles().subscribe(response => { 
         this.oeuvres = response;
         
         this.oeuvres = this.oeuvres.filter(oeuvre => oeuvre.paid == false)
         this.oeuvresSave = this.oeuvres;
-        //console.log("maxi ",this.maxPriceValue(this.oeuvres));
+        ////console.log("maxi ",this.maxPriceValue(this.oeuvres));
         this.maxValue = this.maxPriceValue(this.oeuvres)
         this.options = {floor: 0, ceil: this.maxValue}
-        //console.log("ciel ",this.options);
+        ////console.log("ciel ",this.options);
               });
       
               
@@ -122,7 +122,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
           this.oeuvres = this.oeuvres.filter(item => item.prix >= this.minPrice && item.prix <= this.maxPrice) 
           //this.paginate = this.productService.getPager(this.oeuvres.length, +this.pageNo); 
          // this.oeuvres = this.oeuvres.slice(this.paginate.startIndex, this.paginate.endIndex + 1);
-          console.log("paginationnnnn", this.paginate)
+          //console.log("paginationnnnn", this.paginate)
         });
 
      
@@ -145,7 +145,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
 
   filtrerImageName(searchString: string){
-    //console.log("test",this.imageRes)
+    ////console.log("test",this.imageRes)
     return this.oeuvresSave.filter(image =>
       image.nom.toLowerCase().indexOf(searchString.toLowerCase()) !== -1);
   }
@@ -168,15 +168,15 @@ export class CollectionLeftSidebarComponent implements OnInit {
   updateFilterPrice() {
     this.oeuvres = this.oeuvresSave;
     this.oeuvres = this.oeuvres.filter(item => item.prix >= this.minPrice && item.prix <= this.maxPrice) 
-    console.log("min price ",this.minPrice);
-    console.log("max price ",this.maxPrice);
+    //console.log("min price ",this.minPrice);
+    //console.log("max price ",this.maxPrice);
     
   }
 
   updateFilterCategorie(idTechnique: number) {
     this.oeuvres = this.oeuvresSave;
     this.oeuvres = this.oeuvres.filter(item => item.idTechnique == idTechnique) 
-    console.log("technique ",idTechnique);
+    //console.log("technique ",idTechnique);
     
     
   }
@@ -236,7 +236,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
   // product Pagination
   setPage(page: number) {
-    console.log("number page", page)
+    //console.log("number page", page)
     this.router.navigate([], { 
       relativeTo: this.route,
       queryParams: { page: page },

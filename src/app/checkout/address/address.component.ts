@@ -61,7 +61,7 @@ export class AddressComponent implements OnInit, OnDestroy {
       this.nom = this.user.nom;
 
       this.store.select(getShipAddress).subscribe(res => this.adresse = res);
-      console.log('ship adress',this.adresse);
+      //console.log('ship adress',this.adresse);
   }
 
   ngOnInit() {
@@ -74,7 +74,7 @@ export class AddressComponent implements OnInit, OnDestroy {
     this.oeuvreS.getClientByUser(parseInt(this.user.id)).subscribe(
       (response) => {
         this.client = response;
-        console.log('client',this.client);
+        //console.log('client',this.client);
         localStorage.setItem('client',JSON.stringify(response))
         this.checkoutService.getAdresseByClient(this.client.id).subscribe(
           resp => {
@@ -83,21 +83,21 @@ export class AddressComponent implements OnInit, OnDestroy {
             for(let i=0;i<this.listAdressesLength;i++){
             if(this.listAdresses[i].codeTypeAdresse=='LIVRAISON'){
               this.adresseLivraison=this.listAdresses[i];
-              console.log('les adresses de livraison',this.adresseLivraison)
+              //console.log('les adresses de livraison',this.adresseLivraison)
             }
           }
             this.nombreAdresses = this.listAdresses.length;
             this.listAdressesLength = this.nombreAdresses;
-            console.log('les adresses: ', resp)
-            console.log('nombre adresses', this.listAdressesLength)
+            //console.log('les adresses: ', resp)
+            //console.log('nombre adresses', this.listAdressesLength)
             this.store.dispatch(this.actions.updateOrderAdressNumberSuccess(this.nombreAdresses));
           }
         );
       }
     );
     
-    //console.log('user : ',this.user);
-    //console.log('client',response);
+    ////console.log('user : ',this.user);
+    ////console.log('client',response);
     /*
     this.store.select(getAuthStatus).subscribe((auth) => {
       this.isAuthenticated = auth;
@@ -105,23 +105,23 @@ export class AddressComponent implements OnInit, OnDestroy {
         this.router.navigate(['/auth', 'account']);
       } else {
         this.shipAddress$ = this.store.select(getShipAddress);
-        console.log('Adresse de livraison',this.shipAddress$);
+        //console.log('Adresse de livraison',this.shipAddress$);
       }
     });*/
     this.store.select(getListAdressesLength).subscribe(
       (response) => {
         this.listAdressesLength = response;
-        console.log('laaaaaaaaaaaa reponse nombre adresses', this.listAdressesLength);
+        //console.log('laaaaaaaaaaaa reponse nombre adresses', this.listAdressesLength);
       }
     );
 
     this.shipAddress$ = this.store.select(getShipAddress);
     //this.shipOption$ = this.store.select(getShippingOption);
-    //console.log('Adresse de livraison',this.shipAddress$);
+    ////console.log('Adresse de livraison',this.shipAddress$);
     this.store.select(getShippingOption).subscribe(
       (response) => {
         this.shipOption = response;
-        console.log('laaaa reponse', this.shipOption);
+        //console.log('laaaa reponse', this.shipOption);
       }
     );
   }
@@ -129,7 +129,7 @@ export class AddressComponent implements OnInit, OnDestroy {
     if (this.order.shippingOption !== undefined) {
       this.checkoutService.changeOrderState().subscribe();
       this.checkoutService.createLivraison(this.order).subscribe(
-        (resp) => {console.log('resp livraison ', resp)}
+        (resp) => {//console.log('resp livraison ', resp)}
       );
       this.router.navigate(['/checkout', 'payment']);
     }   
@@ -163,9 +163,9 @@ export class AddressComponent implements OnInit, OnDestroy {
   onSubmit(form: NgForm) {
     let adress: Address;
       const index = form.value['monadresse'];
-      console.log('resultat', index);
+      //console.log('resultat', index);
       adress = this.listAdresses[index];
-      console.log('addresse est : ', adress)
+      //console.log('addresse est : ', adress)
       this.store.dispatch(this.actions.updateOrderAdressSuccess(adress));
       $.notify({
         icon: "notifications",

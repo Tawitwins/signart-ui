@@ -74,7 +74,7 @@ export class WishlistComponent implements OnInit {
         this.getWishlist(this.client.id);
       },
           error => {
-            console.log(error)
+            //console.log(error)
       });
 
   
@@ -94,7 +94,7 @@ export class WishlistComponent implements OnInit {
       this.wishItems$=response;
       this.totalWishlistItems=<number>this.wishItems$.length;
       localStorage.setItem('totalwishItem',JSON.stringify(this.totalWishlistItems));
-      console.log('total',this.totalWishlistItems)      
+      //console.log('total',this.totalWishlistItems)      
       }
     );
 

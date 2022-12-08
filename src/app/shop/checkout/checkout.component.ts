@@ -107,10 +107,10 @@ export class CheckoutComponent implements OnInit {
     this.client = this.authService.getClientConnected();
     this.paysService.getAllPays().subscribe(pays => this.allPays = pays);
     this.newCheckoutService.availablePaymentMethods().subscribe(resp=> {
-      console.log(resp);
+      //console.log(resp);
       this.allModePaiement= resp;} );
     this.newCheckoutService.availableShippingMethods().subscribe(resp=>{ 
-      console.log(resp); 
+      //console.log(resp); 
       this.allModeLivraison= resp});
     this.newCheckoutService.getAdresseByClient(this.client.id).subscribe(
         resp => {
@@ -119,7 +119,7 @@ export class CheckoutComponent implements OnInit {
           for(let i=0;i<this.listAdresses.Length;i++){
           if(this.listAdresses[i].codeTypeAdresse=='LIVRAISON'){
             this.adresseLivraison=this.listAdresses[i];
-            console.log('les adresses de livraison',this.adresseLivraison)
+            //console.log('les adresses de livraison',this.adresseLivraison)
           }
         }
       });
@@ -132,7 +132,7 @@ export class CheckoutComponent implements OnInit {
     this.serviceLivraisonService.getAllServiceLivraisons().subscribe(resp => {
         this.serviceLivraisonList = resp;
         this.getTotal.subscribe( resp => this.totalAmount = resp);
-        console.log("this.serviceLivraisonList: ",this.serviceLivraisonList)
+        //console.log("this.serviceLivraisonList: ",this.serviceLivraisonList)
         this.checkoutService.getMontantSeuil().subscribe(resp => {
           this.SeuilLivraison = resp;
           this.MONTANT_SEUIL = this.SeuilLivraison.value;
@@ -198,10 +198,10 @@ export class CheckoutComponent implements OnInit {
   }
 
   choisirPays(event) {
-    // console.log('evennnnt valueeee',event.target.value)
+    // //console.log('evennnnt valueeee',event.target.value)
      for (let i = 0; i < this.allPays.length; i++) {
         if(this.allPays[i].id == event.target.value){
-          //console.log('indicatiiiiiiiiiif valuuuuuuuue',this.allPays[i].indicatif)
+          ////console.log('indicatiiiiiiiiiif valuuuuuuuue',this.allPays[i].indicatif)
           this.indicatifpays = this.allPays[i].indicatif;
         }
        
@@ -210,14 +210,14 @@ export class CheckoutComponent implements OnInit {
  
    onSubmit() {
      let address = this.addressForm.value;
-     console.log('adresses : ', address);
+     //console.log('adresses : ', address);
      address.idClient = this.client.id;
      let addressAttributes;
      addressAttributes = this.addrService.createAddresAttributes(address);
-     console.log('adresses : ', addressAttributes);
+     //console.log('adresses : ', addressAttributes);
      this.checkoutService.addAdressesLivEtFact(addressAttributes).subscribe(
        resp=>{
-         console.log(resp);
+         //console.log(resp);
          this.translate.get('PopupAddressAdded').subscribe(popup => {
           this.toastService.success(popup ,"Succès");
         })
@@ -229,7 +229,7 @@ export class CheckoutComponent implements OnInit {
             for(let i=0;i<this.listAdresses.Length;i++){
             if(this.listAdresses[i].codeTypeAdresse=='LIVRAISON'){
               this.adresseLivraison=this.listAdresses[i];
-              console.log('les adresses de livraison',this.adresseLivraison)
+              //console.log('les adresses de livraison',this.adresseLivraison)
             }
           }
         });
@@ -274,30 +274,30 @@ export class CheckoutComponent implements OnInit {
         },
         onApprove: (data, actions) => {
             this.orderService.createOrder(this.products, this.checkoutForm.value, data.orderID, this.getTotal);
-            console.log('onApprove - transaction was approved, but not authorized', data, actions);
+            //console.log('onApprove - transaction was approved, but not authorized', data, actions);
             actions.order.get().then(details => {
-                console.log('onApprove - you can get full order details inside onApprove: ', details);
+                //console.log('onApprove - you can get full order details inside onApprove: ', details);
             });
         },
         onClientAuthorization: (data) => {
-            console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+            //console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
         },
         onCancel: (data, actions) => {
-            console.log('OnCancel', data, actions);
+            //console.log('OnCancel', data, actions);
         },
         onError: err => {
-            console.log('OnError', err);
+            //console.log('OnError', err);
         },
         onClick: (data, actions) => {
-            console.log('onClick', data, actions);
+            //console.log('onClick', data, actions);
         }
     };
   }
 
   showInf()
   {
-    console.log(this.livraisonStr);
-    console.log(this.payment);
+    //console.log(this.livraisonStr);
+    //console.log(this.payment);
   }
   livraisonCheck(selectedModeLiv){
     //this.isLivraisonOk=true;
@@ -310,7 +310,7 @@ export class CheckoutComponent implements OnInit {
   CheckFormEtPayer(){
     this.getTotal.subscribe(resp=> this.totalAmount= resp);
     let livraison =JSON.parse(localStorage.getItem('livraison'));
-    console.log(livraison);
+    //console.log(livraison);
     if(this.livraisonStr=="")
     {
       this.translate.get('PopupChoisirModeLiv').subscribe(popup => {
@@ -339,7 +339,7 @@ export class CheckoutComponent implements OnInit {
     } */
     else if(livraison!=null){
       this.isLivraisonOk=true;
-      console.log(this.isLivraisonOk=true)
+      //console.log(this.isLivraisonOk=true)
       this.translate.get('PopupModeLivPriseEnCompte').subscribe(popup => {
         this.toastService.success(popup);
         })
@@ -369,7 +369,7 @@ export class CheckoutComponent implements OnInit {
         this.livraison.lignesCommande.push(ligneCommande);
       }); */
     // Ajouter au localstorage
-    console.log('la livraison :', this.livraison);
+    //console.log('la livraison :', this.livraison);
     localStorage.setItem('livraison', JSON.stringify(this.livraison));
     this.newCheckoutService.postLivraisonCommande(this.livraison).subscribe(resp=> {
       this.isLivraisonOk=true;
@@ -378,7 +378,7 @@ export class CheckoutComponent implements OnInit {
         })
     });
     this.updateCommandePourLivraison();
-    /* console.log('la livraison :', this.livraison);
+    /* //console.log('la livraison :', this.livraison);
       localStorage['livraison'] = JSON.stringify(this.livraison); */
     }
   }
@@ -409,7 +409,7 @@ export class CheckoutComponent implements OnInit {
                   nameService:"SignArt"
                 }
                 this.newCheckoutService.sendMessage(data).subscribe(res => {
-                  console.log(res);
+                  //console.log(res);
                 })
               })
            //`Bonjour ${client.prenom.trim()} ${client.nom.trim()},\nMerci de trouver ci-joint les coordonnees de notre galerie\nNom: ${m.nom.trim()},\nAdresse: ${m.adresse.trim()},\nNom du responsable: ${m.nomResp.trim()},\nTel: ${m.telephoneResp.trim()}\nMerci.`
@@ -426,14 +426,14 @@ export class CheckoutComponent implements OnInit {
       this.order.idTarification = this.selectedTarification;
       this.order.idServiceLivraison = this.selectedServiceLivraison;
       this.order.totalLivraison = 0;
-      console.log("this.order")
-      console.log(this.order)
+      //console.log("this.order")
+      //console.log(this.order)
       // if(this.selectedMagasin != null)
       //   this.sendSms();
       this.newCheckoutService.updateCommande(this.order.id,this.order).subscribe(resp=>{
-        console.log(resp);
+        //console.log(resp);
         if(this.order.idTarification != null && this.order.idServiceLivraison != null){
-          console.log(this.order.idTarification)
+          //console.log(this.order.idTarification)
           this.getFraisLivraison(this.order.id, this.totalAmount );
         }
       })
@@ -464,7 +464,7 @@ export class CheckoutComponent implements OnInit {
     this.selectedMode=this.setCODAsSelectedModePayment(this.allModePaiement,this.payment);
     const paymentModeId = this.selectedMode.id;
     this.codePaiement = 'NOPAYE';
-    console.log(this.getTotal);
+    //console.log(this.getTotal);
     this.newCheckoutService.createNewPayment(paymentModeId, this.getTotal,this.codePaiement).pipe(
       tap(() => {
         //this.store.dispatch(this.checkoutActions.orderCompleteSuccess());
@@ -487,13 +487,13 @@ export class CheckoutComponent implements OnInit {
     })
   }
   transform() {
-    console.log(this.qrcodeOM);
+    //console.log(this.qrcodeOM);
     this.base64Image = `data:image/png;base64, ${this.qrcodeOM.qrCode}`
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.base64Image);
   }
   orderConfirmed(){
     /* setTimeout(()=>{
-      console.log("la transaction a été complétée avec succès ")
+      //console.log("la transaction a été complétée avec succès ")
       this.pop_up_confirmation = true
     }, 5000); */
     //window.location.href=this.answer.response_text;
@@ -507,7 +507,7 @@ export class CheckoutComponent implements OnInit {
       this.montantTotalAPayer = totalAmount + this.fraisLivraison;
       this.order.totalLivraison = this.fraisLivraison;
       this.newCheckoutService.updateCommande(this.order.id,this.order).subscribe(resp=>{
-        console.log(resp)
+        //console.log(resp)
       })
       localStorage.setItem('order', JSON.stringify(this.order));
     })

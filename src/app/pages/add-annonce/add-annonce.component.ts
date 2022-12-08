@@ -41,7 +41,7 @@ export class AddAnnonceComponent implements OnInit {
   show() {
     //Return if not running. Shouldn't be needed as runShow proceeds show in the template.
     if(this.annonceForm.get('dateFin').touched && (this.annonceForm.value.dateDebut >= this.annonceForm.value.dateFin)) {
-      console.log("invalide form",this.isValid)
+      //console.log("invalide form",this.isValid)
       this.isValid = false;
       return true;
     }else{
@@ -53,7 +53,7 @@ export class AddAnnonceComponent implements OnInit {
   }
   onAddAnnonce(){
     const formvalue = this.annonceForm.value;
-    console.log('formvalue ', formvalue)
+    //console.log('formvalue ', formvalue)
     const annonce = new Annonce('', '', '', null, null,null,false);
       annonce.titre = formvalue.titre;
       annonce.description = formvalue.description;
@@ -62,7 +62,7 @@ export class AddAnnonceComponent implements OnInit {
       annonce.dateFin = formvalue.dateFin;
       annonce.idArtiste =this.artiste.id
       annonce.etatPublication = formvalue.etat
-    console.log('annonce ', annonce);
+    //console.log('annonce ', annonce);
   
     Swal.fire({
       title: 'Confirmez vous la souscription de cette annonce?',
@@ -78,7 +78,7 @@ export class AddAnnonceComponent implements OnInit {
       if (result.value) {
         this.oeuvreService.addAnnonce(annonce).subscribe(
           resp =>{
-            console.log(resp)
+            //console.log(resp)
             $.notify({
               icon: "notifications",
               message: "Annonce souscrite avec succès!"

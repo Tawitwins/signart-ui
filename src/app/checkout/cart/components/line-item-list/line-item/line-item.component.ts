@@ -64,7 +64,7 @@ export class LineItemComponent implements OnInit {
   // Change this method once angular releases RC4
   // Follow this linke to know more about this issue https://github.com/angular/angular/issues/12869
   removeLineItem() {
-    //console.log('oeuvre à supprimer', this.lignePanier);
+    ////console.log('oeuvre à supprimer', this.lignePanier);
     // this.store.dispatch(this.actions.removeLineItem(this.lineItem.id));
     this.translate.get('PopupAvertissement').subscribe(popupAv => {
       this.translate.get('PopupIrreversible').subscribe(irreversible => {
@@ -118,7 +118,7 @@ export class LineItemComponent implements OnInit {
 
   setQuantite(increment:string, lignePanier: LignePanier){
     let panier = JSON.parse(localStorage.getItem('panier'));
-    //console.log('lignePanier : '+lignePanier);
+    ////console.log('lignePanier : '+lignePanier);
     let val: boolean;
     
     if(increment === 'plus') {

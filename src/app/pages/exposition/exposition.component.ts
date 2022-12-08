@@ -42,52 +42,52 @@ export class ExpositionComponent implements OnInit {
     this.artisteService.getArtistes().subscribe(
       response => {
         this.artistes = response;
-        //console.log("all artiste",this.artistes)
+        ////console.log("all artiste",this.artistes)
         this.artiste = this.artistes[0];
 
         this.expoService.getAllExpo().subscribe(response => {
           this.expositions = response;
           /*this.expositions = this.expositions.filter(item => item.etatExposition === true);
-          console.log("expositions", this.expositions)*/
+          //console.log("expositions", this.expositions)*/
 
           this.ExpositionsValide = this.expositions.filter(a => a.etatExposition===true && a.idArtiste===this.artiste.id);
-          console.log("expositions", this.ExpositionsValide)
+          //console.log("expositions", this.ExpositionsValide)
           let i=0;
           this.ExpositionsValide.forEach(element => { 
             this.artisteService.getArtiste(element.idArtiste).subscribe(resp =>{
-              //console.log(resp);
+              ////console.log(resp);
               i++;
               element.artiste=<Artiste>resp;
-              console.log(element.artiste);
+              //console.log(element.artiste);
               this.newLocationMapTmp = {adresse:element.adresse,latitude:null, longitude:null,idExpo:element.id}
               this.locations.push(this.newLocationMapTmp);
               if(i==this.ExpositionsValide.length)
               {
-                console.log("load map");
+                //console.log("load map");
                 this.loadMap();
               }
   
-               //console.log(element.dateDebut);
+               ////console.log(element.dateDebut);
             let date=element.dateDebut.toString();
             date=date.substring(0,19);
             element.dateDebut = new Date(date);
             date=element.dateFin.toString();
             date=date.substring(0,19);
             element.dateFin = new Date(date);
-            //console.log(element.dateDebut);
-            console.log(element.adresse);
+            ////console.log(element.dateDebut);
+            //console.log(element.adresse);
            
             });
            
           });
-          console.log(this.locations);
-          console.log(this.ExpositionsValide);
+          //console.log(this.locations);
+          //console.log(this.ExpositionsValide);
           
-          console.log("expositions", this.expositions)
+          //console.log("expositions", this.expositions)
         });
        
-          //console.log("Mes expositions"+resp);
-          //console.log("Liste de toutes les expositions"+this.Expositions);
+          ////console.log("Mes expositions"+resp);
+          ////console.log("Liste de toutes les expositions"+this.Expositions);
           
       });
 
@@ -116,37 +116,37 @@ export class ExpositionComponent implements OnInit {
       center: {lat: 14.666904, lng:-17.436948},
       zoom: 8
     });
-    console.log("load map 1");
+    //console.log("load map 1");
     var geocoder = new google.maps.Geocoder();
     this.locations.forEach(element=>{
-      console.log("load map 2");
-      console.log("iciiii:");
-      console.log(this.ExpositionsValide.find(currentExpo=>currentExpo.id===element.idExpo));
+      //console.log("load map 2");
+      //console.log("iciiii:");
+      //console.log(this.ExpositionsValide.find(currentExpo=>currentExpo.id===element.idExpo));
       this.Expos=this.ExpositionsValide.find(currentExpo=>currentExpo.id===element.idExpo);
-      console.log(this.Expos.artiste);
+      //console.log(this.Expos.artiste);
       map=this.geocodeAddress(geocoder,map,element,this.Expos,this.pipe);
     })
   }
   geocodeAddress(geocoder, resultsMap,element,lexposition:Exposition,monpipe) {
-    console.log("load map 3");
+    //console.log("load map 3");
     var address = element.adresse;
-    console.log(element);
-    //console.log(lexposition);
-    //console.log(lexposition.artiste);
+    //console.log(element);
+    ////console.log(lexposition);
+    ////console.log(lexposition.artiste);
     let artiste = new Artiste('','','','','','','','','','',null);
     artiste=lexposition.artiste;
     var img=this.getProductImageUrl(artiste.id);
     geocoder.geocode({'address': address}, function(results, status) {
-      console.log("load map 4");
+      //console.log("load map 4");
       if (status === 'OK') {
-       /*  console.log(this.locations[6][1]);
-        console.log(this.locations[6][2]); */
-        //console.log(results[0].geometry.location.lat());
+       /*  //console.log(this.locations[6][1]);
+        //console.log(this.locations[6][2]); */
+        ////console.log(results[0].geometry.location.lat());
         resultsMap.setCenter(results[0].geometry.location);
         element.longitude=  parseFloat(results[0].geometry.location.lng());
         element.latitude= parseFloat(results[0].geometry.location.lat()) ; 
-        //console.log(element);
-        //console.log('la latitude',results[0].geometry.location.lat);
+        ////console.log(element);
+        ////console.log('la latitude',results[0].geometry.location.lat);
         var marker = new google.maps.Marker({
           map: resultsMap,
           position: results[0].geometry.location,
@@ -173,7 +173,7 @@ export class ExpositionComponent implements OnInit {
           infowindow.setContent(this.content);
           infowindow.open(resultsMap, this);
         });
-        //console.log(results[0].geometry.location);
+        ////console.log(results[0].geometry.location);
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }

@@ -63,7 +63,7 @@ export class DeliveryOptionsComponent implements OnInit {
       this.store.select(getShippingOption).subscribe(
         res => {
           this.ShippingOpt = res;
-          console.log('Shipping option :', this.ShippingOpt)
+          //console.log('Shipping option :', this.ShippingOpt)
         }
       );
       
@@ -103,7 +103,7 @@ export class DeliveryOptionsComponent implements OnInit {
     if ( event.target.checked ) {
         this.contentEditable = val;
    }
-   console.log('La reponse : ',this.contentEditable);
+   //console.log('La reponse : ',this.contentEditable);
 }
     onCheck(event, val) {
       let montant: number;
@@ -113,7 +113,7 @@ export class DeliveryOptionsComponent implements OnInit {
         for(let i = 0; i < this.shippingMethods.length; i++){
           if(i == val) {
             let optlivraison = this.shippingMethods[i];
-            console.log('Mode livraison : ', optlivraison);
+            //console.log('Mode livraison : ', optlivraison);
             this.translate.get('PopupAvertissement').subscribe(popupAv => {
               this.translate.get('PopupOptlivraison',{optlivraisonLibelle: optlivraison.libelle}).subscribe(popupOptlivraison => {
                 this.translate.get('PopupCancelBtn').subscribe(cancel => {
@@ -135,10 +135,10 @@ export class DeliveryOptionsComponent implements OnInit {
                               montant = resp;
                             }
                           );
-                          console.log('Frais Livrasons :', montant);
+                          //console.log('Frais Livrasons :', montant);
                         }else{
                           montant = 0;
-                          console.log('Frais Livrasons :', montant);
+                          //console.log('Frais Livrasons :', montant);
                         }
                         this.checkoutService.addShippingMethode(optlivraison, montant);
                         this.translate.get("PopupOptionLivraisonPriseC", {montant: montant}).subscribe(optLv=>{
@@ -175,10 +175,10 @@ export class DeliveryOptionsComponent implements OnInit {
             //           montant = resp;
             //         }
             //       );
-            //       console.log('Frais Livrasons :', montant);
+            //       //console.log('Frais Livrasons :', montant);
             //     }else{
             //       montant = 0;
-            //       console.log('Frais Livrasons :', montant);
+            //       //console.log('Frais Livrasons :', montant);
             //     }
             //     this.checkoutService.addShippingMethode(optlivraison, montant);
             //     Swal.fire(
@@ -202,9 +202,9 @@ export class DeliveryOptionsComponent implements OnInit {
       } else {
         text.style.display = "none";
       }*/
-      // console.log(form.value);
+      // //console.log(form.value);
         //const option = form.value['Livraison'];
-        //console.log('La reponse : ', option);
+        ////console.log('La reponse : ', option);
         /*for(let i = 0; i < this.shippingMethods.length; i++){
           if(i == option-1) {
             
@@ -216,10 +216,10 @@ export class DeliveryOptionsComponent implements OnInit {
                    montant = resp;
                 }
               );
-              console.log('Frais Livrasons :', montant);
+              //console.log('Frais Livrasons :', montant);
             }else{
               montant = 0;
-              console.log('Frais Livrasons :', montant);
+              //console.log('Frais Livrasons :', montant);
             }
             break;
           }

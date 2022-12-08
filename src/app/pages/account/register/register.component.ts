@@ -60,10 +60,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   choisirPays(event) {
-    console.log(event.target.value)
+    //console.log(event.target.value)
     for (let i = 0; i < this.allPays.length; i++) {
        if(this.allPays[i].code === event.target.value){
-         console.log(this.allPays[i].indicatif)
+         //console.log(this.allPays[i].indicatif)
          this.indicatifpays = this.allPays[i].indicatif;
        }
       
@@ -72,7 +72,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
 
   onSubmit() {
-    console.log('valueszzzzzzzzzzzzzzzzzzz: ', this.signUpForm.value)
+    //console.log('valueszzzzzzzzzzzzzzzzzzz: ', this.signUpForm.value)
     Swal.fire({ 
       title: 'Confirmer l\'envoi du formulaire d\'inscription?',
       //text: "Ceci sera irreversible!",
@@ -85,19 +85,19 @@ export class RegisterComponent implements OnInit, OnDestroy {
       reverseButtons: true,
     }).then((result) => {
       if (result.value) {
-        console.log('im innnnnnnnnnnnnnnnnnnnnn')
-        console.log('valueszzzzzzzzzzzzzzzzzzz22222: ', this.signUpForm.value)
+        //console.log('im innnnnnnnnnnnnnnnnnnnnn')
+        //console.log('valueszzzzzzzzzzzzzzzzzzz22222: ', this.signUpForm.value)
         let values = this.signUpForm.value;
         values.mobile = this.indicatifpays+''+this.signUpForm.get('mobile').value;
-        console.log('values: ', values)
+        //console.log('values: ', values)
         const keys = Object.keys(values);
         this.formSubmit = true;
         if (this.signUpForm.valid) {
             this.registerSubs = this.authService.register(values).subscribe(
-              data => {     console.log('datas: ', data)
+              data => {     //console.log('datas: ', data)
               this.toastrService.success("Vous avez réussi l'enregistrement.","Bienvenu à SignArt.")
                 this.authService.login(values.email, values.password).subscribe(
-                  resp => console.log('resp: ', data)
+                  resp => //console.log('resp: ', data)
                 );
               }
               );

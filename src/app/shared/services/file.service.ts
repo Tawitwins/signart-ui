@@ -21,14 +21,14 @@ export class FileService {
  
   public upload(fileName: string, fileContent: string): any {
     this.displayLoader$.next(true);
-    console.log(fileName);
-    console.log(fileContent);
+    //console.log(fileName);
+    //console.log(fileContent);
     return this.http.put(environment.API_ENDPOINT + `admin/files/${fileName}`, fileContent)
     .pipe(finalize(() => this.displayLoader$.next(false)));
     // .subscribe(res => {
     //   this.fileList.push(fileName);
     //   this.fileList$.next(this.fileList);
-    //   console.log(res);
+    //   //console.log(res);
     // }, error => {
     //   this.displayLoader$.next(false);
     // });
@@ -54,7 +54,7 @@ export class FileService {
     }
 }
   public remove(fileName): void {
-    console.log(this.mydata);
+    //console.log(this.mydata);
     this.http.delete(environment.API_ENDPOINT + `admin/${fileName}`).subscribe(() => {
       this.fileList.splice(this.fileList.findIndex(name => name === fileName), 1);
       this.fileList$.next(this.fileList);

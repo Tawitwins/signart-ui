@@ -43,7 +43,7 @@ export class QuickViewOeuvreNumeriqueComponent implements OnInit, OnDestroy  {
           this.artistes = response;
         });
 
-        console.log("oeuvre select ", this.oeuvreNumerique)
+        //console.log("oeuvre select ", this.oeuvreNumerique)
      }
 
   ngOnInit(): void {

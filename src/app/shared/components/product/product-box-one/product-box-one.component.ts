@@ -64,7 +64,7 @@ export class ProductBoxOneComponent implements OnInit {
     private translate: TranslateService
     ) { 
       //const wishlistItem=JSON.parse(localStorage['wishlistItems'] || '[]');
-      console.log(this.oeuvre);
+      //console.log(this.oeuvre);
       //const result= wishlistItem.find(item => item.id === this.oeuvre.id)
       this.isAdd = true;
       this.user = this.authService.getUserConnected();
@@ -79,7 +79,7 @@ export class ProductBoxOneComponent implements OnInit {
             this.isAdd = false;
           } else{
             this.client = this.authService.getClientConnected();
-            //console.log("client connect", this.client)
+            ////console.log("client connect", this.client)
           }
       }
     }
@@ -142,7 +142,7 @@ export class ProductBoxOneComponent implements OnInit {
         confirmButtonText: 'Oui, se connecter'
       }).then((result) => {
         if (result.value) {
-          console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+          //console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
           this.router.navigate(['/pages/login']);
         }
       })  */
@@ -169,7 +169,7 @@ export class ProductBoxOneComponent implements OnInit {
                 cancelButtonText: cancelButtonText
               }).then((result)=> {
                 if (result.value) {
-                  console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+                  //console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
                   this.router.navigate(['/pages/login']);
                 }
               });
@@ -188,7 +188,7 @@ export class ProductBoxOneComponent implements OnInit {
       //   reverseButtons: true,
       // }).then((result) => {
       //   if (result.value) {
-      //     console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+      //     //console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
       //     this.router.navigate(['/pages/login']);
       //   }
       // }) 

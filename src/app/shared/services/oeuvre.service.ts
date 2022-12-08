@@ -26,15 +26,15 @@ export class OeuvreService extends  HttpService {
       super(http);
     }
     getOeuvreByArtiste(id: number): Observable<any>{
-        console.log('oeuvre');
+        //console.log('oeuvre');
         return this.http.get(environment.API_ENDPOINT + `oeuvre/artiste/${id}`);
     }
     getFirstOeuvreByArtiste(id: number): any{
-      console.log('oeuvre');
+      //console.log('oeuvre');
       return this.http.get(environment.API_ENDPOINT + `oeuvre/artiste/First/${id}`);
     }
     getOeuvreSouscriptionByArtiste(id: number): Observable<any>{
-      console.log('oeuvreSouscription');
+      //console.log('oeuvreSouscription');
       return this.http.get(environment.API_ENDPOINT + `oeuvreSouscription/artiste/${id}`);
   }
     getOeuvreByTechniqueAndTheme(id:number,nb:number){
@@ -63,7 +63,7 @@ export class OeuvreService extends  HttpService {
     }
 
     getClientByUser(id: number) {
-        console.log('un client');
+        //console.log('un client');
         return this.http.get(environment.API_ENDPOINT + `client/user/${id}`)
     }
 
@@ -75,7 +75,7 @@ export class OeuvreService extends  HttpService {
       return this.http.get(environment.API_ENDPOINT + `magasin`);
     }
    /* getVisiteurById(id: number) {
-      console.log('un client');
+      //console.log('un client');
       return this.http.get(environment.API_ENDPOINT + `client/user/${id}`)
   }*/
      /**
@@ -86,20 +86,20 @@ export class OeuvreService extends  HttpService {
       * @param codeTypeMarquage 
       */
     getListClientByArt(idArtiste:number){
-      console.log('List des clients qui suivent le artist: '+idArtiste);
+      //console.log('List des clients qui suivent le artist: '+idArtiste);
       return this.http.get(environment.API_ENDPOINT + `marquageartiste/ListClientByArt/${idArtiste}`);
     }
     getListVisiteurByArt(idArtiste:number){
-     // console.log('List des visiteurs qui suivent le artist: '+idArtiste);
+     // //console.log('List des visiteurs qui suivent le artist: '+idArtiste);
       return this.http.get(environment.API_ENDPOINT + `marquageartiste/ListVisiteurByArt/${idArtiste}`);
     }
     getMarquageByArtiste(idClient: number, idArtiste:number, codeTypeMarquage:string):Observable<any>{
-        console.log('marquage');
+        //console.log('marquage');
         return this.http.get(environment.API_ENDPOINT + `marquageartiste/marquage?idClient=${idClient}&idArtiste=${idArtiste}&codeTypeMarquage=${codeTypeMarquage}`);
     }
 
     suivreArtiste(suis: Suivre) {
-        console.log('suivre ' + suis);
+        //console.log('suivre ' + suis);
         return this.http.post(environment.API_ENDPOINT + `marquageartiste`, suis);
     }
 
@@ -117,7 +117,7 @@ export class OeuvreService extends  HttpService {
   }*/
    
     newsletter(newsl: string) {
-        console.log('newsletter ' + newsl);
+        //console.log('newsletter ' + newsl);
         return this.http.post(environment.API_ENDPOINT + `newsletter/abonnement`, newsl).pipe(
         map(res => {
             $.notify({
@@ -150,26 +150,26 @@ export class OeuvreService extends  HttpService {
     }
 
     getExpoByArtiste(id: number) {
-        console.log('expo');
+        //console.log('expo');
         return this.http.get(environment.API_ENDPOINT + `exposition/artiste/${id}`);
     }
 
     getFormationByArtiste(id: number) {
-        console.log('formation');
+        //console.log('formation');
         return this.http.get(environment.API_ENDPOINT + `formation/artiste/${id}`);
     }
 
     getAnnoceByArtiste(id: number) {
-        console.log('annonce');
+        //console.log('annonce');
         return this.http.get(environment.API_ENDPOINT + `annonce/artiste/${id}`);
     }
     addAnnonce(annonce : Annonce){
-      console.log('annonce');
+      //console.log('annonce');
         return this.http.post(environment.API_ENDPOINT + `annonce`, annonce);
     }
 
     getClientByArtiste(id: number) {
-        console.log('client');
+        //console.log('client');
         return this.http.get(environment.API_ENDPOINT + `client/artiste/${id}`);
     }
     /**
@@ -177,7 +177,7 @@ export class OeuvreService extends  HttpService {
      * @param id 
      */
     getArtisteByClient(idClient:number){
-      console.log('artiste');
+      //console.log('artiste');
       return this.http.get(environment.API_ENDPOINT + `artiste/marque/SUIV/${idClient}`);
     }
     

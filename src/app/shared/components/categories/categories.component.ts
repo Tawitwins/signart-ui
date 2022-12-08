@@ -22,7 +22,7 @@ export class CategoriesComponent implements OnInit {
     this.productService.getOeuvres.subscribe(oeuvre => this.oeuvres = oeuvre);
     this.expoService.getTechnique().subscribe(response => {
       this.techniques = response
-      console.log("tech", this.techniques)
+      //console.log("tech", this.techniques)
     });
    
   }

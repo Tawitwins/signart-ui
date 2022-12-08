@@ -78,7 +78,7 @@ export class SculpturesComponent implements OnInit, OnChanges {
           (response)=>{
             this.technique=<Technique>response;
             this.idTechnique=this.technique.id;
-            console.log('id sculpture: ' + this.idTechnique);
+            //console.log('id sculpture: ' + this.idTechnique);
            // this.store.dispatch(this.actions.getAllProducts(this.idTechnique));
           });
         this.oeuvres$ = this.store.select(getProducts);
@@ -94,7 +94,7 @@ export class SculpturesComponent implements OnInit, OnChanges {
   ngOnChanges() {
   }
   sousMenuSelected(sousmenu) {
-    console.log('sous menu check : ' + sousmenu.id);
+    //console.log('sous menu check : ' + sousmenu.id);
     if (sousmenu.id === 0) {
       this.store.dispatch(this.actionsSearch.clearFilter());
     } else if (sousmenu.id > 0) {
@@ -107,7 +107,7 @@ export class SculpturesComponent implements OnInit, OnChanges {
     this.oeuvreS.getTheme().subscribe(
       response=>{
         this.themes=response;
-        console.log('Mes thémes',this.themes)
+        //console.log('Mes thémes',this.themes)
       }
     );
   }
@@ -116,11 +116,11 @@ export class SculpturesComponent implements OnInit, OnChanges {
       (data)=>{
         this.theme=data;
         this.isclicked=1;
-        console.log('filtre par théme',this.theme);
+        //console.log('filtre par théme',this.theme);
         this.ref.detectChanges();
       },
       (error)=>{
-       console.log(error)
+       //console.log(error)
       }
     );
   }

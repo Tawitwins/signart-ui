@@ -16,7 +16,7 @@ image: string;
   constructor() {}
 
   ngOnInit() {
-    console.log('ligne commande : ', this.lignecommande);
+    //console.log('ligne commande : ', this.lignecommande);
     this.image = environment.API_ENDPOINT + 'image/oeuvre/' + this.lignecommande.oeuvre.id;
   }
 

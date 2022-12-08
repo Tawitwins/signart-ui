@@ -16,7 +16,7 @@ export class PaysPipePipe implements PipeTransform {
     });
    }
   transform(value: number): string {
-   // console.log("artisteeeeee pipe",this.artistes)
+   // //console.log("artisteeeeee pipe",this.artistes)
    // let artiste: Artiste;
     let nomPays: string = "";
     for (let i = 0; i < this.pays.length; i++) {

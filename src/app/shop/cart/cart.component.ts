@@ -44,12 +44,12 @@ export class CartComponent implements OnInit {
     this.productService.cartItems.subscribe(response => this.oeuvres = response);
     this.productService.newCartItems.subscribe(response => this.newOeuvres = response);
     this.user = this.authS.getUserConnected();
-    console.log("userrrrrrrrrr",this.user)
+    //console.log("userrrrrrrrrr",this.user)
     
     if(this.user != null){
       this.isConnected = true;
     }
-    console.log("newwwwww oeuvressssssss",this.newOeuvres);
+    //console.log("newwwwww oeuvressssssss",this.newOeuvres);
   }
 
   ngOnInit(): void {
@@ -108,7 +108,7 @@ export class CartComponent implements OnInit {
               cancelButtonText: cancelButtonText
             }).then((result)=> {
               if (result.value) {
-                console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+                //console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
                 this.router.navigate(['/pages/login']);
               }
             });
@@ -129,7 +129,7 @@ export class CartComponent implements OnInit {
       //   reverseButtons: true,
       // }).then((result) => {
       //   if (result.value) {
-      //     console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
+      //     //console.log("useeeeeeeeeeeeerrrrrrrrrrrr",this.user)
       //     this.router.navigate(['/pages/login']);
       //   }
       // })
@@ -142,7 +142,7 @@ export class CartComponent implements OnInit {
             this.client = <Client>response;
             localStorage.setItem('client',JSON.stringify(response));
             let order =JSON.parse(localStorage.getItem('order'));
-            console.log(order)
+            //console.log(order)
             //if (order === null) {
               this.data = JSON.parse(localStorage.getItem('panier'));
               this.newCheckoutService.createOrder(this.client.id, this.data).pipe(

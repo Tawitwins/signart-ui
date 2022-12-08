@@ -95,7 +95,7 @@ export function reducer(state = initialState, { type, payload, amountShipp }: an
       };
 
     case CheckoutActions.GET_ALL_LINE_ITEMS_SUCCESS:
-      console.log('lignes panier : ' + payload.lignePaniers);
+      //console.log('lignes panier : ' + payload.lignePaniers);
       _totalCartItems = state.totalCartItems;
       _totalCartValue = state.totalCartValue;
       _lineItems = payload.lignePaniers;
