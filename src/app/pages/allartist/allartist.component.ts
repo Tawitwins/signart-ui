@@ -276,8 +276,7 @@ export class AllartistComponent implements OnInit {
                 this.suivre = new Suivre(null,'SUIV', new Date(), this.currentArtiste.id, 0, 2,this.visiteur.id);
                 //console.log("Mon marquest est là "+ this.suivre);
                 this.suivreService.suivreArtiste(this.suivre).subscribe( (val) => {
-                    //console.log("POST call successful (set marque) value returned in body", 
-                                val);
+                    console.log("POST call successful (set marque) value returned in body");
                                 //console.log("Reponse souscription", this.listes1);
                                 this.suivreart = 'Ne plus suivre';
                                 this.couleur = 'grey';

@@ -94,11 +94,9 @@ export class SettingsComponent implements OnInit {
         private oeuvreS:OeuvreService,
         public languageService: LanguageService
         ) {
-          setTimeout(() => {this.productService.cartItems.subscribe(response =>{ this.oeuvres = response;
-            //console.log("helloooooooo")});}, 1000); 
+          setTimeout(() => {this.productService.cartItems.subscribe(response =>{ this.oeuvres = response;});}, 1000); 
             
-            setTimeout(() => {this.productService.newCartItems.subscribe(response =>{ this.newOeuvres = response;
-              //console.log("helloooooooo")});}, 500); // Skeleton Loader
+          setTimeout(() => {this.productService.newCartItems.subscribe(response =>{ this.newOeuvres = response;});}, 500); // Skeleton Loader
     
 
     this.isAdd = true;

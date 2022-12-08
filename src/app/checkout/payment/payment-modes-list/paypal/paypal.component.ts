@@ -32,7 +32,7 @@ export class PaypalComponent implements AfterViewChecked {
     onAuthorize: (data, actions) => {
       return actions.payment.execute().then((payment) => {
 
-      }, error => //console.log('erreur : ' + error))
+      }, error => console.log('erreur : ' + error))
     }
   };
   ngAfterViewChecked(): void {
@@ -40,7 +40,7 @@ export class PaypalComponent implements AfterViewChecked {
       this.addPaypalScript().then(() => {
         paypal.Button.render(this.paypalConfig, '#paypal-checkout-btn');
         this.paypalLoad = true;
-      }, error => //console.log('erreur : ' + error))
+      }, error => console.log('erreur : ' + error))
     }
   }
 

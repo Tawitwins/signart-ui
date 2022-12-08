@@ -97,7 +97,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
               data => {     //console.log('datas: ', data)
               this.toastrService.success("Vous avez réussi l'enregistrement.","Bienvenu à SignArt.")
                 this.authService.login(values.email, values.password).subscribe(
-                  resp => //console.log('resp: ', data)
+                  resp => console.log('Received')
                 );
               }
               );

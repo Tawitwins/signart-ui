@@ -488,11 +488,13 @@ suivi() {
             var result = this.oeuvreService.plusSuivreArtisteByVisiteur(this.suivre.id);
             if(result==null)
                 //console.log("Aucun élément a été trouvé pour la suppresion");
+                true
             else
             {
                 result.subscribe(
                     (val) => {
-                   //console.log("DELETE request en cours ....", <String>val 
+                      
+                   console.log("DELETE request en cours ...."
                                );
                                var valSuivre = <Suivre>val;
                                if(valSuivre.id==this.suivre.id)
@@ -550,8 +552,7 @@ onSubmit(){
                 this.suivre = new Suivre(null,'SUIV', new Date(), this.artisteId, 0, 2,this.visiteur.id);
                 //console.log("Mon marquest est là "+ this.suivre);
                 this.suivreService.suivreArtiste(this.suivre).subscribe( (val) => {
-                    //console.log("POST call successful (set marque) value returned in body", 
-                                val);
+                    console.log("POST call successful (set marque) value returned in body");
                                 //console.log("Reponse souscription", this.listes1);
                                 this.suivreart = 'Ne plus suivre';
                                 this.couleur = 'grey';

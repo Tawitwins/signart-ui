@@ -103,7 +103,8 @@ export class DetailsAbonnementComponent implements OnInit {
       this.actionsSubscription = this.route.params.subscribe(
         (params: any) => {
           this.abonnementAffiche = params['abonnement'];
-        //console.log("Abonnement Affiche",this.abonnementAffiche)});
+        //console.log("Abonnement Affiche",this.abonnementAffiche)
+      });
 
       this.imageService.getAllEtat().subscribe( res => {
         this.etatAbonnements = res;
@@ -173,7 +174,7 @@ export class DetailsAbonnementComponent implements OnInit {
             this.isAdd = false;
           } else{
             this.client = this.authService.getClientConnected();
-            ////console.log("client connect", this.client)
+            //console.log("client connect", this.client)
           }
       }
 
