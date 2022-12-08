@@ -537,8 +537,8 @@ getAdresseByClient(idClient){
       })
       return lignePanier;
     }
-    else 
-      //console.log("la suppression a échoué");
+    /* else 
+      //console.log("la suppression a échoué"); */
   }
   setPanier(panier)
   {

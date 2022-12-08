@@ -189,7 +189,7 @@
                 </div> -->
               </div>
             </div>
-           
+          
           </div>
          
           <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" 
@@ -222,7 +222,8 @@
           </ngx-file-drop>
         </div>
       </div>
-      <emoji-mart title="Pick your emoji…" (click)="EmojVisibleFunction(1)" *ngIf="showEmojis==true" (emojiSelect)="selectedEmoji($event)"  emoji="point_up"></emoji-mart>
+      <emoji-mart title="Pick your emoji…" (click)="EmojVisibleFunction(1)" *ngIf="showEmojis==true" (emojiSelect)="selectedEmoji($event)"  emoji="point_up" style="position: absolute;"></emoji-mart>
+
          <!--  <div class="app-inner-layout__sidebar card">
             <div class="app-inner-layout__sidebar-header">
               <ul class="nav flex-column">

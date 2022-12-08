@@ -162,7 +162,8 @@ export class OrderSuccessComponent implements OnInit {
       let lignePaniers = <LignePanier[]> resp;
       //console.log(lignePaniers);
       lignePaniers.forEach(elet => {
-      this.panierEtMarquateService.deleteLineItem(elet).subscribe(resp=> //console.log(resp));
+      this.panierEtMarquateService.deleteLineItem(elet).subscribe(resp=> console.log("Received")
+      );
     });
       this.ngxService.stopLoader("loader-01");
     })

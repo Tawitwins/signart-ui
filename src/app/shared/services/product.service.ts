@@ -477,7 +477,7 @@ export class ProductService {
               lp.quantite=state.cart[index].quantity;
               lp.oeuvre.image=null;
               lp.idClient=this.client.id;
-              this.panierEtMarquateService.updateLigneItems(lp).subscribe(resp=> //console.log(resp));
+              this.panierEtMarquateService.updateLigneItems(lp);
               this.syncroniseLocalStorageAndCartItem();
             }
           })
@@ -557,7 +557,7 @@ public calculateNewStockCounts(oeuvre, quantity) {
           lps.forEach(lp => {
             if(lp!=null || lp != undefined)
             {
-              this.panierEtMarquateService.deleteLineItem(lp).subscribe(resp=> //console.log(resp));
+              this.panierEtMarquateService.deleteLineItem(lp);
             }
           });
          
