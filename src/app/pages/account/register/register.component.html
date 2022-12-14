@@ -80,6 +80,9 @@
                                 <div *ngIf="signUpForm.get('email').errors && signUpForm.get('email').touched">
                                     <p class="register-error-message" style="color: red;">{{"Entrez une adresse mail valide" | translate}} !</p>
                                 </div>
+                                <div *ngIf="error != ''">
+                                    <p class="register-error-message" style="color: red;">{{"Email existe déjà." | translate}} !</p>
+                                </div>
                             </div>
                         </div>
                         <br><br>

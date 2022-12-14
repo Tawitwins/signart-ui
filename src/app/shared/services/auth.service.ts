@@ -4,12 +4,10 @@ import { Injectable, NgZone } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Observable, Subject } from 'rxjs';
 //  import { HttpResponse } from '@angular/common/http';
-import { HttpService } from './http';
 import { AppState } from '../../interfaces';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '../../auth/actions/auth.actions';
 import { AngularFireAuth } from '@angular/fire/auth';
-import * as firebase from 'firebase';
 import { User, AccountInfo } from '../modeles/user';
 import { Client } from '../modeles/client';
 //  import { AuthHttp, AuthConfig, JwtHelper } from 'angular2-jwt';
@@ -19,6 +17,7 @@ import { Artiste } from '../modeles/artiste';
 import { Router } from '@angular/router';
 import { CheckoutService } from './checkout.service';
 import { Panier } from '../modeles/panier';
+import { send } from 'process';
 
 declare var $: any;
 @Injectable()
@@ -26,6 +25,8 @@ export class AuthServiceS {
   public loading = new Subject<{ loading: boolean, hasError: boolean, hasMsg: string }>();
   public userPanier: Panier;
   public client: Client;
+  public notification_url = "/api/notification/v1/messages/email/without-template";
+  public front_url = "http://localhost:4203/#/pages/login"
   /**
    * Creates an instance of AuthService.
    * @param {HttpService} http
@@ -360,44 +361,82 @@ SendVerificationMail() {
   })
 }
 
-forgotPassword(mail: string){
-  // configurer actioncode Setting pour la redirection apres confirmation
-  const actionCodeSettings = {
-    url: 'http://localhost:4200/auth/login',
-    handleCodeInApp: false
-  }
-  // envoyer le mail de mis a jour d mot de passe 
-return this.afAuth.auth.sendPasswordResetEmail(mail, actionCodeSettings)
-.then( res => {
-  $.notify({
-    icon: "notifications",
-    message: "Un mail vous a été envoyé . Merci de consulter votre compte !"
-  }, {
-      type: 'success',
-      timer: 2000,
-      placement: {
-        from: 'top',
-        align: 'center'
-      }
-    });
-    //console.log('send reset  res ', res)
-  //window.alert('Un mail vous a été envoyé merci de consulter votre compte !');
-}).catch(
-err => {
-  $.notify({
-    icon: "notifications",
-    message: err
-  }, {
-      type: 'danger',
-      timer: 2000,
-      placement: {
-        from: 'top',
-        align: 'center'
-      }
-    });
-  //window.alert(err)
-})
+// forgotPassword(mail: string){
+//   // configurer actioncode Setting pour la redirection apres confirmation
+//   const actionCodeSettings = {
+//     url: 'http://localhost:4200/auth/login',
+//     handleCodeInApp: false
+//   }
+//   // envoyer le mail de mis a jour d mot de passe 
+// return this.afAuth.auth.sendPasswordResetEmail(mail, actionCodeSettings)
+// .then( res => {
+//   $.notify({
+//     icon: "notifications",
+//     message: "Un mail vous a été envoyé . Merci de consulter votre compte !"
+//   }, {
+//       type: 'success',
+//       timer: 2000,
+//       placement: {
+//         from: 'top',
+//         align: 'center'
+//       }
+//     });
+//     //console.log('send reset  res ', res)
+//   //window.alert('Un mail vous a été envoyé merci de consulter votre compte !');
+// }).catch(
+// err => {
+//   $.notify({
+//     icon: "notifications",
+//     message: err
+//   }, {
+//       type: 'danger',
+//       timer: 2000,
+//       placement: {
+//         from: 'top',
+//         align: 'center'
+//       }
+//     });
+//   //window.alert(err)
+// })
+// }
+
+sendLink(emailDest: string, emailExp: string): any{
+  this.getUserByMail(emailDest).subscribe(userId => {
+    let e_usr = <number>userId
+    let sendLink = `${this.front_url}?aqs=${((3**2.5)*e_usr)+892}&22beb334a54f233cc6=754ss49fafs54f23ik23`
+    let data = {
+      codeApp: "signart",
+      destinataire: emailDest,
+      expediteur: emailExp,
+      typeMessage:"email",
+      objetDeLEmail: "Réinitialiser le mot de passe de votre compte SignArt",
+      content:`Cher utilisateur,\nNous avons bien reçu votre demande de réinitialisation de votre mot de passe. Veuillez cliquer sur le lien ci-dessous pour terminer la réinitialisation :\n ${sendLink}\n\nÀ votre santé,\nl'équipe SignArt.`
+    }
+    console.log(data)
+    this.http.post(this.notification_url, data)
+        .subscribe(() => {
+          console.log("Sent")
+        })
+  }) 
 }
 
+getUserByMail(email: string){
+  return this.http
+                .get(`${environment.API_ENDPOINT}user/mail/${email}`)
+}
+
+forgotPassword(accountDetails: AccountInfo){
+  return this.http
+                .put(environment.API_ENDPOINT + `user/forgotPassword`,accountDetails);
+}
+findUserById(userId: number):Observable<any>{
+    return this.http
+                  .get(`${environment.API_ENDPOINT}user/user/${userId}`);
+}
+
+findAllParametrage(){
+  return this.http
+              .get(`${environment.API_ENDPOINT}parametrage`)
+}
 //================================== ! Firebase Link Authentication ===============//
 }

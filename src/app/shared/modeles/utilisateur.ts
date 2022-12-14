@@ -191,3 +191,8 @@ export class HistoriqueAbonnement{
 
 }
 
+export class AccountInformation{
+    userName?: string = '';
+    password?: string = '';
+    valid?: boolean = false;
+}

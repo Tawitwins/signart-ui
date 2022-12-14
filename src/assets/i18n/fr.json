@@ -336,6 +336,21 @@
   "Select a technique":"Sélectionner une technique",
   "Please choose a technique":"Veuillez choisir une technique",
   "Please give the year":"Veuillez donner l'année",
-  "Please enter the year":"Veuillez saisir l'année"
+  "Please enter the year":"Veuillez saisir l'année",
+
+  "forgotPassword":"Un mail vous a été envoyé merci de consulter votre compte!",
+  "changeOldPwd": "Votre mot de passe a été mise à jour.",
+  "confirmPwdIncorrect":"Mot de passe de confirmation incorrect",
+
+  "Already have an account":"Vous avez dejà un compte",
+  "Already registered? Log in.":"Déjà inscrit? Connectez-vous.",
+  "Recover":"Recupèrer",
+  "Forgot your password? Pick it up here":"Mot de passe oublié? Récupèrer le ici",
+  "Reset password":"Réinitialisation de mot de passe",
+  "Forgot password":"Mot de passe oublié",
+  "Confirm":"Confirmer",
+  "Confirm password":"Confirmer le mot de passe",
+  "Email already exists.":"Email existe déjà.",
+  "Enter a valid email address":"Entrez une adresse email valide"
 
 }

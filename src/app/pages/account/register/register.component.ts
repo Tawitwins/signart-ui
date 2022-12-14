@@ -34,7 +34,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
   User:User;
   indicatifpays: string;
   libellePays: string;
-   
+  isExisteEmail: boolean = false;
+  error: string = '';
+
   constructor(
     private fb: FormBuilder,
     private store: Store<AppState>,
@@ -94,11 +96,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.formSubmit = true;
         if (this.signUpForm.valid) {
             this.registerSubs = this.authService.register(values).subscribe(
-              data => {     //console.log('datas: ', data)
-              this.toastrService.success("Vous avez réussi l'enregistrement.","Bienvenu à SignArt.")
-                this.authService.login(values.email, values.password).subscribe(
-                  resp => console.log('Received')
-                );
+              data => {    
+                console.log(data)
+                if(data.existeEmail != true){
+                  this.toastrService.success("Vous avez réussi l'enregistrement.","Bienvenu à SignArt.")
+                    this.authService.login(values.email, values.password).subscribe(
+                      () => console.log('Received')
+                    );
+                }else{
+                  this.error = 'Email existe déjà.';
+                }
+                  
               }
               );
           } else {

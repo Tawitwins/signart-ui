@@ -43,6 +43,7 @@
                             <div class="col-md-6">
                                 <label for="email">{{"Prénom" | translate}}<strong style="color: red;" >*</strong></label>
                                 <input type="text" class="form-control" id="fname" placeholder="Prénom" formControlName="prenom" [value]="form1Value.prenom">
+                                <span *ngIf="errorEmail != ''" style="color: red;">{{errorEmail | translate}}</span>
                                 <div *ngIf="infoArtisteForm.get('prenom').errors && infoArtisteForm.get('prenom').touched">
                                     <p class="register-error-message" style="color: red;">{{"Veuillez saisir votre prénom" | translate}} !</p>
                                   </div>
@@ -293,7 +294,13 @@
         </div>
         <br>
         <br>
-        <button class="btn btn-solid-Valider" [disabled]="!infoArtisteForm.valid || !oeuvre1Form.valid || !oeuvre2Form.valid || oeuvre1Form.get('image').errors || oeuvre2Form.get('image').errors" title="{{'Valider' | translate}}" (click)="onSubmit();" >{{"Valider" | translate}}</button>
+        <button 
+            class="btn btn-solid-Valider" 
+            [disabled]="!infoArtisteForm.valid || !oeuvre1Form.valid || !oeuvre2Form.valid || oeuvre1Form.get('image').errors || oeuvre2Form.get('image').errors" 
+            title="{{'Valider' | translate}}" 
+            (click)="onSubmit();" >
+            {{"Valider" | translate}}
+        </button>
     </div>
 </div>
 </section>

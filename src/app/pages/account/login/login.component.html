@@ -4,15 +4,17 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <h3>{{"Se connecter" | translate}}</h3>
+                <h3 *ngIf="!forgotPassword && !userUpdatePwd">{{"Se connecter" | translate}}</h3>
+                <h3 *ngIf="forgotPassword && !userUpdatePwd">{{"Mot de passe oublié" | translate}}</h3>
+                <h3 *ngIf="userUpdatePwd">{{"Réinitialisation de mot de passe" | translate}}</h3>
                 <div class="theme-card">
-                    <form class="theme-form" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+                    <form *ngIf="!forgotPassword && !userUpdatePwd" class="theme-form" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
                         <div class="form-group">
                             <label for="email">{{"Email" | translate}}</label>
                             <input type="email" class="form-control" id="email" placeholder="{{'Adresse mail' | translate}}" formControlName="email">
                             <div *ngIf="signInForm.get('email').errors && signInForm.get('email').touched">
                                 <!-- <p class="login-error-message text-danger">{{signInForm.get('email').errors.msg || 'Please enter a valid email id'}}</p>  -->
-                                <p class="login-error-message text-danger"> <span class="login-error-icon text-danger">!</span> {{"Entrez une adresse email valide" | translate}}</p>
+                                <p class="login-error-message text-danger">  {{"Entrez une adresse email valide" | translate}}<span class="login-error-icon text-danger">!</span></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -22,9 +24,51 @@
                                 <p class="login-error-message text-danger">{{"Identifiant ou mot de passe non valide" | translate}} !</p>
                             </div>
                         </div>
-                        <button type="submit" title="{{'Se connecter' | translate}}" class="btn btn-solid-Valider" [disabled]="!signInForm.valid">{{"Se connecter" | translate}}</button>
-                        <button  title="Facebook" class="btn btn-solid facebook"> <i class="ti-facebook"></i> {{"Facebook" | translate}}</button>
-                        <button class="btn btn-solid gplus" title="Google +" ><i class="ti-google"></i> {{"Google Plus" | translate}}</button>
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <button type="submit" title="{{'Se connecter' | translate}}" class="btn btn-solid-Valider" [disabled]="!signInForm.valid">{{"Se connecter" | translate}}</button>
+                            </div>
+                            <div class="col-4">
+                                <button  title="Facebook" class="btn btn-solid facebook"> <i class="ti-facebook"></i> {{"Facebook" | translate}}</button> <br>
+                            </div>
+                            <div class="col-4">
+                                <button class="btn btn-solid gplus" title="Google +" ><i class="ti-google"></i> {{"Google +" | translate}}</button>
+                            </div>
+                        </div>
+                        <p style="cursor: pointer;" (click)="changePassword()">{{"Mot de passe oublié? Récupèrer le ici" | translate}}.</p>
+                    </form>
+
+                    <form *ngIf="forgotPassword && !userUpdatePwd" class="theme-form" [formGroup]="forgotPwdForm" (ngSubmit)="onSendmailPwd()">
+                        <div class="form-group">
+                            <label for="email">{{"Email" | translate}}</label>
+                            <input type="email" class="form-control" id="email" placeholder="{{'Adresse mail' | translate}}" formControlName="email">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" title="{{'Recupèrer' | translate}}" class="btn btn-solid-Valider" >{{"Recupèrer" | translate}}</button>
+                        </div>
+                        <p style="cursor: pointer;" (click)="changePassword()">{{"Déjà inscrit? Connectez-vous." | translate}}.</p>
+                    </form>
+       
+                    <form *ngIf="userUpdatePwd" class="theme-form" [formGroup]="changePwdForm" (ngSubmit)="onChangeOldPwd()">
+            
+                        <div class="form-group">
+                            <label for="review">{{"Nouveau mot de passe" | translate}}</label>
+                            <input type="password" class="form-control" id="review" placeholder="{{'nouveau mot de passe' | translate}}"  formControlName="password" >
+                            <div *ngIf="connexionStatut == false">
+                                <p class="login-error-message text-danger">{{"Identifiant ou mot de passe non valide" | translate}} !</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="review">{{"Confirmer mot de passe" | translate}}</label>
+                            <input type="password" class="form-control" id="review" placeholder="{{'Confirmer le mot de passe' | translate}}"  formControlName="confirmPassword" >
+                            <div *ngIf="connexionStatut == false">
+                                <p class="login-error-message text-danger">{{"Identifiant ou mot de passe non valide" | translate}} !</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" title="{{'Confirmer' | translate}}" class="btn btn-solid-Valider">{{"Confirmer" | translate}}</button>
+                        </div>
+                        <p style="cursor: pointer;" (click)="changePassword()">{{"Mot de passe oublié? Récupèrer le ici" | translate}}.</p>
                     </form>
                 </div>
             </div>

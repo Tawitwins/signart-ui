@@ -9,6 +9,7 @@ import { Pays } from '../../../shared/modeles/pays';
 import { PaysService } from '../../../shared/services/pays.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
+import { AuthServiceS } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-register-artist',
@@ -34,7 +35,8 @@ export class RegisterArtistComponent implements OnInit {
   autreSpecialite: boolean;
   autreSpecialiteValue: string;
   galeries : any = [];
-
+  errorEmail: string = '';
+  isExistEmail: boolean = false;
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   infoArtisteForm = this.formbuilder.group({
     'prenom': ['',Validators.required],
@@ -83,6 +85,7 @@ export class RegisterArtistComponent implements OnInit {
     private paysService: PaysService,
     private translate: TranslateService,
     private toastrService: ToastrService,
+    private authService: AuthServiceS
     ) {
       this.indicatifpays = "+221";
       this.libellePays = "Sénégal";
@@ -180,7 +183,6 @@ export class RegisterArtistComponent implements OnInit {
     //console.log(this.infoArtisteForm.value)
   }
   onSubmit() {
-    //console.log("Soumission en cours");
     this.onSubmitForm1();
     this.onSubmitForm2();
     this.onSubmitForm3();
@@ -197,123 +199,55 @@ export class RegisterArtistComponent implements OnInit {
             cancelButtonText: cancel,
             confirmButtonText: confirm,
           }).then((result) => {
-            if (result.value) {
-              this.artisteService.addSouscription(<Souscription>this.form1Value).subscribe(resp=>{
-                let val = <Souscription>resp;
-                if(val.id!=null)
-                {
-                  let oeuvreUne=<OeuvreSousc>this.form2Value;
-                  oeuvreUne.idSouscription= val.id;
-                  this.oeuvreService.addOeuvreSouscriptionArtiste(oeuvreUne).subscribe(resp=>{
-                    let val = <Souscription>resp;
-                    if(val.id!=null)
-                    {
-                      //console.log("oeuvre une ajouté avec succès");
-                    }
-                  });
-                  let oeuvreDeux=<OeuvreSousc>this.form3Value;
-                  oeuvreDeux.idSouscription = val.id;
-                  this.oeuvreService.addOeuvreSouscriptionArtiste(oeuvreDeux).subscribe(resp=>{
-                    let val = <Souscription>resp;
-                    if(val.id!=null)
-                    {
-                      //console.log("oeuvre deux ajouté avec succès");
-                    }
-                  });
-                }
-              });
-              /*this.oeuvreService.addOeuvreArtiste(addeddArticle).subscribe(
-                res =>{
-                  //console.log('la reponse est ', res)
-                  Swal.fire(
-                    'Oeuvre souscrite avec succès!',
-                    'Votre oeuvre est en attente de publication!',
-                  ) 
-                }
-               
-      
-              );*/
-              this.translate.get("PopupFormSoumiSucces").subscribe(formS=>{
-                this.translate.get("SUCCESS").subscribe(alertType=>{
-                  this.toastrService.success(formS,alertType);
-                  location.replace("./accueil");
-                })
-              })
-              // Swal.fire(
-              //   "Formulaire soumis avec succès!",
-              //   "En attente de Validation par l'administration!",
-              // ).then((result)=> {if(result.value){
-              //   location.replace("./accueil");
-              // }})
-      
+            if (result.value) {        
+              if(!this.checkEmailArtiste(this.infoArtisteForm.value.email)){
+                this.soumettre();
+                this.errorEmail = ''
+              }else {
+                this.errorEmail = 'Email existe déjà.'
+              }
+              
             }
           })
         })
       })
     })
-
-    // Swal.fire({
-    //   title: 'Confirmez vous la soumission de cette demande?',
-    //   //text: "Ceci sera irreversible!",
-    //   icon: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonColor: ' #376809',
-    //   cancelButtonColor: 'red',
-    //   confirmButtonText: 'Confirmer',
-    //   cancelButtonText: 'Annuler',
-    //   reverseButtons: true,
-    // }).then((result) => {
-    //   if (result.value) {
-    //     this.artisteService.addSouscription(<Souscription>this.form1Value).subscribe(resp=>{
-    //       let val = <Souscription>resp;
-    //       if(val.id!=null)
-    //       {
-    //         let oeuvreUne=<OeuvreSousc>this.form2Value;
-    //         oeuvreUne.idSouscription= val.id;
-    //         this.oeuvreService.addOeuvreSouscriptionArtiste(oeuvreUne).subscribe(resp=>{
-    //           let val = <Souscription>resp;
-    //           if(val.id!=null)
-    //           {
-    //             //console.log("oeuvre une ajouté avec succès");
-    //           }
-    //         });
-    //         let oeuvreDeux=<OeuvreSousc>this.form3Value;
-    //         oeuvreDeux.idSouscription = val.id;
-    //         this.oeuvreService.addOeuvreSouscriptionArtiste(oeuvreDeux).subscribe(resp=>{
-    //           let val = <Souscription>resp;
-    //           if(val.id!=null)
-    //           {
-    //             //console.log("oeuvre deux ajouté avec succès");
-    //           }
-    //         });
-    //       }
-    //     });
-    //     /*this.oeuvreService.addOeuvreArtiste(addeddArticle).subscribe(
-    //       res =>{
-    //         //console.log('la reponse est ', res)
-    //         Swal.fire(
-    //           'Oeuvre souscrite avec succès!',
-    //           'Votre oeuvre est en attente de publication!',
-    //         ) 
-    //       }
-         
-
-    //     );*/
-    //     Swal.fire(
-    //       "Formulaire soumis avec succès!",
-    //       "En attente de Validation par l'administration!",
-    //     ).then((result)=> {if(result.value){
-    //       location.replace("./accueil");
-    //     }})
-
-    //   }
-
-    // });
-    //console.log('info artiste',this.form1Value)
-    //console.log('oeuvre1', this.form2Value)
-    //console.log('oeuvre2', this.form3Value)
       
   }
+
+  soumettre(){
+    this.artisteService.addSouscription(<Souscription>this.form1Value).subscribe(resp=>{
+      let val = <Souscription>resp;
+      if(val.id!=null)
+      {
+        let oeuvreUne=<OeuvreSousc>this.form2Value;
+        oeuvreUne.idSouscription= val.id;
+        this.oeuvreService.addOeuvreSouscriptionArtiste(oeuvreUne).subscribe(resp=>{
+          let val = <Souscription>resp;
+          if(val.id!=null)
+          {
+            //console.log("oeuvre une ajouté avec succès");
+          }
+        });
+        let oeuvreDeux=<OeuvreSousc>this.form3Value;
+        oeuvreDeux.idSouscription = val.id;
+        this.oeuvreService.addOeuvreSouscriptionArtiste(oeuvreDeux).subscribe(resp=>{
+          let val = <Souscription>resp;
+          if(val.id!=null)
+          {
+            //console.log("oeuvre deux ajouté avec succès");
+          }
+        });
+      }
+    });
+    this.translate.get("PopupFormSoumiSucces").subscribe(formS=>{
+      this.translate.get("SUCCESS").subscribe(alertType=>{
+        this.toastrService.success(formS,alertType);
+        location.replace("./accueil");
+      })
+    })
+  }
+
   onCancel() {
     this.translate.get('PopupCancelSoumission').subscribe(popupCSm => {
       this.translate.get('PopupCancelBtn').subscribe(cancel => {
@@ -551,4 +485,20 @@ export class RegisterArtistComponent implements OnInit {
     this.etape=5;
   }
 
+  private checkEmailArtiste(email: string): Boolean{
+    this.artisteService
+      .findArtisteByEmail(email)
+        .subscribe(() => {
+          this.isExistEmail = true;
+          return true;
+        })  
+    
+    this.authService
+      .getUserByMail(email)
+        .subscribe(() => {
+          this.isExistEmail = true;
+          return true;
+        })
+    return false
+  }
 }

@@ -9,7 +9,7 @@ import { AuthServiceS } from '../../../shared/services/auth.service';
 import { AuthActions } from '../../../auth/actions/auth.actions';
 import { OeuvreService } from '../../../shared/services/oeuvre.service';
 import { getAuthStatus } from '../../../auth/reducers/selectors';
-import { User } from '../../../shared/modeles/user';
+import { AccountInfo, User } from '../../../shared/modeles/user';
 import { ArtisteService } from '../../../shared/services/artiste.service';
 import { ToastrService } from 'ngx-toastr';
 import { PanierEtMarquageService } from '../../../shared/services/panierEtMarquage.service';
@@ -17,6 +17,8 @@ import { Client } from '../../../shared/modeles/client';
 import { Panier } from '../../../shared/modeles/panier';
 import { Oeuvre } from '../../../shared/modeles/oeuvre';
 import { ProductService } from '../../../shared/services/product.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Parametrage } from 'src/app/shared/modeles/Parametrage';
 
 declare var $: any;
 
@@ -27,6 +29,8 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit, OnDestroy {
   signInForm: FormGroup;
+  forgotPwdForm: FormGroup;
+  changePwdForm: FormGroup;
   title = environment.AppName;
   loginSubs: Subscription;
   returnUrl: string;
@@ -36,21 +40,25 @@ export class LoginComponent implements OnInit, OnDestroy {
   newOeuvres: any[] = [];
   oeuvresClient: any;
   public connexionStatut: boolean = true;
+  forgotPassword: boolean = false;
+  userIdName: any;
+  userUpdatePwd: boolean = false;
+  accountInformation: AccountInfo;
+  parametrageList: Parametrage[] = [];
+  emailExp: string = '';
   
-
   constructor(
     private fb: FormBuilder,
     private store: Store<AppState>,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthServiceS,
-    //private authS: AuthService,
-    private actions: AuthActions,
     private oeuvreS:OeuvreService,
     private artisteService:ArtisteService,
     private toastrService: ToastrService,
     private panierEtMarquageService:PanierEtMarquageService,
     private productService:ProductService,
+    public translate:TranslateService
   ) {
     this.oeuvresClient = null;
     this.redirectIfUserLoggedIn();
@@ -76,12 +84,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initForm();
+    this.allParametrage();
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     // this.authS.authState.subscribe((user) => {
     //   this.user = user;
     // });  
   }
+
   /**
       *
       *
@@ -142,11 +152,37 @@ export class LoginComponent implements OnInit, OnDestroy {
   initForm() {
     const email = '';
     const password = '';
-
+    const confirmPassword = '';
+    
     this.signInForm = this.fb.group({
       'email': [email, Validators.required/*Validators.pattern(this.emailPattern)*/],
       'password': [password, Validators.required]
     });
+
+    this.forgotPwdForm = this.fb.group({
+      'email': [email, Validators.required]
+    });
+
+    this.changePwdForm = this.fb.group({
+      'password': [password, Validators.required],
+      'confirmPassword': [confirmPassword, Validators.required]
+    });
+
+  this.route.queryParamMap
+    .subscribe((params:any) => {
+      let paramsObject = { ...params.keys, ...params };
+      this.userIdName = paramsObject.params?.aqs
+      this.userIdName = (this.userIdName-892)/(3**2.5)
+      this.authService
+        .findUserById(this.userIdName)
+          .subscribe(res => {
+            this.userUpdatePwd = true;
+            console.log(res);
+            this.accountInformation = <AccountInfo>res;
+            console.log(this.userUpdatePwd);
+          })
+    }
+);
   }
 
   redirectIfUserLoggedIn() {
@@ -296,5 +332,68 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 */
 
+  changePassword(){
+    this.userUpdatePwd = false;
+    this.forgotPassword = !this.forgotPassword;
+  }
 
+  onSendmailPwd(){
+    this.userUpdatePwd = false;
+    let email = this.forgotPwdForm.value.email;
+    this.authService.sendLink(email, this.emailExp)
+      .subscribe(() => {
+        this.translate.get("forgotPassword")
+          .subscribe(fpwd => {
+            this.translate.get("SUCCESS")
+              .subscribe(alertType => { //Un mail vous a été envoyé merci de consulter votre compte!
+                this.toastrService
+                    .success(fpwd, alertType)
+              })
+          })
+      })
+  }
+
+  onChangeOldPwd(){
+    const pwd = this.changePwdForm.value.password;
+    const confirmPwd = this.changePwdForm.value.confirmPassword;
+    if(pwd == confirmPwd){
+      this.accountInformation.password = pwd;
+      this.authService
+        .forgotPassword(this.accountInformation)
+          .subscribe(() => {
+            this.translate.get("changeOldPwd")
+              .subscribe(updatepwd => {
+                this.translate.get("SUCCESS")
+                  .subscribe(alertType => { 
+                    this.toastrService
+                        .success(updatepwd, alertType)
+                  })
+              })
+            this.forgotPassword = false;
+            this.userUpdatePwd = false;
+          })
+    }else{
+      this.translate.get("confirmPwdIncorrect")
+        .subscribe(wrongpwd => {
+          this.translate.get("ERROR")
+            .subscribe(alertType => { 
+              this.toastrService.error(wrongpwd, alertType)
+            })
+        })
+    }
+  }
+
+  public allParametrage(){
+    this.authService
+        .findAllParametrage()
+          .subscribe( data => {
+              this.parametrageList = <Parametrage[]>data;
+              this.parametrageList.forEach( param => {
+                if(param.paramName == 'notificationEmailSignArt') {
+                  this.emailExp = param.value;
+                }
+              })
+              console.log(this.emailExp)
+          })
+  }
 }

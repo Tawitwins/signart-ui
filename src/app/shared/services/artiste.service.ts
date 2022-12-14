@@ -114,4 +114,8 @@ export class ArtisteService extends  HttpService {
     return this.delete(environment.API_ENDPOINT+`presentation/${idPresentation}`);
   }
 
+  findArtisteByEmail(mail: string){
+    return this.http
+                  .get(`${environment.API_ENDPOINT}/souscription/mail/${mail}`)
+  }
 }
