@@ -163,7 +163,8 @@ export class SettingsComponent implements OnInit {
     
     this.authService.signOut();
     this.removeList();
-    location.replace('home/signart');
+    this.router.navigate(['home/signart']);
+    //location.replace();
     //this.redirectIfUserLoggedOut();
     //location.reload();
  }
