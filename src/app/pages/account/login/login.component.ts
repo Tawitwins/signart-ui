@@ -19,6 +19,7 @@ import { Oeuvre } from '../../../shared/modeles/oeuvre';
 import { ProductService } from '../../../shared/services/product.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Parametrage } from 'src/app/shared/modeles/Parametrage';
+import { SecurityService } from 'src/app/shared/services/security.service';
 
 declare var $: any;
 
@@ -46,7 +47,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   accountInformation: AccountInfo;
   parametrageList: Parametrage[] = [];
   emailExp: string = '';
-  
+  SIGNART_WEB_URL: string = '';
+  NOTIFICATION_URL: string = '';
+
   constructor(
     private fb: FormBuilder,
     private store: Store<AppState>,
@@ -58,7 +61,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private toastrService: ToastrService,
     private panierEtMarquageService:PanierEtMarquageService,
     private productService:ProductService,
-    public translate:TranslateService
+    public translate:TranslateService,
+    private securityService: SecurityService
   ) {
     this.oeuvresClient = null;
     this.redirectIfUserLoggedIn();
@@ -173,7 +177,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       let paramsObject = { ...params.keys, ...params };
       this.userIdName = paramsObject.params?.aqs
       this.userIdName = (this.userIdName-892)/(3**2.5)
-      this.authService
+      if(!isNaN(this.userIdName)){
+        this.authService
         .findUserById(this.userIdName)
           .subscribe(res => {
             this.userUpdatePwd = true;
@@ -181,6 +186,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.accountInformation = <AccountInfo>res;
             console.log(this.userUpdatePwd);
           })
+      }
     }
 );
   }
@@ -340,17 +346,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSendmailPwd(){
     this.userUpdatePwd = false;
     let email = this.forgotPwdForm.value.email;
-    this.authService.sendLink(email, this.emailExp)
-      .subscribe(() => {
-        this.translate.get("forgotPassword")
-          .subscribe(fpwd => {
-            this.translate.get("SUCCESS")
-              .subscribe(alertType => { //Un mail vous a été envoyé merci de consulter votre compte!
-                this.toastrService
-                    .success(fpwd, alertType)
-              })
-          })
-      })
+    this.authService.sendLink(email, this.emailExp, this.SIGNART_WEB_URL,this.NOTIFICATION_URL)
+     
   }
 
   onChangeOldPwd(){
@@ -389,8 +386,14 @@ export class LoginComponent implements OnInit, OnDestroy {
           .subscribe( data => {
               this.parametrageList = <Parametrage[]>data;
               this.parametrageList.forEach( param => {
-                if(param.paramName == 'notificationEmailSignArt') {
+                if(param.paramName == 'NOTIFICATION_EMAIL_SIGNART') {
                   this.emailExp = param.value;
+                }
+                if(param.paramName == 'SIGNART_WEB_URL') {
+                  this.SIGNART_WEB_URL = param.value;
+                }
+                if(param.paramName == 'NOTIFICATION_URL') {
+                  this.NOTIFICATION_URL = param.value;
                 }
               })
               console.log(this.emailExp)

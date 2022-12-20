@@ -77,8 +77,24 @@
                 <div class="theme-card authentication-right">
                     <h6 class="title-font">{{"Créer un compte" | translate}}</h6>
                     <p>{{"Rejoignez la plateforme SignArt et profitez des nombreuses offres proposées. L\'inscription est rapide pour l\'artiste comme pour le client. N\'attendez plus" | translate}} :) .  </p>
-                    <button [routerLink]="['/pages/register']" title="{{'Créer un compte client' | translate}}" class="btn btn-solid-Valider">{{"Créer un compte Client" | translate}}</button>
-                    <button [routerLink]="['/pages/register-artist']" title="{{'Créer un compte artiste' | translate}}" class="btn btn-solid-Valider lamarge">{{"Devenir artiste SignArt" | translate}}</button>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <button 
+                                [routerLink]="['/pages/register']" 
+                                title="{{'Créer un compte client' | translate}}" 
+                                class="btn btn-solid-Valider">
+                                    {{"Créer un compte client" | translate}}
+                            </button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button 
+                                [routerLink]="['/pages/register-artist']" 
+                                title="{{'Créer un compte artiste' | translate}}" 
+                                class="btn btn-solid-Valider lamarge">
+                                    {{"Devenir artiste SignArt" | translate}}
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

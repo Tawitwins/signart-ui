@@ -14,6 +14,7 @@ import { tap } from 'rxjs/operators';
 import { Client } from '../../shared/modeles/client';
 import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
+import { SecurityService } from 'src/app/shared/services/security.service';
 
 @Component({
   selector: 'app-cart',
@@ -37,7 +38,8 @@ export class CartComponent implements OnInit {
     private authS:AuthServiceS,
     private newCheckoutService:CheckoutService,
     private router:Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private securityService: SecurityService
     ) {
     //this.productService.cartItems.subscribe(response => this.products = response);
     this.isConnected = false;

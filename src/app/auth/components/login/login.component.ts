@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment.prod';
 import { User } from 'src/app/shared/modeles/user';
 import { AuthActions } from '../../actions/auth.actions';
 import { OeuvreService } from 'src/app/shared/services/oeuvre.service';
+import { SecurityService } from 'src/app/shared/services/security.service';
 //import { AuthService } from 'angularx-social-login';
 //import { SocialUser } from 'angularx-social-login';
 //import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
@@ -41,6 +42,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     //private authS: AuthService,
     private actions: AuthActions,
     private oeuvreS:OeuvreService,
+    private securityService: SecurityService
   ) {
     this.redirectIfUserLoggedIn();
     /*const config = {
@@ -140,7 +142,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       data => {
         if (data === true) {
         this.User=this.authService.getUserConnected();
-        this.oeuvreS.getClientByUser(parseInt(this.User.id))
+        this.oeuvreS.getClientByUser(this.User.id)
         .subscribe(
           response => { 
             localStorage.setItem('client',JSON.stringify(response))

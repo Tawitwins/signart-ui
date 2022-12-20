@@ -16,6 +16,7 @@ import { getTotalCartItems } from '../../../checkout/reducers/selectors';
 import { environment } from '../../../../environments/environment';
 import { getTotalWishlistItems } from '../../../wishlist/reducers/selectors';
 import { LanguageService } from '../../services/language.service';
+import { SecurityService } from '../../services/security.service';
 
 
 @Component({
@@ -88,11 +89,12 @@ export class SettingsComponent implements OnInit {
         private element: ElementRef, 
         private router: Router,
         private route:ActivatedRoute,
-         private authService: AuthServiceS,
+        private authService: AuthServiceS,
         private store: Store<AppState>,
         private authActions: AuthActions,
         private oeuvreS:OeuvreService,
-        public languageService: LanguageService
+        public languageService: LanguageService,
+        private securityService: SecurityService
         ) {
           setTimeout(() => {this.productService.cartItems.subscribe(response =>{ this.oeuvres = response;});}, 1000); 
             
@@ -160,7 +162,6 @@ export class SettingsComponent implements OnInit {
   }
 
   logout() {
-    
     this.authService.signOut();
     this.removeList();
     this.router.navigate(['home/signart']);
@@ -200,7 +201,7 @@ export class SettingsComponent implements OnInit {
 
   changecode(code: string) {
     code == 'us' ? code = 'en' : code = code;
-    localStorage.setItem("userLanguage", code);
+        localStorage.setItem("userLanguage", code);
     this.currentLanguage.code = code;
     window.location.reload();
   }

@@ -13,6 +13,7 @@ import { User } from 'src/app/shared/modeles/user';
 import { Client } from 'src/app/shared/modeles/client';
 import { OeuvreService } from 'src/app/shared/services/oeuvre.service';
 import { environment } from 'src/environments/environment.prod';
+import { SecurityService } from 'src/app/shared/services/security.service';
 
 @Component({
   selector: 'app-compte',
@@ -34,7 +35,10 @@ export class CompteComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private oeuvreS:OeuvreService,
-    private authService: AuthServiceS) {
+    private authService: AuthServiceS,
+    private securityService: SecurityService
+
+    ) {
     this.stateSub$ = this.store.select(getOrderState)
       .subscribe(state => this.orderState = state);
     this.user=this.authService.getUserConnected();
@@ -91,7 +95,7 @@ export class CompteComponent implements OnInit {
       data => {
         if (data === true) {
           this.user=this.authService.getUserConnected();
-          this.oeuvreS.getClientByUser(parseInt(this.user.id)).subscribe(
+          this.oeuvreS.getClientByUser(this.user.id).subscribe(
             response=>{
               localStorage.setItem('client',JSON.stringify(response));
             }
