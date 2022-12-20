@@ -47,7 +47,8 @@ export class AddressComponent implements OnInit, OnDestroy {
     private router: Router,
     private oeuvreS: OeuvreService,
     private authS: AuthServiceS,
-    private actions: CheckoutActions) {
+    private actions: CheckoutActions,
+    ) {
     this.orderNumber$ = this.store.select(getOrderNumber);
     this.store.select(getOrder).subscribe(
       resp => {

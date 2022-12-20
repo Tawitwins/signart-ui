@@ -350,6 +350,11 @@
   "Confirmer":"Confirm",
   "Confirmer le mot de passe":"Confirm password",
   "Email existe déjà.":"Email already exists.",
-  "Entrez une adresse email valide":"Enter a valid email address"
+  "Entrez une adresse email valide":"Enter a valid email address",
+  "Rejoignez la plateforme SignArt et profitez des nombreuses offres proposées. L'inscription est rapide pour l'artiste comme pour le client. N'attendez plus":"Join the SignArt platform and take advantage of the many offers offered. Registration is quick for both the artist and the client. do not wait any longer",
+  "Créer un compte":"Create an account",
+  "Nouvel utilisateur": "New user",
+  "Créer un compte client":"Create a customer account",
+  "Devenir artiste SignArt":"Become a SignArt artist"
 
 }
