@@ -156,7 +156,6 @@ export class OrderSuccessComponent implements OnInit {
     })
   }
   cleanPanierAndLocalStorage(){
-    //let panier = <Panier>JSON.parse(localStorage.getItem('panier'));
     let client = <Client>JSON.parse(localStorage.getItem('client'));
     this.panierEtMarquateService.getLineItemsByClient(client.id).subscribe(resp=>{
       let lignePaniers = <LignePanier[]> resp;

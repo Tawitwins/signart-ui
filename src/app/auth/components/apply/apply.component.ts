@@ -5,6 +5,7 @@ import { OeuvreService } from 'app/shared/services/oeuvre.service';
 import { ArtisteService } from 'app/shared/services/artiste.service';
 import { Souscription } from 'app/shared/modeles/souscription';
 import { OeuvreSousc } from 'app/shared/modeles/oeuvre';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-apply',
@@ -66,7 +67,8 @@ export class ApplyComponent implements OnInit {
   constructor(
     private formbuilder: FormBuilder, 
     private oeuvreService: OeuvreService,
-    private artisteService: ArtisteService,) { 
+    private artisteService: ArtisteService,
+    private router: Router) { 
   this.etape=1;
 
   this.oeuvreService.getTechnique().subscribe(
@@ -170,7 +172,7 @@ export class ApplyComponent implements OnInit {
           "Formulaire soumis avec succès!",
           "En attente de Validation par l'administration!",
         ).then((result)=> {if(result.value){
-          location.replace("./accueil");
+          this.router.navigate(['./accueil']);
         }})
 
       }
@@ -208,14 +210,14 @@ export class ApplyComponent implements OnInit {
         Swal.fire(
           "Soumission annuler!",
         ).then((result)=> {if(result.value){
-          location.replace("./accueil");}})
+          this.router.navigate(['./accueil']);;}})
           
       }
 
     });
   }
   onReturn(){
-    location.replace("./accueil");
+    this.router.navigate(['./accueil']);;
   }
 
   SoumettreFormSouscription(){

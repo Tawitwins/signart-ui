@@ -323,14 +323,6 @@ export class CheckoutService extends HttpService {
             }
           });
         })
-       
-        // this.store.select<any>((state: any) => state) // the complete state this time!!!
-        //   .subscribe((completeState: any) => {
-        //     if(localStorage.getItem('completeState')){
-        //       localStorage.removeItem('completeState');
-        //     }
-        //     localStorage.setItem('completeState', JSON.stringify(completeState));
-        //   });
       }));
   }
   getPanierInLocalStorage(){
@@ -480,41 +472,14 @@ getAdresseByClient(idClient){
    */
   createNewPayment(paymentModeId, orderId, codePaiement) {
     return this.http.post(environment.API_ENDPOINT + `paiement`, {idModePaiement: paymentModeId, idCommade: orderId,codeEtatPaiement: codePaiement/* , lignePaiements: order.lignesCommande. */});
-    /*.pipe(map((res) => {
-      //console.log('La reponse paiement est ', res)
-      //this.changeOrderState().subscribe();
-    }));
-    return this.post(
-      `spree/api/v1/orders/${this.orderNumber}/payments?order_token=${this.getOrderToken()}`,
-      {
-        payment: {
-          payment_method_id: paymentModeId,
-          amount: paymentAmount
-        }
-      }
-    ).pipe(map((res) => {
-      //console.log('La reponse paiement est ', res)
-      this.changeOrderState()
-        .subscribe();
-    }));*/
   }
 
   deleteLineItemInLocalStorage(Id: number) {
     let lignesPanier: any;
     let panier = <Panier>JSON.parse(localStorage.getItem('panier'));
-/*     let checkoutLS = JSON.parse(localStorage.getItem('panier'));
-    let panier = checkoutLS.lineItemEntities[] */
-    //console.log("panier : ", panier);
     let lignePanier = panier.lignesPanier.find(lp=>lp.id=Id);
     ////console.log("lignes panier à modifier : ", panier.lignesPanier);
     let Removed = panier.lignesPanier.splice(panier.lignesPanier.indexOf(lignePanier),1);
-    /*  let i=0;
-    for(i=Id-1;i<panier.lignesPanier.length;i++)
-    {
-      panier.lignesPanier[i].id--;
-    } */
-    ////console.log("lignes panier modifié: ", panier.lignesPanier);
-    //console.log("oeuvre supprimée : ", Removed);
     panier.nbTotal = panier.nbTotal - lignePanier.quantite;
     panier.total = panier.total - lignePanier.prix;
     panier.totalTaxes = panier.totalTaxes -lignePanier.oeuvre.taxes;

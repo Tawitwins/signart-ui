@@ -10,6 +10,7 @@ import { PaysService } from '../../../shared/services/pays.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { AuthServiceS } from 'src/app/shared/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-artist',
@@ -85,7 +86,8 @@ export class RegisterArtistComponent implements OnInit {
     private paysService: PaysService,
     private translate: TranslateService,
     private toastrService: ToastrService,
-    private authService: AuthServiceS
+    private authService: AuthServiceS,
+    private router: Router,
     ) {
       this.indicatifpays = "+221";
       this.libellePays = "Sénégal";
@@ -243,7 +245,8 @@ export class RegisterArtistComponent implements OnInit {
     this.translate.get("PopupFormSoumiSucces").subscribe(formS=>{
       this.translate.get("SUCCESS").subscribe(alertType=>{
         this.toastrService.success(formS,alertType);
-        location.replace("./accueil");
+        this.router.navigate(['./accueil']);
+        //location.replace("./accueil");
       })
     })
   }
@@ -266,7 +269,8 @@ export class RegisterArtistComponent implements OnInit {
               this.translate.get("PopupSoumiCancel").subscribe(soumCancel=>{
                 this.translate.get("SUCCESS").subscribe(alertType=>{
                   this.toastrService.success(soumCancel,alertType);
-                  location.replace("./accueil");
+                  this.router.navigate(['./accueil']);
+                  //location.replace("./accueil");
                 })
               })
               // Swal.fire(

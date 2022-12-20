@@ -308,8 +308,9 @@ export class DashboardComponent implements OnInit {
 
     this.authService.signOut();
     this.removeList();
+    this.router.navigate(['home/signart']);
     // this.redirectIfUserLoggedOut();
-    location.replace('home/signart');
+    //location.replace('home/signart');
     // location.reload();
 
  }

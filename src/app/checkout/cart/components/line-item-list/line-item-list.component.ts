@@ -20,48 +20,14 @@ import { Panier } from 'src/app/shared/modeles/panier';
 export class LineItemListComponent implements OnInit {
 
   lignePaniers$: Observable<any>;
-  // panier: Panier;
-  //lignesPanier: LignePanier[];
-
-  // @Input() lignePaniers: LignePanier[];
-  // check: number = 0;
-  // checkoutState: CheckoutState;
 
   constructor(private store: Store<AppState>, private actions: CheckoutActions,
     private checkoutService: CheckoutService, private authService: AuthServiceS) {
-    //this.store.dispatch(this.actions.getAllLineItems());
     this.lignePaniers$ = this.store.select(getLineItems) as unknown as Observable<LignePanier[]>;
-    /*this.lignePaniers$.subscribe(resp => {
-      resp.forEach(element => {
-        //console.log(this.lzs.decompress(localStorage.getItem('panier')));
-        if (JSON.parse(this.lzs.decompress(localStorage.getItem('panier')))) {
-          //console.log("updating panier in local storage");
-          localStorage.setItem('panier', this.lzs.compress(JSON.stringify(this.updateCart(element.oeuvre))));
-        } else {
-          //console.log("creating panier in local storage");
-          localStorage.setItem('panier', this.lzs.compress(JSON.stringify(this.createCart(element.oeuvre))));
-        }
-      });
-    })*/
-    
-
+   
   }
 
   ngOnInit() {
-    /*if (this.authService.getUserConnected() == null) {
-      //console.log('user non connecté');
-      this.store.dispatch(this.actions.getAllLineItemsLocal());
-      this.lignePaniers$ = this.store.select(getLineItems) as Observable<any>;
-      
-    } else {
-      //console.log('user connecté')
-      this.store.dispatch(this.actions.getAllLineItems());
-      this.lignePaniers$ = this.store.select(getLineItems) as Observable<any>;
-      //this.panier=JSON.parse(localStorage.getItem('panier'));
-      //this.lignesPanier= this.panier.lignesPanier;
-
-    }*/
-
 
   }
   private createCart(oeuvre: Oeuvre) {
