@@ -128,7 +128,7 @@ export class CheckoutComponent implements OnInit {
         resp => {
           this.listAdresses = resp;
           this.addressListLivraison = this.listAdresses.filter(address => address.codeTypeAdresse == "LIVRAISON")
-          console.log(this.addressListLivraison)
+          // console.log(this.addressListLivraison)
           //c'est pour afficher uniquement les adresses de livraison(pas de facturation)
           for(let i=0;i<this.listAdresses.Length;i++){
           if(this.listAdresses[i].codeTypeAdresse=='LIVRAISON'){
