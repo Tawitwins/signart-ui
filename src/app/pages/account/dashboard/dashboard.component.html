@@ -378,8 +378,9 @@
                                                             (click)="showDetailsAbonnement(abonnement.id)" 
                                                             title="Détails"  
                                                             [routerLink]=" " 
-                                                            style="cursor: pointer;">
+                                                            style="cursor: pointer;">{{"Détails" | translate}}
                                                         </button>
+                                                        
                                                         <button 
                                                             class="btn abonnement ml-1" 
                                                             [disabled]="getCodeEtatAbonnement(abonnement.etatAbonnement) != 'EXPIRE'" 

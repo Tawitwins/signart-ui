@@ -56,7 +56,7 @@ export class AddAddressComponent implements OnInit, OnDestroy {
     private toastrService:ToastrService,
     ) {
       this.indicatifpays = "+221";
-    this.libellePays = "Sénégal";
+      this.libellePays = "Sénégal";
       this.addressForm = addrService.initAddressForm();
       this.emailForm = addrService.initEmailForm();
       this.store.select(getAuthStatus).subscribe((auth) => {
