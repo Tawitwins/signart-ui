@@ -53,7 +53,7 @@
                                     <div class="field-label">{{"Adresse" | translate}}</div>
 <!--                                     <input type="text" name="address" [formControl]="checkoutForm.controls['address']" value="" placeholder="" autocomplete="off"> -->                                    <select name="address" [formControl]="checkoutForm.controls['address']" value="" placeholder="" required>
                                         <option value="">{{"Choisissez une adresse ici" | translate}} !</option>
-                                        <option *ngFor="let a of listAdresses; let index = index" [value]="index">{{a.adresse}}</option>
+                                        <option *ngFor="let a of addressListLivraison; let index = index" [value]="index">{{a.adresse}}</option>
                                     </select>
                                     <div *ngIf="checkoutForm.controls.address.touched && checkoutForm.controls.address.errors?.required" class="text text-danger">
                                      {{"Adresse obligatoire" | translate}}!
@@ -138,7 +138,7 @@
                                             </div>
                                         </div>
                                         <br>
-                                         <button *ngIf="livraisonStr!= '' && isLivraisonOk==false" title="Confirmer le mode de livraison" type="button" class="btn-solid btn" (click)="CheckFormEtPayer(); sendSms()" >
+                                         <button *ngIf="livraisonStr!= '' && isLivraisonOk==false" title="Confirmer le mode de livraison" type="button" class="btn-solid btn" (click)="CheckFormEtPayer()" >
                                             {{"Confirmer livraison" | translate}}
                                          </button>
 

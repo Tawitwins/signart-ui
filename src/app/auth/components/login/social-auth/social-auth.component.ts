@@ -101,16 +101,12 @@ tryGoogleLogin(){
         this.authService.register(this.user).subscribe(
           data => {     //console.log('datas: ', data)
   
-            this.authService.login(data.email, data.password).subscribe(
-              resp => //console.log('resp: ', data)
-            );
+            this.authService.login(data.email, data.password).subscribe();
           }
           );
       }
       else{
-        this.authService.login(this.user.email, this.user.password).subscribe(
-          resp => //console.log('resp: ', res)
-        );
+        this.authService.login(this.user.email, this.user.password).subscribe();
       }
       
       //this.user.password = this.providerUser.uid;

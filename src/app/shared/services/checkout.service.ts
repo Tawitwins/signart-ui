@@ -25,10 +25,13 @@ import { ToastrService } from 'ngx-toastr';
 import { NullTemplateVisitor } from '@angular/compiler';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { TranslateService } from '@ngx-translate/core';
+import { SecurityService } from './security.service';
+import { EtatCommande } from './../modeles/etatCommande';
 declare var $: any;
 
 @Injectable()
 export class CheckoutService extends HttpService {
+  BASE_URL:string = environment.API_ENDPOINT;
   private orderNumber: number;
   private orderId: number;
   private livraison: Livraison = {id:null,dateLivraisonPrevue: null, dateLivraisonEffective: null, dateLivraison: null,idAdresseLivraison:null,idModeLivraison: null,libelleModeLivraison:'', codeEtatLivraison:null, lignesCommande:[], libelleEtatLivraison: null};
@@ -45,7 +48,8 @@ export class CheckoutService extends HttpService {
     private actions: CheckoutActions,
     private store: Store<AppState>,
     private toastrService:ToastrService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private securityService:SecurityService
   ) {
     super(http);
     this.store.select(getOrderNumber)
@@ -343,6 +347,7 @@ export class CheckoutService extends HttpService {
         // Ajouter au localstorage
         //localStorage.setItem('order', JSON.stringify(order));
         localStorage.setItem('order',JSON.stringify(order)); 
+        //this.securityService.encrypt('order', JSON.stringify(order))
         //this.createLivraison();
        
         return order;
@@ -619,6 +624,7 @@ getAdresseByClient(idClient){
   private setOrderTokenInLocalStorage(token): void {
     const jsonData = JSON.stringify(token);
     localStorage.setItem('order', jsonData);
+    //this.securityService.encrypt('order', jsonData)
   }
   /**
    * 
@@ -751,4 +757,40 @@ getAdresseByClient(idClient){
   getClientByID(idClient: number){
     return this.http.get(`${environment.API_ENDPOINT}/client/${idClient}`)
   }
+
+  deleteCommandeById(idCommande: number){
+    return this.delete(`${this.BASE_URL}/commande/delete/${idCommande}`)
+  }
+
+  findEtatCommandeByCode(code: string){
+    return this.get(`${this.BASE_URL}/etatcommande/code/${code}`)
+  }
+
+  updateCommandeDto(commande: Commande){
+    return this.http.put(environment.API_ENDPOINT + `commande/${commande.id}`,commande);
+  }
+
+  // updateCommandeByCodeEtat(commande: Commande, code:string){
+  //   this.findEtatCommandeByCode(code)
+  //     .subscribe(res => {
+  //       let etatcommande = <EtatCommande>res;
+  //       commande.idEtatCommande = etatcommande.id;
+  //       this.updateCommandeDto(commande)
+  //         .subscribe(() => {
+  //           this.translate.get("PopupSuppressionSuccess").subscribe(suppr=>{
+  //             this.translate.get("SUCCESS").subscribe(alertType=>{
+  //               this.toastrService.success(suppr,alertType);
+  //             })
+  //           })
+  //         })
+  //     },
+  //     error => {
+  //       this.translate.get("PopupSuppressionError").subscribe(suppr=>{
+  //         this.translate.get("ERROR").subscribe(alertType=>{
+  //           this.toastrService.error(suppr,alertType);
+  //         })
+  //       })
+  //     }
+  //     )
+  // }
 }

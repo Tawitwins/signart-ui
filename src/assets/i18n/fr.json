@@ -356,6 +356,9 @@
   "Create a customer account":"Créer un compte client",
   "Create an account":"Créer un compte",
   "New user":"Nouvel utilisateur",
-  "Become a SignArt artist":"Devenir artiste SignArt"
+  "Become a SignArt artist":"Devenir artiste SignArt",
+
+  "PopupSuppressionSuccess":"Suppression terminée avec succès",
+  "PopupSuppressionError":"Une erreur est survenue lors de la suppression."
 
 }
