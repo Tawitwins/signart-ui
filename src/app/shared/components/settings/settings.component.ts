@@ -203,8 +203,6 @@ export class SettingsComponent implements OnInit {
     code == 'us' ? code = 'en' : code = code;
         localStorage.setItem("userLanguage", code);
     this.currentLanguage.code = code;
-    //console.log(this.currentLanguage);
-    //console.log(localStorage.getItem("userLanguage"))
     window.location.reload();
   }
 
