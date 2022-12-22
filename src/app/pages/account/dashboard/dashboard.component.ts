@@ -33,6 +33,7 @@ import { CheckoutService } from '../../../shared/services/checkout.service';
 import { Address } from '../../../shared/modeles/address';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { TranslateService } from '@ngx-translate/core';
+import { EtatCommande } from 'src/app/shared/modeles/etatCommande';
 
 @Component({
   selector: 'app-dashboard',
@@ -115,6 +116,7 @@ export class DashboardComponent implements OnInit {
   image: string;
   images: any[];
   Sum: number = 0;
+  idEtatCommandeAnnuler: number;
 
   pageSizeAdress = 4;
   pagAdress = 0;
@@ -444,6 +446,11 @@ initForm(){
    this.infoUser();
    this.initForm();
    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+   this.checkoutService.findEtatCommandeByCode("ANNULEE").subscribe(data => {
+    let etatCommande = <EtatCommande>data;
+    this.idEtatCommandeAnnuler = etatCommande.id;
+    console.log(this.idEtatCommandeAnnuler)
+   })
  }
  infoUser(){
    this.user = this.authS.getUserConnected();
@@ -474,6 +481,7 @@ commandesClient(){
        data => {
          //console.log(data);
          this.commandes = data;
+         this.commandes = this.commandes.filter(c => c.idEtatCommande != this.idEtatCommandeAnnuler)
          // this.size=this.commandes.length;
          this.commandes = this.commandes.reverse();
          //console.log('les commandes:' , this.commandes);
@@ -519,10 +527,20 @@ onDeleteAdresseOfUser(id: number){
   this.authS.deleteAdresseOfUser(id).subscribe(
     (data: any) => {
       //console.log(data);
+      this.translate.get("PopupSuppressionSuccess").subscribe(suppr=>{
+        this.translate.get("SUCCESS").subscribe(alertType=>{
+          this.toastrService.success(suppr,alertType);
+        })
+      })
       this.ngOnInit();
     },
     error => {
       //console.log(error);
+      this.translate.get("PopupSuppressionError").subscribe(suppr=>{
+        this.translate.get("ERROR").subscribe(alertType=>{
+          this.toastrService.error(suppr,alertType);
+        })
+      })
     }
   );
 
@@ -896,5 +914,36 @@ showDetailsCommande(idCommande: number){
         })
         this.shownTerminal = false;
       })
+    }
+
+    deleteCommandeById(commande: any){
+      // this.checkoutService
+      //   .updateCommandeByCodeEtat(commande,"ANNULEE")
+      this.checkoutService
+        .findEtatCommandeByCode("ANNULEE")
+          .subscribe(res => {
+            console.log(res);  
+              let etatcommande = <EtatCommande>res;
+              commande.idEtatCommande = etatcommande.id;
+              this.checkoutService
+                    .updateCommandeDto(commande)
+                      .subscribe(() => {
+                        console.log(commande);
+                        this.commandes = this.commandes.filter(c => c.idEtatCommande != this.idEtatCommandeAnnuler) 
+                        this.translate.get("PopupSuppressionSuccess").subscribe(suppr=>{
+                          this.translate.get("SUCCESS").subscribe(alertType=>{
+                            this.toastrService.success(suppr,alertType);
+                          })
+                        })
+                      })
+            },
+            error => {
+              this.translate.get("PopupSuppressionError").subscribe(suppr=>{
+                this.translate.get("ERROR").subscribe(alertType=>{
+                  this.toastrService.error(suppr,alertType);
+                })
+              })
+            }
+          )
     }
 }

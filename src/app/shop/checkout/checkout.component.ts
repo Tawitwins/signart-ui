@@ -31,6 +31,7 @@ import { Route, Router } from '@angular/router';
 import { ImageService } from 'src/app/shared/services/image.service';
 import { Utilisateur } from 'src/app/shared/modeles/utilisateur';
 import { TranslateService } from '@ngx-translate/core';
+import { SecurityService } from 'src/app/shared/services/security.service';
 
 @Component({
   selector: 'app-checkout',
@@ -56,6 +57,7 @@ export class CheckoutComponent implements OnInit {
   livraison: Livraison=new Livraison();
   isLivraisonOk:boolean=false;
   listAdresses: any;
+  addressListLivraison: any[] = [];
   adresseLivraison: any;
   selectedModeLiv: any;
   addAdresse: number;
@@ -82,15 +84,25 @@ export class CheckoutComponent implements OnInit {
   fraisLivraison: number = 0;
   montantTotalAPayer: number = 0;
 
-  constructor(private fb: FormBuilder,private toastService:ToastrService,private authService:AuthServiceS,
-    public productService: ProductService,private newCheckoutService:CheckoutService,private paysService:PaysService,
-    private orderService: OrderService, private checkoutService: CheckoutService,
+  constructor(private fb: FormBuilder,
+    private toastService:ToastrService,
+    private authService:AuthServiceS,
+    public productService: ProductService,
+    private newCheckoutService:CheckoutService,
+    private paysService:PaysService,
+    private orderService: OrderService, 
+    private checkoutService: CheckoutService,
     private addrService: AddressService, 
-    private store: Store<AppState>,private authS:AuthServiceS, private magasinService:MagasinService, private tarificationService:TarificationService,
-    private serviceLivraisonService: ServiceLivraisonService, private sanitizer: DomSanitizer,
+    private store: Store<AppState>,
+    private authS:AuthServiceS, 
+    private magasinService:MagasinService, 
+    private tarificationService:TarificationService,
+    private serviceLivraisonService: ServiceLivraisonService, 
+    private sanitizer: DomSanitizer,
     private router: Router,
     private imageService: ImageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private securityService: SecurityService
     ) { 
 
    this.indicatifpays = "+221";
@@ -115,6 +127,8 @@ export class CheckoutComponent implements OnInit {
     this.newCheckoutService.getAdresseByClient(this.client.id).subscribe(
         resp => {
           this.listAdresses = resp;
+          this.addressListLivraison = this.listAdresses.filter(address => address.codeTypeAdresse == "LIVRAISON")
+          console.log(this.addressListLivraison)
           //c'est pour afficher uniquement les adresses de livraison(pas de facturation)
           for(let i=0;i<this.listAdresses.Length;i++){
           if(this.listAdresses[i].codeTypeAdresse=='LIVRAISON'){
@@ -373,6 +387,9 @@ export class CheckoutComponent implements OnInit {
     localStorage.setItem('livraison', JSON.stringify(this.livraison));
     this.newCheckoutService.postLivraisonCommande(this.livraison).subscribe(resp=> {
       this.isLivraisonOk=true;
+      if(this.selectedModeLiv?.code=="MAG"){
+        this.sendSms();
+      }
       this.translate.get('PopupModeLivPriseEnCompte').subscribe(popup => {
         this.toastService.success(popup);
         })
@@ -421,6 +438,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   updateCommandePourLivraison() {
+    console.log(localStorage.getItem('order'))
       this.order = <Commande>JSON.parse(localStorage.getItem('order'));
       this.order.idMagasin = this.selectedMagasin;
       this.order.idTarification = this.selectedTarification;
@@ -510,6 +528,7 @@ export class CheckoutComponent implements OnInit {
         //console.log(resp)
       })
       localStorage.setItem('order', JSON.stringify(this.order));
+      //this.securityService.encrypt('order', JSON.stringify(this.order))
     })
   }
 }
