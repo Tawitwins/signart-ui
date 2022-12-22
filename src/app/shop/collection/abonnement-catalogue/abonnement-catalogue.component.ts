@@ -179,7 +179,7 @@ export class AbonnementCatalogueComponent implements OnInit {
     nom: new FormControl('',Validators.required),
     prenom: new FormControl('',Validators.required),
     email: new FormControl('',Validators.required),
-    indicatif: new FormControl('+221'),
+    indicatif: new FormControl(''),
     telephone: new FormControl('',Validators.required),
     pays: new FormControl('SN',Validators.required),
     region: new FormControl('',Validators.required),
@@ -354,7 +354,8 @@ export class AbonnementCatalogueComponent implements OnInit {
 
   onSubmitFormuAbonne(){
     this.abonne = this.abonneeForm.value;
-    this.abonne.telephone = this.indicatifpays+''+this.abonneeForm.get('telephone').value;
+    //this.indicatifpays+''+
+    this.abonne.telephone = this.abonneeForm.get('telephone').value;
     this.abonne.idUtilisateur = this.idUtilisateur;
     this.imageService.getListeByName(this.listeAdd.nomListe).subscribe(
       response => { 
@@ -749,7 +750,7 @@ export class AbonnementCatalogueComponent implements OnInit {
   onSubmitFinal(){
     
     Swal.fire({
-      title: 'Êtes vous sûre de vouloir de vouloir souscrire à cet abonnement?',
+      title: 'Êtes vous sûre de vouloir souscrire à cet abonnement?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#376809',

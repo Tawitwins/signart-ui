@@ -1,4 +1,3 @@
-import { Action, ActionReducer } from '@ngrx/store';
 import { AuthActions } from '../actions/auth.actions';
 import { AuthState, AuthStateRecord } from './auth.state';
 
@@ -13,11 +12,5 @@ export function reducer(state = initialState, { type, payload }: any): AuthState
         return { isAuthenticated: false } as AuthState;
 
       default: return state;
-      // if (retrieveState()) {
-      //   var newState = JSON.parse(localStorage.getItem('completeState'));
-      //   return newState.auth;
-      // } else {
-      //   return state;
-      // }
     }
   };

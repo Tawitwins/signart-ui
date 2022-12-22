@@ -1,6 +1,6 @@
 
 import { tap } from 'rxjs/operators';
-import { getOrderState, getShipAddress } from '../../../reducers/selectors';
+import { getOrderState } from '../../../reducers/selectors';
 import { Router } from '@angular/router';
 import { CheckoutActions } from '../../../actions/checkout.actions';
 import { AppState } from '../../../../interfaces';
@@ -8,7 +8,6 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { CheckoutService } from '../../../../shared/services/checkout.service';
-import { getAuthStatus } from '../../../../auth/reducers/selectors';
 import { User } from 'firebase';
 import { Client } from 'src/app/shared/modeles/client';
 import { AuthServiceS } from 'src/app/shared/services/auth.service';
@@ -74,7 +73,6 @@ export class OrderTotalSummaryComponent implements OnInit, OnDestroy {
               this.checkoutService.createOrder(this.client.id, this.data).pipe(
                 tap(() => {
                   this.router.navigate(['/checkout', 'address']);
-                  //localStorage.removeItem('panier');
                 }))
                 .subscribe();
             } else {

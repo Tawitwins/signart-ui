@@ -10,9 +10,9 @@ import { PaysService } from '../../../shared/services/pays.service';
 import { Pays } from '../../../shared/modeles/pays';
 import { getOrderState } from '../../../checkout/reducers/selectors';
 import { environment } from 'src/environments/environment.prod';
-import { User } from 'firebase';
 import { OeuvreService } from 'src/app/shared/services/oeuvre.service';
 import { LanguageService } from 'src/app/shared/services/language.service';
+import { User } from 'src/app/shared/modeles/user';
 
 declare var $: any;
 @Component({
@@ -64,9 +64,7 @@ if (this.signUpForm.valid) {
       this.registerSubs = this.authService.register(values).subscribe(
         data => {     //console.log('datas: ', data)
 
-          this.authService.login(values.email, values.password).subscribe(
-            resp => //console.log('resp: ', data)
-          );
+          this.authService.login(values.email, values.password).subscribe();
         }
         );
     } else {
@@ -115,7 +113,7 @@ if (this.signUpForm.valid) {
       data => {
         if (data === true) {
           this.User=this.authService.getUserConnected();
-          this.oeuvreS.getClientByUser(parseInt(this.User.id))
+          this.oeuvreS.getClientByUser(this.User.id)
           .subscribe(
             response => { 
               localStorage.setItem('client',JSON.stringify(response))

@@ -56,28 +56,6 @@ export function reducer(state = initialState, { type, payload }: any): FavoriteS
                 totalWishlistItems: _totalWishlistItems
             };
 
-        // case FavoriteActions.GET_ALL_WISHLIST_SUCCESS:
-        //     //console.log('oeuvres favorites : '+payload.oeuvres);
-        //     const _oeuvres = payload.oeuvres;
-        //     _oeuvresEntities = _oeuvres.reduce((oeuvres: { [id: number]: Oeuvre }, oeuvre: Oeuvre) => {
-        //         return Object.assign(oeuvres, {
-        //             [oeuvre.id]: oeuvre
-        //         });
-        //     }, {});
-        //     _wishItemEntities = state.wishItemEntities;
-        //     //console.log('wishiTems : '+ Array.from(_wishItemEntities.keys()));
-        //     _totalWishlistItems = state.totalWishlistItems;
-        //     return state.merge({
-        //         wishItemEntities: _wishItemEntities,
-        //         totalWishlistItems: _totalWishlistItems,
-        //         oeuvresEntities: _oeuvresEntities
-        //     }) as FavoriteState;
         default: return state;
-        // if (retrieveState()) {
-        //     var newState = JSON.parse(localStorage.getItem('completeState'));
-        //     return newState.favorite;
-        //   } else {
-        //     return state;
-        //   }
     }
 }

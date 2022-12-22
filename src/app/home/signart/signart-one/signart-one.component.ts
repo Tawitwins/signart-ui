@@ -5,6 +5,7 @@ import { ProductService } from '../../../shared/services/product.service';
 import { Oeuvre } from '../../../shared/modeles/oeuvre';
 import { ArticleService } from '../../../shared/services/article.service';
 import { environment } from '../../../../environments/environment';
+import { SecurityService } from 'src/app/shared/services/security.service';
 
 @Component({
   selector: 'app-signart-one',
@@ -17,7 +18,11 @@ export class SignartOneComponent implements OnInit {
   public productCollections: any[] = [];
   public oeuvres: Oeuvre[] = [];
   
-  constructor(public productService: ProductService, private articleService: ArticleService) {
+  constructor(
+    public productService: ProductService, 
+    private articleService: ArticleService,
+    private securityService: SecurityService
+    ) {
     this.productService.getProducts.subscribe(response => {
       this.products = response.filter(item => item.type === 'art','sculpture');
       // //console.log(this.products)

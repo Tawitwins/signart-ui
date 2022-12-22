@@ -120,8 +120,37 @@
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 2">
                             <div class="box-head">
-                                <a href="javascript:void(0)" style="float: right;" *ngIf="listAdress==true" title="Ajouter une adresse"  (click)="showHideListAdress(false)" > {{ "Ajouter une adresse" | translate}} </a>
-                                <a href="javascript:void(0)" style="float: right;" *ngIf="listAdress==false" title="Liste des adresses enregistrées" (click)="showHideListAdress(true)" > {{"Liste des adresses" | translate}} </a>
+
+                                <div style="float: right;">
+                                    <button 
+                                        style="float: right;"
+                                        *ngIf="listAdress==true"
+                                        class="btn btn-success" 
+                                        title="Ajouter une adresse" 
+                                        (click)="showHideListAdress(false)">
+
+                                        <i class="pe-7s-diskette btn-icon-wrapper">
+                                            {{ "Ajouter une adresse" | translate}}
+                                        </i>
+                                    </button>
+                                </div>
+
+                                <div style="float: right;">
+                                    <button 
+                                        style="float: right;"
+                                        *ngIf="listAdress==false"
+                                        class="btn btn-success" 
+                                        title="Liste des adresses enregistrées" 
+                                        (click)="showHideListAdress(true)">
+
+                                        <i class="pe-7s-diskette btn-icon-wrapper">
+                                            {{ "Liste des adresses" | translate}}
+                                        </i>
+                                    </button>
+                                </div>
+
+                                <!-- <a href="javascript:void(0)" style="float: right;" *ngIf="listAdress==true" title="Ajouter une adresse"  (click)="showHideListAdress(false)" > {{ "Ajouter une adresse" | translate}} </a> -->
+                                <!-- <a href="javascript:void(0)" style="float: right;" *ngIf="listAdress==false" title="Liste des adresses enregistrées" (click)="showHideListAdress(true)" > {{"Liste des adresses" | translate}} </a> -->
                                 <h2 *ngIf="listAdress==true" > {{"Liste des adresses" | translate}} </h2>
                                 <h2 *ngIf="listAdress==false"> {{ "Ajout d'une adresse" | translate}} </h2>
                             </div>
@@ -159,15 +188,33 @@
                                             </h4>                                         
                                         </td>
                                         <td>
-                                            <a href="javascript:void(0)" title="Supprimer"  (click)="onDeleteAdresseOfUser(adr.id)" class="icon">
+                                            <button 
+                                                class="btn btn-danger" 
+                                                title="Supprimer" 
+                                                (click)="onDeleteAdresseOfUser(adr.id)">
+
+                                                <i class="pe-7s-diskette btn-icon-wrapper"> 
+                                                    {{"Supprimer" | translate}} 
+                                                </i>
+                                            </button>
+
+                                            <!-- <a href="javascript:void(0)" title="Supprimer"  (click)="onDeleteAdresseOfUser(adr.id)" class="icon">
                                             {{"Supprimer"  | translate}}
-                                        </a>
+                                        </a> -->
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <ngb-pagination style="float: right;"  [collectionSize]="adresses?.length" [(page)]="pagAdress" [pageSize]="pageSizeAdress" aria-label="Default pagination">
-                            </ngb-pagination>
+
+                            <div class="pagination">
+                                <ngb-pagination 
+                                    style="float: right;"  
+                                    [collectionSize]="adresses?.length" 
+                                    [(page)]="pagAdress" 
+                                    [pageSize]="pageSizeAdress" 
+                                    aria-label="Default pagination">
+                                </ngb-pagination>
+                            </div>
                             
                         </div>
                         <div class="box-account box-info" *ngIf="infopage == 3">
@@ -194,7 +241,7 @@
                                             </td>
                                             <td>
                                                 <h4>
-                                                    {{commande.dateCreation | date: 'dd/MM/yyyy'}}
+                                                    {{commande.dateCreation }}
                                                 </h4>                                         
                                             </td>
                                             <td>
@@ -203,9 +250,33 @@
                                                 </h4>                                         
                                             </td>
                                             <td>
-                                                <a href="javascript:void(0)" (click)="showDetailsCommande(commande.id)" title="Détails"  class="icon">
-                                                {{"Details" | translate}}
-                                            </a>
+                                                <div class="row">
+
+                                                    <div class="col-md-6">
+                                                        <button 
+                                                            class="btn btn-warning" 
+                                                            title="{{'Détails' | translate}}" 
+                                                            (click)="showDetailsCommande(commande.id)">
+
+                                                            <i class="pe-7s-diskette btn-icon-wrapper">
+                                                                 {{"Détails" | translate}} 
+                                                            </i>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <button 
+                                                            class="btn btn-danger" 
+                                                            title="{{'Supprimer' | translate}}" 
+                                                            (click)="deleteCommandeById(commande)">
+
+                                                            <i class="pe-7s-diskette btn-icon-wrapper"> 
+                                                                {{"Supprimer" | translate}} 
+                                                            </i>
+                                                        </button>
+                                                    </div>
+
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -307,8 +378,9 @@
                                                             (click)="showDetailsAbonnement(abonnement.id)" 
                                                             title="Détails"  
                                                             [routerLink]=" " 
-                                                            style="cursor: pointer;">
+                                                            style="cursor: pointer;">{{"Détails" | translate}}
                                                         </button>
+                                                        
                                                         <button 
                                                             class="btn abonnement ml-1" 
                                                             [disabled]="getCodeEtatAbonnement(abonnement.etatAbonnement) != 'EXPIRE'" 

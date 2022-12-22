@@ -53,6 +53,7 @@ import { CheckoutActions } from './checkout/actions/checkout.actions';
 import { PanierEtMarquageService } from './shared/services/panierEtMarquage.service';
 import { MyformatcurrencyPipe } from './shared/pipes/myformatcurrency.pipe';
 import { EvenementSignartService } from './shared/services/evenement-signart.service';
+import { SecurityService } from './shared/services/security.service';
 
 
 // AoT requires an exported function for factories
@@ -193,6 +194,7 @@ export function tokenGetter() {
     ServiceLivraisonService,
     EvenementSignartService,
     DatePipe,
+    SecurityService,
     
   ],
   schemas: [ NO_ERRORS_SCHEMA ],

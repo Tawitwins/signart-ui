@@ -13,3 +13,7 @@
 	opacity: 0.6;
 	// display: none;
 }
+
+.pagination:ng-deep .ngx-pagination .current {
+	background: yellow;
+}

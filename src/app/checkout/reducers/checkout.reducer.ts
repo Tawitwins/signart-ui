@@ -1,17 +1,9 @@
 import { CheckoutActions } from '../actions/checkout.actions';
 import { CheckoutState /*,CheckoutStateRecord*/} from './checkout.state';
-import { Action, ActionReducer } from '@ngrx/store';
-import { LineItem } from '../../shared/modeles/line_item';
 import { LignePanier } from '../../shared/modeles/ligne_panier';
 import { Commande } from '../../shared/modeles/commande';
 
 
-//export const initialState: CheckoutState = new CheckoutStateRecord() as unknown as CheckoutState;
-
-
-// export function retrieveState() {
-//   return (localStorage.getItem('completeState'));
-// }
 
 export const initialState:CheckoutState={
   orderNumber: 0,

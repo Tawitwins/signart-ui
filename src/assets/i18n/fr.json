@@ -80,7 +80,7 @@
   "Installation": "Installation",
   "SignArt Exhibition":"Exposition SignArt",
   "Techniques":"Techniques",
-  "Ajouter une œuvre":"Add a work",
+  "Add a work":"Ajouter une œuvre",
   "An art exhibition is traditionally a space where art works (in the most general sense) meet an audience. The exhibition is universally understood to be for a temporary period unless, as is rarely the case, it is declared to be a 'permanent exhibition'. Find out with SignArt about the different exhibitions planned. 'Place', 'Artist', 'Description', 'Period', 'Position' and many other useful information are waiting for you.":"Une exposition d'art est traditionnellement l'espace dans lequel les objets d'art (au sens le plus général) rencontrent un public . L'exposition est universellement comprise comme étant pour une période temporaire à moins que, comme c'est rarement le cas, elle soit déclarée être une «exposition permanente». Découvrez avec signart les différentes expostions prévues. Lieu, artiste, description, période, position et beaucoup d'autres informations à recueillir vous attendent.",
   "News":"Actualité",
   "A rapid delivery service":"Un service de livraison rapide",
@@ -351,6 +351,19 @@
   "Confirm":"Confirmer",
   "Confirm password":"Confirmer le mot de passe",
   "Email already exists.":"Email existe déjà.",
-  "Enter a valid email address":"Entrez une adresse email valide"
+  "Enter a valid email address":"Entrez une adresse email valide",
+  "Join the SignArt platform and take advantage of the many offers offered. Registration is quick for both the artist and the client. do not wait any longer":"Rejoignez la plateforme SignArt et profitez des nombreuses offres proposées. L'inscription est rapide pour l'artiste comme pour le client. N'attendez plus",
+  "Create a customer account":"Créer un compte client",
+  "Create an account":"Créer un compte",
+  "New user":"Nouvel utilisateur",
+  "Become a SignArt artist":"Devenir artiste SignArt",
+
+  "PopupSuppressionSuccess":"Suppression terminée avec succès",
+  "PopupSuppressionError":"Une erreur est survenue lors de la suppression.",
+  "Summary of your subscription":"Récapitulatif de votre abonnement",
+  "Personal information":"Informations personnelles",
+  "Choice of Time and Terminal":"Choix Délai et Terminal",
+  "Total amount of works":"Montant total des œuvres",
+  "Total work":"Total œuvre"
 
 }

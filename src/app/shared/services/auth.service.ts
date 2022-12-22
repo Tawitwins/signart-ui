@@ -15,9 +15,9 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { HttpClient } from '@angular/common/http';
 import { Artiste } from '../modeles/artiste';
 import { Router } from '@angular/router';
-import { CheckoutService } from './checkout.service';
 import { Panier } from '../modeles/panier';
-import { send } from 'process';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 
 declare var $: any;
 @Injectable()
@@ -25,8 +25,6 @@ export class AuthServiceS {
   public loading = new Subject<{ loading: boolean, hasError: boolean, hasMsg: string }>();
   public userPanier: Panier;
   public client: Client;
-  public notification_url = "/api/notification/v1/messages/email/without-template";
-  public front_url = "http://localhost:4203/#/pages/login"
   /**
    * Creates an instance of AuthService.
    * @param {HttpService} http
@@ -43,7 +41,9 @@ export class AuthServiceS {
     private afAuth: AngularFireAuth,
     private ngZone: NgZone,
     private router: Router,
-    private checkoutService: CheckoutService
+    private translate: TranslateService,
+    private toastrService: ToastrService,
+
   ) {
      this.getAuth();
   }
@@ -400,24 +400,38 @@ SendVerificationMail() {
 // })
 // }
 
-sendLink(emailDest: string, emailExp: string): any{
-  this.getUserByMail(emailDest).subscribe(userId => {
-    let e_usr = <number>userId
-    let sendLink = `${this.front_url}?aqs=${((3**2.5)*e_usr)+892}&22beb334a54f233cc6=754ss49fafs54f23ik23`
-    let data = {
-      codeApp: "signart",
-      destinataire: emailDest,
-      expediteur: emailExp,
-      typeMessage:"email",
-      objetDeLEmail: "Réinitialiser le mot de passe de votre compte SignArt",
-      content:`Cher utilisateur,\nNous avons bien reçu votre demande de réinitialisation de votre mot de passe. Veuillez cliquer sur le lien ci-dessous pour terminer la réinitialisation :\n ${sendLink}\n\nÀ votre santé,\nl'équipe SignArt.`
-    }
-    console.log(data)
-    this.http.post(this.notification_url, data)
-        .subscribe(() => {
-          console.log("Sent")
-        })
-  }) 
+sendLink(
+  emailDest: string, 
+  emailExp: string,
+  front_url: string, 
+  notification_url: string 
+  ){
+
+  this.getUserByMail(emailDest)
+    .subscribe(userId => {
+      let e_usr = <number>userId
+      let sendLink = `${front_url}?aqs=${((3**2.5)*e_usr)+892}&22beb334a54f233cc6=754ss49fafs54f23ik23`
+      let data = {
+        codeApp: "signart",
+        destinataire: emailDest,
+        expediteur: emailExp,
+        typeMessage:"email",
+        objetDeLEmail: "Réinitialiser le mot de passe de votre compte SignArt",
+        content:`Votre demande de réinitialisation de mot de passe a été bien prise en compte. Veuillez cliquer sur le lien ci-dessous pour terminer l'opération:\n ${sendLink}\n\nCordialement,\nl'équipe SignArt.`
+      }
+      console.log(data)
+      return this.http.post(notification_url, data)
+      .subscribe(() => {
+        this.translate.get("forgotPassword")
+          .subscribe(fpwd => {
+            this.translate.get("SUCCESS")
+              .subscribe(alertType => { //Un mail vous a été envoyé merci de consulter votre compte!
+                this.toastrService
+                    .success(fpwd, alertType)
+              })
+          })
+      })
+    }) 
 }
 
 getUserByMail(email: string){

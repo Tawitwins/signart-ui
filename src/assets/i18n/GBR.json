@@ -158,7 +158,7 @@
   "Artiste Plasticien":"Plastic artist",
   "Lisseur":"Straightener",
   "Cartonnier":"Cardboard maker",
-  "Add a work":"Ajouter une œuvre",
+  "Ajouter une œuvre":"Add a work",
   "Liste des artistes suivis":"List of artists followed",
   "liste vide": "empty list",
   "Modifier le mot de passe": "Change your password",
@@ -350,6 +350,19 @@
   "Confirmer":"Confirm",
   "Confirmer le mot de passe":"Confirm password",
   "Email existe déjà.":"Email already exists.",
-  "Entrez une adresse email valide":"Enter a valid email address"
+  "Entrez une adresse email valide":"Enter a valid email address",
+  "Rejoignez la plateforme SignArt et profitez des nombreuses offres proposées. L'inscription est rapide pour l'artiste comme pour le client. N'attendez plus":"Join the SignArt platform and take advantage of the many offers offered. Registration is quick for both the artist and the client. do not wait any longer",
+  "Créer un compte":"Create an account",
+  "Nouvel utilisateur": "New user",
+  "Créer un compte client":"Create a customer account",
+  "Devenir artiste SignArt":"Become a SignArt artist",
+
+  "PopupSuppressionSuccess":"Removal completed successfully.",
+  "PopupSuppressionError":"An error occurred during deletion.",
+  "Récapitulatif de votre abonnement":"Summary of your subscription",
+  "Informations personnelles":"Personal information",
+  "Choix Délai et Terminal":"Choice of Time and Terminal",
+  "Montant total des œuvres":"Total amount of works",
+  "Total œuvre":"Total work"
 
 }

@@ -5,11 +5,7 @@ import { Map, Record, List, fromJS } from 'immutable';
 
 // Base Cart State function
 export function getCheckoutState(state: AppState): CheckoutState {
-  // if (localStorage.getItem('completeState')) {
-  //   var newState = JSON.parse(localStorage.getItem('completeState'));
-    
-  //   return newState.checkout;
-  // } else {
+
     return state.checkout;
   // }
 
@@ -17,13 +13,7 @@ export function getCheckoutState(state: AppState): CheckoutState {
 
 // ******************** Individual selectors ***************************
 export function fetchLineItems(state: CheckoutState) {
-  // if (localStorage.getItem('completeState')) {
-  //   var newState = JSON.parse(localStorage.getItem('completeState'));
-  //   //console.log('newstate : ' + newState);
-  //   const ids = newState.checkout.lineItemIds.toJS();
-  //   const lineItemEntitites = newState.checkout.lineItemEntities.toJS();
-  //   return ids.map(id => lineItemEntitites[id]);
-  // } else {
+
     const ids = state.lineItemIds;
     // const ids = state.lineItemIds.toJS();
     const lineItemEntitites = state.lineItemEntities;
